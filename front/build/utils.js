@@ -51,10 +51,10 @@ exports.cssLoaders = function (options) {
     postcss: generateLoaders(),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', {
-      indentedSyntax: true,
+      indentedSyntax: false,
     }),
     scss: generateLoaders('sass', {
-      indentedSyntax: true,
+      indentedSyntax: false,
       includePaths: glob.sync(
         path.join(__dirname, '../node_modules/@material')
       ).map((dir) => path.dirname(dir)),
