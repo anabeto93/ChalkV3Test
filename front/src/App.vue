@@ -1,9 +1,5 @@
 <template>
-  <div id="app">
-    <main>
-      <router-view></router-view>
-    </main>
-  </div>
+  <router-view></router-view>
 </template>
 
 <script>
@@ -22,5 +18,7 @@ $mdc-theme-background: #fff;
 
 @import "@material/theme/mdc-theme";
 @import "@material/typography/mdc-typography";
-@import "@material/list/mdc-list";
+@import "@material/toolbar/mdc-toolbar";
+
+body { margin: 0; }
 </style>

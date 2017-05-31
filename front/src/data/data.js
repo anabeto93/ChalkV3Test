@@ -219,7 +219,7 @@ export default {
     },
     {
       id: 5,
-      title: 'Thèmes',
+      title: 'A very very very very very very very very very very very very very very very very very very very very long title',
       teachers: 'Pr. Gbelé OUATTARA',
       image: '',
       sessions: [
