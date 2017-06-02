@@ -27,9 +27,12 @@ help:
 
 ## Setup environment & Install & Build application
 setup:
+	if [ -d  "./var/cache" ]; then rm -rf ./var/cache; fi;
+	if [ -d "./var/logs" ]; then rm -rf ./var/logs; fi;
+	if [ -d "./var/sessions" ]; then rm -rf ./var/sessions; fi;
 	vagrant up --no-provision
 	vagrant provision
-	vagrant ssh -- "cd /srv/app && make install build"
+	vagrant ssh -- "cd /srv/app && make install && make build"
 
 ## Update environment
 update: export ANSIBLE_TAGS = manala.update
@@ -60,29 +63,17 @@ provision-php: provision
 
 ## Install application
 install:
-	# Composer
 	composer install --verbose
-	# Db
 	bin/console doctrine:database:create --if-not-exists
-	bin/console doctrine:schema:update --force
-	# Db - Test
-	bin/console doctrine:database:create --if-not-exists --env=test
-	bin/console doctrine:schema:update --force --env=test
-	# Db - Fixtures
-	#bin/console doctrine:fixtures:load --no-interaction
-	# Db - Fixtures - Test
-	#bin/console doctrine:fixtures:load --no-interaction --env=test
 
 install@test: export SYMFONY_ENV = test
 install@test:
 	# Composer
 	composer install --verbose --no-progress --no-interaction
-	# Db
+	# Doctrine
 	bin/console doctrine:database:drop --force --if-exists
 	bin/console doctrine:database:create --if-not-exists
 	bin/console doctrine:schema:update --force
-	# Db - Fixtures
-	#bin/console doctrine:fixtures:load --no-interaction
 
 install@demo: export SYMFONY_ENV = prod
 install@demo:
@@ -90,6 +81,8 @@ install@demo:
 	composer install --verbose --no-progress --no-interaction --prefer-dist --optimize-autoloader
 	# Symfony cache
 	bin/console cache:warmup --no-debug
+	# Doctrine migrations
+	bin/console doctrine:migrations:migrate --no-debug --no-interaction
 
 install@prod: export SYMFONY_ENV = prod
 install@prod:
@@ -97,72 +90,28 @@ install@prod:
 	composer install --verbose --no-progress --no-interaction --prefer-dist --optimize-autoloader --no-dev
 	# Symfony cache
 	bin/console cache:warmup --no-debug
+	# Doctrine migrations
+	bin/console doctrine:migrations:migrate --no-debug --no-interaction
 
-#########
+##########
 # Build #
-#########
+##########
 
-## Build application
 build:
-
-build@demo: export SYMFONY_ENV = prod
+	if [ -f "gulpfile" ]; then gulp --dev; fi;
 build@demo:
-
-build@prod: export SYMFONY_ENV = prod
+	if [ -f "gulpfile" ]; then gulp; fi;
 build@prod:
-
-############
-# Security #
-############
-
-## Run security checks
-security:
-	security-checker security:check
-
-security@test: export SYMFONY_ENV = test
-security@test: security
-
-########
-# Lint #
-########
-
-## Run lint tools
-lint:
-	php-cs-fixer fix --config-file=.php_cs --dry-run --diff
-
-lint@test: export SYMFONY_ENV = test
-lint@test: lint
-
-########
-# Test #
-########
-
-## Run tests
-test: export SYMFONY_ENV = test
-test:
-	# PHPUnit
-	vendor/bin/phpunit
-	# Behat
-	bin/console cache:clear && vendor/bin/behat
-
-test@test: export SYMFONY_ENV = test
-test@test:
-	# PHPUnit
-	rm -Rf build/phpunit && mkdir -p build/phpunit
-	stty cols 80 && vendor/bin/phpunit --log-junit build/phpunit/junit.xml --coverage-clover build/phpunit/clover.xml --coverage-html build/phpunit/coverage
-	# Behat
-	rm -Rf build/behat && mkdir -p build/behat
-	bin/console cache:clear && vendor/bin/behat --format=junit --out=build/behat --no-interaction
+	if [ -f "gulpfile" ]; then gulp; fi;
 
 ##########
 # Deploy #
 ##########
 
-## Deploy application (demo)
+## Deploy application
 deploy@demo:
 	ansible-playbook ansible/deploy.yml --inventory-file=ansible/hosts --limit=deploy_demo
-
-## Deploy application (prod)
+	
 deploy@prod:
 	ansible-playbook ansible/deploy.yml --inventory-file=ansible/hosts --limit=deploy_prod
 
