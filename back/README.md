@@ -13,23 +13,30 @@
 
 ### Setup
 
-Clone the project in your workspace, and launch setup
+Launch setup to install the VM for the back project
 
     $ make setup
 
-You should access the project via http://api.chalkboardeducation.dev/app_dev.php
+You should access the project via http://api.chalkboardeducation.dev/app_dev.php/admin/
 
 ### Usage
 
-Start/Stop/Ssh
+Launch vagrant box, and ssh into it
 
-    $ vagrant up/halt/ssh
+        $ vagrant up
+        $ vagrant ssh
 
-Build
+Tests
 
-    ⇒ make build
+        $ make test
 
-Admin
+
+Enable/Disable php xdebug
+
+        ⇒ elao_php_xdebug [on|off]
+
+
+### Tools
 
 * [MailHog](http://api.chalkboardeducation.dev:8025)
 * [RTail](http://api.chalkboardeducation.dev:8888)
