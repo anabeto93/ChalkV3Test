@@ -1,3 +1,2 @@
 services:
-    app.infrastructure.normalizer.course_normalizer:
-        class: App\Infrastructure\Normalizer\CourseNormalizer
+    App\Infrastructure\Normalizer\CourseNormalizer: ~
