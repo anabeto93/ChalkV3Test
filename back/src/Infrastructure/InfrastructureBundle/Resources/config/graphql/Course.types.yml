@@ -15,6 +15,6 @@ Course:
             teacherName:
                 type: "String!"
                 description: "The name of the teacher of the course."
-            #createdAt:
-            #    type: "DateTime!"
-            #    description: "The creation date of the course in format 2017-01-15 10:00:00.000"
+            createdAt:
+                type: "DateTime!"
+                description: "The creation date of the course in format 2017-01-15 10:00:00.000"
