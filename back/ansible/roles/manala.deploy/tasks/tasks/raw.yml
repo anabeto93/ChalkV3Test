@@ -1,4 +1,0 @@
----
-
-- name: tasks/command > "{{ item.options }}"
-  raw: "{{ item.options }}"
