@@ -14,6 +14,8 @@ use GraphQL\Language\AST\Node;
 
 class DateTime
 {
+    const FORMAT = 'Y-m-d H:i:s';
+
     /**
      * @param \DateTime $value
      *
@@ -21,7 +23,7 @@ class DateTime
      */
     public static function serialize(\DateTime $value)
     {
-        return $value->format('Y-m-d H:i:s');
+        return $value->format(self::FORMAT);
     }
 
     /**
@@ -31,7 +33,7 @@ class DateTime
      */
     public static function parseValue($value)
     {
-        return new \DateTime($value);
+        return \DateTime::createFromFormat(self::FORMAT, $value);
     }
 
     /**
@@ -41,6 +43,6 @@ class DateTime
      */
     public static function parseLiteral($valueNode)
     {
-        return new \DateTime($valueNode->value);
+        return \DateTime::createFromFormat(self::FORMAT, $valueNode->value);
     }
 }

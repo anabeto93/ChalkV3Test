@@ -5,3 +5,4 @@ services:
             - '@app.infrastructure.repository.course_repository'
         tags:
             - { name: overblog_graphql.resolver, alias: "course", method: "resolveCourse" }
+            - { name: overblog_graphql.resolver, alias: "courses", method: "resolveCourses" }

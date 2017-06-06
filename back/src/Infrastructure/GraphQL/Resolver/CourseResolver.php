@@ -45,6 +45,27 @@ class CourseResolver
     }
 
     /**
+     * @param Argument $argument
+     *
+     * @return array
+     */
+    public function resolveCourses(Argument $argument)
+    {
+        $courses = [];
+        $offset = isset($argument['offset']) ? $argument['offset'] : 1;
+
+        if (isset($argument['limit'])) {
+            $courseObjects = $this->courseRepository->paginate($offset, $argument['limit']);
+
+            foreach ($courseObjects as $course) {
+                $courses[] = $this->exportCourse($course);
+            }
+        }
+
+        return $courses;
+    }
+
+    /**
      * @param Course|null $course
      *
      * @return array|null

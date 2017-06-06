@@ -10,3 +10,11 @@ Query:
                         description: "The uuid of the course"
                         type: "String!"
                 resolve: "@=resolver('course', [args])"
+            courses:
+                type: "[Course]"
+                args:
+                    offset:
+                        type: "Int"
+                    limit:
+                        type: "Int!"
+                resolve: "@=resolver('courses', [args])"
