@@ -80,3 +80,8 @@ overblog_graphql:
         schema:
             query: Query
             mutation: ~
+        mappings:
+            types:
+                -
+                    type: yml
+                    dir: "%kernel.project_dir%/app/config/graphql"

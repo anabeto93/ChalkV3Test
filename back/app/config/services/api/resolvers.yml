@@ -3,6 +3,7 @@ services:
         class: App\Infrastructure\GraphQL\Resolver\CourseResolver
         arguments:
             - '@app.infrastructure.repository.course_repository'
+            - '@app.infrastructure.normalizer.course_normalizer'
         tags:
             - { name: overblog_graphql.resolver, alias: "course", method: "resolveCourse" }
             - { name: overblog_graphql.resolver, alias: "courses", method: "resolveCourses" }

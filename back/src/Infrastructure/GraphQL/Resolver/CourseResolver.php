@@ -12,6 +12,8 @@ namespace App\Infrastructure\GraphQL\Resolver;
 
 use App\Domain\Model\Course;
 use App\Domain\Repository\CourseRepositoryInterface;
+use App\Infrastructure\Normalizer\CourseNormalizer;
+use GraphQL\Error\UserError;
 use Overblog\GraphQLBundle\Definition\Argument;
 
 class CourseResolver
@@ -19,29 +21,36 @@ class CourseResolver
     /** @var CourseRepositoryInterface */
     private $courseRepository;
 
+    /** @var CourseNormalizer */
+    private $normalizer;
+
     /**
      * @param CourseRepositoryInterface $courseRepository
+     * @param CourseNormalizer          $normalizer
      */
-    public function __construct(CourseRepositoryInterface $courseRepository)
-    {
+    public function __construct(
+        CourseRepositoryInterface $courseRepository,
+        CourseNormalizer $normalizer
+    ) {
         $this->courseRepository = $courseRepository;
+        $this->normalizer = $normalizer;
     }
 
     /**
      * @param Argument $arguments
      *
-     * @return array|null
+     * @return array
      */
-    public function resolveCourse(Argument $arguments)
+    public function resolveCourse(Argument $arguments): array
     {
-        $course = null;
 
-        if (isset($arguments['uuid'])) {
-            $course = $this->courseRepository->getByUuid($arguments['uuid']);
+        $course = $this->courseRepository->getByUuid($arguments['uuid']);
 
+        if (!$course instanceof Course) {
+            throw new UserError('Course not found');
         }
 
-        return $this->exportCourse($course);
+        return $this->normalizer->normalize($course);
     }
 
     /**
@@ -51,37 +60,19 @@ class CourseResolver
      */
     public function resolveCourses(Argument $argument)
     {
+        $offset = isset($argument['offset']) ? $argument['offset'] : 0;
         $courses = [];
-        $offset = isset($argument['offset']) ? $argument['offset'] : 1;
 
-        if (isset($argument['limit'])) {
-            $courseObjects = $this->courseRepository->paginate($offset, $argument['limit']);
+        $courseObjects = $this->courseRepository->paginate($offset, $argument['limit']);
 
-            foreach ($courseObjects as $course) {
-                $courses[] = $this->exportCourse($course);
-            }
+        if (empty($courseObjects)) {
+            throw new UserError('No course found');
+        }
+
+        foreach ($courseObjects as $course) {
+            $courses[] = $this->normalizer->normalize($course);
         }
 
         return $courses;
-    }
-
-    /**
-     * @param Course|null $course
-     *
-     * @return array|null
-     */
-    private function exportCourse(Course $course = null)
-    {
-        if ($course === null) {
-            return null;
-        }
-
-        return [
-            'uuid' => $course->getUuid(),
-            'title' => $course->getTitle(),
-            'description' => $course->getDescription(),
-            'teacherName' => $course->getTeacherName(),
-            'createdAt' => $course->getCreatedAt(),
-        ];
     }
 }
