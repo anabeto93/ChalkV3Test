@@ -15,6 +15,8 @@ Query:
                 args:
                     offset:
                         type: "Int"
+                        defaultValue: 0
                     limit:
-                        type: "Int!"
+                        type: "Int"
+                        defaultValue: 10
                 resolve: "@=resolver('courses', [args])"

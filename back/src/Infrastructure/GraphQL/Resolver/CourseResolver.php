@@ -43,7 +43,6 @@ class CourseResolver
      */
     public function resolveCourse(Argument $arguments): array
     {
-
         $course = $this->courseRepository->getByUuid($arguments['uuid']);
 
         if (!$course instanceof Course) {
@@ -60,10 +59,9 @@ class CourseResolver
      */
     public function resolveCourses(Argument $argument)
     {
-        $offset = isset($argument['offset']) ? $argument['offset'] : 0;
         $courses = [];
 
-        $courseObjects = $this->courseRepository->paginate($offset, $argument['limit']);
+        $courseObjects = $this->courseRepository->paginate($argument['offset'], $argument['limit']);
 
         if (empty($courseObjects)) {
             throw new UserError('No course found');

@@ -11,10 +11,11 @@
 namespace Tests\Ui\Admin\Action;
 
 use App\Ui\Admin\Action\HomeAction;
+use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class HomeActionTest extends \PHPUnit_Framework_TestCase
+class HomeActionTest extends TestCase
 {
     public function testInvoke()
     {
