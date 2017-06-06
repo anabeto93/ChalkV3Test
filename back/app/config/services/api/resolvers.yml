@@ -1,0 +1,7 @@
+services:
+    app.infrastructure.graph_ql.resolver.course_resolver:
+        class: App\Infrastructure\GraphQL\Resolver\CourseResolver
+        arguments:
+            - '@app.infrastructure.repository.course_repository'
+        tags:
+            - { name: overblog_graphql.resolver, alias: "course", method: "resolveCourse" }

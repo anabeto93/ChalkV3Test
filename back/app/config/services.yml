@@ -15,4 +15,6 @@ services:
         public: false
 
 imports:
+    - { resource: services/repositories.yml }
     - { resource: services/admin/actions.yml }
+    - { resource: services/api/resolvers.yml }

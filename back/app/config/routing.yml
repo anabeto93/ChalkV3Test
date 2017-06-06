@@ -5,3 +5,6 @@ _admin_routes:
 _api_routes:
     resource: 'routing/api.yml'
     prefix: /api
+
+overblog_graphql_graphiql:
+    resource: "@OverblogGraphQLBundle/Resources/config/routing/graphiql.yml"

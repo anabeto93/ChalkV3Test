@@ -1,0 +1,5 @@
+services:
+    app.infrastructure.repository.course_repository:
+        class: App\Infrastructure\Repository\CourseRepository
+        arguments:
+            - '@doctrine.orm.entity_manager'
