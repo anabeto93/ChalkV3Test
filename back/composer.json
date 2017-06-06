@@ -1,6 +1,5 @@
 {
-    "name": "chalkboardeducation/application",
-    "license": "MIT",
+    "name": "ChalkboardEducationV2",
     "type": "project",
     "description": "",
     "autoload": {
@@ -8,7 +7,10 @@
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "autoload-dev": {
-        "psr-4": { "Tests\\": "tests/" },
+        "psr-4": {
+            "Tests\\": "tests/",
+            "Features\\": "features/"
+        },
         "files": [ "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php" ]
     },
     "require": {
@@ -25,6 +27,10 @@
         "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {
+        "behat/behat": "^3.1",
+        "behat/mink-browserkit-driver": "^1.3",
+        "behat/mink-extension": "^2.2",
+        "behat/symfony2-extension": "^2.1",
         "phpunit/phpunit": "^4.8",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"

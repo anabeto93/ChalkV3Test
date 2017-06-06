@@ -116,5 +116,9 @@ deploy@prod:
 	ansible-playbook ansible/deploy.yml --inventory-file=ansible/hosts --limit=deploy_prod
 
 ##########
-# Custom #
+# Tests  #
 ##########
+
+test:
+	phpunit
+	vendor/bin/behat

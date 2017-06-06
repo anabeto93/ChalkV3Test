@@ -1,0 +1,2 @@
+imports:
+    - features/Behat/Resources/config/default.yml
