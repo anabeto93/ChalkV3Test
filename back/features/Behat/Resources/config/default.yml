@@ -12,3 +12,6 @@ default:
         default:
             contexts:
                 - Features\Behat\Context\CommonContext: ~
+                - Features\Behat\Context\DoctrineORMContext: ~
+                - Features\Behat\Context\Domain\CourseContext:
+                    - '@Features\Behat\Services\Proxy\CourseProxy'

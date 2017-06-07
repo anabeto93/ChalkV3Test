@@ -32,6 +32,15 @@ class CourseRepository implements CourseRepositoryInterface
     /**
      * {@inheritdoc}
      */
+    public function add(Course $course)
+    {
+        $this->entityManager->persist($course);
+        $this->entityManager->flush($course);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getAll(): array
     {
         $queryBuilder = $this

@@ -1,0 +1,21 @@
+services:
+    #
+    # Storage
+    #
+    Features\Behat\Services\Storage\Storage:
+        autowire: true
+    # Storage Interface
+    Features\Behat\Domain\Storage\StorageInterface: '@Features\Behat\Services\Storage\Storage'
+
+    #
+    # Manager
+    #
+    Features\Behat\Services\Manager\CourseManager:
+        autowire: true
+
+    #
+    # Proxy
+    #
+    Features\Behat\Services\Proxy\CourseProxy:
+        autowire: true
+    Features\Behat\Domain\Proxy\CourseProxyInterface: '@Features\Behat\Services\Proxy\CourseProxy'

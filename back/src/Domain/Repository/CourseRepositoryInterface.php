@@ -15,6 +15,11 @@ use App\Domain\Model\Course;
 interface CourseRepositoryInterface
 {
     /**
+     * @param Course $course
+     */
+    public function add(Course $course);
+
+    /**
      * @return Course[]
      */
     public function getAll(): array;

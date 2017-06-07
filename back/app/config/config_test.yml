@@ -1,5 +1,6 @@
 imports:
     - { resource: config_dev.yml }
+    - { resource: services_test.yml }
 
 framework:
     test: ~
@@ -11,6 +12,11 @@ framework:
 web_profiler:
     toolbar: false
     intercept_redirects: false
+
+doctrine:
+    dbal:
+        dbname: "test"
+        driver_class: Features\Behat\DBAL\Driver\PDOMySql\Driver
 
 swiftmailer:
     disable_delivery: true
