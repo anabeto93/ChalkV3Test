@@ -17,7 +17,7 @@ interface CourseRepositoryInterface
     /**
      * @return Course[]
      */
-    public function getAll();
+    public function getAll(): array;
 
     /**
      * @param string $uuid
@@ -32,5 +32,5 @@ interface CourseRepositoryInterface
      *
      * @return Course[]
      */
-    public function paginate($offset, $limit);
+    public function paginate($offset, $limit): array;
 }

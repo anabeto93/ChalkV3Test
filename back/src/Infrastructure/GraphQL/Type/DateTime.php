@@ -21,7 +21,7 @@ class DateTime
      *
      * @return string
      */
-    public static function serialize(\DateTime $value)
+    public static function serialize(\DateTime $value): string
     {
         return $value->format(self::FORMAT);
     }

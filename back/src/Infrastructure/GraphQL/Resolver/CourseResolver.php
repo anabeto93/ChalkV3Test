@@ -57,7 +57,7 @@ class CourseResolver
      *
      * @return array
      */
-    public function resolveCourses(Argument $argument)
+    public function resolveCourses(Argument $argument): array
     {
         $courses = [];
 

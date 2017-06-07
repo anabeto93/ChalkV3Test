@@ -32,7 +32,7 @@ class CourseRepository implements CourseRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getAll()
+    public function getAll(): array
     {
         $queryBuilder = $this
             ->entityManager
@@ -64,7 +64,7 @@ class CourseRepository implements CourseRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function paginate($offset, $limit)
+    public function paginate($offset, $limit): array
     {
         $queryBuilder = $this
             ->entityManager

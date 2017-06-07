@@ -19,7 +19,7 @@ class CourseNormalizer
      *
      * @return array
      */
-    public function normalize(Course $course)
+    public function normalize(Course $course): array
     {
         return [
             'uuid' => $course->getUuid(),
