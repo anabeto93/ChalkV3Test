@@ -1,3 +1,4 @@
 services:
     App\Infrastructure\Repository\CourseRepository:
         autowire: true
+    App\Domain\Repository\CourseRepositoryInterface: '@App\Infrastructure\Repository\CourseRepository'
