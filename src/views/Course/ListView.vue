@@ -42,20 +42,8 @@
 </template>
 
 <script>
-import gql from 'graphql-tag';
 import Ripple from '@/directives/mdc/Ripple';
-
-const coursesQuery = gql`
-  query allCourses {
-    course {
-      id
-      title
-      teachers
-      image
-      sessions
-    }
-  }
-`;
+import coursesQuery from '../../graphql/query/CoursesQuery';
 
 export default {
   data: () => ({

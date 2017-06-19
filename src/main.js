@@ -9,7 +9,7 @@ import router from './router';
 
 const apolloClient = new ApolloClient({
   networkInterface: createNetworkInterface({
-    uri: 'http://localhost:3020/graphql',
+    uri: 'http://api.chalkboardeducation.dev/api/graphql/', // dont forget to set last / to the uri
     transportBatching: true,
   }),
   connectDevTools: true,
