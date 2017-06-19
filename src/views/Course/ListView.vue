@@ -42,14 +42,29 @@
 </template>
 
 <script>
-import data from '@/data/data';
+import gql from 'graphql-tag';
 import Ripple from '@/directives/mdc/Ripple';
 
+const coursesQuery = gql`
+  query allCourses {
+    course {
+      id
+      title
+      teachers
+      image
+      sessions
+    }
+  }
+`;
+
 export default {
-  data() {
-    return {
-      courses: data.courses,
-    };
+  data: () => ({
+    courses: [],
+  }),
+  apollo: {
+    courses: {
+      query: coursesQuery,
+    },
   },
   directives: {
     Ripple,
