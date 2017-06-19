@@ -43,15 +43,14 @@
 
 <script>
 import Ripple from '@/directives/mdc/Ripple';
-import coursesQuery from '../../graphql/query/CoursesQuery';
 
 export default {
-  data: () => ({
-    courses: [],
-  }),
-  apollo: {
-    courses: {
-      query: coursesQuery,
+  mounted() {
+    this.$store.dispatch('GET_COURSES');
+  },
+  computed: {
+    courses() {
+      return this.$store.state.courses;
     },
   },
   directives: {
