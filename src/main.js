@@ -5,6 +5,7 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import apolloProvider from './config/apollo';
+import store from './store/store';
 
 Vue.config.productionTip = false;
 
@@ -13,6 +14,7 @@ new Vue({
   el: '#app',
   router,
   apolloProvider,
+  store,
   template: '<App/>',
   components: { App },
 });
