@@ -9,7 +9,7 @@ import router from './router';
 
 const apolloClient = new ApolloClient({
   networkInterface: createNetworkInterface({
-    uri: 'http://api.chalkboardeducation.dev/api/graphql/', // dont forget to set last / to the uri for prevent redirect
+    uri: 'http://api.chalkboardeducation.dev/api/graphql/', // don't forget to set last slash to the uri for prevent redirect
     transportBatching: true,
   }),
   connectDevTools: true,
