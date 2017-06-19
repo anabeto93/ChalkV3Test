@@ -12,7 +12,7 @@ export default new Vuex.Store({
   },
   mutations: {
     SET_COURSES(state, courses) {
-      this.state.courses = courses;
+      state.courses = courses;
     },
   },
   actions: {
