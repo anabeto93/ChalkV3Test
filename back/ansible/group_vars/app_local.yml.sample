@@ -23,11 +23,11 @@ app_local_patterns:
 
   #php_blackfire: false
 
-  #php_blackfire_agent_config:
+  #php_blackfire_agent:
   #  - server-id:    ...
   #  - server-token: ...
 
-  #php_blackfire_client_config:
+  #php_blackfire_client:
   #  - client-id:    ...
   #  - client-token: ...
 

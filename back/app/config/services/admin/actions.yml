@@ -1,0 +1,5 @@
+services:
+    app.ui.admin.action.home_action:
+        class: App\Ui\Admin\Action\HomeAction
+        arguments:
+            - '@templating'

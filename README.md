@@ -42,41 +42,4 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
     $ cd back
 
-### Requirements
-
-* Make
-* [VirtualBox 5.0.20+](https://www.virtualbox.org/wiki/Downloads)
-* [Vagrant 1.8.4+](https://www.vagrantup.com/downloads.html)
-* [Vagrant Landrush 1.0.0+](https://github.com/vagrant-landrush/landrush)
-
-### Setup
-
-Clone the project in your workspace, and launch setup
-
-    $ make setup
-
-You should access the back via http://chalkboardeducationv2.dev/app_dev.php
-
-### Usage
-
-Start/Stop/Ssh
-
-    $ vagrant up/halt/ssh
-
-Build
-
-    ⇒ make build
-
-Admin
-
-* [MailHog](http://chalkboardeducationv2.dev:8025)
-* [Supervisor](http://chalkboardeducationv2.dev:9001)
-* [RTail](http://chalkboardeducationv2.dev:8888)
-* [OPcache Dashboard](http://chalkboardeducationv2.dev:2013)
-* [PhpMyAdmin](http://chalkboardeducationv2.dev:1979)
-* [PhpPgAdmin](http://chalkboardeducationv2.dev:1980)
-* [PhpRedisAdmin](http://chalkboardeducationv2.dev:1981)
-* [MongoExpress](http://chalkboardeducationv2.dev:8081)
-* [Elasticsearch](http://chalkboardeducationv2.dev:9200/_plugin/head/)
-* [Ngrok](http://chalkboardeducationv2.dev:4040)
-* [InfluxDB](http://chalkboardeducationv2.dev:8083)
+And consult the [README.md](back/README.md) for the back to setup the environment

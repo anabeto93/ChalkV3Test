@@ -1,0 +1,4 @@
+admin_home:
+    path: /
+    methods: [GET]
+    defaults: { _controller: app.ui.admin.action.home_action }
