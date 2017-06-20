@@ -28,17 +28,16 @@
 
       <ul class="courses-list">
         <li v-for="course in courses">
-          <router-link :to="{ name: 'courseView', params: { uuid: course.uuid } }">
-            <a href="#" v-ripple>
-              <span class="title">
-                {{ course.title }}
-                <span class="teachers">{{ course.teacherName }}</span>
-              </span>
+          <router-link :to="{ name: 'courseView', params: { uuid: course.uuid } }" v-ripple>
+            <span class="title">
+              {{ course.title }}
+              <span class="teachers">{{ course.teacherName }}</span>
+            </span>
               <i class="material-icons arrow" title="More info">keyboard_arrow_right</i>
-            </a>
           </router-link>
         </li>
       </ul>
+      
     </main>
   </div>
 </template>
@@ -62,8 +61,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import "@material/card/mdc-card";
-@import '@material/ripple/mdc-ripple';
+@import "~@material/card/mdc-card";
+@import '~@material/ripple/mdc-ripple';
 
 .mdc-card.user { margin: 16px; }
 .material-icons.md-16 { font-size: 16px; }
