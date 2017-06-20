@@ -103,6 +103,16 @@ export default {
 
         },
       ],
+      categories: [
+        {
+          id: 1,
+          title: 'Category one',
+        },
+        {
+          id: 2,
+          title: 'Category two',
+        },
+      ],
     },
     {
       id: 2,
