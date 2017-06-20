@@ -19,6 +19,7 @@ $mdc-theme-background: #fff;
 @import "@material/theme/mdc-theme";
 @import "@material/typography/mdc-typography";
 @import "@material/toolbar/mdc-toolbar";
+@import "@material/list/mdc-list";
 
 body { margin: 0; }
 </style>
