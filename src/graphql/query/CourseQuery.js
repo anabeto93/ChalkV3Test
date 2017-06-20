@@ -1,12 +1,12 @@
 import gql from 'graphql-tag';
 
 export default gql `
-  query {
-    course($uuid: Int!) {
-      uuid
-      title
-      teacherName
-      description
+    query Course($uuid: String!) {
+      course(uuid: $uuid) {
+        uuid
+        title
+        teacherName
+        description
+      }
     }
-  }
 `;
