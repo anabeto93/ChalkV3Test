@@ -33,7 +33,8 @@ module.exports = {
     'import/no-extraneous-dependencies': ['error', {
       'optionalDependencies': ['test/unit/index.js']
     }],
-    'no-param-reassign': ["error", { 'props': false }], // enable vuex to mutate parameter
+    // enable vuex to mutate parameter
+    'no-param-reassign': ["error", { 'props': false }],
     // allow debugger during development
     'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
   }
