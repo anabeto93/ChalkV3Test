@@ -3,12 +3,14 @@
         <header class="mdc-toolbar">
             <div class="mdc-toolbar__row">
                 <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-                    <!-- <a href="#"><i class="material-icons">keyboard_arrow_left</i></a> -->
+                    <router-link :to="{ name: 'coursesList' }" v-ripple>
+                        <i class="material-icons">keyboard_arrow_left</i>
+                    </router-link>
                 </section>
                 <section class="mdc-toolbar__section mdc-toolbar__section--align-center">
           <span class="mdc-toolbar__title">
             <img src="./../../assets/logo.png" alt="CHALKBOARD EDUCATION" class="logo">
-            CHALKBOARD EDUCATION
+            {{ course.title }}
           </span>
                 </section>
                 <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
@@ -19,7 +21,7 @@
 
         <main>
             <div class="mdc-card"  v-if="course === null">
-                No course found
+                Course not found
             </div>
             <div class="mdc-card user" v-else>
                 <section class="mdc-card__primary">
@@ -28,6 +30,8 @@
                     <p class="mdc-card__subtitle">{{ course.description }}</p>
                 </section>
             </div>
+
+
         </main>
     </div>
 </template>
@@ -54,13 +58,13 @@
 </script>
 
 <style lang="scss">
-    @import "@material/card/mdc-card";
-    @import '@material/ripple/mdc-ripple';
+    @import "~@material/card/mdc-card";
+    @import '~@material/ripple/mdc-ripple';
 
     .mdc-card.user { margin: 16px; }
     .material-icons.md-16 { font-size: 16px; }
 
-    .courses-list {
+    .categories-list {
         list-style-type: none;
         margin: 0;
         padding: 0;
