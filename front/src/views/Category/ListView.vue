@@ -3,12 +3,14 @@
         <header class="mdc-toolbar">
             <div class="mdc-toolbar__row">
                 <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-                    <!--  -->
+                    <router-link :to="{ name: 'coursesList' }" v-ripple>
+                        <i class="material-icons">keyboard_arrow_left</i>
+                    </router-link>
                 </section>
                 <section class="mdc-toolbar__section mdc-toolbar__section--align-center">
                   <span class="mdc-toolbar__title">
                     <img src="./../../assets/logo.png" alt="CHALKBOARD EDUCATION" class="logo">
-                    CHALKBOARD EDUCATION
+                    {{ course.title }}
                   </span>
                 </section>
                 <section class="mdc-toolbar__section mdc-toolbar__section--align-end">
@@ -18,18 +20,27 @@
         </header>
 
         <main>
-            <ul class="courses-list">
-                <li>
+            <div class="mdc-card user">
+                <section class="mdc-card__primary">
+                    <h1 class="mdc-card__title mdc-card__title--large">Firstname LASTNAME</h1>
+                    <p class="mdc-card__subtitle">University of Ghana</p>
+                    <p class="mdc-card__subtitle"><i class="material-icons md-16">phone_android</i> +555 555 555 555</p>
+                </section>
+            </div>
 
+            <ul class="category-list">
+                <li v-for="category in categories">
+                    <span class="title">
+                        {{ category.title }}
+                    </span>
                 </li>
             </ul>
+
         </main>
     </div>
 </template>
 
 <script>
-  import Ripple from '@/directives/mdc/Ripple';
-
   export default {
     mounted() {
       this.$store.dispatch('GET_CATEGORIES', this.uuidCourse);
@@ -41,9 +52,9 @@
       uuidCourse() {
         return this.$route.params.uuid;
       },
-    },
-    directives: {
-      Ripple,
+      course() {
+        return this.$store.state.courses[this.uuidCourse];
+      },
     },
   };
 </script>
@@ -51,7 +62,7 @@
 <style lang="scss">
     .material-icons.md-16 { font-size: 16px; }
 
-    .courses-list {
+    .category-list {
         list-style-type: none;
         margin: 0;
         padding: 0;

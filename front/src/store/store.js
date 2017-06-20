@@ -1,10 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+// Remove data fixtures when API was fully plugged
+import data from '../data/data';
+
 import apolloClient from '../config/apolloClient';
 import CoursesQuery from '../graphql/query/CoursesQuery';
 import CourseQuery from '../graphql/query/CourseQuery';
-import CategoriesQuery from '../graphql/query/CategoriesQuery';
+// import CategoriesQuery from '../graphql/query/CategoriesQuery';
 
 Vue.use(Vuex);
 
@@ -54,7 +57,9 @@ export default new Vuex.Store({
         context.commit('SET_COURSE', result.data.course, result.data.course.uuid);
       });
     },
-    GET_CATEGORIES(context, uuidCourse) {
+    GET_CATEGORIES(context/* , uuidCourse */) {
+      context.commit('SET_CATEGORIES', data.courses[0].categories);
+      /* UnComment the following when API be plugged
       apolloClient.query({
         query: CategoriesQuery,
         variables: {
@@ -62,7 +67,7 @@ export default new Vuex.Store({
         },
       }).then((result) => {
         context.commit('SET_CATEGORIES', result.data.categories);
-      });
+      }); */
     },
   },
 });
