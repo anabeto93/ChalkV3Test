@@ -31,7 +31,10 @@
                 </section>
             </div>
 
-
+    <!-- Temporary link to category list view -->
+    <router-link :to="{ name: 'coursesCategoryList' }" v-ripple>
+       Category list
+    </router-link>
         </main>
     </div>
 </template>
