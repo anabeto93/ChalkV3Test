@@ -27,14 +27,16 @@
       </div>
 
       <ul class="courses-list">
-        <li v-for="course in this.$data.courses">
-          <a href="#" v-ripple>
-            <span class="title">
-              {{ course.title }}
-              <span class="teachers">{{ course.teachers }}</span>
-            </span>
-            <i class="material-icons arrow" title="More info">keyboard_arrow_right</i>
-          </a>
+        <li v-for="course in courses">
+          <router-link :to="{ name: 'courseView', params: { uuid: course.uuid } }">
+            <a href="#" v-ripple>
+              <span class="title">
+                {{ course.title }}
+                <span class="teachers">{{ course.teacherName }}</span>
+              </span>
+              <i class="material-icons arrow" title="More info">keyboard_arrow_right</i>
+            </a>
+          </router-link>
         </li>
       </ul>
     </main>
