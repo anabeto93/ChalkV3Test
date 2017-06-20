@@ -8,7 +8,13 @@ default:
             sessions:
                 default:
                     symfony2: ~
+        Behatch\Extension: ~
     suites:
         default:
             contexts:
                 - Features\Behat\Context\CommonContext: ~
+                - Features\Behat\Context\DoctrineORMContext: ~
+                - Features\Behat\Context\Domain\CourseContext:
+                    - '@Features\Behat\Services\Proxy\CourseProxy'
+                - behatch:json
+                - behatch:rest
