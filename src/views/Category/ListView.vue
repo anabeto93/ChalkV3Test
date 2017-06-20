@@ -28,19 +28,24 @@
                 </section>
             </div>
 
-            <ul class="category-list">
-                <li v-for="category in categories">
+            <nav class="mdc-list category-list">
+                <li class="mdc-list-item" v-ripple v-for="category in categories">
+                    <i class="material-icons mdc-list-item__start-detail" aria-hidden="true">
+                        description
+                    </i>
                     <span class="title">
                         {{ category.title }}
                     </span>
                 </li>
-            </ul>
+            </nav>
 
         </main>
     </div>
 </template>
 
 <script>
+  import Ripple from '@/directives/mdc/Ripple';
+
   export default {
     mounted() {
       this.$store.dispatch('GET_CATEGORIES', this.uuidCourse);
@@ -56,6 +61,9 @@
         return this.$store.state.courses[this.uuidCourse];
       },
     },
+    directives: {
+      Ripple,
+    },
   };
 </script>
 
@@ -65,7 +73,7 @@
     .category-list {
         list-style-type: none;
         margin: 0;
-        padding: 0;
+        padding: 20;
 
         li {
             border-bottom: 1px solid #ccc;
