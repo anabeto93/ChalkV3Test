@@ -3,6 +3,7 @@ import Router from 'vue-router';
 
 import CoursesList from '@/views/Course/ListView';
 import CourseView from '@/views/Course/View';
+import CategoryList from '@/views/Category/ListView';
 import Home from '@/views/HomeView';
 
 Vue.use(Router);
@@ -24,6 +25,11 @@ export default new Router({
       path: '/courses/view/:uuid',
       name: 'courseView',
       component: CourseView,
+    },
+    {
+      path: '/courses/:uuid/categories/list',
+      name: 'coursesCategoryList',
+      component: CategoryList,
     },
   ],
 });
