@@ -4,6 +4,7 @@ import Vuex from 'vuex';
 import apolloClient from '../config/apolloClient';
 import CoursesQuery from '../graphql/query/CoursesQuery';
 import CourseQuery from '../graphql/query/CourseQuery';
+import CategoriesQuery from '../graphql/query/CategoriesQuery';
 
 Vue.use(Vuex);
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
   state: {
     courses: {},
     course: {},
+    categories: {},
   },
   mutations: {
     SET_COURSES(state, courses) {
@@ -24,6 +26,14 @@ export default new Vuex.Store({
     },
     SET_COURSE(state, course, uuid) {
       state.courses[uuid] = course;
+    },
+    SET_CATEGORIES(state, categories) {
+      state.categories = categories;
+      const object = {};
+      state.categories.map((category) => {
+        object[category.uuidCourse] = category;
+        return object;
+      });
     },
   },
   actions: {
@@ -42,6 +52,16 @@ export default new Vuex.Store({
         },
       }).then((result) => {
         context.commit('SET_COURSE', result.data.course, result.data.course.uuid);
+      });
+    },
+    GET_CATEGORIES(context, uuidCourse) {
+      apolloClient.query({
+        query: CategoriesQuery,
+        variables: {
+          uuidCourse,
+        },
+      }).then((result) => {
+        context.commit('SET_CATEGORIES', result.data.categories);
       });
     },
   },
