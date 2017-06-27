@@ -21,26 +21,17 @@ $ cd front
 # install dependencies
 $ yarn install
 
-# serve with hot reload at localhost:8080
-$ yarn run dev
+# serve with hot reload at localhost:3000
+$ yarn start
 
 # build for production with minification
-$ yarn run build
+$ yarn build
 
-# build for production and view the bundle analyzer report
-$ yarn run build --report
-
-# run unit tests
-$ yarn run unit
-
-# run e2e tests
-$ yarn run e2e
-
-# run all tests
+# run tests
 $ yarn test
 ```
 
-You should access the front via http://localhost:8080/
+You should access the front via http://localhost:3000/
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
