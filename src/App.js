@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import CourseScreen from './containers/CourseScreen'
-import HomeScreen from './containers/HomeScreen'
+import HomeScreenWithData from './containers/HomeScreen'
 
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-          <Route exact path='/' component={HomeScreen} />
+          <Route exact path='/' component={HomeScreenWithData} />
           <Route exact path='/course' component={CourseScreen} />
         </div>
       </Router>
