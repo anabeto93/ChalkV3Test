@@ -23,6 +23,8 @@ class FixturesLoader extends AbstractFixture
     {
         $files = [
             __DIR__ . '/Course.yml',
+            __DIR__ . '/Folder.yml',
+            __DIR__ . '/Session.yml',
         ];
 
         Fixtures::load($files, $manager, []);

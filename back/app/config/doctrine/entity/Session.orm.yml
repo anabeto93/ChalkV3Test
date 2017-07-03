@@ -1,0 +1,30 @@
+App\Domain\Model\Session:
+    type: entity
+    table: session
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        uuid:
+            type: string
+            unique: true
+        title:
+            type: string
+        content:
+            type: text
+            nullable: true
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+    manyToOne:
+        folder:
+            targetEntity: App\Domain\Model\Folder
+            joinColumn:
+                onDelete: SET NULL
+        course:
+            targetEntity: App\Domain\Model\Course
+            joinColumn:
+                onDelete: CASCADE

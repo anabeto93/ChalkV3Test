@@ -1,0 +1,9 @@
+App\Domain\Model\Session:
+    session_1:
+        __construct:
+            - "382f5578-12eb-4af0"
+            - "Découverte de l'api"
+            - "This is the content"
+            - '@course_1'
+            - '@folder_1'
+            - <dateTime()>

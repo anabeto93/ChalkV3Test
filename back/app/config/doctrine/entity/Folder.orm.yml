@@ -1,0 +1,23 @@
+App\Domain\Model\Folder:
+    type: entity
+    table: folder
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        uuid:
+            type: string
+            unique: true
+        title:
+            type: string
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+    manyToOne:
+        course:
+            targetEntity: App\Domain\Model\Course
+            joinColumn:
+                onDelete: CASCADE
