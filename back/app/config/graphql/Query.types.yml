@@ -20,3 +20,4 @@ Query:
                         type: "Int"
                         defaultValue: 10
                 resolve: "@=resolver('courses', [args])"
+

@@ -1,2 +1,8 @@
 services:
-    App\Infrastructure\Normalizer\CourseNormalizer: ~
+    App\Infrastructure\Normalizer\FolderNormalizer:
+        arguments:
+            - '@datetime'
+    App\Infrastructure\Normalizer\SessionNormalizer:
+        autowire: true
+    App\Infrastructure\Normalizer\CourseNormalizer:
+        autowire: true

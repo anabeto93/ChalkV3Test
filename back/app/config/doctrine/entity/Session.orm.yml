@@ -26,5 +26,6 @@ App\Domain\Model\Session:
                 onDelete: SET NULL
         course:
             targetEntity: App\Domain\Model\Course
+            inversedBy: sessions
             joinColumn:
                 onDelete: CASCADE

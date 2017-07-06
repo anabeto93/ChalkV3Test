@@ -110,6 +110,22 @@ class Session
     }
 
     /**
+     * @param Folder $folder
+     */
+    public function setFolder(Folder $folder)
+    {
+        $this->folder = $folder;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasFolder(): bool
+    {
+        return null !== $this->folder;
+    }
+
+    /**
      * @return \DateTimeInterface
      */
     public function getCreatedAt(): \DateTimeInterface

@@ -19,5 +19,6 @@ App\Domain\Model\Folder:
     manyToOne:
         course:
             targetEntity: App\Domain\Model\Course
+            inversedBy: folders
             joinColumn:
                 onDelete: CASCADE

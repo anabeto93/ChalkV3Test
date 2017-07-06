@@ -1,0 +1,17 @@
+Folder:
+    type: object
+    config:
+        description: "Folder"
+        fields:
+            uuid:
+                type: "String!"
+                description: "uuid"
+            title:
+                type: "String!"
+                description: "Title of the folder"
+            updatedAt:
+                type: "DateTime!"
+                description: "Last update of the folder"
+            sessions:
+                type: "[Session]"
+                description: "Sessions of the folder"

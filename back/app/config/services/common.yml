@@ -1,0 +1,6 @@
+services:
+    #
+    # DateTime
+    #
+    datetime:
+        class: DateTimeImmutable

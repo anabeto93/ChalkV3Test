@@ -29,7 +29,7 @@ interface CourseRepositoryInterface
      *
      * @return Course|null
      */
-    public function getByUuid(string $uuid);
+    public function getByUuid(string $uuid): ?Course;
 
     /**
      * @param int $offset

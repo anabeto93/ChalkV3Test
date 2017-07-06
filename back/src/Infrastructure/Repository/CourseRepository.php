@@ -56,18 +56,22 @@ class CourseRepository implements CourseRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getByUuid(string $uuid)
+    public function getByUuid(string $uuid): ?Course
     {
         $queryBuilder = $this
             ->entityManager
             ->createQueryBuilder()
-            ->select('course')
+            ->select('course, session, folder')
             ->from(Course::class, 'course')
+            ->leftJoin('course.sessions', 'session')
+            ->leftJoin('session.folder', 'folder')
             ->where('course.uuid = :uuid')
             ->setParameter('uuid', $uuid)
-            ->setMaxResults(1);
+        ;
 
-        return $queryBuilder->getQuery()->getOneOrNullResult();
+        $courses = $queryBuilder->getQuery()->getResult();
+
+        return empty($courses) ? null : reset($courses);
     }
 
     /**
@@ -78,8 +82,10 @@ class CourseRepository implements CourseRepositoryInterface
         $queryBuilder = $this
             ->entityManager
             ->createQueryBuilder()
-            ->select('course')
+            ->select('course, session, folder')
             ->from(Course::class, 'course')
+            ->leftJoin('course.sessions', 'session')
+            ->leftJoin('session.folder', 'folder')
             ->setFirstResult($offset)
             ->setMaxResults($limit)
         ;
