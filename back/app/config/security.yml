@@ -13,12 +13,12 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
-            anonymous: ~
-
         graphql:
             pattern: ^/api/graphql
             stateless: true
             provider: api_key_user_provider
             simple_preauth:
                 authenticator: App\Infrastructure\Security\Api\ApiKeyAuthenticator
+
+        main:
+            anonymous: ~
