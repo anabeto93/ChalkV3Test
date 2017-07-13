@@ -20,3 +20,6 @@ App\Domain\Model\User:
             type: string
         createdAt:
             type: datetime
+        apiToken:
+            type: string
+            nullable: true

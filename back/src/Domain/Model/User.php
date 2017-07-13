@@ -10,9 +10,7 @@
 
 namespace App\Domain\Model;
 
-use Symfony\Component\Security\Core\User\UserInterface;
-
-class User implements UserInterface
+class User
 {
     /** @var int */
     private $id;
@@ -61,43 +59,6 @@ class User implements UserInterface
         $this->country = $country;
         $this->createdAt = $createdAt;
         $this->apiToken = null;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getRoles(): array
-    {
-        return ['ROLE_USER'];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getPassword()
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getSalt()
-    {
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getUsername(): string
-    {
-        return $this->phoneNumber;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function eraseCredentials()
-    {
     }
 
     /**

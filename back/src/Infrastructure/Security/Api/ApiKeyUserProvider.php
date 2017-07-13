@@ -13,6 +13,7 @@ namespace App\Infrastructure\Security\Api;
 use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
@@ -32,9 +33,15 @@ class ApiKeyUserProvider implements UserProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function loadUserByUsername($apiToken): ?User
+    public function loadUserByUsername($apiToken): ApiUserAdapter
     {
-        return $this->userRepository->findByApiToken($apiToken);
+        $user = $this->userRepository->findByApiToken($apiToken);
+
+        if ($user instanceof User) {
+            return new ApiUserAdapter($user);
+        }
+
+        throw new UsernameNotFoundException('Username not found.');
     }
 
     /**
