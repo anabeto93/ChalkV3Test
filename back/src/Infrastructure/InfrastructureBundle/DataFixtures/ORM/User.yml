@@ -1,0 +1,10 @@
+App\Domain\Model\Session:
+    user_dev:
+        __construct:
+            - "12345-test-98765"
+            - "Jean"
+            - "Paul"
+            - '+33123456789'
+            - 'FR'
+            - <dateTime()>
+        apiToken: 'api-key-token-user-1'
