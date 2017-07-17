@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { login } from '../actions/actionCreators'
 
 export class LoginScreen extends Component {
-  login = (event) => {
+  handleSubmit = (event) => {
     event.preventDefault()
     this.props.dispatch(login())
   }
@@ -14,7 +14,7 @@ export class LoginScreen extends Component {
 
     return (
       <div>
-        <form onSubmit={this.login}>
+        <form onSubmit={this.handleSubmit}>
           <button type="submit">Login</button>
         </form>
       </div>
