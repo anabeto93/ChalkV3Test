@@ -12,10 +12,11 @@ namespace App\Infrastructure\Normalizer;
 
 use App\Domain\Model\Course;
 use App\Domain\Model\Session;
-use GraphQL\Error\UserError;
 
 class CourseNormalizer
 {
+    const DEFAULT_FOLDER = 'default';
+
     /** @var FolderNormalizer */
     private $folderNormalizer;
 
@@ -54,11 +55,11 @@ class CourseNormalizer
 
                 $sessionsByFolder[$folder->getId()][] = $this->sessionNormalizer->normalize($session);
             } else {
-                if (!isset($foldersNormalized['default'])) {
-                    $foldersNormalized['default'] = $this->folderNormalizer->normalizeDefaultFolder();
+                if (!isset($foldersNormalized[self::DEFAULT_FOLDER])) {
+                    $foldersNormalized[self::DEFAULT_FOLDER] = $this->folderNormalizer->normalizeDefaultFolder();
                 }
 
-                $sessionsByFolder['default'][] = $this->sessionNormalizer->normalize($session);
+                $sessionsByFolder[self::DEFAULT_FOLDER][] = $this->sessionNormalizer->normalize($session);
             }
         }
 

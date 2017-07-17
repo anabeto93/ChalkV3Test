@@ -69,9 +69,7 @@ class CourseRepository implements CourseRepositoryInterface
             ->setParameter('uuid', $uuid)
         ;
 
-        $courses = $queryBuilder->getQuery()->getResult();
-
-        return empty($courses) ? null : reset($courses);
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 
     /**
