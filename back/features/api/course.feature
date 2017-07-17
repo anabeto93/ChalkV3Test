@@ -51,7 +51,7 @@ Feature: Course api
     Given the database is purged
     And there is a course with the uuid "30575fe6-0bb6" and the title "First course"
     And there is a session with the uuid "998812-123123" and the title "First session" for this course
-    And I add "Content-Type" header equal to "application/json"
+    When I add "Content-Type" header equal to "application/json"
     And I send a POST request to "/api/graphql/" with body:
       """
       {"query": "query { course(uuid: \"30575fe6-0bb6\") { title, folders { uuid, sessions { uuid, title} }}}", "variables": null}
@@ -84,7 +84,7 @@ Feature: Course api
     And there is a course with the uuid "30575fe6-0bb6" and the title "First course"
     And there is a folder with the uuid "3456723-2313" and the title "Folder title" for this course
     And there is a session with the uuid "998812-123123" and the title "First session" for this course and folder
-    And I add "Content-Type" header equal to "application/json"
+    When I add "Content-Type" header equal to "application/json"
     And I send a POST request to "/api/graphql/" with body:
       """
       {"query": "query { course(uuid: \"30575fe6-0bb6\") { title, folders { uuid, title, sessions { uuid, title} }}}", "variables": null}
