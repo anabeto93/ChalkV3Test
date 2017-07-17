@@ -3,13 +3,12 @@ import thunkMiddleware from 'redux-thunk';
 
 import appReducer from '../reducers';
 import defaultState from './defaultState';
-import GraphqlClient from '../graphql/GraphqlClient';
 
 const store = createStore(
   appReducer,
   defaultState,
   compose(
-    applyMiddleware(thunkMiddleware, GraphqlClient.middleware()),
+    applyMiddleware(thunkMiddleware),
     typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined'
       ? window.__REDUX_DEVTOOLS_EXTENSION__()
       : f => f
