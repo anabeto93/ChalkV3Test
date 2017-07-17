@@ -16,6 +16,7 @@ App\Domain\Model\User:
             type: string
         phoneNumber:
             type: string
+            unique: true
         country:
             type: string
         createdAt:
