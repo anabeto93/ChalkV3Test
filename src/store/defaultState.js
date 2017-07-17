@@ -2,7 +2,10 @@ const defaultState = {
   currentUser: {
     loginState: 'logged-out'
   },
-  courses: []
+  courses: {
+    isFetching: false,
+    items: []
+  }
 };
 
 export default defaultState;
