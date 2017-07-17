@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export class CoursesList extends Component {
   shouldComponentUpdate(nextProps) {
@@ -7,34 +7,38 @@ export class CoursesList extends Component {
     }
 
     if (!_.isEqual(this.props.courses, nextProps.courses)) {
-      console.log('Please render CoursesList')
+      console.log('Please render CoursesList');
       return true;
     }
 
-    console.log('No render CoursesList')
+    console.log('No render CoursesList');
 
     return false;
   }
 
-  render () {
-    const { data } = this.props
+  render() {
+    const { data } = this.props;
 
-    console.log('rendering CoursesList')
+    console.log('rendering CoursesList');
 
     return (
-        <ul>
-        { undefined !== courses && courses.map((course) => {
+      <ul>
+        {undefined !== courses &&
+          courses.map(course => {
             return (
               <li key={course.uuid}>
-                <h1>{course.title}</h1>
-                <p>{course.teacherName}</p>
+                <h1>
+                  {course.title}
+                </h1>
+                <p>
+                  {course.teacherName}
+                </p>
               </li>
-            )
-          }
-        ) }
-        </ul>
-    )
+            );
+          })}
+      </ul>
+    );
   }
 }
 
-export default CoursesList
+export default CoursesList;
