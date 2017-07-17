@@ -1,5 +1,5 @@
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
-import getConfig from '../config/config';
+import getConfig from '../../config/config';
 
 const GraphqlClient = new ApolloClient({
   networkInterface: createNetworkInterface({
