@@ -1,8 +1,8 @@
 const defaultState = {
   currentUser: {
-    loginState: 'logged-out',
+    loginState: 'logged-out'
   },
-  courses: [],
-}
+  courses: []
+};
 
-export default defaultState
+export default defaultState;

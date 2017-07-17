@@ -1,6 +1,6 @@
-import { gql } from 'graphql-tag'
+import { gql } from 'graphql-tag';
 
-export default gql `
+export default gql`
   query Course($uuid: String!) {
     course(uuid: $uuid) {
       uuid
@@ -9,4 +9,4 @@ export default gql `
       description
     }
   }
-`
+`;
