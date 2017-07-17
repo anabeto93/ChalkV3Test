@@ -3,7 +3,7 @@
 This project is splited in two directories:
 
 - `/back` : Symfony app backend
-- `/front` : Vue.js / webpack app frontend
+- `/front` : React / Apollo Graphql / webpack app frontend
 
 ## Front
 
@@ -32,8 +32,6 @@ $ yarn test
 ```
 
 You should access the front via http://localhost:3000/
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
 ## Back
 
