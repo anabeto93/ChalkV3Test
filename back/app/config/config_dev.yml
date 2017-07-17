@@ -43,4 +43,4 @@ monolog:
 # Twig Configuration
 twig:
     globals:
-        graphiql_api_key: '%graphiql_api_key%'
+        graphiql_default_user_api_key: '%graphiql_default_user_api_key%'
