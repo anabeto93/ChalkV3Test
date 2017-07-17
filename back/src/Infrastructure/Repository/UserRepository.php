@@ -33,6 +33,23 @@ class UserRepository implements UserRepositoryInterface
     /**
      * {@inheritdoc}
      */
+    public function add(User $user)
+    {
+        $this->entityManager->persist($user);
+        $this->entityManager->flush($user);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function set(User $user)
+    {
+        $this->entityManager->flush($user);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function findByApiToken(string $apiToken = null): ?User
     {
         $queryBuilder = $this

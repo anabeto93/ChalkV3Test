@@ -15,6 +15,16 @@ use App\Domain\Model\User;
 interface UserRepositoryInterface
 {
     /**
+     * @param User $user
+     */
+    public function add(User $user);
+
+    /**
+     * @param User $user
+     */
+    public function set(User $user);
+
+    /**
      * @param string|null $apiToken
      *
      * @return User|null
