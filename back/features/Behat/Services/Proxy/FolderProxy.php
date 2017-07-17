@@ -31,6 +31,7 @@ class FolderProxy implements FolderProxyInterface
         $this->storage = $storage;
         $this->folderManager = $folderManager;
     }
+
     /**
      * @return StorageInterface
      */

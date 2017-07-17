@@ -31,6 +31,7 @@ class SessionProxy implements SessionProxyInterface
         $this->storage = $storage;
         $this->sessionManager = $sessionManager;
     }
+
     /**
      * @return StorageInterface
      */
