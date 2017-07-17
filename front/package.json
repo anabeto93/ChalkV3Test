@@ -1,6 +1,5 @@
 {
-  "name": "front-react",
-  "version": "0.1.0",
+  "name": "ChalkboardEducationV2ReactFront",
   "private": true,
   "dependencies": {
     "apollo-client": "^1.8.0",

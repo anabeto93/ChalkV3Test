@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import { login } from '../actions/actionCreators'
+import { login } from '../actions/actionCreators';
 
 export class LoginScreen extends Component {
-  handleSubmit = (event) => {
-    event.preventDefault()
-    this.props.dispatch(login())
-  }
+  handleSubmit = event => {
+    event.preventDefault();
+    this.props.dispatch(login());
+  };
 
-  render () {
-    console.log('rendering LoginScreen')
+  render() {
+    console.log('rendering LoginScreen');
 
     return (
       <div>
@@ -18,10 +18,10 @@ export class LoginScreen extends Component {
           <button type="submit">Login</button>
         </form>
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = ({ currentUser: { loginState } }) => ({ loginState })
+const mapStateToProps = ({ currentUser: { loginState } }) => ({ loginState });
 
-export default connect(mapStateToProps)(LoginScreen)
+export default connect(mapStateToProps)(LoginScreen);
