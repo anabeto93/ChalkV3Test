@@ -70,6 +70,10 @@ class UserRepository implements UserRepositoryInterface
      */
     public function findByPhoneNumber(string $phoneNumber = null): ?User
     {
+        if ($phoneNumber === null) {
+            return null;
+        }
+
         $queryBuilder = $this
             ->entityManager
             ->createQueryBuilder()
