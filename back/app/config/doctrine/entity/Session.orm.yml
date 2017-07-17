@@ -29,3 +29,4 @@ App\Domain\Model\Session:
             inversedBy: sessions
             joinColumn:
                 onDelete: CASCADE
+                nullable: false
