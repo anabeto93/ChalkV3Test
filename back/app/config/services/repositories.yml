@@ -10,6 +10,7 @@ services:
     App\Infrastructure\Repository\FolderRepository:
         autowire: true
     App\Domain\Repository\FolderRepositoryInterface: '@App\Infrastructure\Repository\FolderRepository'
+
     App\Infrastructure\Repository\UserRepository:
         autowire: true
     App\Domain\Repository\UserRepositoryInterface: '@App\Infrastructure\Repository\UserRepository'
