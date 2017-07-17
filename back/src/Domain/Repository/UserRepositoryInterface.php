@@ -20,4 +20,18 @@ interface UserRepositoryInterface
      * @return User|null
      */
     public function findByApiToken(string $apiToken = null): ?User;
+
+    /**
+     * @param string|null $apiToken
+     *
+     * @return null|string
+     */
+    public function findUserNameByApiToken(string $apiToken = null): ?string;
+
+    /**
+     * @param string|null $phoneNumber
+     *
+     * @return User|null
+     */
+    public function findByPhoneNumber(string $phoneNumber = null): ?User;
 }

@@ -13,6 +13,7 @@ namespace App\Infrastructure\Repository;
 use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -41,6 +42,42 @@ class UserRepository implements UserRepositoryInterface
             ->from(User::class, 'user')
             ->where('user.apiToken = :apiToken')
             ->setParameter('apiToken', $apiToken)
+        ;
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findUserNameByApiToken(string $apiToken = null): ?string
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('user.phoneNumber')
+            ->from(User::class, 'user')
+            ->where('user.apiToken = :apiToken')
+            ->setParameter('apiToken', $apiToken)
+            ->setMaxResults(1)
+        ;
+
+        return $queryBuilder->getQuery()->getOneOrNullResult(Query::HYDRATE_SINGLE_SCALAR);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByPhoneNumber(string $phoneNumber = null): ?User
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('user')
+            ->from(User::class, 'user')
+            ->where('user.phoneNumber = :phoneNumber')
+            ->setParameter('phoneNumber', $phoneNumber)
+            ->setMaxResults(1)
         ;
 
         return $queryBuilder->getQuery()->getOneOrNullResult();

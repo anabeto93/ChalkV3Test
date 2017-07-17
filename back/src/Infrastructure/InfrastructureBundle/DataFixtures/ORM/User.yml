@@ -1,4 +1,4 @@
-App\Domain\Model\Session:
+App\Domain\Model\User:
     user_dev:
         __construct:
             - "12345-test-98765"

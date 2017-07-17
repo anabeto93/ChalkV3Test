@@ -31,11 +31,21 @@ class ApiKeyUserProvider implements UserProviderInterface
     }
 
     /**
+     * @param string|null $apiToken
+     *
+     * @return null|string
+     */
+    public function getUsernameForApiToken(string $apiToken = null)
+    {
+        return $this->userRepository->findUserNameByApiToken($apiToken);
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function loadUserByUsername($apiToken): ApiUserAdapter
+    public function loadUserByUsername($userName): ApiUserAdapter
     {
-        $user = $this->userRepository->findByApiToken($apiToken);
+        $user = $this->userRepository->findByPhoneNumber($userName);
 
         if ($user instanceof User) {
             return new ApiUserAdapter($user);
