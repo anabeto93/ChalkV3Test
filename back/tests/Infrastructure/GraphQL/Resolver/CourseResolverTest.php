@@ -57,10 +57,10 @@ class CourseResolverTest extends TestCase
         $repository = $this->prophesize(CourseRepositoryInterface::class);
         $normalizer = $this->prophesize(CourseNormalizer::class);
 
-        $repository->paginate(0, 10)->shouldBeCalled()->willReturn([]);
+        $repository->getAll()->shouldBeCalled()->willReturn([]);
 
         $courseResolver = new CourseResolver($repository->reveal(), $normalizer->reveal());
-        $courseResolver->resolveCourses(new Argument(['offset' => 0, 'limit' => 10]));
+        $courseResolver->resolveCourses();
     }
 
     public function testResolveCourses()
@@ -70,13 +70,13 @@ class CourseResolverTest extends TestCase
         $repository = $this->prophesize(CourseRepositoryInterface::class);
         $normalizer = $this->prophesize(CourseNormalizer::class);
 
-        $repository->paginate(0, 10)->shouldBeCalled()->willReturn([$course1->reveal(), $course2->reveal()]);
+        $repository->getAll()->shouldBeCalled()->willReturn([$course1->reveal(), $course2->reveal()]);
         $normalizer->normalize($course1->reveal())->shouldBeCalled()->willReturn(['normalized-course1']);
         $normalizer->normalize($course2->reveal())->shouldBeCalled()->willReturn(['normalized-course2']);
 
         $courseResolver = new CourseResolver($repository->reveal(), $normalizer->reveal());
 
-        $result = $courseResolver->resolveCourses(new Argument(['offset' => 0, 'limit' => 10]));
+        $result = $courseResolver->resolveCourses();
         $expected = [
             ['normalized-course1'],
             ['normalized-course2'],

@@ -1,0 +1,7 @@
+App\Domain\Model\Folder:
+    folder_1:
+        __construct:
+            - "83f547c9-6713-4c20"
+            - "API"
+            - '@course_1'
+            - <dateTime()>

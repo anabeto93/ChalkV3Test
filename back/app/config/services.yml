@@ -15,6 +15,7 @@ services:
         public: false
 
 imports:
+    - { resource: services/common.yml }
     - { resource: services/repositories.yml }
     - { resource: services/normalizers.yml }
     - { resource: services/admin/actions.yml }

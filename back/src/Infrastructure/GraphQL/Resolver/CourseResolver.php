@@ -53,15 +53,13 @@ class CourseResolver
     }
 
     /**
-     * @param Argument $argument
-     *
      * @return array
      */
-    public function resolveCourses(Argument $argument): array
+    public function resolveCourses(): array
     {
         $courses = [];
 
-        $courseObjects = $this->courseRepository->paginate($argument['offset'], $argument['limit']);
+        $courseObjects = $this->courseRepository->getAll();
 
         if (empty($courseObjects)) {
             throw new UserError('No course found');

@@ -19,3 +19,10 @@ App\Domain\Model\Course:
             type: string
         createdAt:
             type: datetime
+    oneToMany:
+        folders:
+            targetEntity: App\Domain\Model\Folder
+            mappedBy: course
+        sessions:
+            targetEntity: App\Domain\Model\Session
+            mappedBy: course

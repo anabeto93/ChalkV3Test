@@ -11,17 +11,49 @@
 namespace Tests\Infrastructure\Normalizer;
 
 use App\Domain\Model\Course;
+use App\Domain\Model\Folder;
+use App\Domain\Model\Session;
 use App\Infrastructure\Normalizer\CourseNormalizer;
+use App\Infrastructure\Normalizer\FolderNormalizer;
+use App\Infrastructure\Normalizer\SessionNormalizer;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ObjectProphecy;
 
 class CourseNormalizerTest extends TestCase
 {
+    /** @var ObjectProphecy */
+    private $folderNormalizer;
+
+    /** @var ObjectProphecy */
+    private $sessionNormalizer;
+
+    public function setUp()
+    {
+        $this->folderNormalizer = $this->prophesize(FolderNormalizer::class);
+        $this->sessionNormalizer = $this->prophesize(SessionNormalizer::class);
+    }
+
     public function testNormalize()
     {
         $dateTime = new \DateTime();
         $course = new Course("1234-azerty", "title", "teacherName", $dateTime, "description");
+        $folder = new Folder('123456789', 'folder title', $course, $dateTime);
+        $session1 = new Session('098765432', 'session 1', 'content 1', $course, $folder, $dateTime);
+        $session2 = new Session('ZERTYUIOIUYTRE', 'session 2', 'content 2', $course, $folder, $dateTime);
+        $course->setSessions([$session1, $session2]);
 
-        $normalizer = new CourseNormalizer();
+        $this->setFolderId($folder, 2);
+
+        // Mock
+        $this->folderNormalizer->normalize($folder)->shouldBeCalled()->willReturn(['uuid' => '123456789']);
+        $this->sessionNormalizer->normalize($session1)->shouldBeCalled()->willReturn(['uuid' => '098765432']);
+        $this->sessionNormalizer->normalize($session2)->shouldBeCalled()->willReturn(['uuid' => 'ZERTYUIOIUYTRE']);
+
+        // Normalizer
+        $normalizer = new CourseNormalizer(
+            $this->folderNormalizer->reveal(),
+            $this->sessionNormalizer->reveal()
+        );
         $result = $normalizer->normalize($course);
 
         $expected = [
@@ -30,8 +62,78 @@ class CourseNormalizerTest extends TestCase
             'description' => 'description',
             'teacherName' => 'teacherName',
             'createdAt' => $dateTime,
+            'folders' => [
+                2 => [
+                    'uuid' => '123456789',
+                    'sessions' => [
+                        [
+                            'uuid' => '098765432'
+                        ],
+                        [
+                            'uuid' => 'ZERTYUIOIUYTRE'
+                        ],
+                    ]
+                ],
+            ]
         ];
 
         $this->assertEquals($expected, $result);
+    }
+
+    public function testNormalizeNoFolder()
+    {
+        $dateTime = new \DateTime();
+        $course = new Course("1234-azerty", "title", "teacherName", $dateTime, "description");
+        $session1 = new Session('098765432', 'session 1', 'content 1', $course, null, $dateTime);
+        $session2 = new Session('ZERTYUIOIUYTRE', 'session 2', 'content 2', $course, null, $dateTime);
+        $course->setSessions([$session1, $session2]);
+
+        // Mock
+        $this->folderNormalizer->normalizeDefaultFolder()->shouldBeCalled()->willReturn(['uuid' => 'default']);
+        $this->sessionNormalizer->normalize($session1)->shouldBeCalled()->willReturn(['uuid' => '098765432']);
+        $this->sessionNormalizer->normalize($session2)->shouldBeCalled()->willReturn(['uuid' => 'ZERTYUIOIUYTRE']);
+
+        // Normalizer
+        $normalizer = new CourseNormalizer(
+            $this->folderNormalizer->reveal(),
+            $this->sessionNormalizer->reveal()
+        );
+        $result = $normalizer->normalize($course);
+
+        $expected = [
+            'uuid' => '1234-azerty',
+            'title' => 'title',
+            'description' => 'description',
+            'teacherName' => 'teacherName',
+            'createdAt' => $dateTime,
+            'folders' => [
+                'default' => [
+                    'uuid' => 'default',
+                    'sessions' => [
+                        [
+                            'uuid' => '098765432'
+                        ],
+                        [
+                            'uuid' => 'ZERTYUIOIUYTRE'
+                        ],
+                    ]
+                ],
+            ]
+        ];
+
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * @param Folder $folder
+     * @param int    $id
+     */
+    private function setFolderId(Folder $folder, int $id)
+    {
+        $reflection = new \ReflectionClass(Folder::class);
+        $property= $reflection->getProperty('id');
+        $property->setAccessible(true);
+        $property->setValue($folder, $id);
+        $property->setAccessible(false);
     }
 }

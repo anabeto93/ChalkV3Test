@@ -13,9 +13,23 @@ services:
     Features\Behat\Services\Manager\CourseManager:
         autowire: true
 
+    Features\Behat\Services\Manager\FolderManager:
+        autowire: true
+
+    Features\Behat\Services\Manager\SessionManager:
+        autowire: true
+
     #
     # Proxy
     #
     Features\Behat\Services\Proxy\CourseProxy:
         autowire: true
     Features\Behat\Domain\Proxy\CourseProxyInterface: '@Features\Behat\Services\Proxy\CourseProxy'
+
+    Features\Behat\Services\Proxy\SessionProxy:
+        autowire: true
+    Features\Behat\Domain\Proxy\SessionProxyInterface: '@Features\Behat\Services\Proxy\SessionProxy'
+
+    Features\Behat\Services\Proxy\FolderProxy:
+        autowire: true
+    Features\Behat\Domain\Proxy\FolderProxyInterface: '@Features\Behat\Services\Proxy\FolderProxy'

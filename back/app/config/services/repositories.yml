@@ -2,3 +2,11 @@ services:
     App\Infrastructure\Repository\CourseRepository:
         autowire: true
     App\Domain\Repository\CourseRepositoryInterface: '@App\Infrastructure\Repository\CourseRepository'
+
+    App\Infrastructure\Repository\SessionRepository:
+        autowire: true
+    App\Domain\Repository\SessionRepositoryInterface: '@App\Infrastructure\Repository\SessionRepository'
+
+    App\Infrastructure\Repository\FolderRepository:
+        autowire: true
+    App\Domain\Repository\FolderRepositoryInterface: '@App\Infrastructure\Repository\FolderRepository'

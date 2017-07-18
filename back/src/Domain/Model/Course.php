@@ -10,6 +10,8 @@
 
 namespace App\Domain\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Course
 {
     /** @var int */
@@ -30,6 +32,12 @@ class Course
     /** @var \DateTimeInterface */
     private $createdAt;
 
+    /** @var ArrayCollection of Folder */
+    private $folders;
+
+    /** @var ArrayCollection of Session */
+    private $sessions;
+
     /**
      * @param string             $uuid
      * @param string             $title
@@ -49,6 +57,8 @@ class Course
         $this->teacherName = $teacherName;
         $this->description = $description;
         $this->createdAt = $createdAt;
+        $this->sessions = new ArrayCollection();
+        $this->folders = new ArrayCollection();
     }
 
     /**
@@ -97,5 +107,29 @@ class Course
     public function getCreatedAt(): \DateTimeInterface
     {
         return $this->createdAt;
+    }
+
+    /**
+     * @return Session[]
+     */
+    public function getSessions(): array
+    {
+        return $this->sessions->toArray();
+    }
+
+    /**
+     * @param Session[] $sessions
+     */
+    public function setSessions(array $sessions)
+    {
+        $this->sessions = new ArrayCollection($sessions);
+    }
+
+    /**
+     * @return Folder[]
+     */
+    public function getFolders(): array
+    {
+        return $this->folders->toArray();
     }
 }
