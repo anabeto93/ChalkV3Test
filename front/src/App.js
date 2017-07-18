@@ -8,6 +8,7 @@ import PrivateRoute from './containers/PrivateRoute';
 import store from './store/store';
 
 import './App.css';
+import logo from './assets/logo.png';
 
 class App extends Component {
   render() {
@@ -15,6 +16,11 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div>
+            <img
+              src={logo}
+              alt="Chalkboard Education"
+              style={{ backgroundColor: '#fc3691' }}
+            />
             <Route exact path="/" component={HomeScreen} />
             <PrivateRoute exact path="/course" component={CourseScreen} />
           </div>
