@@ -38,6 +38,9 @@ class Course
     /** @var ArrayCollection of Session */
     private $sessions;
 
+    /** @var \DateTimeInterface */
+    private $updatedAt;
+
     /**
      * @param string             $uuid
      * @param string             $title
@@ -57,6 +60,7 @@ class Course
         $this->teacherName = $teacherName;
         $this->description = $description;
         $this->createdAt = $createdAt;
+        $this->updatedAt = $createdAt;
         $this->sessions = new ArrayCollection();
         $this->folders = new ArrayCollection();
     }
@@ -131,5 +135,13 @@ class Course
     public function getFolders(): array
     {
         return $this->folders->toArray();
+    }
+
+    /**
+     * @return \DateTimeInterface
+     */
+    public function getUpdatedAt(): \DateTimeInterface
+    {
+        return $this->updatedAt;
     }
 }

@@ -19,6 +19,8 @@ App\Domain\Model\Course:
             type: string
         createdAt:
             type: datetime
+        updatedAt:
+            type: datetime
     oneToMany:
         folders:
             targetEntity: App\Domain\Model\Folder
