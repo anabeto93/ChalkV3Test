@@ -4,3 +4,7 @@ services:
         tags:
             - { name: overblog_graphql.resolver, alias: "course", method: "resolveCourse" }
             - { name: overblog_graphql.resolver, alias: "courses", method: "resolveCourses" }
+    App\Infrastructure\GraphQL\Resolver\HasUpdatesResolver:
+        autowire: true
+        tags:
+            - { name: overblog_graphql.resolver, alias: "hasUpdates", method: "resolveHasUpdates" }

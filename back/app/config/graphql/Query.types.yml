@@ -12,5 +12,8 @@ Query:
                 resolve: "@=resolver('course', [args])"
             courses:
                 type: "[Course]"
-                resolve: "@=resolver('courses', [args])"
+                resolve: "@=resolver('courses')"
+            hasUpdates:
+                type: "HasUpdates"
+                resolve: "@=resolver('hasUpdates')"
 
