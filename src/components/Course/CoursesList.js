@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { List, ListItem } from 'material-ui/List';
 import React, { Component } from 'react';
 
 export class CoursesList extends Component {
@@ -20,21 +21,18 @@ export class CoursesList extends Component {
     console.log('rendering CoursesList');
 
     return (
-      <ul>
+      <List>
         {undefined !== courses &&
           courses.map(course => {
             return (
-              <li key={course.uuid}>
-                <h1>
-                  {course.title}
-                </h1>
-                <p>
-                  {course.teacherName}
-                </p>
-              </li>
+              <ListItem
+                key={course.uuid}
+                primaryText={course.title}
+                secondaryText={course.teacherName}
+              />
             );
           })}
-      </ul>
+      </List>
     );
   }
 }

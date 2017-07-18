@@ -22,9 +22,6 @@ export class CourseScreen extends Component {
         <p>
           {isFetching ? 'Loading...' : ''}
         </p>
-        <p>
-          {items.length}
-        </p>
         <CoursesList courses={items} />
         <Link to="/">Home</Link>
       </div>
