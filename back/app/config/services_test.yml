@@ -19,6 +19,10 @@ services:
     Features\Behat\Services\Manager\SessionManager:
         autowire: true
 
+    Features\Behat\Services\Manager\UserManager:
+        autowire: true
+
+
     #
     # Proxy
     #
@@ -33,3 +37,7 @@ services:
     Features\Behat\Services\Proxy\FolderProxy:
         autowire: true
     Features\Behat\Domain\Proxy\FolderProxyInterface: '@Features\Behat\Services\Proxy\FolderProxy'
+
+    Features\Behat\Services\Proxy\UserProxy:
+        autowire: true
+    Features\Behat\Domain\Proxy\UserProxyInterface: '@Features\Behat\Services\Proxy\FolderProxy'

@@ -4,8 +4,8 @@ security:
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        api_key_user_provider:
+            id: App\Infrastructure\Security\Api\ApiKeyUserProvider
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -13,12 +13,12 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
+        graphql:
+            pattern: ^/api/graphql
+            stateless: true
+            provider: api_key_user_provider
+            simple_preauth:
+                authenticator: App\Infrastructure\Security\Api\ApiKeyAuthenticator
+
         main:
             anonymous: ~
-            # activate different ways to authenticate
-
-            # http://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
-            #form_login: ~

@@ -1,7 +1,20 @@
 Feature: Course api
+  Scenario I can not get info without api token
+    Given the database is purged
+    And there is a course with the uuid "30575fe6-0bb6-4dfc-a38a-899e39bdf911" and the title "First course"
+    And I add "Content-Type" header equal to "application/json"
+    And I send a POST request to "/api/graphql/" with body:
+      """
+      {"query": "query { course(uuid: \"not-found\") { title }}", "variables": null}
+      """
+    Then the response status code should be 401
+
   Scenario: I can get course info
     Given the database is purged
     And there is a course with the uuid "30575fe6-0bb6-4dfc-a38a-899e39bdf911" and the title "First course"
+    And there is a user called "jean" "paul" with the uuid "123-user" and the phone number "+33123213123"
+    And the api token for this user is "api-token-user"
+    And I add "key" header equal to "api-token-user"
     And I add "Content-Type" header equal to "application/json"
     And I send a POST request to "/api/graphql/" with body:
       """
@@ -51,6 +64,9 @@ Feature: Course api
     Given the database is purged
     And there is a course with the uuid "30575fe6-0bb6" and the title "First course"
     And there is a session with the uuid "998812-123123" and the title "First session" for this course
+    And there is a user called "jean" "paul" with the uuid "123-user" and the phone number "+33123213123"
+    And the api token for this user is "api-token-user"
+    And I add "key" header equal to "api-token-user"
     When I add "Content-Type" header equal to "application/json"
     And I send a POST request to "/api/graphql/" with body:
       """
@@ -84,6 +100,9 @@ Feature: Course api
     And there is a course with the uuid "30575fe6-0bb6" and the title "First course"
     And there is a folder with the uuid "3456723-2313" and the title "Folder title" for this course
     And there is a session with the uuid "998812-123123" and the title "First session" for this course and folder
+    And there is a user called "jean" "paul" with the uuid "123-user" and the phone number "+33123213123"
+    And the api token for this user is "api-token-user"
+    And I add "key" header equal to "api-token-user"
     When I add "Content-Type" header equal to "application/json"
     And I send a POST request to "/api/graphql/" with body:
       """
