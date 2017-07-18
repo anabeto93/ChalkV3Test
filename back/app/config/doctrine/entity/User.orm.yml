@@ -1,0 +1,26 @@
+App\Domain\Model\User:
+    type: entity
+    table: user
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        uuid:
+            type: string
+            unique: true
+        firstName:
+            type: string
+        lastName:
+            type: string
+        phoneNumber:
+            type: string
+            unique: true
+        country:
+            type: string
+        createdAt:
+            type: datetime
+        apiToken:
+            type: string
+            nullable: true

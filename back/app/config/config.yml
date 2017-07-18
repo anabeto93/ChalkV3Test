@@ -75,13 +75,4 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
-overblog_graphql:
-    definitions:
-        schema:
-            query: Query
-            mutation: ~
-        mappings:
-            types:
-                -
-                    type: yml
-                    dir: "%kernel.project_dir%/app/config/graphql"
+
