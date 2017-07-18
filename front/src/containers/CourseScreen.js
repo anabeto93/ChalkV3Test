@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import { getCoursesInformations } from '../actions/actionCreators';
+import CoursesList from '../components/Course/CoursesList';
 
 export class CourseScreen extends Component {
   handleLoad = event => {
@@ -24,6 +25,7 @@ export class CourseScreen extends Component {
         <p>
           {items.length}
         </p>
+        <CoursesList courses={items} />
         <Link to="/">Home</Link>
       </div>
     );
