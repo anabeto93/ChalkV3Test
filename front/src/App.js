@@ -1,4 +1,8 @@
+import AppBar from 'material-ui/AppBar';
 import React, { Component } from 'react';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
@@ -10,21 +14,40 @@ import store from './store/store';
 import './App.css';
 import logo from './assets/logo.png';
 
+const PRIMARY_COLOR = '#fc3691';
+
 class App extends Component {
   render() {
+    const logoApp = (
+      <span>
+        <img
+          src={logo}
+          alt="Chalkboard Education"
+          style={{ float: 'left', maxHeight: '80%', margin: '6px' }}
+        />{' '}
+        Chalkboard Education
+      </span>
+    );
+
     return (
       <Provider store={store}>
-        <Router>
-          <div>
-            <img
-              src={logo}
-              alt="Chalkboard Education"
-              style={{ backgroundColor: '#fc3691' }}
-            />
-            <Route exact path="/" component={HomeScreen} />
-            <PrivateRoute exact path="/course" component={CourseScreen} />
-          </div>
-        </Router>
+        <MuiThemeProvider
+          muiTheme={getMuiTheme({
+            palette: {
+              primary1Color: PRIMARY_COLOR,
+              textColor: PRIMARY_COLOR
+            }
+          })}
+        >
+          <Router>
+            <div>
+              <AppBar title={logoApp} />
+
+              <Route exact path="/" component={HomeScreen} />
+              <PrivateRoute exact path="/course" component={CourseScreen} />
+            </div>
+          </Router>
+        </MuiThemeProvider>
       </Provider>
     );
   }
