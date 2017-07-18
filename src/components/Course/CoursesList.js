@@ -1,23 +1,21 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 
 export class CoursesList extends Component {
   shouldComponentUpdate(nextProps) {
-    if (!this.props.data || !this.props.data.courses) {
+    if (!this.props.courses) {
       return true;
     }
 
     if (!_.isEqual(this.props.courses, nextProps.courses)) {
-      console.log('Please render CoursesList');
       return true;
     }
-
-    console.log('No render CoursesList');
 
     return false;
   }
 
   render() {
-    const { data } = this.props;
+    const { courses } = this.props;
 
     console.log('rendering CoursesList');
 
