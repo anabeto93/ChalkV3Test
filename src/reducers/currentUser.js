@@ -6,7 +6,7 @@ export default function currentUser(
 ) {
   switch (action.type) {
     case LOGIN_SUCCESS: {
-      return { loginState: 'success' };
+      return { loginState: 'logged' };
     }
 
     default:
