@@ -19,7 +19,7 @@ export class HomeScreen extends Component {
 }
 
 function mapStateToProps({ currentUser: { loginState } }) {
-  return { loggedIn: loginState === 'success' };
+  return { loggedIn: loginState === 'logged' };
 }
 
 export default connect(mapStateToProps)(HomeScreen);

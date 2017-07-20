@@ -27,7 +27,7 @@ class PrivateInnerComponent extends Component {
 }
 
 const mapStateToProps = ({ currentUser: { loginState } }) => ({
-  loggedIn: loginState === 'success'
+  loggedIn: loginState === 'logged'
 });
 const PrivateComponent = connect(mapStateToProps)(PrivateInnerComponent);
 
