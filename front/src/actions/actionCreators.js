@@ -43,3 +43,36 @@ export function getCoursesInformations() {
       });
   };
 }
+
+// GET UPDATES
+export const REQUEST_UPDATES = '@@CHALKBOARDEDUCATION/REQUEST_UPDATES';
+
+export const RECEIVE_UPDATES = '@@CHALKBOARDEDUCATION/RECEIVE_UPDATES';
+
+export const FAIL_GET_UPDATES = '@@CHALKBOARDEDUCATION/FAIL_GET_UPDATES';
+
+export function requestUpdates() {
+  return { type: REQUEST_UPDATES };
+}
+
+export function receiveUpdates(updates) {
+  return { type: RECEIVE_UPDATES, payload: { updates } };
+}
+
+export function failGetUpdates(message) {
+  return { type: FAIL_GET_UPDATES, payload: { message } };
+}
+
+export function getUpdates() {
+  return function(dispatch) {
+    dispatch(requestUpdates());
+
+    GraphqlClient.query({ query: CoursesQuery })
+      .then(response => {
+        dispatch(receiveUpdates(response.data.courses));
+      })
+      .catch(error => {
+        dispatch(failGetUpdates('Bad response from server'));
+      });
+  };
+}
