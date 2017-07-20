@@ -1,4 +1,8 @@
 services:
+    App\Infrastructure\GraphQL\Resolver\UserResolver:
+        autowire: true
+        tags:
+            - { name: overblog_graphql.resolver, alias: "user", method: "resolveUser" }
     App\Infrastructure\GraphQL\Resolver\CourseResolver:
         autowire: true
         tags:
