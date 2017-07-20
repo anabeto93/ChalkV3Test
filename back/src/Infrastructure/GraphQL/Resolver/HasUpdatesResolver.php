@@ -41,8 +41,7 @@ class HasUpdatesResolver
      */
     public function resolveHasUpdates(Argument $arguments): array
     {
-        $dateLastUpdate = isset($arguments['dateLastUpdate']) ? $arguments['dateLastUpdate'] : null;
-
+        $dateLastUpdate = $arguments['dateLastUpdate'] ?? null;
 
         if (isset($arguments['dateLastUpdate']) && !$arguments['dateLastUpdate'] instanceof \DateTime) {
             throw new UserError('The date is not in the valid format ');
