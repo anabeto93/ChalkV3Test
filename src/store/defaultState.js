@@ -7,6 +7,12 @@ const defaultState = {
   courses: {
     isFetching: false,
     items: []
+  },
+  updates: {
+    isFetching: false,
+    hasUpdates: false,
+    dateLastCheck: null,
+    sizeToDownload: 0
   }
 };
 
