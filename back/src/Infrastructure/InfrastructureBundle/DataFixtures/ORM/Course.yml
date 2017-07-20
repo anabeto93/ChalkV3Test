@@ -4,4 +4,8 @@ App\Domain\Model\Course:
             - "4bf73791-18a2-4340-b399-16cff0ad815e"
             - "Installation de GraphQL"
             - "Nicolas"
-            - <dateTime()>
+            - <(new DateTime('2017-07-12 08:00:00.000'))>
+            - 'This is an example'
+            - 1234
+        updatedAt: <(new DateTime('2017-07-20 08:00:00.000'))>
+

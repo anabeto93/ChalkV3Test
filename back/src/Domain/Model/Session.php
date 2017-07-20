@@ -36,6 +36,15 @@ class Session
     /** @var \DateTimeInterface */
     private $updatedAt;
 
+    /** @var \DateTimeInterface */
+    private $contentUpdatedAt;
+
+    /** @var int */
+    private $size;
+
+    /** @var int */
+    private $contentSize;
+
     /**
      * @param string             $uuid
      * @param string             $title
@@ -43,6 +52,8 @@ class Session
      * @param Course             $course
      * @param Folder|null        $folder
      * @param \DateTimeInterface $createdAt
+     * @param int                $size
+     * @param int                $contentSize
      */
     public function __construct(
         string $uuid,
@@ -50,7 +61,9 @@ class Session
         string $content = null,
         Course $course,
         Folder $folder = null,
-        \DateTimeInterface $createdAt
+        \DateTimeInterface $createdAt,
+        int $size = 0,
+        int $contentSize = 0
     ) {
         $this->uuid = $uuid;
         $this->title = $title;
@@ -59,6 +72,9 @@ class Session
         $this->folder = $folder;
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
+        $this->contentUpdatedAt = $createdAt;
+        $this->size = $size;
+        $this->contentSize = $contentSize;
     }
 
     /**
@@ -139,5 +155,29 @@ class Session
     public function getUpdatedAt(): \DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return \DateTimeInterface
+     */
+    public function getContentUpdatedAt(): \DateTimeInterface
+    {
+        return $this->contentUpdatedAt;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSize(): int
+    {
+        return $this->size;
+    }
+
+    /**
+     * @return int
+     */
+    public function getContentSize(): int
+    {
+        return $this->contentSize;
     }
 }

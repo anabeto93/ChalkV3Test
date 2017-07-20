@@ -14,4 +14,7 @@ Session:
                 description: "Html content of the session"
             updatedAt:
                 type: "DateTime!"
-                description: "Last update of the session"
+                description: "Last update of the session in format 2017-01-15 10:00"
+            contentUpdatedAt:
+                type: "DateTime!"
+                description: "Last update of the session content in format 2017-01-15 10:00"

@@ -21,6 +21,8 @@ App\Domain\Model\Course:
             type: datetime
         updatedAt:
             type: datetime
+        size:
+            type: integer
     oneToMany:
         folders:
             targetEntity: App\Domain\Model\Folder

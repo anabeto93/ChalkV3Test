@@ -4,4 +4,6 @@ App\Domain\Model\Folder:
             - "83f547c9-6713-4c20"
             - "API"
             - '@course_1'
-            - <dateTime()>
+            - <(new DateTime('2017-07-13 12:00:00.000'))>
+            - 542
+        updatedAt: <(new DateTime('2017-07-19 07:00:00.000'))>
