@@ -1,0 +1,7 @@
+App\Domain\Model\Session\File:
+    session_file:
+        __construct:
+            - "@session_1"
+            - "/content/course/4bf73791-18a2-4340/session/382f5578-12eb-4af0/dummy-image-test.jpg"
+            - 95508
+            - <dateTime()>

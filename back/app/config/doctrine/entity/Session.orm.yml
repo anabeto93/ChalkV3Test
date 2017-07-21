@@ -36,3 +36,7 @@ App\Domain\Model\Session:
             joinColumn:
                 onDelete: CASCADE
                 nullable: false
+    oneToMany:
+        files:
+            targetEntity: App\Domain\Model\Session\File
+            mappedBy: session

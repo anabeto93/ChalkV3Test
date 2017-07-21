@@ -6,3 +6,6 @@ services:
         autowire: true
     App\Infrastructure\Normalizer\CourseNormalizer:
         autowire: true
+
+    App\Infrastructure\Normalizer\Session\FileNormalizer:
+        autowire: true
