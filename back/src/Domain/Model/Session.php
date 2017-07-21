@@ -10,6 +10,9 @@
 
 namespace App\Domain\Model;
 
+use App\Domain\Model\Session\File;
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Session
 {
     /** @var int */
@@ -45,6 +48,9 @@ class Session
     /** @var int */
     private $contentSize;
 
+    /** @var ArrayCollection of File */
+    private $files;
+
     /**
      * @param string             $uuid
      * @param string             $title
@@ -75,6 +81,7 @@ class Session
         $this->contentUpdatedAt = $createdAt;
         $this->size = $size;
         $this->contentSize = $contentSize;
+        $this->files = new ArrayCollection();
     }
 
     /**
@@ -179,5 +186,21 @@ class Session
     public function getContentSize(): int
     {
         return $this->contentSize;
+    }
+
+    /**
+     * @return File[]
+     */
+    public function getFiles(): array
+    {
+        return $this->files->toArray();
+    }
+
+    /**
+     * @param File[] $files
+     */
+    public function setFiles(array $files)
+    {
+        $this->files = new ArrayCollection($files);
     }
 }
