@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import {
   FAIL_GET_UPDATES,
   RECEIVE_UPDATES,
@@ -9,7 +11,7 @@ export default function updates(
     isFetching: false,
     hasUpdates: false,
     dateLastCheck: null,
-    sizeToDownload: 0
+    size: 0
   },
   action
 ) {
@@ -21,9 +23,12 @@ export default function updates(
     }
 
     case RECEIVE_UPDATES: {
-      console.log('RECEIVE_UPDATES', action.payload);
+      const { hasUpdates, size } = action.payload.updates;
       return Object.assign({}, state, {
-        isFetching: false
+        isFetching: false,
+        hasUpdates: hasUpdates,
+        dateLastCheck: moment(),
+        size: size
       });
     }
 

@@ -10,6 +10,7 @@ import CourseScreen from './containers/CourseScreen';
 import HomeScreen from './containers/HomeScreen';
 import PrivateRoute from './containers/PrivateRoute';
 import store from './store/store';
+import Updates from './components/Updates/Updates';
 
 import './App.css';
 import logo from './assets/logo.png';
@@ -42,7 +43,7 @@ class App extends Component {
           <Router>
             <div>
               <AppBar title={logoApp} />
-
+              <Updates />
               <Route exact path="/" component={HomeScreen} />
               <PrivateRoute exact path="/course" component={CourseScreen} />
             </div>

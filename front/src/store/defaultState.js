@@ -12,7 +12,7 @@ const defaultState = {
     isFetching: false,
     hasUpdates: false,
     dateLastCheck: null,
-    sizeToDownload: 0
+    size: 0
   }
 };
 
