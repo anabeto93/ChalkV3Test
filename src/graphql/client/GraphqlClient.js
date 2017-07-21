@@ -1,5 +1,5 @@
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
-import getConfig from '../../config/config';
+import getConfig from '../../config';
 
 export const networkInterface = createNetworkInterface({
   uri: getConfig().api.endpoint

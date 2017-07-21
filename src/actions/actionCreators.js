@@ -1,5 +1,7 @@
 import GraphqlClient from '../graphql/client/GraphqlClient';
+
 import CoursesQuery from '../graphql/query/CoursesQuery';
+import HasUpdatesQuery from '../graphql/query/HasUpdatesQuery';
 
 // LOGIN
 export const LOGIN_SUCCESS = '@@CHALKBOARDEDUCATION/LOGIN_SUCCESS';
@@ -34,7 +36,7 @@ export function getCoursesInformations() {
   return function(dispatch) {
     dispatch(requestCoursesInformations());
 
-    GraphqlClient.query({ query: CoursesQuery })
+    GraphqlClient.query({ query: CoursesQuery, fetchPolicy: 'network-only' })
       .then(response => {
         dispatch(receiveCoursesInformations(response.data.courses));
       })
@@ -67,9 +69,9 @@ export function getUpdates() {
   return function(dispatch) {
     dispatch(requestUpdates());
 
-    GraphqlClient.query({ query: CoursesQuery })
+    GraphqlClient.query({ query: HasUpdatesQuery, fetchPolicy: 'network-only' })
       .then(response => {
-        dispatch(receiveUpdates(response.data.courses));
+        dispatch(receiveUpdates(response.data.hasUpdates));
       })
       .catch(error => {
         dispatch(failGetUpdates('Bad response from server'));

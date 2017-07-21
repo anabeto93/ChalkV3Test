@@ -1,16 +1,22 @@
 // Usage:
-//  import getConfig from './config.js';
+//  import getConfig from 'path/to/config';
 //  const endpoint = getConfig().api.endpoint;
 
 const config = {
   production: {
     api: {
       endpoint: 'https://api.chalkboard.education/api/graphql/'
+    },
+    updates: {
+      intervalInSeconds: 86400
     }
   },
   default: {
     api: {
       endpoint: 'http://api.chalkboardeducation.dev/app_dev.php/api/graphql/'
+    },
+    updates: {
+      intervalInSeconds: 20
     }
   }
 };
