@@ -5,6 +5,7 @@ import thunkMiddleware from 'redux-thunk';
 import appReducer from '../reducers';
 import defaultState from './defaultState';
 import { networkInterface } from '../graphql/client/GraphqlClient';
+import CoursesIsFetchingSubscriber from '../subscriber/CoursesIsFetchingSubscriber';
 
 const store = createStore(
   appReducer,
@@ -18,6 +19,10 @@ const store = createStore(
   )
 );
 
+// Init subscribers
+store.subscribe(CoursesIsFetchingSubscriber);
+
+// Init Redux persist
 persistStore(store);
 
 // networkInterface need the store

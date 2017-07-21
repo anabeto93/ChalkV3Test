@@ -47,11 +47,14 @@ export function getCoursesInformations() {
 }
 
 // GET UPDATES
+
 export const REQUEST_UPDATES = '@@CHALKBOARDEDUCATION/REQUEST_UPDATES';
 
 export const RECEIVE_UPDATES = '@@CHALKBOARDEDUCATION/RECEIVE_UPDATES';
 
 export const FAIL_GET_UPDATES = '@@CHALKBOARDEDUCATION/FAIL_GET_UPDATES';
+
+export const REINIT_UPDATES = '@@CHALKBOARDEDUCATION/REINIT_UPDATES';
 
 export function requestUpdates() {
   return { type: REQUEST_UPDATES };
@@ -63,6 +66,10 @@ export function receiveUpdates(updates) {
 
 export function failGetUpdates(message) {
   return { type: FAIL_GET_UPDATES, payload: { message } };
+}
+
+export function reinitUpdates() {
+  return { type: REINIT_UPDATES };
 }
 
 export function getUpdates() {
