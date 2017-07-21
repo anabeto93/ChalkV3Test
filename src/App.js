@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import CourseScreen from './containers/CourseScreen';
 import HomeScreen from './containers/HomeScreen';
+import FolderScreen from './containers/FolderScreen';
 import PrivateRoute from './containers/PrivateRoute';
 import store from './store/store';
 import Updates from './components/Updates/Updates';
@@ -45,7 +46,8 @@ class App extends Component {
               <AppBar title={logoApp} />
               <Updates />
               <Route exact path="/" component={HomeScreen} />
-              <PrivateRoute exact path="/course" component={CourseScreen} />
+              <PrivateRoute exact path="/courses" component={CourseScreen} />
+              <PrivateRoute exact path="/courses/:courseId/folders/list" component={FolderScreen} />
             </div>
           </Router>
         </MuiThemeProvider>
