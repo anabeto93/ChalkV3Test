@@ -5,7 +5,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './App';
 
 // Init the clock
-import './clock/clock';
+import './services/updates/clock';
 
 // import registerServiceWorker from './registerServiceWorker';
 import './index.css';
