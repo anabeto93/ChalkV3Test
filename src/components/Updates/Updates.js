@@ -2,7 +2,9 @@ import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import React, { Component } from 'react';
 
-const DEFAULT_STATE = { alreadyUpToDate: false };
+import { getCoursesInformations } from '../../actions/actionCreators';
+
+const DEFAULT_STATE = { alreadyUpToDate: false, updating: false };
 const ALREADY_UP_TO_DATE_MESSAGE_DELAY_IN_SECONDS = 5;
 
 export class Updates extends Component {
@@ -12,7 +14,7 @@ export class Updates extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { isFetching } = this.props;
+    const { isFetching } = this.props.updates;
 
     const alreadyUpToDate =
       isFetching && !nextProps.isFetching && !nextProps.hasUpdates;
@@ -27,8 +29,13 @@ export class Updates extends Component {
     }
   }
 
+  handleLoad = event => {
+    event.preventDefault();
+    this.props.dispatch(getCoursesInformations());
+  };
+
   render() {
-    const { isFetching, hasUpdates, size } = this.props;
+    const { updates, courses } = this.props;
 
     const style = {
       container: {
@@ -38,18 +45,27 @@ export class Updates extends Component {
       }
     };
 
-    if (isFetching) {
+    if (courses.isFetching) {
+      return <div style={style.container}>Updating app...</div>;
+    }
+
+    if (updates.isFetching) {
       return <div style={style.container}>Checking updates...</div>;
     }
 
-    if (hasUpdates) {
+    if (updates.hasUpdates) {
       return (
         <div style={style.container}>
           <p>
-            Your app must be updated ({Math.round(1000 * size / 1024) / 1000} kb
-            to download)
+            Your app must be updated ({Math.round(1000 * updates.size / 1024) /
+              1000}{' '}
+            kb to download)
           </p>
-          <RaisedButton label="Update" primary={true} />
+          <RaisedButton
+            label="Update"
+            primary={true}
+            onClick={this.handleLoad}
+          />
         </div>
       );
     }
@@ -62,8 +78,8 @@ export class Updates extends Component {
   }
 }
 
-function mapStateToProps({ updates: { isFetching, hasUpdates, size } }) {
-  return { isFetching, hasUpdates, size };
+function mapStateToProps({ updates, courses }) {
+  return { updates, courses };
 }
 
 export default connect(mapStateToProps)(Updates);
