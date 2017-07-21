@@ -19,6 +19,8 @@ imports:
     - { resource: services/repositories.yml }
     - { resource: services/normalizers.yml }
     - { resource: services/graphql.yml }
+    - { resource: services/admin/adapters.yml }
     - { resource: services/admin/actions.yml }
+    - { resource: services/admin/queries.yml }
     - { resource: services/api/resolvers.yml }
     - { resource: services/api/security.yml }

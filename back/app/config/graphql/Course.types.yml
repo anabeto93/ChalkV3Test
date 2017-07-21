@@ -12,6 +12,9 @@ Course:
             description:
                 type: "String"
                 description: "The description of the course."
+            university:
+                type: "String"
+                description: "University in which the course is given"
             teacherName:
                 type: "String!"
                 description: "The name of the teacher of the course."

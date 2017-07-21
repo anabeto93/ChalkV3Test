@@ -4,4 +4,6 @@ App\Domain\Model\Course:
             - "4bf73791-18a2-4340-b399-16cff0ad815e"
             - "Installation de GraphQL"
             - "Nicolas"
+            - "University of Chalkboard"
+            - true
             - <dateTime()>
