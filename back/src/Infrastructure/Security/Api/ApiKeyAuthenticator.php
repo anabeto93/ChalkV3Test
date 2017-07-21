@@ -78,8 +78,12 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
         ], 401);
     }
 
-    private function extractKey(string $header): ?string
+    private function extractKey(string $header = null): ?string
     {
+        if ($header === null) {
+            return null;
+        }
+
         $matches = [];
 
         if (1 === preg_match('/^Bearer (.+)$/', $header, $matches)) {
