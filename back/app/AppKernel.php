@@ -22,6 +22,9 @@ class AppKernel extends Kernel
             // Tactician
             new League\Tactician\Bundle\TacticianBundle(),
 
+            // Sonata
+            new Sonata\IntlBundle\SonataIntlBundle(),
+
             // App
             new App\Infrastructure\InfrastructureBundle\InfrastructureBundle(),
         ];

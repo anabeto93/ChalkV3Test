@@ -44,6 +44,12 @@ class Course
     /** @var ArrayCollection of Session */
     private $sessions;
 
+    /** @var \DateTimeInterface */
+    private $updatedAt;
+
+    /** @var int */
+    private $size;
+
     /**
      * @param string             $uuid
      * @param string             $title
@@ -52,6 +58,7 @@ class Course
      * @param bool               $enabled
      * @param \DateTimeInterface $createdAt
      * @param string             $description
+     * @param int                $size
      */
     public function __construct(
         string $uuid,
@@ -60,7 +67,8 @@ class Course
         string $university,
         bool $enabled,
         \DateTimeInterface $createdAt,
-        string $description = null
+        string $description = null,
+        int $size = 0
     ) {
         $this->uuid = $uuid;
         $this->title = $title;
@@ -69,8 +77,10 @@ class Course
         $this->university = $university;
         $this->description = $description;
         $this->createdAt = $createdAt;
+        $this->updatedAt = $createdAt;
         $this->sessions = new ArrayCollection();
         $this->folders = new ArrayCollection();
+        $this->size = $size;
     }
 
     /**
@@ -159,5 +169,29 @@ class Course
     public function getFolders(): array
     {
         return $this->folders->toArray();
+    }
+
+    /**
+     * @return \DateTimeInterface
+     */
+    public function getUpdatedAt(): \DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTimeInterface $updatedAt
+     */
+    public function setUpdatedAt(\DateTimeInterface $updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSize(): int
+    {
+        return $this->size;
     }
 }

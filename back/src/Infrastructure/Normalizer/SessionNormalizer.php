@@ -11,9 +11,21 @@
 namespace App\Infrastructure\Normalizer;
 
 use App\Domain\Model\Session;
+use App\Infrastructure\Normalizer\Session\FileNormalizer;
 
 class SessionNormalizer
 {
+    /** @var FileNormalizer */
+    private $fileNormalizer;
+
+    /**
+     * @param FileNormalizer $fileNormalizer
+     */
+    public function __construct(FileNormalizer $fileNormalizer)
+    {
+        $this->fileNormalizer = $fileNormalizer;
+    }
+
     /**
      * @param Session $session
      *
@@ -27,6 +39,9 @@ class SessionNormalizer
             'content' => $session->getContent(),
             'createdAt' => $session->getCreatedAt(),
             'updatedAt' => $session->getUpdatedAt(),
+            'files' => array_map(function (Session\File $file) {
+                return $this->fileNormalizer->normalize($file);
+            }, $session->getFiles()),
         ];
     }
 }

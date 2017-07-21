@@ -3,6 +3,9 @@ Query:
     config:
         description: "Chalkboard Education API"
         fields:
+            user:
+                type: "User!"
+                resolve: "@=resolver('user')"
             course:
                 type: "Course"
                 args:
@@ -15,5 +18,8 @@ Query:
                 resolve: "@=resolver('courses')"
             hasUpdates:
                 type: "HasUpdates"
-                resolve: "@=resolver('hasUpdates')"
+                args:
+                    dateLastUpdate:
+                        type: "DateTime"
+                resolve: "@=resolver('hasUpdates', [args])"
 

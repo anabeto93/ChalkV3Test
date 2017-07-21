@@ -31,3 +31,6 @@
 
 # PHP CS Fixer
 .php_cs.cache
+
+# Assets
+/web/assets/

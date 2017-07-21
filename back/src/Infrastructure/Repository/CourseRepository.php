@@ -87,23 +87,4 @@ class CourseRepository implements CourseRepositoryInterface
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function paginate($offset, $limit): array
-    {
-        $queryBuilder = $this
-            ->entityManager
-            ->createQueryBuilder()
-            ->select('course, session, folder')
-            ->from(Course::class, 'course')
-            ->leftJoin('course.sessions', 'session')
-            ->leftJoin('session.folder', 'folder')
-            ->setFirstResult($offset)
-            ->setMaxResults($limit)
-        ;
-
-        return $queryBuilder->getQuery()->getResult();
-    }
 }

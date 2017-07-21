@@ -11,7 +11,7 @@ Folder:
                 description: "Title of the folder"
             updatedAt:
                 type: "DateTime!"
-                description: "Last update of the folder"
+                description: "Last update of the folder in format 2017-01-15 10:00"
             sessions:
                 type: "[Session]"
                 description: "Sessions of the folder"
