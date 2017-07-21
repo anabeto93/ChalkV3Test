@@ -41,7 +41,7 @@ elao_form_translation:
 twig:
     debug: '%kernel.debug%'
     form_themes:
-        - ":Admin/Common:form_layout.html.twig"
+        - ":Admin/Common:default_form_layout.html.twig"
     strict_variables: '%kernel.debug%'
     globals:
         admin_menu_color: "%admin_menu_color%"
