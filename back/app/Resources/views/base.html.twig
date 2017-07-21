@@ -18,6 +18,7 @@
     {% block body %}
         {{ include(':Admin/Common:menu.html.twig') }}
         <div class="container-fluid">
+            {{ include(':Admin/Common:flashes.html.twig') }}
             {% block content %}{% endblock %}
         </div>
     {% endblock %}

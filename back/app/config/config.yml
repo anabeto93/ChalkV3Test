@@ -33,9 +33,15 @@ framework:
     php_errors:
         log: true
 
+# Form translation
+elao_form_translation:
+    auto_generate: true
+
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
+    form_themes:
+        - ":Admin/Common:form_layout.html.twig"
     strict_variables: '%kernel.debug%'
     globals:
         admin_menu_color: "%admin_menu_color%"
