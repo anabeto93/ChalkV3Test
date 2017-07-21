@@ -33,9 +33,37 @@ class CourseManager
      *
      * @return Course
      */
-    public function create($uuid, $title)
+    public function create(string $uuid, string $title): Course
     {
         $course = CourseFactory::create($uuid, $title, new \DateTime());
+        $this->courseRepository->add($course);
+
+        return $course;
+    }
+
+    /**
+     * @param string    $uuid
+     * @param string    $title
+     * @param string    $teacherName
+     * @param string    $description
+     * @param \DateTime $createdAt
+     * @param \DateTime $updatedAt
+     * @param int       $size
+     *
+     * @return Course
+     */
+    public function createWithAllParameters(
+        string $uuid,
+        string $title,
+        string $teacherName,
+        string $description,
+        \DateTime $createdAt,
+        \DateTime $updatedAt,
+        int $size
+    ): Course {
+        $course = new Course($uuid, $title, $teacherName, $createdAt, $description, $size);
+        $course->setUpdatedAt($updatedAt);
+
         $this->courseRepository->add($course);
 
         return $course;

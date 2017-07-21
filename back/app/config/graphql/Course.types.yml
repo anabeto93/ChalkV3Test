@@ -17,7 +17,10 @@ Course:
                 description: "The name of the teacher of the course."
             createdAt:
                 type: "DateTime!"
-                description: "The creation date of the course in format 2017-01-15 10:00:00.000"
+                description: "The creation date of the course in format 2017-01-15 10:00"
+            updatedAt:
+                type: "DateTime!"
+                description: "The last update date of the course in format 2017-01-15 10:00"
             folders:
                 type: "[Folder]"
 

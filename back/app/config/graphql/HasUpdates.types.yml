@@ -6,6 +6,6 @@ HasUpdates:
             hasUpdates:
                 type: "Boolean!"
             size:
-                type: "Float!"
+                type: "Int!"
                 description: "Size of the update in bytes"
 

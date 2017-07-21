@@ -19,6 +19,12 @@ App\Domain\Model\Session:
             type: datetime
         updatedAt:
             type: datetime
+        contentUpdatedAt:
+            type: datetime
+        size:
+            type: integer
+        contentSize:
+            type: integer
     manyToOne:
         folder:
             targetEntity: App\Domain\Model\Folder
