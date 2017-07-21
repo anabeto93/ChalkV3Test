@@ -3,6 +3,9 @@ Query:
     config:
         description: "Chalkboard Education API"
         fields:
+            user:
+                type: "User!"
+                resolve: "@=resolver('user')"
             course:
                 type: "Course"
                 args:
