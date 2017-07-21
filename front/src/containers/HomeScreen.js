@@ -12,7 +12,7 @@ export class HomeScreen extends Component {
       ? <div>
           <h1>Welcome!</h1>
           <p>This is init!!!</p>
-          <Link to="/course">Course</Link>
+          <Link to="/courses">Course</Link>
         </div>
       : <LoginScreen />;
   }
