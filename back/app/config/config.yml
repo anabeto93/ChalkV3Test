@@ -37,6 +37,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        admin_menu_color: "%admin_menu_color%"
 
 # Doctrine Configuration
 doctrine:

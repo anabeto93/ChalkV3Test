@@ -10,12 +10,19 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
         {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('assets/css/admin.css') }}">
+            <link rel="stylesheet" href="{{ asset('build/admin-style.css') }}">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    {% block body %}
+        {{ include(':Admin/Common:menu.html.twig') }}
+        <div class="container-fluid">
+            {% block content %}{% endblock %}
+        </div>
+    {% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('build/admin.js') }}"></script>
+        {% endblock %}
     </body>
 </html>

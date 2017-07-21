@@ -15,6 +15,7 @@
 !var/SymfonyRequirements.php
 /vendor/
 /web/bundles/
+/node_modules
 
 # Vagrant
 /.vagrant/
@@ -24,6 +25,9 @@
 /ansible/group_vars/*_local.yml
 /ansible/roles/*
 !ansible/roles/.gitkeep
+
+# Build
+/web/build
 
 # PHP CS Fixer
 .php_cs.cache
