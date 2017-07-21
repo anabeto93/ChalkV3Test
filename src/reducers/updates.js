@@ -3,6 +3,7 @@ import moment from 'moment';
 import {
   FAIL_GET_UPDATES,
   RECEIVE_UPDATES,
+  REINIT_UPDATES,
   REQUEST_UPDATES
 } from '../actions/actionCreators';
 
@@ -16,6 +17,14 @@ export default function updates(
   action
 ) {
   switch (action.type) {
+    case REINIT_UPDATES: {
+      return Object.assign({}, state, {
+        isFetching: false,
+        hasUpdates: false,
+        size: 0
+      });
+    }
+
     case REQUEST_UPDATES: {
       return Object.assign({}, state, {
         isFetching: true
