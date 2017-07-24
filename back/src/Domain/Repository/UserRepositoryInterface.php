@@ -11,6 +11,7 @@
 namespace App\Domain\Repository;
 
 use App\Domain\Model\User;
+use App\Domain\Pagination\PaginatedResult;
 
 interface UserRepositoryInterface
 {
@@ -23,6 +24,14 @@ interface UserRepositoryInterface
      * @param User $user
      */
     public function set(User $user);
+
+    /**
+     * @param int $page
+     * @param int $limit
+     *
+     * @return PaginatedResult
+     */
+    public function paginate(int $page, int $limit): PaginatedResult;
 
     /**
      * @param string|null $apiToken
