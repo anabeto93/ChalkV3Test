@@ -19,6 +19,9 @@ class CreateHandler
     /** @var CourseRepositoryInterface */
     private $courseRepository;
 
+    /** @var Generator */
+    private $generator;
+
     /** @var \DateTimeInterface */
     private $dateTime;
 
