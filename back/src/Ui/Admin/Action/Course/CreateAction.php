@@ -15,7 +15,7 @@ use App\Application\Command\Course\Create;
 use App\Ui\Admin\Form\Type\Course\CreateType;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,7 +29,7 @@ class CreateAction
     /** @var CommandBusInterface */
     private $commandBus;
 
-    /** @var FormFactory */
+    /** @var FormFactoryInterface */
     private $formFactory;
 
     /** @var FlashBag */
@@ -39,16 +39,16 @@ class CreateAction
     private $router;
 
     /**
-     * @param EngineInterface     $engine
-     * @param CommandBusInterface $commandBus
-     * @param FormFactory         $formFactory
-     * @param FlashBag            $flashBag
-     * @param Router              $router
+     * @param EngineInterface      $engine
+     * @param CommandBusInterface  $commandBus
+     * @param FormFactoryInterface $formFactory
+     * @param FlashBag             $flashBag
+     * @param Router               $router
      */
     public function __construct(
         EngineInterface $engine,
         CommandBusInterface $commandBus,
-        FormFactory $formFactory,
+        FormFactoryInterface $formFactory,
         FlashBag $flashBag,
         Router $router
     ) {
