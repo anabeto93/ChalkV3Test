@@ -10,3 +10,6 @@ services:
 
     App\Ui\Admin\Action\User\ListAction:
         autowire: true
+
+    App\Ui\Admin\Action\User\CreateAction:
+        autowire: true

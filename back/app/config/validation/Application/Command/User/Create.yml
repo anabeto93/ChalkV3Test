@@ -1,0 +1,13 @@
+App\Application\Command\User\Create:
+    properties:
+        firstName:
+            - NotBlank: ~
+        lastName:
+            - NotBlank: ~
+        phoneNumber:
+            - NotBlank: ~
+            - Regex:
+                pattern: '/^\+/'
+                message: 'validator.phoneNumber.mustStartWithPlus'
+        country:
+            - NotBlank: ~
