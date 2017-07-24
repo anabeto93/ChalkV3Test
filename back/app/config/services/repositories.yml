@@ -1,4 +1,7 @@
 services:
+    App\Infrastructure\Repository\Paginator:
+        autowire: true
+
     App\Infrastructure\Repository\CourseRepository:
         autowire: true
     App\Domain\Repository\CourseRepositoryInterface: '@App\Infrastructure\Repository\CourseRepository'
