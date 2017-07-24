@@ -26,6 +26,10 @@ use Symfony\Component\Translation\TranslatorInterface;
 
 class CreateAction
 {
+    const TEMPLATE = 'Admin/User/create.html.twig';
+    const ROUTE_REDIRECT_AFTER_SUCCESS = 'admin_user_list';
+    const TRANS_VALIDATOR_PHONE_NUMBER_USED = 'validator.phoneNumber.alreadyUsed';
+
     /** @var EngineInterface */
     private $engine;
 
@@ -85,15 +89,15 @@ class CreateAction
                 $this->commandBus->handle($create);
                 $this->flashBag->add('success', 'flash.admin.user.create.success');
 
-                return new RedirectResponse($this->router->generate('admin_user_list'));
+                return new RedirectResponse($this->router->generate(self::ROUTE_REDIRECT_AFTER_SUCCESS));
             } catch (PhoneNumberAlreadyUsedException $exception) {
                 $form->get('phoneNumber')->addError(new FormError(
-                    $this->translator->trans('validator.phoneNumber.alreadyUsed', [], 'validators')
+                    $this->translator->trans(self::TRANS_VALIDATOR_PHONE_NUMBER_USED, [], 'validators')
                 ));
             }
         }
 
-        return $this->engine->renderResponse('Admin/User/create.html.twig', [
+        return $this->engine->renderResponse(self::TEMPLATE, [
             'form' => $form->createView()
         ]);
     }
