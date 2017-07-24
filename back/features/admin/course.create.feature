@@ -1,5 +1,5 @@
-Feature: Course
-  Scenario: I can create a crouse
+Feature: Course creation
+  Scenario: I can create a course
     Given the database is purged
     When I am on "/admin/course"
     Then I should see "admin.course.create.title"
