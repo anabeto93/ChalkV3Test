@@ -1,7 +1,7 @@
 import _ from "lodash";
-import {List, ListItem} from "material-ui/List";
-import {Link} from "react-router-dom";
-import React, {Component} from "react";
+import { List, ListItem } from "material-ui/List";
+import { Link } from "react-router-dom";
+import React, { Component } from "react";
 
 export class CoursesList extends Component {
   shouldComponentUpdate(nextProps) {
@@ -9,15 +9,11 @@ export class CoursesList extends Component {
       return true;
     }
 
-    if (!_.isEqual(this.props.courses, nextProps.courses)) {
-      return true;
-    }
-
-    return false;
+    return !_.isEqual(this.props.courses, nextProps.courses);
   }
 
   render() {
-    const {courses} = this.props;
+    const { courses } = this.props;
 
     console.log('rendering CoursesList');
 
