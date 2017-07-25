@@ -12,16 +12,7 @@ class CourseManager {
   getCourse(uuid) {
     let state = this.store.getState();
     if (state.hasOwnProperty('courses')) {
-      let courses = state.courses;
-      let foundedCourse = null;
-      courses.items.forEach((course) => {
-        if (course.uuid === uuid) {
-          foundedCourse = course;
-          return true;
-        }
-      });
-
-      return foundedCourse;
+      return state.courses.items.find((course) => course.uuid === uuid);
     }
   }
 }
