@@ -12,7 +12,7 @@ export class FolderScreen extends Component {
       <div>
         <h1>Folders</h1>
         <List>
-          { course !== null && course.folders.map((folder) => {
+          { course !== undefined && course.folders.map((folder) => {
             return (
               <ListItem key={folder.uuid} primaryText={folder.title}/>
             )
