@@ -24,11 +24,16 @@ export class FolderScreen extends Component {
         <List>
           { course !== undefined && course.folders.map((folder) => {
             return (
-              <ListItem key={folder.uuid} primaryText={folder.title}/>
+              <Link key={folder.uuid} to={`/courses/${course.uuid}/folders/${folder.uuid}/sessions/list`}>
+                <ListItem primaryText={folder.title}/>
+              </Link>
             )
           }) }
         </List>
-        <Link to="/">Home</Link>
+        <ul>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/courses">Back</Link></li>
+        </ul>
       </div>
     );
   }
