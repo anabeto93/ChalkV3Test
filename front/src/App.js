@@ -50,6 +50,7 @@ class App extends Component {
               <PrivateRoute exact path="/courses" component={CourseScreen} />
               <PrivateRoute exact path="/courses/:courseId/folders/list" component={FolderScreen} />
               <PrivateRoute exact path="/courses/:courseId/folders/:folderId/sessions/list" component={SessionScreen} />
+              <PrivateRoute exact path="/courses/:courseId/sessions/list" component={SessionScreen} />
             </div>
           </Router>
         </MuiThemeProvider>
