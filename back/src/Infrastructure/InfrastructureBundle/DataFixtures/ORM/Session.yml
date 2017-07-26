@@ -14,6 +14,18 @@ App\Domain\Model\Session:
     session_2:
         __construct:
             - "382f5578-12eb-4af1"
+            - "Votre première query"
+            - "This is the content"
+            - '@course_1'
+            - '@folder_1'
+            - <dateTime()>
+            - 771
+            - 123123
+        updatedAt: <(new DateTime('2017-07-16 04:00:00.000'))>
+        contentUpdatedAt: <(new DateTime('2017-07-17 16:00:00.000'))>
+    session_3:
+        __construct:
+            - "382f5578-12eb-4af2"
             - "Premier pas avec Redux"
             - "This is the content"
             - '@course_2'
