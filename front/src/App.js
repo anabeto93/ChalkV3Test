@@ -1,20 +1,19 @@
-import AppBar from 'material-ui/AppBar';
-import React, { Component } from 'react';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import React, { Component } from "react";
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 
-import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Provider } from "react-redux";
+import { BrowserRouter as Router, Route,  } from "react-router-dom";
 
-import CourseScreen from './containers/CourseScreen';
-import HomeScreen from './containers/HomeScreen';
-import FolderScreen from './containers/FolderScreen';
-import SessionScreen from './containers/SessionScreen';
-import PrivateRoute from './containers/PrivateRoute';
-import store from './store/store';
-import Updates from './components/Updates/Updates';
-import Header from './components/Header';
-import './App.css';
+import CourseScreen from "./containers/CourseScreen";
+import HomeScreen from "./containers/HomeScreen";
+import FolderScreen from "./containers/FolderScreen";
+import SessionScreen from "./containers/SessionScreen";
+import PrivateRoute from "./containers/PrivateRoute";
+import store from "./store/store";
+import Header from "./components/Header";
+import Updates from "./components/Updates/Updates";
+import "./App.css";
 
 const PRIMARY_COLOR = '#fc3691';
 

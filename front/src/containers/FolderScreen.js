@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { List, ListItem } from "material-ui/List";
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import courseManager from "../services/CourseManager";
+import { setCurrentCourse } from "../actions/actionCreators";
+import store from "../store/store";
 
 class FolderScreen extends Component {
   static DEFAULT_FOLDER = 'default';
@@ -16,6 +17,10 @@ class FolderScreen extends Component {
     }
   }
 
+  componentDidMount() {
+    store.dispatch(setCurrentCourse(this.props.course));
+  }
+
   render() {
     const { course } = this.props;
 
@@ -24,7 +29,7 @@ class FolderScreen extends Component {
     return (
       <div>
         { course !== undefined && course.folders.length > 0 && course.folders[0].uuid === FolderScreen.DEFAULT_FOLDER &&
-          <Redirect push to={`/courses/${course.uuid}/sessions/list`}/>
+        <Redirect push to={`/courses/${course.uuid}/sessions/list`}/>
         }
 
         <h1>Folders</h1>
@@ -46,7 +51,7 @@ class FolderScreen extends Component {
   }
 }
 
-function mapStateToProps({}, ownProps) {
+function mapStateToProps(state, ownProps) {
   let course = courseManager.getCourse(ownProps.match.params.courseId);
 
   return { course };

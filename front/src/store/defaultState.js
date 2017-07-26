@@ -13,6 +13,9 @@ const defaultState = {
     hasUpdates: false,
     dateLastCheck: null,
     size: 0
+  },
+  routing: {
+    course: null
   }
 };
 
