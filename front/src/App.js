@@ -13,25 +13,13 @@ import SessionScreen from './containers/SessionScreen';
 import PrivateRoute from './containers/PrivateRoute';
 import store from './store/store';
 import Updates from './components/Updates/Updates';
-
+import Header from './components/Header';
 import './App.css';
-import logo from './assets/logo.png';
 
 const PRIMARY_COLOR = '#fc3691';
 
 class App extends Component {
   render() {
-    const logoApp = (
-      <span>
-        <img
-          src={logo}
-          alt="Chalkboard Education"
-          style={{ float: 'left', maxHeight: '80%', margin: '6px' }}
-        />{' '}
-        Chalkboard Education
-      </span>
-    );
-
     return (
       <Provider store={store}>
         <MuiThemeProvider
@@ -44,7 +32,7 @@ class App extends Component {
         >
           <Router>
             <div>
-              <AppBar title={logoApp} />
+              <Header/>
               <Updates />
               <Route exact path="/" component={HomeScreen} />
               <PrivateRoute exact path="/courses" component={CourseScreen} />
