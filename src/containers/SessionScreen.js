@@ -34,7 +34,7 @@ class SessionScreen extends Component {
  * @param {Object} props
  * @return {{folder: (Object|undefined)}}
  */
-function mapStateToProps({}, props) {
+function mapStateToProps(state, props) {
   let course = courseManager.getCourse(props.match.params.courseId);
   let folderId = props.match.params.folderId || FolderScreen.DEFAULT_FOLDER;
 
