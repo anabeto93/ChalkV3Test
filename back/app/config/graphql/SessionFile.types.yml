@@ -1,0 +1,17 @@
+SessionFile:
+    type: object
+    config:
+        description: "Image of the session"
+        fields:
+            url:
+                type: "String!"
+                description: "url of the image"
+            size:
+                type: "Int!"
+                description: "Size of the image in byte"
+            createdAt:
+                type: "DateTime!"
+                description: "Date of the creation in format 2017-01-15 10:00"
+            updatedAt:
+                type: "DateTime!"
+                description: "Date of the last update in format 2017-01-15 10:00"

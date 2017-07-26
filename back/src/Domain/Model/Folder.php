@@ -30,19 +30,29 @@ class Folder
     /** @var \DateTimeInterface */
     private $updatedAt;
 
+    /** @var int */
+    private $size;
+
     /**
      * @param string             $uuid
      * @param string             $title
      * @param Course             $course
      * @param \DateTimeInterface $createdAt
+     * @param int                $size
      */
-    public function __construct(string $uuid, string $title, Course $course, \DateTimeInterface $createdAt)
-    {
+    public function __construct(
+        string $uuid,
+        string $title,
+        Course $course,
+        \DateTimeInterface $createdAt,
+        int $size = 0
+    ) {
         $this->uuid = $uuid;
         $this->title = $title;
         $this->course = $course;
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
+        $this->size = $size;
     }
 
     /**
@@ -91,5 +101,13 @@ class Folder
     public function getUpdatedAt(): \DateTimeInterface
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSize(): int
+    {
+        return $this->size;
     }
 }

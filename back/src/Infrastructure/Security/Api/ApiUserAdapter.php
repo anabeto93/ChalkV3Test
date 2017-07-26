@@ -27,6 +27,14 @@ class ApiUserAdapter implements UserInterface
     }
 
     /**
+     * @return User
+     */
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getRoles(): array

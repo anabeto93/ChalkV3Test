@@ -1,0 +1,24 @@
+App\Domain\Model\Session\File:
+    type: entity
+    table: session_file
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        path:
+            type: string
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+        size:
+            type: integer
+    manyToOne:
+        session:
+            targetEntity: App\Domain\Model\Session
+            inversedBy: files
+            joinColumn:
+                onDelete: CASCADE
+                nullable: false
