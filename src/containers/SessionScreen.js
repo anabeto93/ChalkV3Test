@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { List, ListItem } from "material-ui";
 import { connect } from "react-redux";
 import courseManager from "../services/CourseManager";
+import FolderScreen from "./FolderScreen";
 
 class SessionScreen extends Component {
   render() {
@@ -35,10 +36,11 @@ class SessionScreen extends Component {
  */
 function mapStateToProps({}, props) {
   let course = courseManager.getCourse(props.match.params.courseId);
+  let folderId = props.match.params.folderId || FolderScreen.DEFAULT_FOLDER;
 
   if (course === undefined) return {};
 
-  let folder = courseManager.getFolderFromCourse(course, props.match.params.folderId);
+  let folder = courseManager.getFolderFromCourse(course, folderId);
 
   return { folder, course };
 }
