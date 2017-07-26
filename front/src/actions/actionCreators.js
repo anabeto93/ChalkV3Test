@@ -88,10 +88,17 @@ export function getUpdates() {
 
 // SET
 
+export const RESET_ROUTING_DATA = '@@CHALKBOARDEDUCATION/RESET_ROUTING_DATA';
 export const SET_CURRENT_COURSE = '@@CHALKBOARDEDUCATION/SET_CURRENT_COURSE';
 
 export function setCurrentCourse(course) {
   return {
     type: SET_CURRENT_COURSE, payload: { course }
+  }
+}
+
+export function resetRoutingData() {
+  return {
+    type: RESET_ROUTING_DATA, payload: {}
   }
 }

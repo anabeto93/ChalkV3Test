@@ -14,9 +14,7 @@ const defaultState = {
     dateLastCheck: null,
     size: 0
   },
-  routing: {
-    course: null
-  }
+  routing: {}
 };
 
 export default defaultState;
