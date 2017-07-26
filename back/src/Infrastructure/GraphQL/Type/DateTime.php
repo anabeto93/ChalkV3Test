@@ -23,11 +23,11 @@ class DateTime
         character sequences. The DateTime type have the format 2017-01-15 10:00';
 
     /**
-     * @param \DateTime $value
+     * @param \DateTimeInterface $value
      *
      * @return string
      */
-    public static function serialize(\DateTime $value): string
+    public static function serialize(\DateTimeInterface $value): string
     {
         return $value->format(self::FORMAT);
     }
