@@ -30,6 +30,7 @@ class SessionManager
 
     /**
      * @param string      $uuid
+     * @param int         $rank
      * @param string      $sessionTitle
      * @param string|null $content
      * @param Course      $course
@@ -39,12 +40,13 @@ class SessionManager
      */
     public function create(
         string $uuid,
+        int $rank,
         string $sessionTitle,
         string $content = null,
         Course $course,
         Folder $folder = null
     ): Session {
-        $session = new Session($uuid, $sessionTitle, $content, $course, $folder, new \DateTime());
+        $session = new Session($uuid, $rank, $sessionTitle, $content, $course, $folder, new \DateTime());
 
         $this->sessionRepository->add($session);
 

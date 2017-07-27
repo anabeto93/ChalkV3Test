@@ -46,8 +46,10 @@ class CourseRepository implements CourseRepositoryInterface
         $queryBuilder = $this
             ->entityManager
             ->createQueryBuilder()
-            ->select('course')
+            ->select('course, folder, session')
             ->from(Course::class, 'course')
+            ->leftJoin('course.folders', 'folder')
+            ->leftJoin('course.sessions', 'session')
         ;
 
         return $queryBuilder->getQuery()->getResult();

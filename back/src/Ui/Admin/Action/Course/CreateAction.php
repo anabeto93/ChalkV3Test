@@ -13,13 +13,13 @@ namespace App\Ui\Admin\Action\Course;
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\Course\Create;
 use App\Ui\Admin\Form\Type\Course\CreateType;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 class CreateAction
 {
@@ -32,25 +32,25 @@ class CreateAction
     /** @var FormFactoryInterface */
     private $formFactory;
 
-    /** @var FlashBag */
+    /** @var FlashBagInterface */
     private $flashBag;
 
-    /** @var Router */
+    /** @var RouterInterface */
     private $router;
 
     /**
      * @param EngineInterface      $engine
      * @param CommandBusInterface  $commandBus
      * @param FormFactoryInterface $formFactory
-     * @param FlashBag             $flashBag
-     * @param Router               $router
+     * @param FlashBagInterface    $flashBag
+     * @param RouterInterface      $router
      */
     public function __construct(
         EngineInterface $engine,
         CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory,
-        FlashBag $flashBag,
-        Router $router
+        FlashBagInterface $flashBag,
+        RouterInterface $router
     ) {
         $this->engine = $engine;
         $this->commandBus = $commandBus;

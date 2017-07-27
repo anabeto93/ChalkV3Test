@@ -22,3 +22,11 @@ services:
             autowire: true
             tags:
                 - { name: tactician.handler, command: App\Application\Query\Folder\FolderListQuery }
+
+        #
+        # Session
+        #
+        App\Application\Query\Session\SessionListQueryHandler:
+            autowire: true
+            tags:
+                - { name: tactician.handler, command: App\Application\Query\Session\SessionListQuery }

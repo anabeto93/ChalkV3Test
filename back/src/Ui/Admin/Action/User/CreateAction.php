@@ -14,14 +14,14 @@ use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\User\Create;
 use App\Domain\Exception\User\PhoneNumberAlreadyUsedException;
 use App\Ui\Admin\Form\Type\User\CreateType;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class CreateAction
@@ -39,10 +39,10 @@ class CreateAction
     /** @var FormFactoryInterface */
     private $formFactory;
 
-    /** @var FlashBag */
+    /** @var FlashBagInterface */
     private $flashBag;
 
-    /** @var Router */
+    /** @var RouterInterface */
     private $router;
 
     /** @var TranslatorInterface */
@@ -52,16 +52,16 @@ class CreateAction
      * @param EngineInterface      $engine
      * @param CommandBusInterface  $commandBus
      * @param FormFactoryInterface $formFactory
-     * @param FlashBag             $flashBag
-     * @param Router               $router
+     * @param FlashBagInterface    $flashBag
+     * @param RouterInterface      $router
      * @param TranslatorInterface  $translator
      */
     public function __construct(
         EngineInterface $engine,
         CommandBusInterface $commandBus,
         FormFactoryInterface $formFactory,
-        FlashBag $flashBag,
-        Router $router,
+        FlashBagInterface $flashBag,
+        RouterInterface $router,
         TranslatorInterface $translator
     ) {
         $this->engine = $engine;
