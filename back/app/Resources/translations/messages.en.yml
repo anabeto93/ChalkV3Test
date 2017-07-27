@@ -1,0 +1,7 @@
+admin.course.column.enabled: 'Enabled'
+admin.course.column.teacherName: 'Lecturer'
+admin.course.column.title: 'Title'
+admin.course.column.university: 'University'
+admin.course.no-result: 'No course'
+admin.course.title: 'List of courses'
+admin.link.course.list: 'Courses'

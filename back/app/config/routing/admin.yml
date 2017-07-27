@@ -2,3 +2,8 @@ admin_home:
     path: /
     methods: [GET]
     defaults: { _controller: App\Ui\Admin\Action\HomeAction }
+
+admin_course_list:
+    path: /course
+    methods: [GET]
+    defaults: { _controller: App\Ui\Admin\Action\Course\ListAction }

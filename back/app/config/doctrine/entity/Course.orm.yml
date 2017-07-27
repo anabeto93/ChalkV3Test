@@ -17,6 +17,12 @@ App\Domain\Model\Course:
             nullable: true
         teacherName:
             type: string
+        university:
+            type: string
+        enabled:
+            type: boolean
+            option:
+                default: false
         createdAt:
             type: datetime
         updatedAt:

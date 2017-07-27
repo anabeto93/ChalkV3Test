@@ -10,7 +10,7 @@ parameters:
 
 framework:
     #esi: ~
-    #translator: { fallbacks: ['%locale%'] }
+    translator: { fallbacks: [en] }
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -37,6 +37,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+        admin_menu_color: "%admin_menu_color%"
 
 # Doctrine Configuration
 doctrine:
@@ -75,4 +77,13 @@ swiftmailer:
     password: '%mailer_password%'
     spool: { type: memory }
 
-
+tactician:
+    commandbus:
+        default:
+            middleware:
+                - tactician.middleware.doctrine
+                - tactician.middleware.command_handler
+        query:
+            middleware:
+                - tactician.middleware.validator
+                - tactician.middleware.command_handler

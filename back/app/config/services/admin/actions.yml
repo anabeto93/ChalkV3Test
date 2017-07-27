@@ -1,3 +1,5 @@
 services:
     App\Ui\Admin\Action\HomeAction:
         autowire: true
+    App\Ui\Admin\Action\Course\ListAction:
+        autowire: true

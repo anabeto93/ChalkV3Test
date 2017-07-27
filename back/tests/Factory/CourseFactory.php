@@ -30,6 +30,8 @@ class CourseFactory
             $uuid,
             $title,
             'teacher Name',
+            'University of Chalkboard',
+            true,
             $dateTime !== null ? $dateTime : new \DateTime()
         );
     }

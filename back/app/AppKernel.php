@@ -19,6 +19,9 @@ class AppKernel extends Kernel
             // GraphQL
             new Overblog\GraphQLBundle\OverblogGraphQLBundle(),
 
+            // Tactician
+            new League\Tactician\Bundle\TacticianBundle(),
+
             // Sonata
             new Sonata\IntlBundle\SonataIntlBundle(),
 
