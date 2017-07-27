@@ -23,8 +23,8 @@ class ListActionTest extends TestCase
     public function testInvoke()
     {
         // Context
-        $course1 = new CourseView(1, 'title1', 'teacherName1', 'university1', true);
-        $course2 = new CourseView(2, 'title2', 'teacherName2', 'university2', false);
+        $course1 = new CourseView(1, 'title1', 'teacherName1', 'university1', true, 1);
+        $course2 = new CourseView(2, 'title2', 'teacherName2', 'university2', false, 4);
 
         // Mock
         $engine = $this->prophesize(EngineInterface::class);

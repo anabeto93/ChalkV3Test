@@ -42,7 +42,8 @@ class CourseListQueryHandler
                 $course->getTitle(),
                 $course->getTeacherName(),
                 $course->getUniversity(),
-                $course->isEnabled()
+                $course->isEnabled(),
+                count($course->getFolders())
             );
         }
 

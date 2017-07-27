@@ -14,6 +14,7 @@ use App\Application\Query\Course\CourseListQuery;
 use App\Application\Query\Course\CourseListQueryHandler;
 use App\Application\View\Course\CourseView;
 use App\Domain\Model\Course;
+use App\Domain\Model\Folder;
 use App\Domain\Repository\CourseRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -24,6 +25,9 @@ class CourseListQueryHandlerTest extends TestCase
         $course1 = $this->prophesize(Course::class);
         $course2 = $this->prophesize(Course::class);
         $course3 = $this->prophesize(Course::class);
+        $folder1 = $this->prophesize(Folder::class);
+        $folder2 = $this->prophesize(Folder::class);
+        $folder3 = $this->prophesize(Folder::class);
 
         // Expected calls
         $course1->getId()->shouldBeCalled()->willReturn('1');
@@ -46,6 +50,10 @@ class CourseListQueryHandlerTest extends TestCase
         $course2->isEnabled()->shouldBeCalled()->willReturn(false);
         $course3->isEnabled()->shouldBeCalled()->willReturn(false);
 
+        $course1->getFolders()->shouldBeCalled()->willReturn([$folder1->reveal()]);
+        $course2->getFolders()->shouldBeCalled()->willReturn([]);
+        $course3->getFolders()->shouldBeCalled()->willReturn([$folder2->reveal(), $folder3->reveal()]);
+
         // Mock
         $courseRepository = $this->prophesize(CourseRepositoryInterface::class);
         $courseRepository->getAll()->shouldBeCalled()->willReturn([
@@ -58,9 +66,9 @@ class CourseListQueryHandlerTest extends TestCase
         $result = $handler->handle(new CourseListQuery());
 
         $expected = [
-            new CourseView(1, 'title 1', 'teacher Name 1', 'University 1', true),
-            new CourseView(2, 'title 2', 'teacher Name 2', 'University 2', false),
-            new CourseView(3, 'title 3', 'teacher Name 3', 'University 3', false),
+            new CourseView(1, 'title 1', 'teacher Name 1', 'University 1', true, 1),
+            new CourseView(2, 'title 2', 'teacher Name 2', 'University 2', false, 0),
+            new CourseView(3, 'title 3', 'teacher Name 3', 'University 3', false, 2),
         ];
 
         $this->assertEquals($expected, $result);
