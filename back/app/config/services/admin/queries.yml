@@ -14,3 +14,11 @@ services:
             autowire: true
             tags:
                 - { name: tactician.handler, command: App\Application\Query\User\UserListQuery }
+
+        #
+        # Folder
+        #
+        App\Application\Query\Folder\FolderListQueryHandler:
+            autowire: true
+            tags:
+                - { name: tactician.handler, command: App\Application\Query\Folder\FolderListQuery }

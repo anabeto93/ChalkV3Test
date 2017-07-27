@@ -21,6 +21,7 @@
                 <th class="col-md-4">{{ 'admin.course.column.title'|trans }}</th>
                 <th class="col-md-2">{{ 'admin.course.column.teacherName'|trans }}</th>
                 <th class="col-md-3">{{ 'admin.course.column.university'|trans }}</th>
+                <th class="col-md-3">{{ 'admin.course.column.folders'|trans }}</th>
                 <th class="col-md-3">{{ 'admin.course.column.enabled'|trans }}</th>
             </tr>
             </thead>
@@ -30,6 +31,11 @@
                     <td>{{ course.title }}</td>
                     <td>{{ course.teacherName }}</td>
                     <td>{{ course.university }}</td>
+                    <td>
+                        <a href="{{ path('admin_folder_list', {'course': course.id}) }}">
+                            {{ course.numberOfFolders }}
+                        </a>
+                    </td>
                     <td>{{ course.enabled ? '✔︎' : '' }}</td>
                 </tr>
             {% endfor %}

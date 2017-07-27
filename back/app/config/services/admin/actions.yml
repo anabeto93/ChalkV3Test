@@ -13,3 +13,6 @@ services:
 
     App\Ui\Admin\Action\User\CreateAction:
         autowire: true
+
+    App\Ui\Admin\Action\Folder\ListAction:
+        autowire: true
