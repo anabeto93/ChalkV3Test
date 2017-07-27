@@ -1,7 +1,14 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    <h1>{{ 'admin.course.title'|trans }}</h1>
+    <h1>
+        {{ 'admin.course.title'|trans }}
+        <span class="pull-right">
+            <a class="btn btn-primary" href="{{ path('admin_course_create') }}">
+                {{ 'admin.course.create.title'|trans }}
+            </a>
+        </span>
+    </h1>
     <hr>
     {% if courses is empty %}
         <div class="alert alert-info">{{ 'admin.course.no-result'|trans }}</div>

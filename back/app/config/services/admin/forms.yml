@@ -1,0 +1,4 @@
+services:
+    App\Ui\Admin\Form\Extension\TranslationDomainExtension:
+        tags:
+            - { name: 'form.type_extension', extended_type: 'Symfony\Component\Form\Extension\Core\Type\FormType' }

@@ -25,6 +25,11 @@ class AppKernel extends Kernel
             // Sonata
             new Sonata\IntlBundle\SonataIntlBundle(),
 
+            // Elao Form
+            new Elao\Bundle\FormBundle\ElaoFormBundle(),
+            new Elao\Bundle\FormTranslationBundle\ElaoFormTranslationBundle(),
+            new Elao\Bundle\Theme\TwitterBootstrap3Bundle\ElaoThemeTwitterBootstrap3Bundle(),
+
             // App
             new App\Infrastructure\InfrastructureBundle\InfrastructureBundle(),
         ];

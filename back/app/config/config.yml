@@ -17,7 +17,11 @@ framework:
         strict_requirements: ~
     form: ~
     csrf_protection: ~
-    validation: { enable_annotations: true }
+    validation:
+        enable_annotations: false
+        mapping:
+            path:
+                - '%kernel.project_dir%/app/config/validation'
     #serializer: { enable_annotations: true }
     templating:
         engines: ['twig']
@@ -33,9 +37,15 @@ framework:
     php_errors:
         log: true
 
+# Form translation
+elao_form_translation:
+    auto_generate: true
+
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'
+    form_themes:
+        - ":Admin/Common:default_form_layout.html.twig"
     strict_variables: '%kernel.debug%'
     globals:
         admin_menu_color: "%admin_menu_color%"
