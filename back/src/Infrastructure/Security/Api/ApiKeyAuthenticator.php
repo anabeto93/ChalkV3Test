@@ -28,7 +28,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
      */
     public function createToken(Request $request, $providerKey): PreAuthenticatedToken
     {
-        $key = $request->headers->get('key');
+        $key = $this->extractKey($request->headers->get('authorization'));
 
         if (null === $key) {
             throw new BadCredentialsException('No key provided.');
@@ -76,5 +76,20 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
                 ['message' => strtr($exception->getMessageKey(), $exception->getMessageData())],
             ]
         ], 401);
+    }
+
+    private function extractKey(string $header = null): ?string
+    {
+        if ($header === null) {
+            return null;
+        }
+
+        $matches = [];
+
+        if (1 === preg_match('/^Bearer (.+)$/', $header, $matches)) {
+            return $matches[1];
+        }
+
+        return null;
     }
 }
