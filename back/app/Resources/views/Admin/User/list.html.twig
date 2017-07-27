@@ -1,8 +1,15 @@
 {% extends '::base.html.twig' %}
 
+{% block title 'admin.user.list.title'|trans %}
+
 {% block content %}
     <h1>
         {{ 'admin.user.list.title'|trans }}
+        <span class="pull-right">
+            <a class="btn btn-primary" href="{{ path('admin_user_create') }}">
+                {{ 'admin.user.create.title'|trans }}
+            </a>
+        </span>
     </h1>
     <hr>
     {% if userList.users is empty %}
