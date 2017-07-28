@@ -4,6 +4,8 @@ form.course_create.children.submit.label: Save
 form.course_create.children.teacherName.label: Lecturer
 form.course_create.children.title.label: Title
 form.course_create.children.university.label: University
+form.folder_create.children.submit.label: 'Save'
+form.folder_create.children.title.label: 'Title'
 form.user_create.children.country.label: 'Country'
 form.user_create.children.firstName.label: 'First name'
 form.user_create.children.lastName.label: 'Last name'
