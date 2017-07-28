@@ -1,3 +1,4 @@
 flash.admin.course.create.success: 'Course created with success'
 flash.admin.folder.create.success: 'Folder created with success'
+flash.admin.session.create.success: 'Session created with success'
 flash.admin.user.create.success: 'Student created with success'

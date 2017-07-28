@@ -22,3 +22,6 @@ services:
 
     App\Ui\Admin\Action\Session\ListAction:
         autowire: true
+
+    App\Ui\Admin\Action\Session\CreateAction:
+        autowire: true
