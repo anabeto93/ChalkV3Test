@@ -29,4 +29,11 @@ interface FileStorageInterface
      * @param string $pathToRemove
      */
     public function remove(string $pathToRemove);
+
+    /**
+     * @param string $path
+     *
+     * @return int
+     */
+    public function size(string $path): int;
 }

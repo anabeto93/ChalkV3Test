@@ -11,6 +11,7 @@
 namespace App\Infrastructure\Adapter;
 
 use App\Application\Adapter\FileStorageInterface;
+use App\Domain\Exception\FileStorage\FileDoesNotExistException;
 use Symfony\Component\Filesystem\Filesystem;
 
 class FileStorage implements FileStorageInterface
@@ -50,5 +51,23 @@ class FileStorage implements FileStorageInterface
     public function remove(string $pathToRemove)
     {
         $this->fileSystem->remove($pathToRemove);
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @throws FileDoesNotExistException
+     */
+    public function size(string $path): int
+    {
+        $size = filesize($path);
+
+        if ($size === false) {
+            throw new FileDoesNotExistException(
+                sprintf('The file %s does not exist and the size could not be calculated', $path)
+            );
+        }
+
+        return $size;
     }
 }

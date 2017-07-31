@@ -72,7 +72,7 @@ class ImageMover
 
             $this->fileStorage->copy($currentPath, $absolutePath);
 
-            $imageSize = filesize($absolutePath);
+            $imageSize = $this->fileStorage->size($absolutePath);
             $filesSize += $imageSize;
 
             $sessionFile = new File(

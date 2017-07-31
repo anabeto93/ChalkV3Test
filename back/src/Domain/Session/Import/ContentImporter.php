@@ -79,7 +79,7 @@ class ContentImporter
     ) {
         $imagePath = sprintf(self::IMAGE_PATH, $course->getUuid(), $uuid);
 
-        $pathToUpload = sprintf('/tmp/chalkboard_session_%s', uniqid());
+        $pathToUpload = sprintf('/tmp/chalkboard_session_%s', $uuid);
 
         $zip = new \ZipArchive();
         $zip->open($uploadedFile->getPath() . '/' . $uploadedFile->getFilename());
