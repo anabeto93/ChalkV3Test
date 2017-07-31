@@ -38,5 +38,6 @@ class Create implements Command
     public function __construct(Course $course)
     {
         $this->course = $course;
+        $this->rank = 0;
     }
 }
