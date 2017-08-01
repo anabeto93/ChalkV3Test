@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import { AppBar } from "material-ui";
 
@@ -7,10 +7,9 @@ import logoImage from "../assets/logo.png";
 import RouteResolver from "../services/RouteResolver";
 
 class Header extends Component {
-  /**
-   * @param {string} title
-   */
-  static logo(title = 'Chalkboard Education') {
+  logo() {
+    const { title } = this.props;
+
     return (
       <span>
         <img
@@ -23,11 +22,16 @@ class Header extends Component {
     );
   }
 
-  render() {
-    const { title } = this.props;
-
+  leftIcon() {
+    const { history } = this.props;
     return (
-      <AppBar title={Header.logo(title !== null ? title : 'Chalkboard Education')}/>
+        <button onClick={ history.goBack }>Back</button>
+    )
+  }
+
+  render() {
+    return (
+      <AppBar iconElementLeft={this.leftIcon()} title={this.logo()}/>
     )
   }
 }
