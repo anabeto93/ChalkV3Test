@@ -1,7 +1,10 @@
 import React, { Component } from "react";
+import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
 import { AppBar } from "material-ui";
+
 import logoImage from "../assets/logo.png";
+import RouteResolver from "../services/RouteResolver";
 
 class Header extends Component {
   /**
@@ -21,16 +24,19 @@ class Header extends Component {
   }
 
   render() {
-    const { course } = this.props;
+    const { title } = this.props;
 
     return (
-      <AppBar title={Header.logo(course !== undefined && course !== null ? course.title : 'Chalkboard Education')}/>
+      <AppBar title={Header.logo(title !== null ? title : 'Chalkboard Education')}/>
     )
   }
 }
 
-function mapStateToProps({ routing: { course } }) {
-  return { course };
+function mapStateToProps(state, props) {
+    let route = RouteResolver.resolve(props.location);
+    let title = RouteResolver.resolveTitle(route);
+
+    return { title };
 }
 
-export default connect(mapStateToProps)(Header);
+export default withRouter(connect(mapStateToProps)(Header));

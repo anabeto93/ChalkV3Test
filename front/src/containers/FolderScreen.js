@@ -3,8 +3,6 @@ import { List, ListItem } from "material-ui/List";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import courseManager from "../services/CourseManager";
-import { setCurrentCourse } from "../actions/actionCreators";
-import store from "../store/store";
 
 class FolderScreen extends Component {
   static DEFAULT_FOLDER = 'default';
@@ -15,10 +13,6 @@ class FolderScreen extends Component {
     if (props.course !== undefined) {
       document.title = props.course.title;
     }
-  }
-
-  componentDidMount() {
-    store.dispatch(setCurrentCourse(this.props.course));
   }
 
   render() {

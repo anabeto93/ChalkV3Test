@@ -13,8 +13,7 @@ const defaultState = {
     hasUpdates: false,
     dateLastCheck: null,
     size: 0
-  },
-  routing: {}
+  }
 };
 
 export default defaultState;
