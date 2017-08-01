@@ -11,23 +11,27 @@
 namespace App\Infrastructure\Repository;
 
 use App\Domain\Model\User;
+use App\Domain\Pagination\PaginatedResult;
 use App\Domain\Repository\UserRepositoryInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query;
 
 class UserRepository implements UserRepositoryInterface
 {
-    /**
-     * @var EntityManager
-     */
+    /** @var EntityManager */
     private $entityManager;
+
+    /** @var Paginator */
+    private $paginator;
 
     /**
      * @param EntityManager $entityManager
+     * @param Paginator     $paginator
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, Paginator $paginator)
     {
         $this->entityManager = $entityManager;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -45,6 +49,20 @@ class UserRepository implements UserRepositoryInterface
     public function set(User $user)
     {
         $this->entityManager->flush($user);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function paginate(int $page, int $limit): PaginatedResult
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('user')
+            ->from(User::class, 'user', 'user.id');
+
+        return $this->paginator->paginate($queryBuilder, $page, $limit, 'user', 'id');
     }
 
     /**

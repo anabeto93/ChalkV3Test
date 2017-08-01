@@ -45,6 +45,8 @@ class CourseManager
      * @param string    $uuid
      * @param string    $title
      * @param string    $teacherName
+     * @param string    $university
+     * @param bool      $enabled
      * @param string    $description
      * @param \DateTime $createdAt
      * @param \DateTime $updatedAt
@@ -56,12 +58,14 @@ class CourseManager
         string $uuid,
         string $title,
         string $teacherName,
+        string $university,
+        bool $enabled,
         string $description,
         \DateTime $createdAt,
         \DateTime $updatedAt,
         int $size
     ): Course {
-        $course = new Course($uuid, $title, $teacherName, $createdAt, $description, $size);
+        $course = new Course($uuid, $title, $teacherName, $university, $enabled, $createdAt, $description, $size);
         $course->setUpdatedAt($updatedAt);
 
         $this->courseRepository->add($course);

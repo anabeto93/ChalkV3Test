@@ -20,5 +20,10 @@ imports:
     - { resource: services/normalizers.yml }
     - { resource: services/graphql.yml }
     - { resource: services/admin/actions.yml }
+    - { resource: services/admin/adapters.yml }
+    - { resource: services/admin/commands.yml }
+    - { resource: services/admin/forms.yml }
+    - { resource: services/admin/queries.yml }
+    - { resource: services/admin/services.yml }
     - { resource: services/api/resolvers.yml }
     - { resource: services/api/security.yml }

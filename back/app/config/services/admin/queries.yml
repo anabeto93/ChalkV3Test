@@ -1,0 +1,16 @@
+services:
+        #
+        # Course
+        #
+        App\Application\Query\Course\CourseListQueryHandler:
+            autowire: true
+            tags:
+                - { name: tactician.handler, command: App\Application\Query\Course\CourseListQuery }
+
+        #
+        # User
+        #
+        App\Application\Query\User\UserListQueryHandler:
+            autowire: true
+            tags:
+                - { name: tactician.handler, command: App\Application\Query\User\UserListQuery }
