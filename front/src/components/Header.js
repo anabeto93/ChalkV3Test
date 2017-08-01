@@ -17,16 +17,18 @@ class Header extends Component {
           alt="Chalkboard Education"
           style={{ float: 'left', maxHeight: '80%', margin: '6px' }}
         />{' '}
-        { title }
+        {title}
       </span>
     );
   }
 
   leftIcon() {
-    const { history } = this.props;
-    return (
-        <button onClick={ history.goBack }>Back</button>
-    )
+    const { location, history } = this.props;
+    if (location.pathname !== '/') {
+      return (
+        <button onClick={history.goBack}>Back</button>
+      )
+    }
   }
 
   render() {
@@ -37,10 +39,10 @@ class Header extends Component {
 }
 
 function mapStateToProps(state, props) {
-    let route = RouteResolver.resolve(props.location);
-    let title = RouteResolver.resolveTitle(route);
+  let route = RouteResolver.resolve(props.location);
+  let title = RouteResolver.resolveTitle(route);
 
-    return { title };
+  return { title };
 }
 
 export default withRouter(connect(mapStateToProps)(Header));
