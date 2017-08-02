@@ -17,7 +17,9 @@ class SessionScreen extends Component {
         <List>
           { folder !== undefined && folder.sessions.map((session) => {
             return (
-              <ListItem key={session.uuid} primaryText={session.title}/>
+              <Link key={session.uuid} to={`/courses/${course.uuid}/session/${session.uuid}`}>
+                <ListItem primaryText={session.title}/>
+              </Link>
             )
           }) }
         </List>

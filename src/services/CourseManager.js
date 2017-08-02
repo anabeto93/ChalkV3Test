@@ -41,6 +41,28 @@ class CourseManager {
 
     return folder.sessions.find((session) => session.uuid === sessionId);
   }
+
+  /**
+   * @param {string} courseId
+   * @param {string} sessionId
+   * @returns {undefined|{Object}}
+   */
+  getSessionFromCourseIdAndSessionId(courseId, sessionId) {
+    let state = this.store.getState();
+
+    if (!state.hasOwnProperty('courses')) return undefined;
+
+    let session = undefined;
+    let course = state.courses.items.find(course => course.uuid === courseId);
+
+    if (course !== undefined && course.hasOwnProperty('folders')) {
+      course.folders.forEach(folder => {
+        session = this.getSessionFromFolder(folder, sessionId);
+      })
+    }
+
+    return session;
+  }
 }
 
 export default new CourseManager(store);
