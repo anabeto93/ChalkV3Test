@@ -34,3 +34,5 @@
 
 # Assets
 /web/assets/
+!/web/content/course/4bf73791-18a2-4340/session/382f5578-12eb-4af0/dummy-image-test.jpg
+/web/content

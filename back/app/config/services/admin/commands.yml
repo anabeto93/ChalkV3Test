@@ -8,3 +8,14 @@ services:
         autowire: true
         tags:
             - { name: tactician.handler, command: App\Application\Command\User\Create }
+
+
+    App\Application\Command\Folder\CreateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Folder\Create }
+
+    App\Application\Command\Session\CreateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Session\Create }

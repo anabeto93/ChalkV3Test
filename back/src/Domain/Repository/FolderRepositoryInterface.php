@@ -18,4 +18,11 @@ interface FolderRepositoryInterface
      * @param Folder $folder
      */
     public function add(Folder $folder);
+
+    /**
+     * @param $course
+     *
+     * @return Folder[]
+     */
+    public function findByCourse($course): array;
 }

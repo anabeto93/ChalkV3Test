@@ -8,3 +8,7 @@ services:
         arguments:
             - '@tactician.commandbus'
     App\Application\Adapter\CommandBusInterface: '@App\Infrastructure\Adapter\CommandBus'
+
+    App\Infrastructure\Adapter\FileStorage:
+        autowire: true
+    App\Application\Adapter\FileStorageInterface: '@App\Infrastructure\Adapter\FileStorage'

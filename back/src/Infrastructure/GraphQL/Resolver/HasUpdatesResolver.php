@@ -48,7 +48,7 @@ class HasUpdatesResolver
         }
 
         $info = $this->hasUpdatesChecker->getUpdatesInfo(
-            $this->courseRepository->getAll(),
+            $this->courseRepository->getEnabledCourses(),
             $dateLastUpdate
         );
 

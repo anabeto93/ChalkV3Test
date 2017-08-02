@@ -21,6 +21,9 @@ class Session
     /** @var string */
     private $uuid;
 
+    /** @var int */
+    private $rank;
+
     /** @var string */
     private $title;
 
@@ -53,6 +56,7 @@ class Session
 
     /**
      * @param string             $uuid
+     * @param int                $rank
      * @param string             $title
      * @param string|null        $content
      * @param Course             $course
@@ -63,6 +67,7 @@ class Session
      */
     public function __construct(
         string $uuid,
+        int $rank = 0,
         string $title,
         string $content = null,
         Course $course,
@@ -72,6 +77,7 @@ class Session
         int $contentSize = 0
     ) {
         $this->uuid = $uuid;
+        $this->rank = $rank;
         $this->title = $title;
         $this->content = $content;
         $this->course = $course;
@@ -98,6 +104,14 @@ class Session
     public function getUuid(): string
     {
         return $this->uuid;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRank(): int
+    {
+        return $this->rank;
     }
 
     /**
@@ -186,6 +200,14 @@ class Session
     public function getContentSize(): int
     {
         return $this->contentSize;
+    }
+
+    /**
+     * @param int $size
+     */
+    public function setContentSize(int $size)
+    {
+        $this->contentSize = $size;
     }
 
     /**

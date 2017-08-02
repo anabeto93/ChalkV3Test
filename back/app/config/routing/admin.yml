@@ -28,3 +28,29 @@ admin_user_create:
     path: /user/create
     methods: [GET, POST]
     defaults: { _controller: App\Ui\Admin\Action\User\CreateAction }
+
+#
+# Folder
+#
+admin_folder_list:
+    path: /course/{course}/folder
+    methods: [GET]
+    defaults: { _controller: App\Ui\Admin\Action\Folder\ListAction }
+
+admin_folder_create:
+    path: /course/{course}/folder/create
+    methods: [GET, POST]
+    defaults: { _controller: App\Ui\Admin\Action\Folder\CreateAction }
+
+#
+# Session
+#
+admin_session_list:
+    path: /course/{course}/session
+    methods: [GET]
+    defaults: { _controller: App\Ui\Admin\Action\Session\ListAction }
+
+admin_session_create:
+    path: /course/{course}/session/create
+    methods: [GET, POST]
+    defaults: { _controller: App\Ui\Admin\Action\Session\CreateAction }
