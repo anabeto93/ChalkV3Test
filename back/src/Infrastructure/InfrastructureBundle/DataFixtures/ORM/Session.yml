@@ -2,7 +2,7 @@ App\Domain\Model\Session:
     session_1:
         __construct:
             - "382f5578-12eb-4af0"
-            - 2
+            - 1
             - "Découverte de l'api"
             - "This is the content"
             - '@course_1'
@@ -15,6 +15,7 @@ App\Domain\Model\Session:
     session_2:
         __construct:
             - "382f5578-12eb-4af1"
+            - 2
             - "Votre première query"
             - "This is the content"
             - '@course_1'
@@ -27,6 +28,7 @@ App\Domain\Model\Session:
     session_3:
         __construct:
             - "382f5578-12eb-4af2"
+            - 3
             - "Premier pas avec Redux"
             - "This is the content"
             - '@course_2'
