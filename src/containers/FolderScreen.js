@@ -39,7 +39,6 @@ class FolderScreen extends Component {
         </List>
         <ul>
           <li><Link to="/">Home</Link></li>
-          <li><Link to="/courses">Back</Link></li>
         </ul>
       </div>
     );
