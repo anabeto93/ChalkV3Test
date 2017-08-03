@@ -3,16 +3,23 @@ import { connect } from 'react-redux';
 import CourseManager from '../services/CourseManager';
 
 class SessionDetailScreen extends Component {
+  renderContent() {
+    return { __html: this.props.session.content }
+  }
+
   render() {
     const { session } = this.props;
 
-    return (
-      <div>
-        { session !== undefined &&
+    if (session !== undefined) {
+      return (
+        <div>
           <h1>{session.title}</h1>
-        }
-      </div>
-    )
+          <div dangerouslySetInnerHTML={this.renderContent()}/>
+        </div>
+      )
+    }
+
+    return (<div/>) // apollo persist/REHYDRATE trigger after render
   }
 }
 
