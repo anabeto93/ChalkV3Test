@@ -1,7 +1,7 @@
-import GraphqlClient from '../graphql/client/GraphqlClient';
+import GraphqlClient from "../graphql/client/GraphqlClient";
 
-import CoursesQuery from '../graphql/query/CoursesQuery';
-import HasUpdatesQuery from '../graphql/query/HasUpdatesQuery';
+import CoursesQuery from "../graphql/query/CoursesQuery";
+import HasUpdatesQuery from "../graphql/query/HasUpdatesQuery";
 
 // LOGIN
 export const LOGIN_SUCCESS = '@@CHALKBOARDEDUCATION/LOGIN_SUCCESS';
@@ -33,7 +33,7 @@ export function failGetCoursesInformations(message) {
 }
 
 export function getCoursesInformations() {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch(requestCoursesInformations());
 
     GraphqlClient.query({ query: CoursesQuery, fetchPolicy: 'network-only' })
@@ -73,7 +73,7 @@ export function reinitUpdates() {
 }
 
 export function getUpdates() {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch(requestUpdates());
 
     GraphqlClient.query({ query: HasUpdatesQuery, fetchPolicy: 'network-only' })
