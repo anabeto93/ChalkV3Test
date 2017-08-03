@@ -4,11 +4,17 @@ import { connect } from "react-redux";
 import AppBar from "material-ui/AppBar";
 import IconButton from "material-ui/IconButton";
 import Back from "material-ui/svg-icons/navigation/chevron-left";
+import UserIcon from "material-ui/svg-icons/social/person";
 
 import logoImage from "../assets/logo.png";
 import RouteResolver from "../services/RouteResolver";
+import { COURSES } from "../config/routes";
 
 class Header extends Component {
+  courseList() {
+    this.props.history.push(COURSES);
+  }
+
   logo() {
     const { title } = this.props;
 
@@ -36,9 +42,21 @@ class Header extends Component {
     }
   }
 
+  rightIcon() {
+    return (
+      <IconButton onClick={this.courseList.bind(this)}>
+          <UserIcon/>
+      </IconButton>
+    )
+  }
+
   render() {
     return (
-      <AppBar iconElementLeft={this.leftIcon()} title={this.logo()}/>
+      <AppBar
+        title={this.logo()}
+        iconElementLeft={this.leftIcon()}
+        iconElementRight={this.rightIcon()}
+      />
     )
   }
 }
