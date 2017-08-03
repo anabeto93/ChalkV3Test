@@ -23,7 +23,7 @@ class FolderScreen extends Component {
     return (
       <div>
         { course !== undefined && course.folders.length > 0 && course.folders[0].uuid === FolderScreen.DEFAULT_FOLDER &&
-        <Redirect push to={`/courses/${course.uuid}/sessions/list`}/>
+        <Redirect to={`/courses/${course.uuid}/sessions/list`}/>
         }
 
         <h1>Folders</h1>
