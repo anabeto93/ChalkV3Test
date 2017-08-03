@@ -30,6 +30,17 @@ class CourseManager {
 
     return course.folders.find((folder) => folder.uuid === folderId);
   }
+
+  /**
+   * @param {Object} folder
+   * @param {string} sessionId
+   * @returns {Object|undefined}
+   */
+  getSessionFromFolder(folder, sessionId) {
+    if (!folder.hasOwnProperty('sessions')) return undefined;
+
+    return folder.sessions.find((session) => session.uuid === sessionId);
+  }
 }
 
 export default new CourseManager(store);
