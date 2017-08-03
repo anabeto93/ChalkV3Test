@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { withRouter } from 'react-router-dom';
 import { connect } from "react-redux";
-import { AppBar } from "material-ui";
+import AppBar from "material-ui/AppBar";
+import IconButton from "material-ui/IconButton";
+import Back from "material-ui/svg-icons/navigation/chevron-left";
 
 import logoImage from "../assets/logo.png";
 import RouteResolver from "../services/RouteResolver";
@@ -26,7 +28,9 @@ class Header extends Component {
     const { location, history } = this.props;
     if (location.pathname !== '/') {
       return (
-        <button onClick={history.goBack}>Back</button>
+        <IconButton onClick={history.goBack}>
+          <Back>Back</Back>
+        </IconButton>
       )
     }
   }
