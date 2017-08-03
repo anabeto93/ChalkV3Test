@@ -37,6 +37,10 @@ export default {
         }
 
         return course ? course.title : '';
+      case routes.SESSION_DETAIL:
+        course = CourseManager.getCourse(params.courseId);
+
+        return course ? course.title : '';
       default:
         return 'Chalkboard Education';
     }
