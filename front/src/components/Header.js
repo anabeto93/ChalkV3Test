@@ -26,6 +26,7 @@ class Header extends Component {
 
   leftIcon() {
     const { location, history } = this.props;
+
     if (location.pathname !== '/') {
       return (
         <IconButton onClick={history.goBack}>
