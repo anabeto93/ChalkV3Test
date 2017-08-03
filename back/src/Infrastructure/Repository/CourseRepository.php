@@ -12,19 +12,19 @@ namespace App\Infrastructure\Repository;
 
 use App\Domain\Model\Course;
 use App\Domain\Repository\CourseRepositoryInterface;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 
 class CourseRepository implements CourseRepositoryInterface
 {
     /**
-     * @var EntityManagerInterface
+     * @var EntityManager
      */
     private $entityManager;
 
     /**
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }
@@ -46,8 +46,26 @@ class CourseRepository implements CourseRepositoryInterface
         $queryBuilder = $this
             ->entityManager
             ->createQueryBuilder()
+            ->select('course, folder, session')
+            ->from(Course::class, 'course')
+            ->leftJoin('course.folders', 'folder')
+            ->leftJoin('course.sessions', 'session')
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getEnabledCourses(): array
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
             ->select('course')
             ->from(Course::class, 'course')
+            ->where('course.enabled = true')
         ;
 
         return $queryBuilder->getQuery()->getResult();

@@ -25,6 +25,11 @@ interface CourseRepositoryInterface
     public function getAll(): array;
 
     /**
+     * @return Course[]
+     */
+    public function getEnabledCourses(): array;
+
+    /**
      * @param string $uuid
      *
      * @return Course|null

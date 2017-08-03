@@ -59,7 +59,7 @@ class CourseResolver
     {
         $courses = [];
 
-        $courseObjects = $this->courseRepository->getAll();
+        $courseObjects = $this->courseRepository->getEnabledCourses();
 
         if (empty($courseObjects)) {
             throw new UserError('No course found');

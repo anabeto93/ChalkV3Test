@@ -57,7 +57,7 @@ class CourseResolverTest extends TestCase
         $repository = $this->prophesize(CourseRepositoryInterface::class);
         $normalizer = $this->prophesize(CourseNormalizer::class);
 
-        $repository->getAll()->shouldBeCalled()->willReturn([]);
+        $repository->getEnabledCourses()->shouldBeCalled()->willReturn([]);
 
         $courseResolver = new CourseResolver($repository->reveal(), $normalizer->reveal());
         $courseResolver->resolveCourses();
@@ -70,7 +70,7 @@ class CourseResolverTest extends TestCase
         $repository = $this->prophesize(CourseRepositoryInterface::class);
         $normalizer = $this->prophesize(CourseNormalizer::class);
 
-        $repository->getAll()->shouldBeCalled()->willReturn([$course1->reveal(), $course2->reveal()]);
+        $repository->getEnabledCourses()->shouldBeCalled()->willReturn([$course1->reveal(), $course2->reveal()]);
         $normalizer->normalize($course1->reveal())->shouldBeCalled()->willReturn(['normalized-course1']);
         $normalizer->normalize($course2->reveal())->shouldBeCalled()->willReturn(['normalized-course2']);
 

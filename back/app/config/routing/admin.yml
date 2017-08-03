@@ -2,3 +2,50 @@ admin_home:
     path: /
     methods: [GET]
     defaults: { _controller: App\Ui\Admin\Action\HomeAction }
+
+#
+# Course
+#
+admin_course_list:
+    path: /course
+    methods: [GET]
+    defaults: { _controller: App\Ui\Admin\Action\Course\ListAction }
+
+admin_course_create:
+    path: /course/create
+    methods: [GET, POST]
+    defaults: { _controller: App\Ui\Admin\Action\Course\CreateAction }
+
+#
+# User
+#
+admin_user_list:
+    path: /user
+    methods: [GET]
+    defaults: { _controller: App\Ui\Admin\Action\User\ListAction }
+
+admin_user_create:
+    path: /user/create
+    methods: [GET, POST]
+    defaults: { _controller: App\Ui\Admin\Action\User\CreateAction }
+
+#
+# Folder
+#
+admin_folder_list:
+    path: /course/{course}/folder
+    methods: [GET]
+    defaults: { _controller: App\Ui\Admin\Action\Folder\ListAction }
+
+admin_folder_create:
+    path: /course/{course}/folder/create
+    methods: [GET, POST]
+    defaults: { _controller: App\Ui\Admin\Action\Folder\CreateAction }
+
+#
+# Session
+#
+admin_session_list:
+    path: /course/{course}/session
+    methods: [GET]
+    defaults: { _controller: App\Ui\Admin\Action\Session\ListAction }

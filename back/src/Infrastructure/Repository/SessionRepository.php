@@ -10,6 +10,7 @@
 
 namespace App\Infrastructure\Repository;
 
+use App\Domain\Model\Course;
 use App\Domain\Model\Session;
 use App\Domain\Repository\SessionRepositoryInterface;
 use Doctrine\ORM\EntityManager;
@@ -36,5 +37,22 @@ class SessionRepository implements SessionRepositoryInterface
     {
         $this->entityManager->persist($session);
         $this->entityManager->flush($session);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByCourse(Course $course): array
+    {
+        $queryBuilder = $this->entityManager
+            ->createQueryBuilder()
+            ->select('session, folder')
+            ->from(Session::class, 'session')
+            ->leftJoin('session.folder', 'folder')
+            ->where('session.course = :course')
+            ->setParameter('course', $course)
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
     }
 }

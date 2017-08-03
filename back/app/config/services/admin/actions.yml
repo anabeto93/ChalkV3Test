@@ -1,3 +1,24 @@
 services:
     App\Ui\Admin\Action\HomeAction:
         autowire: true
+
+    App\Ui\Admin\Action\Course\ListAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Course\CreateAction:
+        autowire: true
+
+    App\Ui\Admin\Action\User\ListAction:
+        autowire: true
+
+    App\Ui\Admin\Action\User\CreateAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Folder\ListAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Folder\CreateAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Session\ListAction:
+        autowire: true

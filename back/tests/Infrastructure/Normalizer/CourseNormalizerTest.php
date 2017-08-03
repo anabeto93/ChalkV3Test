@@ -36,10 +36,10 @@ class CourseNormalizerTest extends TestCase
     public function testNormalize()
     {
         $dateTime = new \DateTime();
-        $course = new Course("1234-azerty", "title", "teacherName", $dateTime, "description");
+        $course = new Course("1234-azerty", "title", "teacherName", 'University', true, $dateTime, "description");
         $folder = new Folder('123456789', 'folder title', $course, $dateTime);
-        $session1 = new Session('098765432', 'session 1', 'content 1', $course, $folder, $dateTime);
-        $session2 = new Session('ZERTYUIOIUYTRE', 'session 2', 'content 2', $course, $folder, $dateTime);
+        $session1 = new Session('098765432', 1, 'session 1', 'content 1', $course, $folder, $dateTime);
+        $session2 = new Session('ZERTYUIOIUYTRE', 2, 'session 2', 'content 2', $course, $folder, $dateTime);
         $course->setSessions([$session1, $session2]);
 
         $this->setFolderId($folder, 2);
@@ -60,6 +60,7 @@ class CourseNormalizerTest extends TestCase
             'uuid' => '1234-azerty',
             'title' => 'title',
             'description' => 'description',
+            'university' => 'University',
             'teacherName' => 'teacherName',
             'createdAt' => $dateTime,
             'folders' => [
@@ -83,9 +84,9 @@ class CourseNormalizerTest extends TestCase
     public function testNormalizeNoFolder()
     {
         $dateTime = new \DateTime();
-        $course = new Course("1234-azerty", "title", "teacherName", $dateTime, "description");
-        $session1 = new Session('098765432', 'session 1', 'content 1', $course, null, $dateTime);
-        $session2 = new Session('ZERTYUIOIUYTRE', 'session 2', 'content 2', $course, null, $dateTime);
+        $course = new Course("1234-azerty", "title", "teacherName", 'University', true, $dateTime, "description");
+        $session1 = new Session('098765432', 2, 'session 1', 'content 1', $course, null, $dateTime);
+        $session2 = new Session('ZERTYUIOIUYTRE', 3, 'session 2', 'content 2', $course, null, $dateTime);
         $course->setSessions([$session1, $session2]);
 
         // Mock
@@ -105,6 +106,7 @@ class CourseNormalizerTest extends TestCase
             'title' => 'title',
             'description' => 'description',
             'teacherName' => 'teacherName',
+            'university' => 'University',
             'createdAt' => $dateTime,
             'folders' => [
                 'default' => [

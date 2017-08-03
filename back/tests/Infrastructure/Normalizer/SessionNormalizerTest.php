@@ -23,7 +23,7 @@ class SessionNormalizerTest extends TestCase
         // Context
         $createdAt = new \DateTime();
         $course = CourseFactory::create();
-        $session = new Session('uuid', 'session title', 'this is the content', $course, null, $createdAt);
+        $session = new Session('uuid', 5, 'session title', 'this is the content', $course, null, $createdAt);
         $file1 = $this->prophesize(Session\File::class);
         $file2 = $this->prophesize(Session\File::class);
         $session->setFiles([$file1->reveal(), $file2->reveal()]);
@@ -39,6 +39,7 @@ class SessionNormalizerTest extends TestCase
 
         $expected = [
             'uuid' => 'uuid',
+            'rank' => 5,
             'title' => 'session title',
             'content' => 'this is the content',
             'createdAt' => $createdAt,
