@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { List, ListItem } from "material-ui/List";
+import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import { Link } from "react-router-dom";
 import React, { Component } from "react";
 
@@ -25,6 +26,7 @@ export class CoursesList extends Component {
               <ListItem
                 primaryText={course.title}
                 secondaryText={course.teacherName}
+                rightIcon={<Arrow/>}
               />
             </Link>
           );
