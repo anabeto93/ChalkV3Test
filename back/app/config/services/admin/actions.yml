@@ -17,5 +17,8 @@ services:
     App\Ui\Admin\Action\Folder\ListAction:
         autowire: true
 
+    App\Ui\Admin\Action\Folder\CreateAction:
+        autowire: true
+
     App\Ui\Admin\Action\Session\ListAction:
         autowire: true

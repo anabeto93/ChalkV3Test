@@ -37,6 +37,11 @@ admin_folder_list:
     methods: [GET]
     defaults: { _controller: App\Ui\Admin\Action\Folder\ListAction }
 
+admin_folder_create:
+    path: /course/{course}/folder/create
+    methods: [GET, POST]
+    defaults: { _controller: App\Ui\Admin\Action\Folder\CreateAction }
+
 #
 # Session
 #

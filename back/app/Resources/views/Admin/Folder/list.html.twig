@@ -5,6 +5,11 @@
 {% block content %}
     <h1>
         {{ 'admin.folder.title'|trans({'%courseTitle%': course.title}) }}
+        <span class="pull-right">
+            <a class="btn btn-primary" href="{{ path('admin_folder_create', {'course': course.id}) }}">
+                {{ 'admin.folder.create.link'|trans }}
+            </a>
+        </span>
     </h1>
     <hr>
     {% if folders is empty %}
