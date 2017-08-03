@@ -18,7 +18,6 @@ use App\Ui\Admin\Form\Type\User\CreateType;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
-use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -27,7 +26,8 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBag;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class CreateActionTest extends TestCase
@@ -55,8 +55,8 @@ class CreateActionTest extends TestCase
         $this->engine = $this->prophesize(EngineInterface::class);
         $this->commandBus = $this->prophesize(CommandBusInterface::class);
         $this->formFactory = $this->prophesize(FormFactoryInterface::class);
-        $this->flashBag = $this->prophesize(FlashBag::class);
-        $this->router = $this->prophesize(Router::class);
+        $this->flashBag = $this->prophesize(FlashBagInterface::class);
+        $this->router = $this->prophesize(RouterInterface::class);
         $this->translator = $this->prophesize(TranslatorInterface::class);
     }
 

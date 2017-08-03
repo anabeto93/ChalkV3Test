@@ -13,21 +13,21 @@ namespace App\Infrastructure\GraphQL\Resolver;
 use App\Infrastructure\Security\Api\ApiUserAdapter;
 use GraphQL\Error\UserError;
 use Sonata\IntlBundle\Templating\Helper\LocaleHelper;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class UserResolver
 {
-    /** @var TokenStorage */
+    /** @var TokenStorageInterface */
     private $tokenStorage;
 
     /** @var LocaleHelper */
     private $localeHelper;
 
     /**
-     * @param TokenStorage $tokenStorage
-     * @param LocaleHelper $localeHelper
+     * @param TokenStorageInterface $tokenStorage
+     * @param LocaleHelper          $localeHelper
      */
-    public function __construct(TokenStorage $tokenStorage, LocaleHelper $localeHelper)
+    public function __construct(TokenStorageInterface $tokenStorage, LocaleHelper $localeHelper)
     {
         $this->tokenStorage = $tokenStorage;
         $this->localeHelper = $localeHelper;
