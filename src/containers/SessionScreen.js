@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { List, ListItem } from "material-ui/List";
+import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import { connect } from "react-redux";
 import courseManager from "../services/CourseManager";
 import FolderScreen from "./FolderScreen";
@@ -13,7 +14,7 @@ class SessionScreen extends Component {
   }
 
   render() {
-    let { folder, course } = this.props;
+    let { folder } = this.props;
 
     console.log('rendering SessionScreen');
 
@@ -23,7 +24,12 @@ class SessionScreen extends Component {
         <List>
           { folder !== undefined && folder.sessions.map((session, index) => {
             return (
-              <ListItem leftAvatar={this.leftIcon(index)} key={session.uuid} primaryText={session.title}/>
+              <ListItem
+                leftAvatar={this.leftIcon(index)}
+                key={session.uuid}
+                primaryText={session.title}
+                rightIcon={<Arrow/>}
+              />
             )
           }) }
         </List>
@@ -39,7 +45,7 @@ class SessionScreen extends Component {
  * @param {Object} props
  * @return {{folder: (Object|undefined)}}
  */
-function mapStateToProps({}, props) {
+function mapStateToProps(state, props) {
   let course = courseManager.getCourse(props.match.params.courseId);
   let folderId = props.match.params.folderId || FolderScreen.DEFAULT_FOLDER;
 
@@ -47,7 +53,7 @@ function mapStateToProps({}, props) {
 
   let folder = courseManager.getFolderFromCourse(course, folderId);
 
-  return { folder, course };
+  return { folder };
 }
 
 export default connect(mapStateToProps)(SessionScreen);
