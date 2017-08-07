@@ -7,8 +7,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import CourseScreen from './containers/CourseScreen';
-import HomeScreen from './containers/HomeScreen';
 import FolderScreen from './containers/FolderScreen';
+import HomeScreen from './containers/HomeScreen';
 import PrivateRoute from './containers/PrivateRoute';
 import store from './store/store';
 import Updates from './components/Updates/Updates';
