@@ -1,0 +1,8 @@
+App\Application\Command\Course\Create:
+    properties:
+        title:
+            - NotBlank: ~
+        teacherName:
+            - NotBlank: ~
+        university:
+            - NotBlank: ~

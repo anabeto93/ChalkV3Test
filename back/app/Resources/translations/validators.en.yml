@@ -1,0 +1,2 @@
+validator.phoneNumber.mustStartWithPlus: 'The phone number must start with a +'
+validator.phoneNumber.alreadyUsed: 'This phone number is already used'

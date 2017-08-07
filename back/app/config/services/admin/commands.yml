@@ -1,0 +1,16 @@
+services:
+    App\Application\Command\Course\CreateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Course\Create }
+
+    App\Application\Command\User\CreateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\Create }
+
+
+    App\Application\Command\Folder\CreateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Folder\Create }

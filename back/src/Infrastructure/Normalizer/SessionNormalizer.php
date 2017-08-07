@@ -35,6 +35,7 @@ class SessionNormalizer
     {
         return [
             'uuid' => $session->getUuid(),
+            'rank' => $session->getRank(),
             'title' => $session->getTitle(),
             'content' => $session->getContent(),
             'createdAt' => $session->getCreatedAt(),

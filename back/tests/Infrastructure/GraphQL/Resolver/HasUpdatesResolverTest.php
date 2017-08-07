@@ -49,7 +49,7 @@ class HasUpdatesResolverTest extends TestCase
 
     public function testWithNoDateAndNoCourse()
     {
-        $this->courseRepository->getAll()->shouldBeCalled()->willReturn([]);
+        $this->courseRepository->getEnabledCourses()->shouldBeCalled()->willReturn([]);
         $this->hasUpdatesChecker->getUpdatesInfo([], null)->shouldBeCalled()->willReturn([]);
 
         $hasUpdatesResolver = new HasUpdatesResolver(
@@ -69,7 +69,7 @@ class HasUpdatesResolverTest extends TestCase
     public function testWithNoCourse()
     {
         $dateTime = new \DateTime();
-        $this->courseRepository->getAll()->shouldBeCalled()->willReturn([]);
+        $this->courseRepository->getEnabledCourses()->shouldBeCalled()->willReturn([]);
         $this->hasUpdatesChecker->getUpdatesInfo([], $dateTime)->shouldBeCalled()->willReturn([]);
 
         $hasUpdatesResolver = new HasUpdatesResolver(
@@ -96,7 +96,10 @@ class HasUpdatesResolverTest extends TestCase
         $sessionUpdate = new SessionUpdateView($dateTime, 0, $dateTime, 322);
         $sessionUpdate2 = new SessionUpdateView($dateTime, 99, $dateTime, 0);
 
-        $this->courseRepository->getAll()->shouldBeCalled()->willReturn([$course1->reveal(), $course2->reveal()]);
+        $this->courseRepository
+            ->getEnabledCourses()
+            ->shouldBeCalled()
+            ->willReturn([$course1->reveal(), $course2->reveal()]);
         $this->hasUpdatesChecker
             ->getUpdatesInfo([$course1->reveal(), $course2->reveal()], $dateTime)
             ->shouldBeCalled()

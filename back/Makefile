@@ -98,7 +98,9 @@ install@prod:
 ##########
 
 build:
-	if [ -f "gulpfile" ]; then gulp --dev; fi;
+	./node_modules/.bin/encore dev
+watch:
+	./node_modules/.bin/encore dev --watch
 build@demo:
 	if [ -f "gulpfile" ]; then gulp; fi;
 build@prod:

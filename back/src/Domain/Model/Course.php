@@ -32,6 +32,12 @@ class Course
     /** @var \DateTimeInterface */
     private $createdAt;
 
+    /** @var string */
+    private $university;
+
+    /** @var bool */
+    private $enabled;
+
     /** @var ArrayCollection of Folder */
     private $folders;
 
@@ -48,6 +54,8 @@ class Course
      * @param string             $uuid
      * @param string             $title
      * @param string|null        $teacherName
+     * @param string             $university
+     * @param bool               $enabled
      * @param \DateTimeInterface $createdAt
      * @param string             $description
      * @param int                $size
@@ -56,6 +64,8 @@ class Course
         string $uuid,
         string $title,
         string $teacherName,
+        string $university,
+        bool $enabled,
         \DateTimeInterface $createdAt,
         string $description = null,
         int $size = 0
@@ -63,6 +73,8 @@ class Course
         $this->uuid = $uuid;
         $this->title = $title;
         $this->teacherName = $teacherName;
+        $this->enabled = $enabled;
+        $this->university = $university;
         $this->description = $description;
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
@@ -109,6 +121,22 @@ class Course
     public function getTeacherName(): string
     {
         return $this->teacherName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUniversity(): string
+    {
+        return $this->university;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
     }
 
     /**

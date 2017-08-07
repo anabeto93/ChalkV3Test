@@ -42,7 +42,7 @@ class SessionContext implements Context
             throw new \InvalidArgumentException('Course not found');
         }
 
-        $session = $this->sessionProxy->getSessionManager()->create($uuid, $title, null, $course);
+        $session = $this->sessionProxy->getSessionManager()->create($uuid, 0, $title, null, $course);
         $this->sessionProxy->getStorage()->set('session', $session);
     }
 
@@ -66,7 +66,7 @@ class SessionContext implements Context
             throw new \InvalidArgumentException('Folder not found');
         }
 
-        $session = $this->sessionProxy->getSessionManager()->create($uuid, $title, null, $course, $folder);
+        $session = $this->sessionProxy->getSessionManager()->create($uuid, 0, $title, null, $course, $folder);
         $this->sessionProxy->getStorage()->set('session', $session);
     }
 }
