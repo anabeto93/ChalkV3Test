@@ -1,14 +1,14 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from "react-redux";
-import AppBar from "material-ui/AppBar";
-import IconButton from "material-ui/IconButton";
-import Back from "material-ui/svg-icons/navigation/chevron-left";
-import UserIcon from "material-ui/svg-icons/social/person";
+import { connect } from 'react-redux';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import Back from 'material-ui/svg-icons/navigation/chevron-left';
+import UserIcon from 'material-ui/svg-icons/social/person';
 
-import logoImage from "../assets/logo.png";
-import RouteResolver from "../services/RouteResolver";
-import { COURSES } from "../config/routes";
+import logoImage from '../assets/logo.png';
+import RouteResolver from '../services/RouteResolver';
+import { COURSES } from '../config/routes';
 
 class Header extends Component {
   courseList() {
@@ -24,7 +24,7 @@ class Header extends Component {
           src={logoImage}
           alt="Chalkboard Education"
           style={{ float: 'left', maxHeight: '80%', margin: '6px' }}
-        />{' '}
+        />
         {title}
       </span>
     );
@@ -38,16 +38,22 @@ class Header extends Component {
         <IconButton onClick={history.goBack}>
           <Back>Back</Back>
         </IconButton>
-      )
+      );
     }
+  }
+
+  showMenuIconButton() {
+    const { location } = this.props;
+
+    return location.pathname !== '/';
   }
 
   rightIcon() {
     return (
       <IconButton onClick={this.courseList.bind(this)}>
-          <UserIcon/>
+        <UserIcon />
       </IconButton>
-    )
+    );
   }
 
   render() {
@@ -56,8 +62,9 @@ class Header extends Component {
         title={this.logo()}
         iconElementLeft={this.leftIcon()}
         iconElementRight={this.rightIcon()}
+        showMenuIconButton={this.showMenuIconButton()}
       />
-    )
+    );
   }
 }
 
