@@ -5,15 +5,11 @@ import React, { Component } from 'react';
 import LoginScreen from './LoginScreen';
 
 export class HomeScreen extends Component {
-
   render() {
-    console.log('rendering HomeScreen');
-
     return this.props.loggedIn
       ? <div>
-          <h1>Welcome!</h1>
-          <p>This is init!!!</p>
-          <Link to="/courses">Course</Link>
+          <h1>You're logged</h1>
+          <Link to="/courses">Courses</Link>
         </div>
       : <LoginScreen />;
   }
