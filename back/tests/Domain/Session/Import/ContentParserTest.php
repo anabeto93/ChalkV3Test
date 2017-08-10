@@ -10,28 +10,38 @@
 
 namespace Tests\Domain\Session\Import;
 
-
 use App\Domain\Exception\Session\Import\ImageWithoutSrcException;
 use App\Domain\Session\Import\ContentParsedView;
 use App\Domain\Session\Import\ContentParser;
+use App\Infrastructure\Service\UrlGenerator;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\ObjectProphecy;
 
 class ContentParserTest extends TestCase
 {
+    /** @var ObjectProphecy */
+    private $urlGenerator;
+
+    public function setUp()
+    {
+        $this->urlGenerator = $this->prophesize(UrlGenerator::class);
+    }
+
     public function testParse()
     {
-        $contentParser = new ContentParser();
+        $this->urlGenerator->getBaseUrl()->shouldBeCalled()->willReturn('http://api.chalkboardedu.dev');
+        $contentParser = new ContentParser($this->urlGenerator->reveal());
         $result = $contentParser->parse(__DIR__ . '/index.html', '/image/location');
 
         $expectedContent = '
     <h1>Hello world</h1>
     <div>
-        <img src="/image/location/test.jpg"></div>
+        <img src="http://api.chalkboardedu.dev/image/location/test.jpg"></div>
     <p>Lorem ipsum</p>
-    <sidebar><img src="/image/location/sidebar.jpg"></sidebar><footer><h4>Good bye</h4>
+    <sidebar><img src="http://api.chalkboardedu.dev/image/location/sidebar.jpg"></sidebar><footer><h4>Good bye</h4>
         <div class="footer">
             <div class="footer-bis">
-                <img src="/image/location/footer.jpg"></div>
+                <img src="http://api.chalkboardedu.dev/image/location/footer.jpg"></div>
         </div>
     </footer>
 ';
@@ -45,7 +55,7 @@ class ContentParserTest extends TestCase
     {
         $this->setExpectedException(ImageWithoutSrcException::class);
 
-        $contentParser = new ContentParser();
+        $contentParser = new ContentParser($this->urlGenerator->reveal());
         $contentParser->parse(__DIR__ . '/indexWithError.html', '/image/location');
     }
 }

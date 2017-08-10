@@ -38,25 +38,31 @@ class ContentImporter
     /** @var SessionRepositoryInterface */
     private $sessionRepository;
 
+    /** @var string */
+    private $pathToStoreUpload;
+
     /**
      * @param FileStorageInterface       $fileStorage
      * @param ContentParser              $contentParser
      * @param ImageMover                 $imageMover
      * @param Calculator                 $calculator
      * @param SessionRepositoryInterface $sessionRepository
+     * @param string                     $pathToStoreUpload
      */
     public function __construct(
         FileStorageInterface $fileStorage,
         ContentParser $contentParser,
         ImageMover $imageMover,
         Calculator $calculator,
-        SessionRepositoryInterface $sessionRepository
+        SessionRepositoryInterface $sessionRepository,
+        string $pathToStoreUpload
     ) {
         $this->fileStorage = $fileStorage;
         $this->contentParser = $contentParser;
         $this->imageMover = $imageMover;
         $this->calculator = $calculator;
         $this->sessionRepository = $sessionRepository;
+        $this->pathToStoreUpload = $pathToStoreUpload;
     }
 
     /**
@@ -79,7 +85,7 @@ class ContentImporter
     ) {
         $imagePath = sprintf(self::IMAGE_PATH, $course->getUuid(), $uuid);
 
-        $pathToUpload = sprintf('/tmp/chalkboard_session_%s', $uuid);
+        $pathToUpload = sprintf('%s/chalkboard_session_%s', $this->pathToStoreUpload, $uuid);
 
         $zip = new \ZipArchive();
         $zip->open($uploadedFile->getPath() . '/' . $uploadedFile->getFilename());
