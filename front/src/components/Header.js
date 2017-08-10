@@ -13,11 +13,11 @@ class Header extends Component {
     const { title } = this.props;
 
     return (
-      <span>
+      <span style={{ fontSize: '14px' }}>
         <img
           src={logoImage}
           alt="Chalkboard Education"
-          style={{ float: 'left', maxHeight: '80%', margin: '6px' }}
+          style={{ paddingTop: '10px', float: 'left', maxHeight: '50%', margin: '6px' }}
         />{' '}
         {title}
       </span>
