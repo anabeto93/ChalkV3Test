@@ -19,6 +19,8 @@ admin_course_create:
 admin_course_update:
     path: /course/update/{course}
     methods: [GET, POST]
+    requirements:
+        course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Course\UpdateAction }
 
 #
@@ -40,11 +42,15 @@ admin_user_create:
 admin_folder_list:
     path: /course/{course}/folder
     methods: [GET]
+    requirements:
+        course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Folder\ListAction }
 
 admin_folder_create:
     path: /course/{course}/folder/create
     methods: [GET, POST]
+    requirements:
+        course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Folder\CreateAction }
 
 #
@@ -53,14 +59,21 @@ admin_folder_create:
 admin_session_list:
     path: /course/{course}/session
     methods: [GET]
+    requirements:
+        course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Session\ListAction }
 
 admin_session_create:
     path: /course/{course}/session/create
     methods: [GET, POST]
+    requirements:
+        course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Session\CreateAction }
 
 admin_session_preview:
     path: /course/{course}/session/{session}/preview
     methods: [GET]
+    requirements:
+        course: \d+
+        session: \d+
     defaults: { _controller: App\Ui\Admin\Action\Session\PreviewAction }
