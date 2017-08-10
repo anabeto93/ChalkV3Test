@@ -41,6 +41,14 @@ class FolderRepository implements FolderRepositoryInterface
     /**
      * {@inheritdoc}
      */
+    public function set(Folder $folder)
+    {
+        $this->entityManager->flush($folder);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function findByCourse($course): array
     {
         $queryBuilder = $this->entityManager

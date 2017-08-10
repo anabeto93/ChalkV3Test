@@ -1,3 +1,4 @@
+@folder
 Feature: Folder
   Scenario: I can go to the list of the folders
     Given the database is purged

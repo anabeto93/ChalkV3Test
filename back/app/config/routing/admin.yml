@@ -53,6 +53,14 @@ admin_folder_create:
         course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Folder\CreateAction }
 
+admin_folder_update:
+    path: /course/{course}/folder/update/{folder}
+    methods: [GET, POST]
+    requirements:
+        course: \d+
+        folder: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Folder\UpdateAction }
+
 #
 # Session
 #

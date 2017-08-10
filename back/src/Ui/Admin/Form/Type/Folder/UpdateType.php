@@ -10,10 +10,10 @@
 
 namespace App\Ui\Admin\Form\Type\Folder;
 
-use App\Application\Command\Folder\Create;
+use App\Application\Command\Folder\Update;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreateType extends AbstractFolderType
+class UpdateType extends AbstractFolderType
 {
     /**
      * {@inheritdoc}
@@ -22,7 +22,7 @@ class CreateType extends AbstractFolderType
     {
         $resolver
             ->setDefaults([
-                'data_class' => Create::class
+                'data_class' => Update::class
             ])
         ;
     }
@@ -32,6 +32,6 @@ class CreateType extends AbstractFolderType
      */
     public function getBlockPrefix()
     {
-        return 'folder_create';
+        return 'folder_update';
     }
 }

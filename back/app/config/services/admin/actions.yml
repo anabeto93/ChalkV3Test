@@ -23,6 +23,9 @@ services:
     App\Ui\Admin\Action\Folder\CreateAction:
         autowire: true
 
+    App\Ui\Admin\Action\Folder\UpdateAction:
+        autowire: true
+
     App\Ui\Admin\Action\Session\ListAction:
         autowire: true
 
