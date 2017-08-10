@@ -18,4 +18,9 @@ interface FileRepositoryInterface
      * @param File $file
      */
     public function add(File $file);
+
+    /**
+     * @param File $file
+     */
+    public function remove(File $file);
 }

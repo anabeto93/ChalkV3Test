@@ -33,3 +33,12 @@ services:
         autowire: true
         tags:
             - { name: tactician.handler, command: App\Application\Command\Session\Create }
+
+    App\Application\Command\Session\DeleteHandler:
+        arguments:
+            - '@App\Infrastructure\Repository\Session\FileRepository'
+            - '@App\Infrastructure\Repository\SessionRepository'
+            - '@App\Infrastructure\Adapter\FileStorage'
+            - '%kernel.root_dir%/../web'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Session\Delete }

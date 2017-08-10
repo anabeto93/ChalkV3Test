@@ -50,6 +50,15 @@ class SessionRepository implements SessionRepositoryInterface
     /**
      * {@inheritdoc}
      */
+    public function remove(Session $session)
+    {
+        $this->entityManager->remove($session);
+        $this->entityManager->flush($session);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function findByCourse(Course $course): array
     {
         $queryBuilder = $this->entityManager

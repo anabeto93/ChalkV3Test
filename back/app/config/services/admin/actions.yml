@@ -37,3 +37,6 @@ services:
 
     App\Ui\Admin\Action\Session\PreviewAction:
         autowire: true
+
+    App\Ui\Admin\Action\Session\DeleteAction:
+        autowire: true

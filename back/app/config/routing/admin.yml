@@ -93,3 +93,11 @@ admin_session_preview:
         course: \d+
         session: \d+
     defaults: { _controller: App\Ui\Admin\Action\Session\PreviewAction }
+
+admin_session_delete:
+    path: /course/{course}/session/{session}/delete
+    methods: [DELETE]
+    requirements:
+        course: \d+
+        session: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Session\DeleteAction }
