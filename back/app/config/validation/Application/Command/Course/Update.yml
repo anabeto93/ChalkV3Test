@@ -1,4 +1,4 @@
-App\Application\Command\Course\Create:
+App\Application\Command\Course\Update:
     properties:
         title:
             - NotBlank: ~

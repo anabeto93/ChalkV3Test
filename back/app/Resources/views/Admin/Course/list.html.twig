@@ -22,8 +22,9 @@
                 <th class="col-md-2">{{ 'admin.course.column.teacherName'|trans }}</th>
                 <th class="col-md-2">{{ 'admin.course.column.university'|trans }}</th>
                 <th class="col-md-2">{{ 'admin.course.column.folders'|trans }}</th>
-                <th class="col-md-2">{{ 'admin.course.column.sessions'|trans }}</th>
+                <th class="col-md-1">{{ 'admin.course.column.sessions'|trans }}</th>
                 <th class="col-md-1">{{ 'admin.course.column.enabled'|trans }}</th>
+                <th class="col-md-1"></th>
             </tr>
             </thead>
             <tbody>
@@ -43,6 +44,11 @@
                         </a>
                     </td>
                     <td>{{ course.enabled ? '✔︎' : '' }}</td>
+                    <td>
+                        <a href="{{ path('admin_course_update', {'course': course.id}) }}" class="btn btn-default">
+                            {{ 'admin.course.action.update'|trans }}
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

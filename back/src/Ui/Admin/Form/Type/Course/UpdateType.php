@@ -10,10 +10,10 @@
 
 namespace App\Ui\Admin\Form\Type\Course;
 
-use App\Application\Command\Course\Create;
+use App\Application\Command\Course\Update;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreateType extends AbstractCourseType
+class UpdateType extends AbstractCourseType
 {
     /**
      * {@inheritdoc}
@@ -21,7 +21,7 @@ class CreateType extends AbstractCourseType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Create::class
+            'data_class' => Update::class
         ]);
     }
 
@@ -30,6 +30,6 @@ class CreateType extends AbstractCourseType
      */
     public function getBlockPrefix()
     {
-        return 'course_create';
+        return 'course_update';
     }
 }

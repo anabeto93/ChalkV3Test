@@ -4,6 +4,11 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\Course\Create }
 
+    App\Application\Command\Course\UpdateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Course\Update }
+
     App\Application\Command\User\CreateHandler:
         autowire: true
         tags:

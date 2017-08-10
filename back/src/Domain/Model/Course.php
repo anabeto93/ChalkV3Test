@@ -194,4 +194,31 @@ class Course
     {
         return $this->size;
     }
+
+    /**
+     * @param string             $title
+     * @param null|string        $description
+     * @param string             $teacherName
+     * @param string             $university
+     * @param bool               $enabled
+     * @param int                $size
+     * @param \DateTimeInterface $updatedAt
+     */
+    public function update(
+        string $title,
+        ?string $description,
+        string $teacherName,
+        string $university,
+        bool $enabled,
+        int $size,
+        \DateTimeInterface $updatedAt
+    ) {
+        $this->title = $title;
+        $this->description = $description;
+        $this->teacherName = $teacherName;
+        $this->university = $university;
+        $this->enabled = $enabled;
+        $this->size = $size;
+        $this->updatedAt = $updatedAt;
+    }
 }

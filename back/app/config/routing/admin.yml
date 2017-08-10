@@ -16,6 +16,11 @@ admin_course_create:
     methods: [GET, POST]
     defaults: { _controller: App\Ui\Admin\Action\Course\CreateAction }
 
+admin_course_update:
+    path: /course/update/{course}
+    methods: [GET, POST]
+    defaults: { _controller: App\Ui\Admin\Action\Course\UpdateAction }
+
 #
 # User
 #
