@@ -20,6 +20,9 @@ services:
     App\Ui\Admin\Action\Folder\ListAction:
         autowire: true
 
+    App\Ui\Admin\Action\Folder\DeleteAction:
+        autowire: true
+
     App\Ui\Admin\Action\Folder\CreateAction:
         autowire: true
 

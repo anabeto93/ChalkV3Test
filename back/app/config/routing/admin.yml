@@ -61,6 +61,14 @@ admin_folder_update:
         folder: \d+
     defaults: { _controller: App\Ui\Admin\Action\Folder\UpdateAction }
 
+admin_folder_delete:
+    path: /course/{course}/folder/delete/{folder}
+    methods: [DELETE]
+    requirements:
+        course: \d+
+        folder: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Folder\DeleteAction }
+
 #
 # Session
 #

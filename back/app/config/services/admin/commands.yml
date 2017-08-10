@@ -24,6 +24,11 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\Folder\Update }
 
+    App\Application\Command\Folder\DeleteHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Folder\Delete }
+
     App\Application\Command\Session\CreateHandler:
         autowire: true
         tags:
