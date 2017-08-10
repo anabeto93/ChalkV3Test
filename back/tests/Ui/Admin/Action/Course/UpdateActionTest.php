@@ -80,14 +80,14 @@ class UpdateActionTest extends TestCase
         $form->isSubmitted()->shouldBeCalled()->willReturn(false);
 
         // Action
-        $createAction = new UpdateAction(
+        $updateAction = new UpdateAction(
             $this->engine->reveal(),
             $this->router->reveal(),
             $this->commandBus->reveal(),
             $this->formFactory->reveal(),
             $this->flashBag->reveal()
         );
-        $result = $createAction($request, $course);
+        $result = $updateAction($request, $course);
 
         $this->assertEquals($response, $result);
     }
@@ -117,14 +117,14 @@ class UpdateActionTest extends TestCase
         $this->router->generate('admin_course_list')->shouldBeCalled()->willReturn('/admin/course');
 
         // Action
-        $createAction = new UpdateAction(
+        $updateAction = new UpdateAction(
             $this->engine->reveal(),
             $this->router->reveal(),
             $this->commandBus->reveal(),
             $this->formFactory->reveal(),
             $this->flashBag->reveal()
         );
-        $result = $createAction($request, $course);
+        $result = $updateAction($request, $course);
 
         $this->assertEquals($response, $result);
     }
