@@ -27,7 +27,6 @@ class FolderScreen extends Component {
         <Redirect to={`/courses/${course.uuid}/sessions/list`}/>
         }
 
-        <h1>Folders</h1>
         <List>
           { course !== undefined && course.folders.map((folder) => {
             return (
@@ -40,9 +39,6 @@ class FolderScreen extends Component {
             )
           }) }
         </List>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-        </ul>
       </div>
     );
   }

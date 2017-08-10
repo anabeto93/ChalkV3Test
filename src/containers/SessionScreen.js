@@ -20,7 +20,6 @@ class SessionScreen extends Component {
 
     return (
       <div>
-        <h1>Sessions</h1>
         <List>
           {folder !== undefined && folder.sessions.map((session, index) => {
             return (
@@ -35,9 +34,6 @@ class SessionScreen extends Component {
             )
           })}
         </List>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-        </ul>
       </div>
     );
   }
