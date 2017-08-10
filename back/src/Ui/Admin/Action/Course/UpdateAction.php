@@ -69,13 +69,13 @@ class UpdateAction
      */
     public function __invoke(Request $request, Course $course): Response
     {
-        $create = new Update($course);
-        $form = $this->formFactory->create(UpdateType::class, $create, [
+        $update = new Update($course);
+        $form = $this->formFactory->create(UpdateType::class, $update, [
             'submit' => true,
         ]);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
-            $this->commandBus->handle($create);
+            $this->commandBus->handle($update);
             $this->flashBag->add('success', 'flash.admin.course.update.success');
 
             return new RedirectResponse($this->router->generate('admin_course_list'));
