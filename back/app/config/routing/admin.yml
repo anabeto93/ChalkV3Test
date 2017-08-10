@@ -54,3 +54,8 @@ admin_session_create:
     path: /course/{course}/session/create
     methods: [GET, POST]
     defaults: { _controller: App\Ui\Admin\Action\Session\CreateAction }
+
+admin_session_preview:
+    path: /course/{course}/session/{session}/preview
+    methods: [GET]
+    defaults: { _controller: App\Ui\Admin\Action\Session\PreviewAction }
