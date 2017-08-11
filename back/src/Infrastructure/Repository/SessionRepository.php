@@ -72,4 +72,21 @@ class SessionRepository implements SessionRepositoryInterface
 
         return $queryBuilder->getQuery()->getResult();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getByUuid(?string $uuid): ?Session
+    {
+        $queryBuilder = $this->entityManager
+            ->createQueryBuilder()
+            ->select('session')
+            ->from(Session::class, 'session')
+            ->where('session.uuid = :uuid')
+            ->setParameter('uuid', $uuid)
+            ->setMaxResults(1)
+        ;
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
 }
