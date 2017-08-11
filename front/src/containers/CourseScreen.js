@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
 import CoursesList from '../components/Course/CoursesList';
+import UserPanel from '../components/Course/UserPanel';
 
 export class CourseScreen extends Component {
   render() {
@@ -10,6 +11,7 @@ export class CourseScreen extends Component {
 
     return (
       <div>
+        <UserPanel/>
         <CoursesList courses={items} />
       </div>
     );

@@ -20,6 +20,9 @@ export const RECEIVE_COURSES_INFORMATIONS =
 export const FAIL_GET_COURSES_INFORMATIONS =
   '@@CHALKBOARDEDUCATION/FAIL_GET_COURSES_INFORMATIONS';
 
+export const RECEIVE_USER_INFORMATIONS =
+  '@@CHALKBOARDEDUCATION/RECEIVE_USER_INFORMATIONS';
+
 export function requestCoursesInformations() {
   return { type: REQUEST_COURSES_INFORMATIONS };
 }
@@ -32,6 +35,10 @@ export function failGetCoursesInformations(message) {
   return { type: FAIL_GET_COURSES_INFORMATIONS, payload: { message } };
 }
 
+export function receiveUserInformations(user) {
+  return { type: RECEIVE_USER_INFORMATIONS, payload: { user } };
+}
+
 export function getCoursesInformations() {
   return function (dispatch) {
     dispatch(requestCoursesInformations());
@@ -39,6 +46,7 @@ export function getCoursesInformations() {
     GraphqlClient.query({ query: CoursesQuery, fetchPolicy: 'network-only' })
       .then(response => {
         dispatch(receiveCoursesInformations(response.data.courses));
+        dispatch(receiveUserInformations(response.data.user));
       })
       .catch(error => {
         dispatch(failGetCoursesInformations('Bad response from server'));
