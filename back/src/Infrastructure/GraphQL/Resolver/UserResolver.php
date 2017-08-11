@@ -10,9 +10,9 @@
 
 namespace App\Infrastructure\GraphQL\Resolver;
 
+use App\Infrastructure\Normalizer\UserNormalizer;
 use App\Infrastructure\Security\Api\ApiUserAdapter;
 use GraphQL\Error\UserError;
-use Sonata\IntlBundle\Templating\Helper\LocaleHelper;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class UserResolver
@@ -20,17 +20,17 @@ class UserResolver
     /** @var TokenStorageInterface */
     private $tokenStorage;
 
-    /** @var LocaleHelper */
-    private $localeHelper;
+    /** @var UserNormalizer */
+    private $userNormalizer;
 
     /**
      * @param TokenStorageInterface $tokenStorage
-     * @param LocaleHelper          $localeHelper
+     * @param UserNormalizer        $userNormalizer
      */
-    public function __construct(TokenStorageInterface $tokenStorage, LocaleHelper $localeHelper)
+    public function __construct(TokenStorageInterface $tokenStorage, UserNormalizer $userNormalizer)
     {
         $this->tokenStorage = $tokenStorage;
-        $this->localeHelper = $localeHelper;
+        $this->userNormalizer = $userNormalizer;
     }
 
     /**
@@ -46,13 +46,6 @@ class UserResolver
             throw new UserError('Invalid parameter');
         }
 
-        return [
-            'uuid'        => $user->getUser()->getUuid(),
-            'firstName'   => $user->getUser()->getFirstName(),
-            'lastName'    => $user->getUser()->getLastName(),
-            'phoneNumber' => $user->getUser()->getPhoneNumber(),
-            'countryCode' => $user->getUser()->getCountry(),
-            'country'     => $this->localeHelper->country($user->getUser()->getCountry()),
-        ];
+        return $this->userNormalizer->normalize($user->getUser());
     }
 }

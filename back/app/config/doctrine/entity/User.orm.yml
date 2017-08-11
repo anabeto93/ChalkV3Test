@@ -19,7 +19,11 @@ App\Domain\Model\User:
             unique: true
         country:
             type: string
+        size:
+            type: integer
         createdAt:
+            type: datetime
+        updatedAt:
             type: datetime
         apiToken:
             type: string

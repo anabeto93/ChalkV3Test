@@ -1,0 +1,7 @@
+{% extends ':Admin/Form:base_form_layout.html.twig' %}
+
+{% block title 'admin.session.create.title'|trans({'%courseTitle%': course.title }) %}
+
+{% block form_title 'admin.session.create.title'|trans({'%courseTitle%': course.title }) %}
+
+{% block goback_link path('admin_session_list', {'course': course.id}) %}

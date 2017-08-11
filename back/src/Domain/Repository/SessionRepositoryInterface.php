@@ -21,6 +21,16 @@ interface SessionRepositoryInterface
     public function add(Session $session);
 
     /**
+     * @param Session $session
+     */
+    public function set(Session $session);
+
+    /**
+     * @param Session $session
+     */
+    public function remove(Session $session);
+
+    /**
      * @param Course $course
      *
      * @return Session[]

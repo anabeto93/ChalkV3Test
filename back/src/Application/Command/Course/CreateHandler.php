@@ -12,6 +12,7 @@ namespace App\Application\Command\Course;
 
 use App\Domain\Model\Course;
 use App\Domain\Repository\CourseRepositoryInterface;
+use App\Domain\Size\Calculator;
 use App\Domain\Uuid\Generator;
 
 class CreateHandler
@@ -25,19 +26,25 @@ class CreateHandler
     /** @var \DateTimeInterface */
     private $dateTime;
 
+    /** @var Calculator */
+    private $sizeCalculator;
+
     /**
      * @param CourseRepositoryInterface $courseRepository
      * @param Generator                 $generator
+     * @param Calculator                $sizeCalculator
      * @param \DateTimeInterface        $dateTime
      */
     public function __construct(
         CourseRepositoryInterface $courseRepository,
         Generator $generator,
+        Calculator $sizeCalculator,
         \DateTimeInterface $dateTime
     ) {
         $this->courseRepository = $courseRepository;
         $this->generator = $generator;
         $this->dateTime = $dateTime;
+        $this->sizeCalculator = $sizeCalculator;
     }
 
     /**
@@ -45,13 +52,20 @@ class CreateHandler
      */
     public function handle(Create $command)
     {
-        $size = mb_strlen(
-            sprintf('%s%s%s%s', $command->title, $command->teacherName, $command->university, $command->description),
-            '8bit'
+        $uuid = $this->generator->generateUuid();
+        $size = $this->sizeCalculator->calculateSize(
+            sprintf(
+                '%s%s%s%s%s',
+                $uuid,
+                $command->title,
+                $command->teacherName,
+                $command->university,
+                $command->description
+            )
         );
 
         $course = new Course(
-            $this->generator->generateUuid(),
+            $uuid,
             $command->title,
             $command->teacherName,
             $command->university,

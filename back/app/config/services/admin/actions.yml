@@ -8,17 +8,38 @@ services:
     App\Ui\Admin\Action\Course\CreateAction:
         autowire: true
 
+    App\Ui\Admin\Action\Course\UpdateAction:
+        autowire: true
+
     App\Ui\Admin\Action\User\ListAction:
         autowire: true
 
     App\Ui\Admin\Action\User\CreateAction:
         autowire: true
 
+    App\Ui\Admin\Action\User\UpdateAction:
+        autowire: true
+
     App\Ui\Admin\Action\Folder\ListAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Folder\DeleteAction:
         autowire: true
 
     App\Ui\Admin\Action\Folder\CreateAction:
         autowire: true
 
+    App\Ui\Admin\Action\Folder\UpdateAction:
+        autowire: true
+
     App\Ui\Admin\Action\Session\ListAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Session\CreateAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Session\PreviewAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Session\DeleteAction:
         autowire: true

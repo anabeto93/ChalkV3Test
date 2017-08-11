@@ -36,12 +36,19 @@ class User
     /** @var \DateTimeInterface */
     private $createdAt;
 
+    /** @var \DateTimeInterface */
+    private $updatedAt;
+
+    /** @var int */
+    private $size;
+
     /**
      * @param string             $uuid
      * @param string             $firstName
      * @param string             $lastName
      * @param string             $phoneNumber
      * @param string             $country
+     * @param int                $size
      * @param \DateTimeInterface $createdAt
      */
     public function __construct(
@@ -50,6 +57,7 @@ class User
         string $lastName,
         string $phoneNumber,
         string $country,
+        int $size,
         \DateTimeInterface $createdAt
     ) {
         $this->uuid = $uuid;
@@ -58,6 +66,8 @@ class User
         $this->phoneNumber = $phoneNumber;
         $this->country = $country;
         $this->createdAt = $createdAt;
+        $this->updatedAt = $createdAt;
+        $this->size = $size;
         $this->apiToken = null;
     }
 
@@ -110,6 +120,30 @@ class User
     }
 
     /**
+     * @return \DateTimeInterface
+     */
+    public function getCreatedAt(): \DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @return \DateTimeInterface
+     */
+    public function getUpdatedAt(): \DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @return int
+     */
+    public function getSize(): int
+    {
+        return $this->size;
+    }
+
+    /**
      * @return null|string
      */
     public function getApiToken(): ?string
@@ -123,5 +157,29 @@ class User
     public function setApiToken(string $apiToken)
     {
         $this->apiToken = $apiToken;
+    }
+
+    /**
+     * @param string             $firstName
+     * @param string             $lastName
+     * @param string             $country
+     * @param string             $phoneNumber
+     * @param int                $size
+     * @param \DateTimeInterface $updatedAt
+     */
+    public function update(
+        string $firstName,
+        string $lastName,
+        string $country,
+        string $phoneNumber,
+        int $size,
+        \DateTimeInterface $updatedAt
+    ) {
+        $this->firstName = $firstName;
+        $this->lastName = $lastName;
+        $this->country = $country;
+        $this->phoneNumber = $phoneNumber;
+        $this->size = $size;
+        $this->updatedAt = $updatedAt;
     }
 }

@@ -17,3 +17,7 @@ services:
     App\Infrastructure\Repository\UserRepository:
         autowire: true
     App\Domain\Repository\UserRepositoryInterface: '@App\Infrastructure\Repository\UserRepository'
+
+    App\Infrastructure\Repository\Session\FileRepository:
+        autowire: true
+    App\Domain\Repository\Session\FileRepositoryInterface: '@App\Infrastructure\Repository\Session\FileRepository'
