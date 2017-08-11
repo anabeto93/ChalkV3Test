@@ -16,6 +16,13 @@ admin_course_create:
     methods: [GET, POST]
     defaults: { _controller: App\Ui\Admin\Action\Course\CreateAction }
 
+admin_course_update:
+    path: /course/update/{course}
+    methods: [GET, POST]
+    requirements:
+        course: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Course\UpdateAction }
+
 #
 # User
 #
@@ -29,18 +36,45 @@ admin_user_create:
     methods: [GET, POST]
     defaults: { _controller: App\Ui\Admin\Action\User\CreateAction }
 
+admin_user_update:
+    path: /user/{user}/update
+    methods: [GET, POST]
+    requirements:
+        user: \d+
+    defaults: { _controller: App\Ui\Admin\Action\User\UpdateAction }
+
 #
 # Folder
 #
 admin_folder_list:
     path: /course/{course}/folder
     methods: [GET]
+    requirements:
+        course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Folder\ListAction }
 
 admin_folder_create:
     path: /course/{course}/folder/create
     methods: [GET, POST]
+    requirements:
+        course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Folder\CreateAction }
+
+admin_folder_update:
+    path: /course/{course}/folder/update/{folder}
+    methods: [GET, POST]
+    requirements:
+        course: \d+
+        folder: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Folder\UpdateAction }
+
+admin_folder_delete:
+    path: /course/{course}/folder/delete/{folder}
+    methods: [DELETE]
+    requirements:
+        course: \d+
+        folder: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Folder\DeleteAction }
 
 #
 # Session
@@ -48,9 +82,29 @@ admin_folder_create:
 admin_session_list:
     path: /course/{course}/session
     methods: [GET]
+    requirements:
+        course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Session\ListAction }
 
 admin_session_create:
     path: /course/{course}/session/create
     methods: [GET, POST]
+    requirements:
+        course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Session\CreateAction }
+
+admin_session_preview:
+    path: /course/{course}/session/{session}/preview
+    methods: [GET]
+    requirements:
+        course: \d+
+        session: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Session\PreviewAction }
+
+admin_session_delete:
+    path: /course/{course}/session/{session}/delete
+    methods: [DELETE]
+    requirements:
+        course: \d+
+        session: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Session\DeleteAction }

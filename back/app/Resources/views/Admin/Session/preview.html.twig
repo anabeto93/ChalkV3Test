@@ -1,0 +1,13 @@
+{% extends '::base.html.twig' %}
+
+{% block title 'admin.session.preview.title'|trans({'%sessionTitle%': session.title}) %}
+
+{% block content %}
+    <h1>
+        <a href="{{ path('admin_session_list', {'course': course.id}) }}">{{ course.title }}</a>: {{ session.title }}
+    </h1>
+    <hr>
+    <div>
+        {{ session.content|raw }}
+    </div>
+{% endblock %}

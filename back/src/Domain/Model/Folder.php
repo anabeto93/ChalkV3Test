@@ -110,4 +110,16 @@ class Folder
     {
         return $this->size;
     }
+
+    /**
+     * @param string             $title
+     * @param int                $size
+     * @param \DateTimeInterface $updatedAt
+     */
+    public function update(string $title, int $size, \DateTimeInterface $updatedAt)
+    {
+        $this->title = $title;
+        $this->size = $size;
+        $this->updatedAt = $updatedAt;
+    }
 }

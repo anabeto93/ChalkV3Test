@@ -2,6 +2,8 @@
 
 {% block title 'admin.session.title'|trans({'%courseTitle%': course.title}) %}
 
+{% import ':Admin/Common:macro.html.twig' as macro %}
+
 {% block content %}
     <h1>
         {{ 'admin.session.title'|trans({'%courseTitle%': course.title}) }}
@@ -19,8 +21,9 @@
             <thead>
             <tr>
                 <th class="col-md-2">{{ 'admin.session.column.rank'|trans }}</th>
-                <th class="col-md-6">{{ 'admin.session.column.title'|trans }}</th>
+                <th class="col-md-4">{{ 'admin.session.column.title'|trans }}</th>
                 <th class="col-md-4">{{ 'admin.session.column.folder'|trans }}</th>
+                <th class="col-md-2"></th>
             </tr>
             </thead>
             <tbody>
@@ -29,6 +32,25 @@
                     <td>{{ session.rank }}</td>
                     <td>{{ session.title }}</td>
                     <td>{{ session.folderTitle }}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <a href="{{ path('admin_session_preview', {'course': course.id, 'session': session.id}) }}" class="btn btn-default btn-sm">
+                                {{ 'admin.session.action.preview'|trans }}
+                            </a>
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    {{ macro.delete_button(
+                                    path('admin_session_delete', { 'course': course.id, 'session': session.id }),
+                                    'admin.session.action.delete'|trans,
+                                    { 'class': 'btn btn-default btn-sm', 'data-confirm': 'admin.session.action.confirmDelete'|trans })
+                                    }}
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

@@ -14,6 +14,7 @@ use App\Application\Command\Course\Create;
 use App\Application\Command\Course\CreateHandler;
 use App\Domain\Model\Course;
 use App\Domain\Repository\CourseRepositoryInterface;
+use App\Domain\Size\Calculator;
 use App\Domain\Uuid\Generator;
 use PHPUnit\Framework\TestCase;
 
@@ -40,7 +41,7 @@ class CreateHandlerTest extends TestCase
             true,
             $dateTime,
             'this is the description',
-            49
+            69
         );
 
         // Mock
@@ -48,10 +49,17 @@ class CreateHandlerTest extends TestCase
         $courseRepository->add($expectedCourse)->shouldBeCalled();
         $generator = $this->prophesize(Generator::class);
         $generator->generateUuid()->shouldBeCalled()->willReturn('12345abc-def67-890ik');
+        $sizeCalculator = $this->prophesize(Calculator::class);
+        $sizeCalculator
+            ->calculateSize('12345abc-def67-890iktitleteacherNameuniversitythis is the description')
+            ->shouldBeCalled()
+            ->willReturn(69)
+        ;
 
         $handler = new CreateHandler(
             $courseRepository->reveal(),
             $generator->reveal(),
+            $sizeCalculator->reveal(),
             $dateTime
         );
         $handler->handle($command);

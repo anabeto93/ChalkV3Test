@@ -11,12 +11,24 @@
 namespace App\Domain\Session\Import;
 
 use App\Domain\Exception\Session\Import\ImageWithoutSrcException;
+use App\Infrastructure\Service\UrlGenerator;
 use DOMDocument;
 
 class ContentParser
 {
+    /** @var UrlGenerator */
+    private $urlGenerator;
+
     /** @var array */
     private $imagesFound = [];
+
+    /**
+     * @param UrlGenerator $urlGenerator
+     */
+    public function __construct(UrlGenerator $urlGenerator)
+    {
+        $this->urlGenerator = $urlGenerator;
+    }
 
     /**
      * @param string $pathOfFileToParse
@@ -73,7 +85,10 @@ class ContentParser
         if (!empty($src)) {
             $this->imagesFound[] = $src;
 
-            $imageNode->setAttribute('src', sprintf('%s/%s', $imageLocationPath, $src));
+            $imageNode->setAttribute(
+                'src',
+                sprintf('%s%s/%s', $this->urlGenerator->getBaseUrl(), $imageLocationPath, $src)
+            );
         } else {
             throw new ImageWithoutSrcException();
         }

@@ -20,6 +20,16 @@ interface FolderRepositoryInterface
     public function add(Folder $folder);
 
     /**
+     * @param Folder $folder
+     */
+    public function set(Folder $folder);
+
+    /**
+     * @param Folder $folder
+     */
+    public function remove(Folder $folder);
+
+    /**
      * @param $course
      *
      * @return Folder[]

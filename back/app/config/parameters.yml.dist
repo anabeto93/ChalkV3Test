@@ -17,6 +17,7 @@ parameters:
 
     # App
     admin_menu_color: '#fc3691'
+    path_to_store_upload: '/tmp'
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt

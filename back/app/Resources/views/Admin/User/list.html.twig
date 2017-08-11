@@ -21,7 +21,8 @@
                 <th class="col-md-4">{{ 'admin.user.column.firstName'|trans }}</th>
                 <th class="col-md-2">{{ 'admin.user.column.lastName'|trans }}</th>
                 <th class="col-md-3">{{ 'admin.user.column.phoneNumber'|trans }}</th>
-                <th class="col-md-3">{{ 'admin.user.column.country'|trans }}</th>
+                <th class="col-md-2">{{ 'admin.user.column.country'|trans }}</th>
+                <th class="col-md-1"></th>
             </tr>
             </thead>
             <tbody>
@@ -31,6 +32,11 @@
                     <td>{{ user.lastName }}</td>
                     <td>{{ user.phoneNumber }}</td>
                     <td>{{ user.country|country }}</td>
+                    <td class="text-right">
+                        <a href="{{ path('admin_user_update', {'user': user.id}) }}" class="btn btn-default btn-sm">
+                            {{ 'admin.user.action.update'|trans }}
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

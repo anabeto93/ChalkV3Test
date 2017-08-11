@@ -84,7 +84,8 @@ class ContentImporterTest extends TestCase
             $this->contentParser->reveal(),
             $this->imageMover->reveal(),
             $this->calculator->reveal(),
-            $this->sessionRepository->reveal()
+            $this->sessionRepository->reveal(),
+            '/tmp'
         );
         $contentImporter->import($course->reveal(), $uuid, $rank, $title, $uploadedFile, $dateTime, $folder);
 
@@ -146,7 +147,8 @@ class ContentImporterTest extends TestCase
             $this->contentParser->reveal(),
             $this->imageMover->reveal(),
             $this->calculator->reveal(),
-            $this->sessionRepository->reveal()
+            $this->sessionRepository->reveal(),
+            '/tmp'
         );
         $contentImporter->import($course->reveal(), $uuid, $rank, $title, $uploadedFile, $dateTime, $folder);
 

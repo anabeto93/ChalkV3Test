@@ -28,11 +28,20 @@ class FileRepository implements FileRepositoryInterface
     }
 
     /**
-     * @param File $file
+     * {@inheritdoc}
      */
     public function add(File $file)
     {
         $this->entityManager->persist($file);
+        $this->entityManager->flush($file);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function remove(File $file)
+    {
+        $this->entityManager->remove($file);
         $this->entityManager->flush($file);
     }
 }
