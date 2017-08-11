@@ -22,4 +22,10 @@ Query:
                     dateLastUpdate:
                         type: "DateTime"
                 resolve: "@=resolver('hasUpdates', [args])"
-
+            session:
+                type: "Session"
+                args:
+                    uuid:
+                        description: "The uuid of the session"
+                        type: "String!"
+                resolve: "@=resolver('session', [args])"

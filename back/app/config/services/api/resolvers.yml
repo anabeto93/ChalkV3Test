@@ -12,3 +12,7 @@ services:
         autowire: true
         tags:
             - { name: overblog_graphql.resolver, alias: "hasUpdates", method: "resolveHasUpdates" }
+    App\Infrastructure\GraphQL\Resolver\SessionResolver:
+        autowire: true
+        tags:
+            - { name: overblog_graphql.resolver, alias: "session", method: "resolveSession" }
