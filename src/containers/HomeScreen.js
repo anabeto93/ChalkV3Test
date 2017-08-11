@@ -1,17 +1,25 @@
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import React, { Component } from 'react';
-
-import LoginScreen from './LoginScreen';
+import { COURSES } from '../config/routes';
 
 export class HomeScreen extends Component {
   render() {
-    return this.props.loggedIn
-      ? <div>
+    if (this.props.loggedIn) {
+      return (
+        <div>
           <h1>You're logged</h1>
-          <Link to="/courses">Courses</Link>
+          <Link to={COURSES}>Courses</Link>
         </div>
-      : <LoginScreen />;
+      );
+    }
+
+    return (
+      <div>
+        Your link has a problem - please contact your Chalkboard Education for
+        support
+      </div>
+    );
   }
 }
 

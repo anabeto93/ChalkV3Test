@@ -19,3 +19,9 @@ body {
   top: 16px;
   left: 16px;
 }
+
+.flash-container {
+  padding: 10px;
+  background-color: #eeeeee;
+  text-align: center;
+}
