@@ -7,7 +7,7 @@ Feature: Session api
     And the api token for this user is "api-token-user"
     And I add "Authorization" header equal to "Bearer api-token-user"
     And I add "Content-Type" header equal to "application/json"
-    And I send a POST request to "/api/graphql/" with body:
+    When I send a POST request to "/api/graphql/" with body:
       """
       {"query": "query { session(uuid: \"not-found\") { title }}", "variables": null}
       """
@@ -36,7 +36,7 @@ Feature: Session api
     """
     And I add "Authorization" header equal to "Bearer api-token-user"
     And I add "Content-Type" header equal to "application/json"
-    And I send a POST request to "/api/graphql/" with body:
+    When I send a POST request to "/api/graphql/" with body:
       """
       {"query": "query { session(uuid: \"1231-123-123\") { title }}", "variables": null}
       """
