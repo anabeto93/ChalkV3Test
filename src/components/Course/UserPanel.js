@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardHeader } from 'material-ui/Card';
 import { connect } from 'react-redux';
 
-class UserPanal extends React.Component {
+class UserPanel extends React.Component {
   subtitle() {
     return (
       <div>
@@ -32,4 +32,4 @@ function mapStateToProps({ currentUser }) {
   return { user: currentUser };
 }
 
-export default connect(mapStateToProps)(UserPanal);
+export default connect(mapStateToProps)(UserPanel);
