@@ -1,7 +1,9 @@
+export const LOGIN_STATE_LOGIN = 'logged';
+export const LOGIN_STATE_LOGOUT = 'logout';
+
 const defaultState = {
   currentUser: {
-    // temporarly set user is logged and has a token
-    loginState: 'logged',
+    loginState: LOGIN_STATE_LOGOUT,
     token: 'api-key-token-user-1'
   },
   courses: {
