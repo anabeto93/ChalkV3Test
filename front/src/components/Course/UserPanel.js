@@ -13,7 +13,7 @@ class UserPanal extends React.Component {
   }
 
   render() {
-    if (this.props.user !== undefined) {
+    if (this.props.user.uuid !== undefined) {
       return (
         <Card style={{ margin: '10px 10px 0 10px' }}>
           <CardHeader
