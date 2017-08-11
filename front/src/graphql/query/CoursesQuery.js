@@ -1,13 +1,21 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
-export default gql`
-  query {
-    courses {
+export default gql`{
+  courses {
+    uuid
+    title
+    teacherName
+    description
+    folders {
       uuid
       title
-      description
-      teacherName
-      createdAt
+      updatedAt
+      sessions {
+        uuid
+        title
+        content
+        updatedAt
+      }
     }
   }
-`;
+}`;

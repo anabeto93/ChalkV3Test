@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import LoginScreen from './LoginScreen';
 
 export class HomeScreen extends Component {
+
   render() {
     console.log('rendering HomeScreen');
 
@@ -12,7 +13,7 @@ export class HomeScreen extends Component {
       ? <div>
           <h1>Welcome!</h1>
           <p>This is init!!!</p>
-          <Link to="/course">Course</Link>
+          <Link to="/courses">Course</Link>
         </div>
       : <LoginScreen />;
   }

@@ -1,6 +1,8 @@
-import _ from 'lodash';
-import { List, ListItem } from 'material-ui/List';
-import React, { Component } from 'react';
+import _ from "lodash";
+import { List, ListItem } from "material-ui/List";
+import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import { Link } from "react-router-dom";
+import React, { Component } from "react";
 
 export class CoursesList extends Component {
   shouldComponentUpdate(nextProps) {
@@ -8,11 +10,7 @@ export class CoursesList extends Component {
       return true;
     }
 
-    if (!_.isEqual(this.props.courses, nextProps.courses)) {
-      return true;
-    }
-
-    return false;
+    return !_.isEqual(this.props.courses, nextProps.courses);
   }
 
   render() {
@@ -22,16 +20,17 @@ export class CoursesList extends Component {
 
     return (
       <List>
-        {undefined !== courses &&
-          courses.map(course => {
-            return (
+        {undefined !== courses && courses.map(course => {
+          return (
+            <Link key={course.uuid} to={`/courses/${course.uuid}/folders/list`}>
               <ListItem
-                key={course.uuid}
                 primaryText={course.title}
                 secondaryText={course.teacherName}
+                rightIcon={<Arrow/>}
               />
-            );
-          })}
+            </Link>
+          );
+        })}
       </List>
     );
   }
