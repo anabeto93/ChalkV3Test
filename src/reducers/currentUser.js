@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS } from '../actions/actionCreators';
+import { LOGIN_SUCCESS, RECEIVE_USER_INFORMATIONS } from '../actions/actionCreators';
 
 export default function currentUser(
   state = { loginState: 'logged-out' },
@@ -7,6 +7,10 @@ export default function currentUser(
   switch (action.type) {
     case LOGIN_SUCCESS: {
       return { loginState: 'logged' };
+    }
+
+    case RECEIVE_USER_INFORMATIONS: {
+      return { ...state, ...action.payload.user };
     }
 
     default:
