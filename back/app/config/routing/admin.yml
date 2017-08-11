@@ -36,6 +36,13 @@ admin_user_create:
     methods: [GET, POST]
     defaults: { _controller: App\Ui\Admin\Action\User\CreateAction }
 
+admin_user_update:
+    path: /user/{user}/update
+    methods: [GET, POST]
+    requirements:
+        user: \d+
+    defaults: { _controller: App\Ui\Admin\Action\User\UpdateAction }
+
 #
 # Folder
 #

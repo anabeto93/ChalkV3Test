@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the ChalkboardEducation Application project.
+ * This file is part of the back project.
  *
- * Copyright (C) ChalkboardEducation
+ * Copyright (C) back
  *
  * @author Elao <contact@elao.com>
  */
@@ -11,75 +11,66 @@
 namespace App\Application\Command\User;
 
 use App\Domain\Exception\User\PhoneNumberAlreadyUsedException;
-use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Size\Calculator;
-use App\Domain\Uuid\Generator;
 use Sonata\IntlBundle\Templating\Helper\LocaleHelper;
 
-class CreateHandler
+class UpdateHandler
 {
     /** @var UserRepositoryInterface */
     private $userRepository;
 
-    /** @var Generator */
-    private $generator;
-
     /** @var \DateTimeInterface */
     private $dateTime;
-
-    /** @var Calculator */
-    private $sizeCalculator;
 
     /** @var LocaleHelper */
     private $localeHelper;
 
+    /** @var Calculator */
+    private $sizeCalculator;
+
     /**
      * @param UserRepositoryInterface $userRepository
-     * @param Generator               $generator
-     * @param Calculator              $sizeCalculator
      * @param LocaleHelper            $localeHelper
+     * @param Calculator              $sizeCalculator
      * @param \DateTimeInterface      $dateTime
      */
     public function __construct(
         UserRepositoryInterface $userRepository,
-        Generator $generator,
-        Calculator $sizeCalculator,
         LocaleHelper $localeHelper,
+        Calculator $sizeCalculator,
         \DateTimeInterface $dateTime
     ) {
         $this->userRepository = $userRepository;
-        $this->generator = $generator;
         $this->dateTime = $dateTime;
-        $this->sizeCalculator = $sizeCalculator;
         $this->localeHelper = $localeHelper;
+        $this->sizeCalculator = $sizeCalculator;
     }
 
     /**
-     * @param Create $command
+     * @param Update $command
      *
      * @throws PhoneNumberAlreadyUsedException
      */
-    public function handle(Create $command)
+    public function handle(Update $command)
     {
-        $userWithSamePhoneNumber = $this->userRepository->findByPhoneNumber($command->phoneNumber);
+        if ($command->user->getPhoneNumber() !== $command->phoneNumber) {
+            $userWithSamePhoneNumber = $this->userRepository->findByPhoneNumber($command->phoneNumber);
 
-        if ($userWithSamePhoneNumber !== null) {
-            throw new PhoneNumberAlreadyUsedException();
+            if ($userWithSamePhoneNumber !== null) {
+                throw new PhoneNumberAlreadyUsedException();
+            }
         }
 
-        $uuid = $this->generator->generateUuid();
-
-        $user = new User(
-            $uuid,
+        $command->user->update(
             $command->firstName,
             $command->lastName,
-            $command->phoneNumber,
             $command->country,
+            $command->phoneNumber,
             $this->sizeCalculator->calculateSize(
                 sprintf(
                     '%s%s%s%s%s%s',
-                    $uuid,
+                    $command->user->getUuid(),
                     $command->firstName,
                     $command->lastName,
                     $command->phoneNumber,
@@ -90,6 +81,6 @@ class CreateHandler
             $this->dateTime
         );
 
-        $this->userRepository->add($user);
+        $this->userRepository->set($command->user);
     }
 }

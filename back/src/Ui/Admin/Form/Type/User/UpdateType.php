@@ -1,19 +1,19 @@
 <?php
 
 /*
- * This file is part of the ChalkboardEducation Application project.
+ * This file is part of the back project.
  *
- * Copyright (C) ChalkboardEducation
+ * Copyright (C) back
  *
  * @author Elao <contact@elao.com>
  */
 
 namespace App\Ui\Admin\Form\Type\User;
 
-use App\Application\Command\User\Create;
+use App\Application\Command\User\Update;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CreateType extends AbstractUserType
+class UpdateType extends AbstractUserType
 {
     /**
      * {@inheritdoc}
@@ -21,7 +21,7 @@ class CreateType extends AbstractUserType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Create::class
+            'data_class' => Update::class
         ]);
     }
 
@@ -30,6 +30,6 @@ class CreateType extends AbstractUserType
      */
     public function getBlockPrefix()
     {
-        return 'user_create';
+        return 'user_update';
     }
 }
