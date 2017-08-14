@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { COURSES } from '../config/routes';
+import { LOGIN_STATE_LOGGED_IN } from '../store/defaultState';
 
 export class HomeScreen extends Component {
   render() {
@@ -19,7 +20,7 @@ export class HomeScreen extends Component {
 }
 
 function mapStateToProps({ currentUser: { loginState } }) {
-  return { loggedIn: loginState === 'logged' };
+  return { loggedIn: loginState === LOGIN_STATE_LOGGED_IN };
 }
 
 export default connect(mapStateToProps)(HomeScreen);

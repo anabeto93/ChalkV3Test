@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { getCoursesInformations } from '../actions/actionCreators';
 import UserPanel from '../components/Course/UserPanel';
 import { COURSES } from '../config/routes';
-import { LOGIN_STATE_LOGOUT } from '../store/defaultState';
+import { LOGIN_STATE_LOGGED_OUT } from '../store/defaultState';
 import store from '../store/store';
 
 class LoginScreen extends Component {
   componentDidMount() {
-    if (store.getState().currentUser.loginState === LOGIN_STATE_LOGOUT) {
+    if (store.getState().currentUser.loginState === LOGIN_STATE_LOGGED_OUT) {
       this.props.dispatch(getCoursesInformations());
     } else {
       this.handleRedirectCourses();
