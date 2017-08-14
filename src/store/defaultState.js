@@ -1,4 +1,7 @@
 const defaultState = {
+  network: {
+    isOnline: true
+  },
   currentUser: {
     // temporarly set user is logged and has a token
     loginState: 'logged',
