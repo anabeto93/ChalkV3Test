@@ -7,6 +7,7 @@ import {
 export default function courses(
   state = {
     isFetching: false,
+    isErrorFetching: false,
     items: []
   },
   action
@@ -14,7 +15,8 @@ export default function courses(
   switch (action.type) {
     case REQUEST_COURSES_INFORMATIONS: {
       return Object.assign({}, state, {
-        isFetching: true
+        isFetching: true,
+        isErrorFetching: false
       });
     }
 
@@ -22,6 +24,7 @@ export default function courses(
       console.log('RECEIVE_COURSES_INFORMATIONS', action.payload);
       return Object.assign({}, state, {
         isFetching: false,
+        isErrorFetching: false,
         items: action.payload.courses
       });
     }
@@ -29,7 +32,8 @@ export default function courses(
     case FAIL_GET_COURSES_INFORMATIONS: {
       return Object.assign({}, state, {
         isFetching: false,
-        items: []
+        isErrorFetching: true,
+        items: state.items
       });
     }
 

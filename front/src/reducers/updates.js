@@ -10,6 +10,7 @@ import {
 export default function updates(
   state = {
     isFetching: false,
+    isErrorFetching: false,
     hasUpdates: false,
     dateLastCheck: null,
     size: 0
@@ -20,6 +21,7 @@ export default function updates(
     case REINIT_UPDATES: {
       return Object.assign({}, state, {
         isFetching: false,
+        isErrorFetching: false,
         hasUpdates: false,
         size: 0
       });
@@ -27,7 +29,8 @@ export default function updates(
 
     case REQUEST_UPDATES: {
       return Object.assign({}, state, {
-        isFetching: true
+        isFetching: true,
+        isErrorFetching: false
       });
     }
 
@@ -35,6 +38,7 @@ export default function updates(
       const { hasUpdates, size } = action.payload.updates;
       return Object.assign({}, state, {
         isFetching: false,
+        isErrorFetching: false,
         hasUpdates: hasUpdates,
         dateLastCheck: moment(),
         size: size
@@ -43,7 +47,8 @@ export default function updates(
 
     case FAIL_GET_UPDATES: {
       return Object.assign({}, state, {
-        isFetching: false
+        isFetching: false,
+        isErrorFetching: true
       });
     }
 
