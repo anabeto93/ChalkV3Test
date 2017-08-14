@@ -9,13 +9,15 @@ export class HomeScreen extends Component {
       return (
         <div>
           <h1>You're logged</h1>
-          <Link to={COURSES}>Courses</Link>
+          <Link className="link-primary" to={COURSES}>
+            Courses
+          </Link>
         </div>
       );
     }
 
     return (
-      <div>
+      <div className="alert">
         Your link has a problem - please contact your Chalkboard Education for
         support
       </div>

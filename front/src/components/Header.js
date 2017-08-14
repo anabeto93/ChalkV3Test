@@ -52,7 +52,11 @@ class Header extends Component {
   showMenuIconButton = () => {
     const { location } = this.props;
 
-    return location.pathname !== HOME && location.pathname !== COURSES;
+    return (
+      location.pathname !== HOME &&
+      location.pathname !== COURSES &&
+      RouteResolver.resolve(location) !== undefined
+    );
   };
 
   rightIcon = () => {
