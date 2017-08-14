@@ -12,13 +12,13 @@ class LoginScreen extends Component {
     if (store.getState().currentUser.loginState === LOGIN_STATE_LOGOUT) {
       this.props.dispatch(getCoursesInformations());
     } else {
-      this.redirectCourses();
+      this.handleRedirectCourses();
     }
   }
 
-  redirectCourses() {
+  handleRedirectCourses = () => {
     this.props.history.push(COURSES);
-  }
+  };
 
   render() {
     console.log('rendering LoginScreen');
@@ -35,7 +35,7 @@ class LoginScreen extends Component {
           <UserPanel />
           <RaisedButton
             style={{ margin: '10px' }}
-            onClick={this.redirectCourses.bind(this)}
+            onClick={this.handleRedirectCourses}
           >
             Start
           </RaisedButton>
