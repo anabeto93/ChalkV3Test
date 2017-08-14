@@ -31,7 +31,6 @@ class LoginScreen extends Component {
     if (this.props.user.uuid !== undefined) {
       return (
         <div>
-          <h1>Welcome</h1>
           <UserPanel />
           <RaisedButton
             style={{ margin: '10px' }}

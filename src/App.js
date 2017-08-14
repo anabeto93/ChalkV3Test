@@ -16,6 +16,7 @@ import PrivateRoute from './containers/PrivateRoute';
 import SessionDetailScreen from './containers/SessionDetailScreen';
 import SessionScreen from './containers/SessionScreen';
 import store from './store/store';
+import { darkBlack } from 'material-ui/styles/colors';
 
 const PRIMARY_COLOR = '#fc3691';
 
@@ -27,7 +28,8 @@ class App extends Component {
           muiTheme={getMuiTheme({
             palette: {
               primary1Color: PRIMARY_COLOR,
-              textColor: PRIMARY_COLOR
+              primary2Color: darkBlack,
+              textColor1: darkBlack
             }
           })}
         >

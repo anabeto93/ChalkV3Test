@@ -20,8 +20,17 @@ body {
   left: 16px;
 }
 
+.link-primary {
+  text-decoration: none;
+}
+
 .flash-container {
   padding: 10px;
   background-color: #eeeeee;
+  text-align: center;
+}
+
+.alert {
+  margin: 15px;
   text-align: center;
 }
