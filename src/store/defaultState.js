@@ -9,10 +9,12 @@ const defaultState = {
   },
   courses: {
     isFetching: false,
+    isErrorFetching: false,
     items: []
   },
   updates: {
     isFetching: false,
+    isErrorFetching: false,
     hasUpdates: false,
     dateLastCheck: null,
     size: 0
