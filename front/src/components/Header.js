@@ -42,23 +42,17 @@ class Header extends Component {
   };
 
   leftIcon = () => {
-    const { location } = this.props;
-
-    if (location.pathname !== COURSES && location.pathname !== HOME) {
-      return (
-        <IconButton onClick={this.handleGoBack}>
-          <Back>Back</Back>
-        </IconButton>
-      );
-    }
-
-    return <div />;
+    return (
+      <IconButton onClick={this.handleGoBack}>
+        <Back>Back</Back>
+      </IconButton>
+    );
   };
 
   showMenuIconButton = () => {
     const { location } = this.props;
 
-    return location.pathname !== '/';
+    return location.pathname !== HOME && location.pathname !== COURSES;
   };
 
   rightIcon = () => {
