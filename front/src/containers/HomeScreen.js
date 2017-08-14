@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { COURSES } from '../config/routes';
 
 export class HomeScreen extends Component {
   render() {
     if (this.props.loggedIn) {
-      return (
-        <div>
-          <h1>You're logged</h1>
-          <Link className="link-primary" to={COURSES}>
-            Courses
-          </Link>
-        </div>
-      );
+      return <Redirect to={COURSES} />;
     }
 
     return (
