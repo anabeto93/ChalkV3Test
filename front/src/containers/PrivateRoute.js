@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import { LOGIN_STATE_LOGGED_IN } from '../store/defaultState';
 
 const PrivateRoute = ({ component, ...rest }) =>
   <Route
@@ -27,7 +28,7 @@ class PrivateInnerComponent extends Component {
 }
 
 const mapStateToProps = ({ currentUser: { loginState } }) => ({
-  loggedIn: loginState === 'logged'
+  loggedIn: loginState === LOGIN_STATE_LOGGED_IN
 });
 const PrivateComponent = connect(mapStateToProps)(PrivateInnerComponent);
 

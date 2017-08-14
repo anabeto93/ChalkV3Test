@@ -1,8 +1,11 @@
 import { RECEIVE_USER_INFORMATIONS } from '../actions/actionCreators';
-import { LOGIN_STATE_LOGIN } from '../store/defaultState';
+import {
+  LOGIN_STATE_LOGGED_IN,
+  LOGIN_STATE_LOGGED_OUT
+} from '../store/defaultState';
 
 export default function currentUser(
-  state = { loginState: 'logged-out' },
+  state = { loginState: LOGIN_STATE_LOGGED_OUT },
   action
 ) {
   switch (action.type) {
@@ -10,7 +13,7 @@ export default function currentUser(
       return {
         ...state,
         ...action.payload.user,
-        loginState: LOGIN_STATE_LOGIN
+        loginState: LOGIN_STATE_LOGGED_IN
       };
     }
 
