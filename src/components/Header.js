@@ -7,15 +7,21 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import logoImage from '../assets/logo.png';
-import { COURSES } from '../config/routes';
+import { COURSES, HOME } from '../config/routes';
 import RouteResolver from '../services/RouteResolver';
 
 class Header extends Component {
-  courseList() {
+  handleRedirectCourseList = () => {
     this.props.history.push(COURSES);
-  }
+  };
 
-  logo() {
+  handleGoBack = () => {
+    if (this.props.location.pathname !== COURSES) {
+      this.props.history.goBack();
+    }
+  };
+
+  logo = () => {
     const { title } = this.props;
 
     return (
@@ -33,33 +39,35 @@ class Header extends Component {
         {title}
       </span>
     );
-  }
+  };
 
-  leftIcon() {
-    const { location, history } = this.props;
+  leftIcon = () => {
+    const { location } = this.props;
 
-    if (location.pathname !== '/') {
+    if (location.pathname !== COURSES && location.pathname !== HOME) {
       return (
-        <IconButton onClick={history.goBack}>
+        <IconButton onClick={this.handleGoBack}>
           <Back>Back</Back>
         </IconButton>
       );
     }
-  }
 
-  showMenuIconButton() {
+    return <div />;
+  };
+
+  showMenuIconButton = () => {
     const { location } = this.props;
 
     return location.pathname !== '/';
-  }
+  };
 
-  rightIcon() {
+  rightIcon = () => {
     return (
-      <IconButton onClick={this.courseList.bind(this)}>
+      <IconButton onClick={this.handleRedirectCourseList}>
         <UserIcon />
       </IconButton>
     );
-  }
+  };
 
   render() {
     return (
