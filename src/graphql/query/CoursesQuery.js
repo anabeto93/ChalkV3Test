@@ -1,28 +1,36 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
-export default gql`{
-  courses {
-    uuid
-    title
-    teacherName
-    description
-    folders {
+export default gql`
+  {
+    courses {
       uuid
       title
-      updatedAt
-      sessions {
+      teacherName
+      description
+      folders {
         uuid
         title
-        content
         updatedAt
+        sessions {
+          uuid
+          title
+          content
+          updatedAt
+          files {
+            url
+            size
+            createdAt
+            updatedAt
+          }
+        }
       }
     }
+    user {
+      uuid
+      firstName
+      lastName
+      country
+      phoneNumber
+    }
   }
-  user {
-    uuid
-    firstName
-    lastName
-    country
-    phoneNumber
-  }
-}`;
+`;
