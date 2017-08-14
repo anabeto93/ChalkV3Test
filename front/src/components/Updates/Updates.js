@@ -9,7 +9,8 @@ import {
 
 const DEFAULT_STATE = {
   isAlreadyUpToDate: false,
-  isErrorWhileCheckingUpdates: false
+  isErrorWhileCheckingUpdates: false,
+  isErrorWhileUpdating: false
 };
 const MESSAGE_DELAY_IN_SECONDS = 5;
 
@@ -27,7 +28,19 @@ export class Updates extends Component {
       isErrorFetching && currentIsFetching && !isFetching;
 
     if (isErrorWhileCheckingUpdates) {
-      this.handleUpdatesError();
+      this.setState({ ...DEFAULT_STATE, isErrorWhileCheckingUpdates: true });
+      return;
+    }
+
+    const isErrorWhileUpdating =
+      this.props.courses.isFetching &&
+      nextProps.courses.isErrorFetching &&
+      !nextProps.courses.isFetching &&
+      hasUpdates;
+
+    if (isErrorWhileUpdating) {
+      this.setState({ ...DEFAULT_STATE, isErrorWhileUpdating: true });
+      this.handleShortMessage('isErrorWhileUpdating');
       return;
     }
 
@@ -35,17 +48,9 @@ export class Updates extends Component {
       !isErrorFetching && currentIsFetching && !isFetching && !hasUpdates;
 
     if (isAlreadyUpToDate) {
-      this.handleAlreadyUptodate();
+      this.setState({ ...DEFAULT_STATE, isAlreadyUpToDate: true });
+      this.handleShortMessage('isAlreadyUpToDate');
     }
-  }
-
-  handleUpdatesError() {
-    this.setState({ ...DEFAULT_STATE, isErrorWhileCheckingUpdates: true });
-  }
-
-  handleAlreadyUptodate() {
-    this.setState({ ...DEFAULT_STATE, isAlreadyUpToDate: true });
-    this.handleShortMessage('isAlreadyUpToDate');
   }
 
   handleShortMessage(stateName) {
@@ -80,6 +85,14 @@ export class Updates extends Component {
       return (
         <div style={style.container}>
           <small>You are offline.</small>
+        </div>
+      );
+    }
+
+    if (this.state.isErrorWhileUpdating) {
+      return (
+        <div style={style.container}>
+          <p>There is a network problem while updating.</p>
         </div>
       );
     }
