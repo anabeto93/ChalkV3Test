@@ -10,8 +10,6 @@ export class LoginScreen extends Component {
   };
 
   render() {
-    console.log('rendering LoginScreen');
-
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
