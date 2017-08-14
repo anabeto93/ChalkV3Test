@@ -17,6 +17,7 @@ import SessionDetailScreen from './containers/SessionDetailScreen';
 import SessionScreen from './containers/SessionScreen';
 import store from './store/store';
 import { darkBlack } from 'material-ui/styles/colors';
+import Updates from './components/Updates/Updates';
 
 const PRIMARY_COLOR = '#fc3691';
 
@@ -36,8 +37,8 @@ class App extends Component {
           <Router>
             <div>
               <Header />
+              <Updates />
               <Switch>
-                {/*<Updates />*/}
                 <Route exact path={routes.HOME} component={HomeScreen} />
                 <Route exact path={routes.LOGIN} component={LoginScreen} />
                 <PrivateRoute
