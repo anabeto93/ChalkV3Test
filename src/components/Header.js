@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import Back from 'material-ui/svg-icons/navigation/chevron-left';
 import UserIcon from 'material-ui/svg-icons/social/person';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import logoImage from '../assets/logo.png';
-import RouteResolver from '../services/RouteResolver';
 import { COURSES } from '../config/routes';
+import RouteResolver from '../services/RouteResolver';
 
 class Header extends Component {
   courseList() {
@@ -23,7 +23,12 @@ class Header extends Component {
         <img
           src={logoImage}
           alt="Chalkboard Education"
-          style={{ paddingTop: '10px', float: 'left', maxHeight: '50%', margin: '6px' }}
+          style={{
+            paddingTop: '10px',
+            float: 'left',
+            maxHeight: '50%',
+            margin: '6px'
+          }}
         />{' '}
         {title}
       </span>
@@ -69,8 +74,12 @@ class Header extends Component {
 }
 
 function mapStateToProps(state, props) {
+  let title = '';
   let route = RouteResolver.resolve(props.location);
-  let title = RouteResolver.resolveTitle(route);
+
+  if (route !== undefined) {
+    title = RouteResolver.resolveTitle(route);
+  }
 
   return { title };
 }
