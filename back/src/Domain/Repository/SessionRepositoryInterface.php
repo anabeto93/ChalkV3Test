@@ -36,4 +36,11 @@ interface SessionRepositoryInterface
      * @return Session[]
      */
     public function findByCourse(Course $course): array;
+
+    /**
+     * @param null|string $uuid
+     *
+     * @return Session|null
+     */
+    public function getByUuid(?string $uuid): ?Session;
 }
