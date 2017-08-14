@@ -21,7 +21,6 @@ export default function courses(
     }
 
     case RECEIVE_COURSES_INFORMATIONS: {
-      console.log('RECEIVE_COURSES_INFORMATIONS', action.payload);
       return Object.assign({}, state, {
         isFetching: false,
         isErrorFetching: false,
