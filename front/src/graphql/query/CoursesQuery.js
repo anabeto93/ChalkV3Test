@@ -18,4 +18,11 @@ export default gql`{
       }
     }
   }
+  user {
+    uuid
+    firstName
+    lastName
+    country
+    phoneNumber
+  }
 }`;

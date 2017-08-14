@@ -1,23 +1,29 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { connect } from "react-redux";
-import AppBar from "material-ui/AppBar";
-import IconButton from "material-ui/IconButton";
-import Back from "material-ui/svg-icons/navigation/chevron-left";
+import { connect } from 'react-redux';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import Back from 'material-ui/svg-icons/navigation/chevron-left';
+import UserIcon from 'material-ui/svg-icons/social/person';
 
-import logoImage from "../assets/logo.png";
-import RouteResolver from "../services/RouteResolver";
+import logoImage from '../assets/logo.png';
+import RouteResolver from '../services/RouteResolver';
+import { COURSES } from '../config/routes';
 
 class Header extends Component {
+  courseList() {
+    this.props.history.push(COURSES);
+  }
+
   logo() {
     const { title } = this.props;
 
     return (
-      <span>
+      <span style={{ fontSize: '14px' }}>
         <img
           src={logoImage}
           alt="Chalkboard Education"
-          style={{ float: 'left', maxHeight: '80%', margin: '6px' }}
+          style={{ paddingTop: '10px', float: 'left', maxHeight: '50%', margin: '6px' }}
         />{' '}
         {title}
       </span>
@@ -32,14 +38,33 @@ class Header extends Component {
         <IconButton onClick={history.goBack}>
           <Back>Back</Back>
         </IconButton>
-      )
+      );
     }
+  }
+
+  showMenuIconButton() {
+    const { location } = this.props;
+
+    return location.pathname !== '/';
+  }
+
+  rightIcon() {
+    return (
+      <IconButton onClick={this.courseList.bind(this)}>
+        <UserIcon />
+      </IconButton>
+    );
   }
 
   render() {
     return (
-      <AppBar iconElementLeft={this.leftIcon()} title={this.logo()}/>
-    )
+      <AppBar
+        title={this.logo()}
+        iconElementLeft={this.leftIcon()}
+        iconElementRight={this.rightIcon()}
+        showMenuIconButton={this.showMenuIconButton()}
+      />
+    );
   }
 }
 

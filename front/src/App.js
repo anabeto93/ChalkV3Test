@@ -8,6 +8,7 @@ import CourseScreen from "./containers/CourseScreen";
 import HomeScreen from "./containers/HomeScreen";
 import FolderScreen from "./containers/FolderScreen";
 import SessionScreen from "./containers/SessionScreen";
+import SessionDetailScreen from "./containers/SessionDetailScreen";
 import PrivateRoute from "./containers/PrivateRoute";
 import store from "./store/store";
 import Header from "./components/Header";
@@ -38,6 +39,7 @@ class App extends Component {
               <PrivateRoute exact path={ routes.FOLDER_LIST } component={FolderScreen} />
               <PrivateRoute exact path={ routes.SESSION_LIST } component={SessionScreen} />
               <PrivateRoute exact path={ routes.SESSION_LIST_WITHOUT_FOLDER } component={SessionScreen} />
+              <PrivateRoute exact path={ routes.SESSION_DETAIL } component={SessionDetailScreen}/>
             </div>
           </Router>
         </MuiThemeProvider>

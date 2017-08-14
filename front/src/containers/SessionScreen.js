@@ -14,28 +14,26 @@ class SessionScreen extends Component {
   }
 
   render() {
-    let { folder } = this.props;
+    let { folder, course } = this.props;
 
     console.log('rendering SessionScreen');
 
     return (
       <div>
-        <h1>Sessions</h1>
         <List>
-          { folder !== undefined && folder.sessions.map((session, index) => {
+          {folder !== undefined && folder.sessions.map((session, index) => {
             return (
-              <ListItem
-                leftAvatar={this.leftIcon(index)}
-                key={session.uuid}
-                primaryText={session.title}
-                rightIcon={<Arrow/>}
-              />
+              <Link key={session.uuid} to={`/courses/${course.uuid}/session/${session.uuid}`}>
+                <ListItem
+                  leftAvatar={this.leftIcon(index)}
+                  key={session.uuid}
+                  primaryText={session.title}
+                  rightIcon={<Arrow/>}
+                />
+              </Link>
             )
-          }) }
+          })}
         </List>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-        </ul>
       </div>
     );
   }
@@ -53,7 +51,7 @@ function mapStateToProps(state, props) {
 
   let folder = courseManager.getFolderFromCourse(course, folderId);
 
-  return { folder };
+  return { folder, course };
 }
 
 export default connect(mapStateToProps)(SessionScreen);
