@@ -35,7 +35,7 @@ export class Updates extends Component {
   };
 
   render() {
-    const { updates, courses } = this.props;
+    const { courses, network, updates } = this.props;
 
     const style = {
       container: {
@@ -54,6 +54,14 @@ export class Updates extends Component {
     }
 
     if (updates.hasUpdates) {
+      if (!network.isOnline) {
+        return (
+          <div style={style.container}>
+            Your app must be updated but you are offline.
+          </div>
+        );
+      }
+
       return (
         <div style={style.container}>
           <p>
@@ -78,8 +86,8 @@ export class Updates extends Component {
   }
 }
 
-function mapStateToProps({ updates, courses }) {
-  return { updates, courses };
+function mapStateToProps({ courses, network, updates }) {
+  return { courses, network, updates };
 }
 
 export default connect(mapStateToProps)(Updates);

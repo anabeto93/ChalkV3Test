@@ -4,6 +4,9 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import App from './App';
 
+// Check network status
+import './services/network/networkStatusEventListener';
+
 // Init the clock
 import './services/updates/clock';
 
