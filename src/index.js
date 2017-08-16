@@ -8,11 +8,11 @@ import App from './App';
 // Init the clock
 import './services/updates/clock';
 
-// import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
 injectTapEventPlugin();
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
-// registerServiceWorker();
+registerServiceWorker();
