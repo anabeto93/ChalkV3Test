@@ -3,6 +3,7 @@
   "name": "Chalkboard Education",
   "lang": "en-US",
   "orientation": "portrait",
+  "splash_screens": false,
   "icons": [
     {
       "src": "icons/icon-72x72.png",
