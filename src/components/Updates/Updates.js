@@ -21,6 +21,7 @@ export class Updates extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     const { isFetching: currentIsFetching } = this.props.updates;
     const { hasUpdates, isErrorFetching, isFetching } = nextProps.updates;
 
@@ -50,7 +51,10 @@ export class Updates extends Component {
     if (isAlreadyUpToDate) {
       this.setState({ ...DEFAULT_STATE, isAlreadyUpToDate: true });
       this.handleShortMessage('isAlreadyUpToDate');
+      return;
     }
+
+    this.setState(DEFAULT_STATE);
   }
 
   handleShortMessage(stateName) {
