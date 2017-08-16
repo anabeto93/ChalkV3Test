@@ -74,6 +74,7 @@ class CourseNormalizer
             'teacherName' => $course->getTeacherName(),
             'university' => $course->getUniversity(),
             'createdAt' => $course->getCreatedAt(),
+            'updatedAt' => $course->getUpdatedAt(),
             'folders' => $foldersNormalized,
         ];
     }
