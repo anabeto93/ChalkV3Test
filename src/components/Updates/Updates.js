@@ -21,7 +21,6 @@ export class Updates extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     const { isFetching: currentIsFetching } = this.props.updates;
     const { hasUpdates, isErrorFetching, isFetching } = nextProps.updates;
 
