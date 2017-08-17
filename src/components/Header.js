@@ -7,12 +7,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import logoImage from '../assets/logo.png';
-import { COURSES, HOME } from '../config/routes';
+import { ACCOUNT, COURSES, HOME } from '../config/routes';
 import RouteResolver from '../services/RouteResolver';
 
 class Header extends Component {
   handleRedirectCourseList = () => {
-    this.props.history.push(COURSES);
+    this.props.history.push(ACCOUNT);
   };
 
   handleGoBack = () => {
