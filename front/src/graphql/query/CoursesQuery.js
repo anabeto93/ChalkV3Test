@@ -7,6 +7,7 @@ export default gql`
       title
       teacherName
       description
+      updatedAt
       folders {
         uuid
         title
@@ -14,7 +15,7 @@ export default gql`
         sessions {
           uuid
           title
-          content
+          contentUpdatedAt
           updatedAt
           files {
             url
