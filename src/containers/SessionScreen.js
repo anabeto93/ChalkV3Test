@@ -16,27 +16,26 @@ class SessionScreen extends Component {
   }
 
   render() {
-    let { folder, course } = this.props;
+    const { folder, course } = this.props;
 
     return (
       <div>
         <List>
-          {folder !== undefined &&
-            folder.sessions.map((session, index) => {
-              return (
-                <Link
+          {folder.sessions.map((session, index) => {
+            return (
+              <Link
+                key={session.uuid}
+                to={`/courses/${course.uuid}/session/${session.uuid}`}
+              >
+                <ListItem
+                  leftAvatar={this.leftIcon(index)}
                   key={session.uuid}
-                  to={`/courses/${course.uuid}/session/${session.uuid}`}
-                >
-                  <ListItem
-                    leftAvatar={this.leftIcon(index)}
-                    key={session.uuid}
-                    primaryText={session.title}
-                    rightIcon={<Arrow />}
-                  />
-                </Link>
-              );
-            })}
+                  primaryText={session.title}
+                  rightIcon={<Arrow />}
+                />
+              </Link>
+            );
+          })}
         </List>
       </div>
     );
