@@ -26,7 +26,7 @@ export default function courses(
     }
 
     case RECEIVE_COURSES_INFORMATIONS: {
-      const previousCourseItems = state.courses.items;
+      const previousCourseItems = state.items;
       const newCourseItems = action.payload.courses;
 
       // copy previous session content to new session content

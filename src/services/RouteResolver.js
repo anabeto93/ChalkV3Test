@@ -2,6 +2,7 @@ import { matchPath } from 'react-router-dom';
 import * as routes from '../config/routes';
 import CourseManager from './CourseManager';
 import getConfig from '../config/index';
+import store from '../store/store';
 
 const APP_NAME = getConfig().appName;
 
@@ -31,19 +32,28 @@ export default {
       case routes.COURSES:
         return APP_NAME;
       case routes.FOLDER_LIST:
-        course = CourseManager.getCourse(params.courseId);
+        course = CourseManager.getCourse(
+          store.getState().courses.items,
+          params.courseUuid
+        );
         return course ? course.title : '';
       case routes.SESSION_LIST:
-        course = CourseManager.getCourse(params.courseId);
+        course = CourseManager.getCourse(
+          store.getState().courses.items,
+          params.courseUuid
+        );
 
         if (course !== undefined) {
-          folder = CourseManager.getFolderFromCourse(course, params.folderId);
+          folder = CourseManager.getFolderFromCourse(course, params.folderUuid);
           return folder ? folder.title : '';
         }
 
         return course ? course.title : '';
       case routes.SESSION_DETAIL:
-        course = CourseManager.getCourse(params.courseId);
+        course = CourseManager.getCourse(
+          store.getState().courses.items,
+          params.courseUuid
+        );
 
         return course ? course.title : '';
       default:
