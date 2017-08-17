@@ -1,5 +1,6 @@
 import {
   FAIL_GET_COURSES_INFORMATIONS,
+  FILE_LOADED,
   RECEIVE_COURSES_INFORMATIONS,
   REQUEST_COURSES_INFORMATIONS
 } from '../actions/actionCreators';
@@ -18,6 +19,18 @@ export default function courses(
   action
 ) {
   switch (action.type) {
+    case FILE_LOADED: {
+      const sessionFiles = state.spool.sessionFiles.filter(
+        ({ file }) => file !== action.payload.file
+      );
+      return {
+        ...state,
+        spool: {
+          sessionFiles
+        }
+      };
+    }
+
     case REQUEST_COURSES_INFORMATIONS: {
       return {
         ...state,

@@ -11,7 +11,8 @@ import {
 const DEFAULT_STATE = {
   isAlreadyUpToDate: false,
   isErrorWhileCheckingUpdates: false,
-  isErrorWhileUpdating: false
+  isErrorWhileUpdating: false,
+  spoolCompleted: 0
 };
 const MESSAGE_DELAY_IN_SECONDS = 5;
 
@@ -82,7 +83,7 @@ export class Updates extends Component {
   render() {
     const { courses, network, updates } = this.props;
     const currentSpoolTotal = courses.spool.total;
-    const spoolCompleted = 0;
+    const spoolCompleted = this.state.spoolCompleted;
     const percentSpoolCompleted =
       currentSpoolTotal > 0
         ? Math.round(spoolCompleted * 100 / currentSpoolTotal)

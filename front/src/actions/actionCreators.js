@@ -100,3 +100,9 @@ export function getUpdates() {
       });
   };
 }
+
+export const FILE_LOADED = '@@CHALKBOARDEDUCATION/FILE_LOADED';
+
+export function fileLoaded(file) {
+  return { type: FILE_LOADED, payload: { file } };
+}
