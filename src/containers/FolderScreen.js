@@ -26,6 +26,10 @@ class FolderScreen extends Component {
           course.folders[0].uuid === FolderScreen.DEFAULT_FOLDER &&
           <Redirect to={`/courses/${course.uuid}/sessions/list`} />}
 
+        {course !== undefined && 0 === course.folders.length
+          ? <p>No content available</p>
+          : ''}
+
         <List>
           {course !== undefined &&
             course.folders.map(folder => {
