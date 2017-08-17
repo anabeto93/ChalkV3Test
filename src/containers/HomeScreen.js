@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { COURSES } from '../config/routes';
 import { LOGIN_STATE_LOGGED_IN } from '../store/defaultState';
+import I18n from 'i18n-js';
 
 export class HomeScreen extends Component {
   render() {
@@ -12,8 +13,7 @@ export class HomeScreen extends Component {
 
     return (
       <div className="alert">
-        Your link has a problem - please contact your Chalkboard Education for
-        support
+        {I18n.t('tokenError')}
       </div>
     );
   }

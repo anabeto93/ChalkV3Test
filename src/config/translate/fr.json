@@ -1,0 +1,8 @@
+{
+  "tokenError": "Un problème est survenu avec votre lien - Merci de contacter Chalkboard Education pour assistance.",
+  "update": {
+    "updating": "Mise à jour de l'app...",
+    "checking": "Verification des mises à jours...",
+    "download": "L'application doit être mise à jour, {{amount}} kb à télécharger"
+  }
+}

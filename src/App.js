@@ -18,6 +18,7 @@ import SessionScreen from './containers/SessionScreen';
 import store from './store/store';
 import { darkBlack } from 'material-ui/styles/colors';
 import Updates from './components/Updates/Updates';
+import AccountScreen from './containers/AccountScreen';
 
 const PRIMARY_COLOR = '#fc3691';
 
@@ -65,6 +66,11 @@ class App extends Component {
                   exact
                   path={routes.SESSION_DETAIL}
                   component={SessionDetailScreen}
+                />
+                <PrivateRoute
+                  exact
+                  path={routes.ACCOUNT}
+                  component={AccountScreen}
                 />
                 <Route component={NotFound} />
               </Switch>

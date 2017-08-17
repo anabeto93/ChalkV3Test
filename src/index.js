@@ -4,12 +4,13 @@ import ReactDOM from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import App from './App';
+import './config/translations';
+import './index.css';
+
+import registerServiceWorker from './registerServiceWorker';
 
 // Init the clock
 import './services/updates/clock';
-
-import registerServiceWorker from './registerServiceWorker';
-import './index.css';
 
 injectTapEventPlugin();
 

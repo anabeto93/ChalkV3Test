@@ -1,6 +1,7 @@
-import { connect } from 'react-redux';
+import I18n from 'i18n-js';
 import RaisedButton from 'material-ui/RaisedButton';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { getCoursesInformations } from '../../actions/actionCreators';
 
@@ -46,20 +47,28 @@ class Updates extends Component {
     };
 
     if (courses.isFetching) {
-      return <div style={style.container}>Updating app...</div>;
+      return (
+        <div style={style.container}>
+          {I18n.t('update.updating')}
+        </div>
+      );
     }
 
     if (updates.isFetching) {
-      return <div style={style.container}>Checking updates...</div>;
+      return (
+        <div style={style.container}>
+          {I18n.t('update.checking')}
+        </div>
+      );
     }
 
     if (updates.hasUpdates) {
       return (
         <div style={style.container}>
           <p>
-            Your app must be updated ({Math.round(1000 * updates.size / 1024) /
-              1000}{' '}
-            kb to download)
+            {I18n.t('update.download', {
+              amount: Math.round(1000 * updates.size / 1024) / 1000
+            })}
           </p>
           <RaisedButton
             label="Update"
