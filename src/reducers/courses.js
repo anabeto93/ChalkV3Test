@@ -8,32 +8,50 @@ export default function courses(
   state = {
     isFetching: false,
     isErrorFetching: false,
-    items: []
+    items: [],
+    spool: {
+      sessionText: [],
+      sessionFiles: []
+    }
   },
   action
 ) {
   switch (action.type) {
     case REQUEST_COURSES_INFORMATIONS: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: true,
         isErrorFetching: false
-      });
+      };
     }
 
     case RECEIVE_COURSES_INFORMATIONS: {
-      return Object.assign({}, state, {
+      const previousCourseItems = state.courses.items;
+      const newCourseItems = action.payload.courses;
+
+      // copy previous session content to new session content
+
+      // forEach Session // when contentUpdatedAt > lastUpdate -> add session uuid to spool/sessionText
+      // forEach SessionFile // when contentUpdatedAt > lastUpdate -> add file url to spool/sessionFiles
+
+      return {
+        ...state,
         isFetching: false,
         isErrorFetching: false,
-        items: action.payload.courses
-      });
+        items: newCourseItems,
+        spool: {
+          sessionText: ['hello'],
+          sessionFiles: ['hola', 'hello2']
+        }
+      };
     }
 
     case FAIL_GET_COURSES_INFORMATIONS: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: false,
-        isErrorFetching: true,
-        items: state.items
-      });
+        isErrorFetching: true
+      };
     }
 
     default:
