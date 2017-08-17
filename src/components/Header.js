@@ -9,6 +9,9 @@ import UserIcon from 'material-ui/svg-icons/social/person';
 import logoImage from '../assets/logo.png';
 import RouteResolver from '../services/RouteResolver';
 import { COURSES } from '../config/routes';
+import getConfig from '../config/index';
+
+const APP_NAME = getConfig().appName;
 
 class Header extends Component {
   courseList() {
@@ -22,8 +25,13 @@ class Header extends Component {
       <span style={{ fontSize: '14px' }}>
         <img
           src={logoImage}
-          alt="Chalkboard Education"
-          style={{ paddingTop: '10px', float: 'left', maxHeight: '50%', margin: '6px' }}
+          alt={APP_NAME}
+          style={{
+            paddingTop: '10px',
+            float: 'left',
+            maxHeight: '50%',
+            margin: '6px'
+          }}
         />{' '}
         {title}
       </span>

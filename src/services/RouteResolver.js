@@ -1,6 +1,9 @@
 import { matchPath } from 'react-router-dom';
 import * as routes from '../config/routes';
 import CourseManager from './CourseManager';
+import getConfig from '../config/index';
+
+const APP_NAME = getConfig().appName;
 
 export default {
   /**
@@ -8,9 +11,11 @@ export default {
    * @returns {*}
    */
   resolve({ pathname }) {
-    return Object.values(routes).map((path) => {
-      return matchPath(pathname, { path, exact: true });
-    }).find(match => match !== null);
+    return Object.values(routes)
+      .map(path => {
+        return matchPath(pathname, { path, exact: true });
+      })
+      .find(match => match !== null);
   },
 
   /**
@@ -24,7 +29,7 @@ export default {
 
     switch (path) {
       case routes.COURSES:
-        return 'Chalkboard Education';
+        return APP_NAME;
       case routes.FOLDER_LIST:
         course = CourseManager.getCourse(params.courseId);
         return course ? course.title : '';
@@ -42,7 +47,7 @@ export default {
 
         return course ? course.title : '';
       default:
-        return 'Chalkboard Education';
+        return APP_NAME;
     }
   }
-}
+};
