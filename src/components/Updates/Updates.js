@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import LinearProgress from 'material-ui/LinearProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import React, { Component } from 'react';
 
@@ -28,7 +29,7 @@ export class Updates extends Component {
       isErrorFetching && currentIsFetching && !isFetching;
 
     if (isErrorWhileCheckingUpdates) {
-      this.setState({ ...DEFAULT_STATE, isErrorWhileCheckingUpdates: true });
+      this.setState({ ...this.state, isErrorWhileCheckingUpdates: true });
       return;
     }
 
@@ -39,7 +40,7 @@ export class Updates extends Component {
       hasUpdates;
 
     if (isErrorWhileUpdating) {
-      this.setState({ ...DEFAULT_STATE, isErrorWhileUpdating: true });
+      this.setState({ ...this.state, isErrorWhileUpdating: true });
       this.handleShortMessage('isErrorWhileUpdating');
       return;
     }
@@ -48,17 +49,22 @@ export class Updates extends Component {
       !isErrorFetching && currentIsFetching && !isFetching && !hasUpdates;
 
     if (isAlreadyUpToDate) {
-      this.setState({ ...DEFAULT_STATE, isAlreadyUpToDate: true });
+      this.setState({ ...this.state, isAlreadyUpToDate: true });
       this.handleShortMessage('isAlreadyUpToDate');
       return;
     }
 
-    this.setState(DEFAULT_STATE);
+    this.setState({
+      ...this.state,
+      isAlreadyUpToDate: false,
+      isErrorWhileCheckingUpdates: false,
+      isErrorWhileUpdating: false
+    });
   }
 
   handleShortMessage(stateName) {
     setTimeout(
-      () => this.setState({ ...DEFAULT_STATE, [stateName]: false }),
+      () => this.setState({ ...this.state, [stateName]: false }),
       MESSAGE_DELAY_IN_SECONDS * 1000
     );
   }
@@ -75,6 +81,12 @@ export class Updates extends Component {
 
   render() {
     const { courses, network, updates } = this.props;
+    const currentSpoolTotal = courses.spool.total;
+    const spoolCompleted = 0;
+    const percentSpoolCompleted =
+      currentSpoolTotal > 0
+        ? Math.round(spoolCompleted * 100 / currentSpoolTotal)
+        : 100;
 
     const style = {
       container: {
@@ -88,6 +100,17 @@ export class Updates extends Component {
       return (
         <div style={style.container}>
           <small>You are offline.</small>
+        </div>
+      );
+    }
+
+    if (percentSpoolCompleted < 100) {
+      return (
+        <div>
+          <LinearProgress mode="determinate" value={percentSpoolCompleted} />
+          <div style={style.container}>
+            <p>Please stay online when downloading updates</p>
+          </div>
         </div>
       );
     }
