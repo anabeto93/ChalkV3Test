@@ -1,0 +1,8 @@
+{
+  "tokenError": "Your link has a problem - please contact your Chalkboard Education for support.",
+  "update": {
+    "updating": "Updating app...",
+    "checking": "Checking updates...",
+    "download": "Your app must be updated {{amount}} kb to download"
+  }
+}
