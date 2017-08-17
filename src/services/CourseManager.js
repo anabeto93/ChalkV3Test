@@ -1,4 +1,4 @@
-import store from "../store/store";
+import store from '../store/store';
 
 class CourseManager {
   /**
@@ -9,56 +9,56 @@ class CourseManager {
   }
 
   /**
-   * @param {string} uuid
+   * @param {string} courseUuid
    * @return {Object|undefined}
    */
-  getCourse(uuid) {
+  getCourse(courseUuid) {
     let state = this.store.getState();
 
     if (!state.hasOwnProperty('courses')) return undefined;
 
-    return state.courses.items.find((course) => course.uuid === uuid);
+    return state.courses.items.find(course => course.uuid === courseUuid);
   }
 
   /**
    * @param {Object} course
-   * @param {string} folderId
+   * @param {string} folderUuid
    * @return {Object|undefined}
    */
-  getFolderFromCourse(course, folderId) {
+  getFolderFromCourse(course, folderUuid) {
     if (!course.hasOwnProperty('folders')) return undefined;
 
-    return course.folders.find((folder) => folder.uuid === folderId);
+    return course.folders.find(folder => folder.uuid === folderUuid);
   }
 
   /**
    * @param {Object} folder
-   * @param {string} sessionId
+   * @param {string} sessionUuid
    * @returns {Object|undefined}
    */
-  getSessionFromFolder(folder, sessionId) {
+  getSessionFromFolder(folder, sessionUuid) {
     if (!folder.hasOwnProperty('sessions')) return undefined;
 
-    return folder.sessions.find((session) => session.uuid === sessionId);
+    return folder.sessions.find(session => session.uuid === sessionUuid);
   }
 
   /**
-   * @param {string} courseId
-   * @param {string} sessionId
+   * @param {string} courseUuid
+   * @param {string} sessionUuid
    * @returns {undefined|{Object}}
    */
-  getSessionFromCourseIdAndSessionId(courseId, sessionId) {
+  getSessionFromCourseAndSession(courseUuid, sessionUuid) {
     let state = this.store.getState();
 
     if (!state.hasOwnProperty('courses')) return undefined;
 
     let session = undefined;
-    let course = state.courses.items.find(course => course.uuid === courseId);
+    let course = state.courses.items.find(course => course.uuid === courseUuid);
 
     if (course !== undefined && course.hasOwnProperty('folders')) {
       course.folders.forEach(folder => {
-        session = this.getSessionFromFolder(folder, sessionId);
-      })
+        session = this.getSessionFromFolder(folder, sessionUuid);
+      });
     }
 
     return session;
