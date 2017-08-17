@@ -5,12 +5,18 @@ import { List, ListItem } from 'material-ui/List';
 import { grey400 } from 'material-ui/styles/colors';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { setLocale } from '../actions/actionCreators';
 import UserPanel from '../components/Course/UserPanel';
 import { availableLocales } from '../config/translations';
 
 class AccountScreen extends Component {
+  /**
+   * @param {Event} event
+   * @param {string} item
+   */
   editLocale = (event, item) => {
-    I18n.locale = item.key;
+    this.props.dispatch(setLocale(item.key));
   };
 
   rightIconMenuLocale = () => {
@@ -43,14 +49,18 @@ class AccountScreen extends Component {
   };
 
   render() {
+    const { settings } = this.props;
+
     return (
       <div>
         <UserPanel />
         <List>
-          <Subheader>Settings</Subheader>
+          <Subheader>
+            {I18n.t('account.settings.label', { locale: settings.locale })}
+          </Subheader>
           <ListItem rightIconButton={this.rightIconMenuLocale()}>
-            {I18n.t('account.language')} :{' '}
-            {availableLocales[I18n.currentLocale()]}
+            {I18n.t('account.language', { locale: settings.locale })} :{' '}
+            {availableLocales[settings.locale]}
           </ListItem>
         </List>
       </div>
@@ -58,4 +68,8 @@ class AccountScreen extends Component {
   }
 }
 
-export default AccountScreen;
+function mapStateToProps({ settings }) {
+  return { settings };
+}
+
+export default connect(mapStateToProps)(AccountScreen);

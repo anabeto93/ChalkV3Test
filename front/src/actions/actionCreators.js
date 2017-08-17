@@ -1,5 +1,4 @@
 import GraphqlClient from '../graphql/client/GraphqlClient';
-
 import CoursesQuery from '../graphql/query/CoursesQuery';
 import HasUpdatesQuery from '../graphql/query/HasUpdatesQuery';
 
@@ -85,4 +84,12 @@ export function getUpdates() {
         dispatch(failGetUpdates('Bad response from server'));
       });
   };
+}
+
+// USER SETTINGS
+
+export const SETTINGS_SET_LOCALE = '@@CHALKBOARDEDUCATION/SETTINGS/SET_LOCALE';
+
+export function setLocale(locale) {
+  return { type: SETTINGS_SET_LOCALE, payload: locale };
 }

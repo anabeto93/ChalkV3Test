@@ -36,7 +36,7 @@ class Updates extends Component {
   };
 
   render() {
-    const { updates, courses } = this.props;
+    const { updates, courses, locale } = this.props;
 
     const style = {
       container: {
@@ -49,7 +49,7 @@ class Updates extends Component {
     if (courses.isFetching) {
       return (
         <div style={style.container}>
-          {I18n.t('update.updating')}
+          {I18n.t('update.updating', { locale })}
         </div>
       );
     }
@@ -57,7 +57,7 @@ class Updates extends Component {
     if (updates.isFetching) {
       return (
         <div style={style.container}>
-          {I18n.t('update.checking')}
+          {I18n.t('update.checking', { locale })}
         </div>
       );
     }
@@ -67,11 +67,12 @@ class Updates extends Component {
         <div style={style.container}>
           <p>
             {I18n.t('update.download', {
-              amount: Math.round(1000 * updates.size / 1024) / 1000
+              amount: Math.round(1000 * updates.size / 1024) / 1000,
+              locale
             })}
           </p>
           <RaisedButton
-            label="Update"
+            label={I18n.t('update.label', { locale })}
             primary={true}
             onClick={this.handleLoad}
           />
@@ -80,15 +81,19 @@ class Updates extends Component {
     }
 
     if (this.state.alreadyUpToDate) {
-      return <div style={style.container}>Your app is already up to date!</div>;
+      return (
+        <div style={style.container}>
+          {I18n.t('update.upToDate', { locale })}
+        </div>
+      );
     }
 
     return null;
   }
 }
 
-function mapStateToProps({ updates, courses }) {
-  return { updates, courses };
+function mapStateToProps({ updates, courses, settings: { locale } }) {
+  return { updates, courses, locale };
 }
 
 export default connect(mapStateToProps)(Updates);

@@ -1,3 +1,5 @@
+import { defaultLocale } from '../config/translations';
+
 export const LOGIN_STATE_LOGGED_IN = 'logged-in';
 export const LOGIN_STATE_LOGGED_OUT = 'logged-out';
 
@@ -15,6 +17,9 @@ const defaultState = {
     hasUpdates: false,
     dateLastCheck: null,
     size: 0
+  },
+  settings: {
+    locale: defaultLocale
   }
 };
 
