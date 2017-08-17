@@ -77,8 +77,8 @@ class Header extends Component {
 }
 
 function mapStateToProps(state, props) {
-  let route = RouteResolver.resolve(props.location);
-  let title = RouteResolver.resolveTitle(route);
+  const route = RouteResolver.resolve(props.location);
+  const title = RouteResolver.resolveTitle(route);
 
   return { title };
 }

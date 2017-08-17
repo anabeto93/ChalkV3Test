@@ -49,7 +49,7 @@ class FolderScreen extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  let course = courseManager.getCourse(
+  const course = courseManager.getCourse(
     state.courses.items,
     ownProps.match.params.courseUuid
   );
