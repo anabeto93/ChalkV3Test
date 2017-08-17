@@ -14,7 +14,8 @@ const defaultState = {
     items: [],
     spool: {
       sessionText: [],
-      sessionFiles: []
+      sessionFiles: [],
+      total: 0
     }
   },
   updates: {

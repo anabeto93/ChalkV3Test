@@ -11,7 +11,8 @@ export default function courses(
     items: [],
     spool: {
       sessionText: [],
-      sessionFiles: []
+      sessionFiles: [],
+      total: 0
     }
   },
   action
@@ -67,7 +68,8 @@ export default function courses(
         items: newCourseItems,
         spool: {
           sessionText: sessionText,
-          sessionFiles: sessionFiles
+          sessionFiles: sessionFiles,
+          total: sessionText.length + sessionFiles.length
         }
       };
     }
