@@ -1,23 +1,11 @@
-import store from '../store/store';
-
-class CourseManager {
+export class CourseManager {
   /**
-   * @param {Object} store
-   */
-  constructor(store) {
-    this.store = store;
-  }
-
-  /**
+   * @param {array}  courseItems
    * @param {string} courseUuid
    * @return {Object|undefined}
    */
-  getCourse(courseUuid) {
-    let state = this.store.getState();
-
-    if (!state.hasOwnProperty('courses')) return undefined;
-
-    return state.courses.items.find(course => course.uuid === courseUuid);
+  getCourse(courseItems, courseUuid) {
+    return courseItems.find(course => course.uuid === courseUuid);
   }
 
   /**
@@ -43,17 +31,14 @@ class CourseManager {
   }
 
   /**
+   * @param {array}  courseItems
    * @param {string} courseUuid
    * @param {string} sessionUuid
    * @returns {undefined|{Object}}
    */
-  getSessionFromCourseAndSession(courseUuid, sessionUuid) {
-    let state = this.store.getState();
-
-    if (!state.hasOwnProperty('courses')) return undefined;
-
+  getSessionFromCourseAndSession(courseItems, courseUuid, sessionUuid) {
+    const course = courseItems.find(course => course.uuid === courseUuid);
     let session = undefined;
-    let course = state.courses.items.find(course => course.uuid === courseUuid);
 
     if (course !== undefined && course.hasOwnProperty('folders')) {
       course.folders.forEach(folder => {
@@ -65,4 +50,4 @@ class CourseManager {
   }
 }
 
-export default new CourseManager(store);
+export default new CourseManager();
