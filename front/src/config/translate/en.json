@@ -4,5 +4,8 @@
     "updating": "Updating app...",
     "checking": "Checking updates...",
     "download": "Your app must be updated {{amount}} kb to download"
+  },
+  "account": {
+    "language": "Language"
   }
 }
