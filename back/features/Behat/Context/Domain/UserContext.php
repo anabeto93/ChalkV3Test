@@ -29,16 +29,17 @@ class UserContext implements Context
     }
 
     /**
-     * @Given /^there is a user called "(?P<firstName>[^"]+)" "(?P<lastName>[^"]+)" with the uuid "(?P<uuid>[^"]+)" and the phone number "(?P<phoneNumber>[^"]+)"$/
+     * @Given /^there is a user called "(?P<firstName>[^"]+)" "(?P<lastName>[^"]+)" with the uuid "(?P<uuid>[^"]+)" and the phone number "(?P<phoneNumber>[^"]+)" and the locale "(?P<locale>[^"]+)"$/
      *
      * @param string $firstName
      * @param string $lastName
      * @param string $uuid
      * @param string $phoneNumber
+     * @param string $locale
      */
-    public function createUser(string $firstName, string $lastName, string $uuid, string $phoneNumber)
+    public function createUser(string $firstName, string $lastName, string $uuid, string $phoneNumber, string $locale)
     {
-        $user = $this->userProxy->getUserManager()->create($uuid, $firstName, $lastName, $phoneNumber);
+        $user = $this->userProxy->getUserManager()->create($uuid, $firstName, $lastName, $phoneNumber, $locale);
 
         $this->userProxy->getStorage()->set('user', $user);
     }
