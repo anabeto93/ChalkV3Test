@@ -10,6 +10,7 @@
 
 namespace Features\Behat\Context\Domain;
 
+use App\Domain\Model\Course;
 use App\Domain\Model\User;
 use Behat\Behat\Context\Context;
 use Features\Behat\Domain\Proxy\UserProxyInterface;
@@ -56,5 +57,24 @@ class UserContext implements Context
         }
 
         $this->userProxy->getUserManager()->setApiToken($user, $apiToken);
+    }
+
+    /**
+     * @Given this user is assigned to this course
+     */
+    public function setCourseAssignedForUser()
+    {
+        $user = $this->userProxy->getStorage()->get('user');
+        $course = $this->userProxy->getStorage()->get('course');
+
+        if (!$user instanceof User) {
+            throw new \InvalidArgumentException('User not found');
+        }
+
+        if (!$course instanceof Course) {
+            throw new \InvalidArgumentException('Course not found');
+        }
+
+        $this->userProxy->getUserManager()->setCourse($user, $course);
     }
 }

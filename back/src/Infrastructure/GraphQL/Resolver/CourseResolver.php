@@ -10,46 +10,26 @@
 
 namespace App\Infrastructure\GraphQL\Resolver;
 
-use App\Domain\Model\Course;
-use App\Domain\Repository\CourseRepositoryInterface;
 use App\Infrastructure\Normalizer\CourseNormalizer;
 use GraphQL\Error\UserError;
-use Overblog\GraphQLBundle\Definition\Argument;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class CourseResolver
 {
-    /** @var CourseRepositoryInterface */
-    private $courseRepository;
-
     /** @var CourseNormalizer */
     private $normalizer;
 
-    /**
-     * @param CourseRepositoryInterface $courseRepository
-     * @param CourseNormalizer          $normalizer
-     */
-    public function __construct(
-        CourseRepositoryInterface $courseRepository,
-        CourseNormalizer $normalizer
-    ) {
-        $this->courseRepository = $courseRepository;
-        $this->normalizer = $normalizer;
-    }
+    /** @var TokenStorageInterface */
+    private $tokenStorage;
 
     /**
-     * @param Argument $arguments
-     *
-     * @return array
+     * @param CourseNormalizer      $normalizer
+     * @param TokenStorageInterface $tokenStorage
      */
-    public function resolveCourse(Argument $arguments): array
+    public function __construct(CourseNormalizer $normalizer, TokenStorageInterface $tokenStorage)
     {
-        $course = $this->courseRepository->getByUuid($arguments['uuid']);
-
-        if (!$course instanceof Course) {
-            throw new UserError('Course not found');
-        }
-
-        return $this->normalizer->normalize($course);
+        $this->normalizer = $normalizer;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -57,9 +37,10 @@ class CourseResolver
      */
     public function resolveCourses(): array
     {
+        $apiUser = $this->tokenStorage->getToken()->getUser();
         $courses = [];
 
-        $courseObjects = $this->courseRepository->getEnabledCourses();
+        $courseObjects = $apiUser->getUser()->getEnabledCourses();
 
         if (empty($courseObjects)) {
             throw new UserError('No course found');
