@@ -39,10 +39,12 @@ class UserListQueryHandlerTest extends TestCase
         $user1->getLastName()->willReturn('LastName1');
         $user1->getPhoneNumber()->willReturn('+123123123');
         $user1->getCountry()->willReturn('FR');
+        $user1->getApiToken()->willReturn('token');
         $user2->getFirstName()->willReturn('FirstName2');
         $user2->getLastName()->willReturn('LastName2');
         $user2->getPhoneNumber()->willReturn('+321321321');
         $user2->getCountry()->willReturn('GH');
+        $user2->getApiToken()->willReturn('token2');
 
         // Mock
         $userRepository = $this->prophesize(UserRepositoryInterface::class);
@@ -53,8 +55,8 @@ class UserListQueryHandlerTest extends TestCase
         $result = $handler->handle(new UserListQuery(2));
 
         $expected = new UserListView(2, 2, 52);
-        $expected->addUser(new UserView(1, 'FirstName1', 'LastName1', '+123123123', 'FR'));
-        $expected->addUser(new UserView(2, 'FirstName2', 'LastName2', '+321321321', 'GH'));
+        $expected->addUser(new UserView(1, 'FirstName1', 'LastName1', '+123123123', 'FR', 'token'));
+        $expected->addUser(new UserView(2, 'FirstName2', 'LastName2', '+321321321', 'GH', 'token2'));
 
         $this->assertEquals($expected, $result);
     }
