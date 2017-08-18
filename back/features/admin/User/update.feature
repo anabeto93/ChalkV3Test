@@ -27,4 +27,3 @@ Feature: User update
     And I should not see "jean"
     And I should not see "paul"
     And I should not see "+123123123"
-    And I should not see "en"

@@ -20,7 +20,7 @@ Feature: User api
                   "lastName": "paul",
                   "country": "Ghana",
                   "countryCode": "GH",
-                  "locale": "en"
+                  "locale": "en",
                   "phoneNumber": "+33123213123"
               }
           }
