@@ -91,5 +91,5 @@ export function getUpdates() {
 export const SETTINGS_SET_LOCALE = '@@CHALKBOARDEDUCATION/SETTINGS/SET_LOCALE';
 
 export function setLocale(locale) {
-  return { type: SETTINGS_SET_LOCALE, payload: locale };
+  return { type: SETTINGS_SET_LOCALE, payload: { locale } };
 }
