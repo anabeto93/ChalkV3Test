@@ -11,3 +11,5 @@ App\Application\Command\User\Create:
                 message: 'validator.phoneNumber.mustStartWithPlus'
         country:
             - NotBlank: ~
+        locale:
+            - NotBlank: ~
