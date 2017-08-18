@@ -22,3 +22,6 @@ Query:
                         description: "The uuid of the session"
                         type: "String!"
                 resolve: "@=resolver('session', [args])"
+            currentDate:
+                type: "DateTime"
+                resolve: "@=resolver('currentDate')"

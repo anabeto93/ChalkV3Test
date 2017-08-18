@@ -15,3 +15,7 @@ services:
         autowire: true
         tags:
             - { name: overblog_graphql.resolver, alias: "session", method: "resolveSession" }
+    App\Infrastructure\GraphQL\Resolver\CurrentDateResolver:
+        autowire: true
+        tags:
+            - { name: overblog_graphql.resolver, alias: "currentDate", method: "resolveCurrentDate" }
