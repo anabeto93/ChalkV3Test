@@ -5,7 +5,9 @@ Feature: hasUpdates api
       | title       | GRAPHQL Implementation |
       | updatedAt   | 2017-07-20 10:00       |
       | size        | 889                    |
-    And there is a user called "jean" "paul" with the uuid "123-user" and the phone number "+33123213123" and the locale "en"
+    And there is following users
+      | uuid       | firstName | lastName | phoneNumber    | locale |
+      | "123-user" | "jean"    | "paul"   | "+33123213123" | "en"   |
     And the api token for this user is "api-token-user"
     And this user is assigned to this course
     And I add "Authorization" header equal to "Bearer api-token-user"
