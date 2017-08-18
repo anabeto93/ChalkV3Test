@@ -7,11 +7,15 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import logoImage from '../assets/logo.png';
-import { ACCOUNT, COURSES, HOME } from '../config/routes';
+import { ACCOUNT, COURSES, HOME, LOGIN } from '../config/routes';
 import RouteResolver from '../services/RouteResolver';
 
 class Header extends Component {
   handleRedirectCourseList = () => {
+    this.props.history.push(COURSES);
+  };
+
+  handleRedirectAccount = () => {
     this.props.history.push(ACCOUNT);
   };
 
@@ -60,17 +64,28 @@ class Header extends Component {
   };
 
   rightIcon = () => {
-    return (
-      <IconButton onClick={this.handleRedirectCourseList}>
-        <UserIcon />
-      </IconButton>
-    );
+    const { pathname } = this.props.location;
+    const matchPath = RouteResolver.resolve(this.props.location);
+
+    // show account icon only on logged page
+    if (
+      pathname !== HOME &&
+      matchPath !== undefined &&
+      matchPath.path !== LOGIN
+    ) {
+      return (
+        <IconButton onClick={this.handleRedirectAccount}>
+          <UserIcon />
+        </IconButton>
+      );
+    }
   };
 
   render() {
     return (
       <AppBar
         title={this.logo()}
+        onTitleTouchTap={this.handleRedirectCourseList}
         iconElementLeft={this.leftIcon()}
         iconElementRight={this.rightIcon()}
         showMenuIconButton={this.showMenuIconButton()}
@@ -79,6 +94,11 @@ class Header extends Component {
   }
 }
 
+/**
+ * @param {Object} state
+ * @param {Object} props
+ * @returns {{title: string}}
+ */
 function mapStateToProps(state, props) {
   let title = '';
   let route = RouteResolver.resolve(props.location);
