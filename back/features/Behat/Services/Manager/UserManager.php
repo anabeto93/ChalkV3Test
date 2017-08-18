@@ -69,6 +69,7 @@ class UserManager
                     $this->localeHelper->country('GH')
                 )
             ),
+            'token',
             new \DateTime()
         );
 

@@ -16,6 +16,7 @@ use App\Domain\Exception\User\PhoneNumberAlreadyUsedException;
 use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Size\Calculator;
+use App\Infrastructure\Service\TokenGenerator;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
@@ -35,11 +36,15 @@ class UpdateHandlerTest extends TestCase
     /** @var ObjectProphecy */
     private $localeHelper;
 
+    /** @var ObjectProphecy */
+    private $tokenGenerator;
+
     public function setUp()
     {
         $this->userRepository = $this->prophesize(UserRepositoryInterface::class);
         $this->sizeCalculator = $this->prophesize(Calculator::class);
         $this->localeHelper = $this->prophesize(LocaleHelper::class);
+        $this->tokenGenerator = $this->prophesize(TokenGenerator::class);
         $this->dateTime = new \DateTime();
     }
 
@@ -57,6 +62,7 @@ class UpdateHandlerTest extends TestCase
             '+123123123',
             'FR',
             39,
+            'token',
             $this->dateTime
         );
         $command = new Update($user);
@@ -88,6 +94,7 @@ class UpdateHandlerTest extends TestCase
             'GB',
             '+33987987987',
             39,
+            'token',
             new \DateTime('2017-08-01 10:00:00.000')
         );
         $expected->update(
@@ -107,6 +114,7 @@ class UpdateHandlerTest extends TestCase
             '+33987987987',
             'FR',
             39,
+            'token',
             new \DateTime('2017-08-01 10:00:00.000')
         );
         $command = new Update($user);

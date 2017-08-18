@@ -54,6 +54,7 @@ class User
      * @param string             $phoneNumber
      * @param string             $country
      * @param int                $size
+     * @param string             $apiToken
      * @param \DateTimeInterface $createdAt
      */
     public function __construct(
@@ -63,6 +64,7 @@ class User
         string $phoneNumber,
         string $country,
         int $size,
+        string $apiToken,
         \DateTimeInterface $createdAt
     ) {
         $this->uuid = $uuid;
@@ -73,7 +75,7 @@ class User
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
         $this->size = $size;
-        $this->apiToken = null;
+        $this->apiToken = $apiToken;
         $this->courses = new ArrayCollection();
     }
 

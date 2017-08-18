@@ -46,7 +46,7 @@ class UserNormalizerTest extends TestCase
     {
         return [
             [
-                new User('uuid-user', 'Jean', 'Paul', '+33123123123', 'FR', 34, new \DateTime()),
+                new User('uuid-user', 'Jean', 'Paul', '+33123123123', 'FR', 34, 'token', new \DateTime()),
                 [
                     'uuid' => 'uuid-user',
                     'firstName' => 'Jean',
@@ -57,7 +57,7 @@ class UserNormalizerTest extends TestCase
                 ]
             ],
             [
-                new User('Other-UUID', 'TRUC', 'Muche', '+33987987987', 'FR', 34, new \DateTime()),
+                new User('Other-UUID', 'TRUC', 'Muche', '+33987987987', 'FR', 34, 'token', new \DateTime()),
                 [
                     'uuid' => 'Other-UUID',
                     'firstName' => 'TRUC',
