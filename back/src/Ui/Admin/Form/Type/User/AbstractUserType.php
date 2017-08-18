@@ -39,9 +39,10 @@ abstract class AbstractUserType extends AbstractType
             ->add('locale', ChoiceType::class, [
                 'required' => true,
                 'choices' => [
-                    'English' => 'en',
-                    'Français' => 'fr',
+                    'form.user_create.children.locale.english.label' => 'en',
+                    'form.user_create.children.locale.french.label' => 'fr',
                 ],
+                'choice_translation_domain' => true,
             ])
         ;
     }
