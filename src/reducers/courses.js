@@ -21,8 +21,9 @@ export default function courses(
   switch (action.type) {
     case FILE_LOADED: {
       const sessionFiles = state.spool.sessionFiles.filter(
-        ({ file }) => file !== action.payload.file
+        file => file !== action.payload.file
       );
+
       return {
         ...state,
         spool: {
@@ -81,8 +82,8 @@ export default function courses(
         isErrorFetching: false,
         items: newCourseItems,
         spool: {
-          sessionText: sessionText,
-          sessionFiles: sessionFiles,
+          sessionText,
+          sessionFiles,
           total: sessionText.length + sessionFiles.length
         }
       };
