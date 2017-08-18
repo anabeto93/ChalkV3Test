@@ -12,7 +12,6 @@ namespace App\Infrastructure\Service;
 
 class TokenGenerator
 {
-
     /** @var array */
     private $allowedChars = [
         'a','z','e','r','t','y','u','i','o','p','q','s','d','f','g','h','j','k','m','w','x','v','b','n',
@@ -29,7 +28,7 @@ class TokenGenerator
     {
         $token = '';
 
-        for ($i = 0; $i  < $length; $i++) {
+        for ($i = 0; $i < $length; $i++) {
             $token .= $this->allowedChars[mt_rand(0, count($this->allowedChars) - 1)];
         }
 
