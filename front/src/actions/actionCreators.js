@@ -1,14 +1,6 @@
-import GraphqlClient from "../graphql/client/GraphqlClient";
-
-import CoursesQuery from "../graphql/query/CoursesQuery";
-import HasUpdatesQuery from "../graphql/query/HasUpdatesQuery";
-
-// LOGIN
-export const LOGIN_SUCCESS = '@@CHALKBOARDEDUCATION/LOGIN_SUCCESS';
-
-export function login() {
-  return { type: LOGIN_SUCCESS };
-}
+import GraphqlClient from '../graphql/client/GraphqlClient';
+import CoursesQuery from '../graphql/query/CoursesQuery';
+import HasUpdatesQuery from '../graphql/query/HasUpdatesQuery';
 
 // GET COURSES
 export const REQUEST_COURSES_INFORMATIONS =
@@ -40,7 +32,7 @@ export function receiveUserInformations(user) {
 }
 
 export function getCoursesInformations() {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch(requestCoursesInformations());
 
     GraphqlClient.query({ query: CoursesQuery, fetchPolicy: 'network-only' })
@@ -81,7 +73,7 @@ export function reinitUpdates() {
 }
 
 export function getUpdates() {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch(requestUpdates());
 
     GraphqlClient.query({ query: HasUpdatesQuery, fetchPolicy: 'network-only' })
@@ -92,4 +84,12 @@ export function getUpdates() {
         dispatch(failGetUpdates('Bad response from server'));
       });
   };
+}
+
+// USER SETTINGS
+
+export const SETTINGS_SET_LOCALE = '@@CHALKBOARDEDUCATION/SETTINGS/SET_LOCALE';
+
+export function setLocale(locale) {
+  return { type: SETTINGS_SET_LOCALE, payload: locale };
 }

@@ -1,7 +1,11 @@
+import { defaultLocale } from '../config/translations';
+
+export const LOGIN_STATE_LOGGED_IN = 'logged-in';
+export const LOGIN_STATE_LOGGED_OUT = 'logged-out';
+
 const defaultState = {
   currentUser: {
-    // temporarly set user is logged and has a token
-    loginState: 'logged',
+    loginState: LOGIN_STATE_LOGGED_OUT,
     token: 'api-key-token-user-1'
   },
   courses: {
@@ -13,6 +17,9 @@ const defaultState = {
     hasUpdates: false,
     dateLastCheck: null,
     size: 0
+  },
+  settings: {
+    locale: defaultLocale
   }
 };
 
