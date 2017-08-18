@@ -21,7 +21,7 @@ class AccountScreen extends Component {
 
   rightIconMenuLocale = () => {
     const iconButtonElement = (
-      <IconButton touch={true} tooltip="Edit" tooltipPosition="bottom-left">
+      <IconButton tooltip="Edit" tooltipPosition="bottom-left">
         <MoreVertIcon color={grey400} />
       </IconButton>
     );
@@ -58,7 +58,10 @@ class AccountScreen extends Component {
           <Subheader>
             {I18n.t('account.settings.label', { locale: settings.locale })}
           </Subheader>
-          <ListItem rightIconButton={this.rightIconMenuLocale()}>
+          <ListItem
+            disabled={true}
+            rightIconButton={this.rightIconMenuLocale()}
+          >
             {I18n.t('account.language', { locale: settings.locale })} :{' '}
             {availableLocales[settings.locale]}
           </ListItem>
@@ -68,6 +71,10 @@ class AccountScreen extends Component {
   }
 }
 
+/**
+ * @param {Object} settings from redux state
+ * @returns {{settings: *}}
+ */
 function mapStateToProps({ settings }) {
   return { settings };
 }
