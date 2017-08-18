@@ -19,6 +19,9 @@ App\Domain\Model\User:
             unique: true
         country:
             type: string
+        locale:
+            type: string
+            default: 'en'
         size:
             type: integer
         createdAt:
