@@ -40,6 +40,7 @@ class UserNormalizer
             'phoneNumber' => $user->getPhoneNumber(),
             'countryCode' => $user->getCountry(),
             'country'     => $this->localeHelper->country($user->getCountry()),
+            'locale'      => $user->getLocale(),
         ];
     }
 }
