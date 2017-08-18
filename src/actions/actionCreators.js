@@ -30,6 +30,8 @@ export const FAIL_GET_COURSES_INFORMATIONS =
 export const RECEIVE_USER_INFORMATIONS =
   '@@CHALKBOARDEDUCATION/RECEIVE_USER_INFORMATIONS';
 
+export const FILE_LOADED = '@@CHALKBOARDEDUCATION/FILE_LOADED';
+
 export function requestCoursesInformations() {
   return { type: REQUEST_COURSES_INFORMATIONS };
 }
@@ -41,7 +43,6 @@ export function receiveCoursesInformations(courses) {
 export function failGetCoursesInformations(message) {
   return { type: FAIL_GET_COURSES_INFORMATIONS, payload: { message } };
 }
-
 export function receiveUserInformations(user) {
   return { type: RECEIVE_USER_INFORMATIONS, payload: { user } };
 }
@@ -59,6 +60,10 @@ export function getCoursesInformations() {
         dispatch(failGetCoursesInformations('Bad response from server'));
       });
   };
+}
+
+export function fileLoaded(file) {
+  return { type: FILE_LOADED, payload: { file } };
 }
 
 // GET UPDATES
@@ -99,10 +104,4 @@ export function getUpdates() {
         dispatch(failGetUpdates('Bad response from server'));
       });
   };
-}
-
-export const FILE_LOADED = '@@CHALKBOARDEDUCATION/FILE_LOADED';
-
-export function fileLoaded(file) {
-  return { type: FILE_LOADED, payload: { file } };
 }

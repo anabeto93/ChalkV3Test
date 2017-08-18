@@ -1,26 +1,40 @@
 import { fileLoaded } from '../../actions/actionCreators';
 import store from '../../store/store';
 
-let isLoading = false;
-
-export default function spoolFileLoader() {
-  const fileToLoad = store.getState().courses.spool.sessionFiles.shift();
-
-  if (undefined === fileToLoad || isLoading) {
-    return;
+export class SpoolFileLoader {
+  constructor() {
+    this.isLoading = false;
+    this.increment = 0;
   }
 
-  isLoading = true;
+  handle() {
+    this.increment++;
 
-  fetch(fileToLoad)
-    .then(() => {
-      isLoading = false;
-      store.dispatch(fileLoaded(fileToLoad));
-    })
-    .catch(error => {
-      isLoading = false;
-      alert(
-        `There has been a problem when loading: ${fileToLoad}; Error: ${error.message}`
-      );
-    });
+    if (this.isLoading) {
+      return;
+    }
+
+    const fileToLoad = store.getState().courses.spool.sessionFiles.shift();
+
+    if (undefined === fileToLoad) {
+      return;
+    }
+
+    this.isLoading = true;
+
+    fetch(fileToLoad)
+      .then(() => {
+        this.isLoading = false;
+        store.dispatch(fileLoaded(fileToLoad));
+        this.handle();
+      })
+      .catch(error => {
+        this.isLoading = false;
+        alert(
+          `There has been a problem when loading: ${fileToLoad}; Error: ${error.message}`
+        );
+      });
+  }
 }
+
+export default new SpoolFileLoader();

@@ -26,6 +26,7 @@ export default function courses(
       return {
         ...state,
         spool: {
+          ...state.spool,
           sessionFiles
         }
       };

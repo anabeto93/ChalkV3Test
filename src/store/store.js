@@ -3,9 +3,10 @@ import { persistStore, autoRehydrate } from 'redux-persist';
 import thunkMiddleware from 'redux-thunk';
 
 import appReducer from '../reducers';
+import coursesIsFetchingSubscriber from '../subscriber/CoursesIsFetchingSubscriber';
+import coursesSpoolSubscriber from '../subscriber/CoursesSpoolSubscriber';
 import defaultState from './defaultState';
 import { networkInterface } from '../graphql/client/GraphqlClient';
-import CoursesIsFetchingSubscriber from '../subscriber/CoursesIsFetchingSubscriber';
 
 const store = createStore(
   appReducer,
@@ -20,7 +21,8 @@ const store = createStore(
 );
 
 // Init subscribers
-store.subscribe(CoursesIsFetchingSubscriber);
+store.subscribe(coursesIsFetchingSubscriber);
+store.subscribe(coursesSpoolSubscriber);
 
 // Init Redux persist
 persistStore(store);
