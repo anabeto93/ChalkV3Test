@@ -1,7 +1,7 @@
 Feature: User creation
   Scenario: I can create a user
     Given the database is purged
-    And there is a user called "jean" "paul" with the uuid "uuid-1" and the phone number "+123123123"
+    And there is a user called "jean" "paul" with the uuid "uuid-1" and the phone number "+123123123" and the locale "fr"
     And I go to "/admin"
     When I go to "/admin/user"
     Then I should see "admin.user.create.title"
@@ -13,6 +13,7 @@ Feature: User creation
       | lastName    | Elon       |
       | phoneNumber | +123123123 |
       | country     | GH         |
+      | locale      | en         |
     When I press "form.user_create.children.submit.label"
     Then I should be on "/admin/user/create"
     And I should see "validator.phoneNumber.alreadyUsed"
@@ -24,3 +25,4 @@ Feature: User creation
     And I should see "Elon"
     And I should see "Ghana"
     And I should see "+321321321"
+    And I should see "en"

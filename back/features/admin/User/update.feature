@@ -1,7 +1,7 @@
 Feature: User update
   Scenario: I can update a User
     Given the database is purged
-    And there is a user called "jean" "paul" with the uuid "uuid-1" and the phone number "+123123123"
+    And there is a user called "jean" "paul" with the uuid "uuid-1" and the phone number "+123123123" and the locale "en"
     And I go to "/admin"
     When I go to "/admin/user"
     Then I should see "admin.user.list.title"
@@ -16,12 +16,15 @@ Feature: User update
       | lastName    | Muche        |
       | phoneNumber | +33789789789 |
       | country     | FR           |
+      | locale      | fr           |
     When I press "form.user_update.children.submit.label"
     Then I should be on "/admin/user"
     And I should see "Truc"
     And I should see "Muche"
     And I should see "France"
     And I should see "+33789789789"
+    And I should see "fr"
     And I should not see "jean"
     And I should not see "paul"
     And I should not see "+123123123"
+    And I should not see "en"
