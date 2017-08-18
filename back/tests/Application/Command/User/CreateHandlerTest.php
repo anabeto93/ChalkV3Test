@@ -106,6 +106,7 @@ class CreateHandlerTest extends TestCase
         $this->userRepository->add($expected)->shouldBeCalled();
         $this->generator->generateUuid()->shouldBeCalled()->willReturn('uuid-1');
         $this->tokenGenerator->generateToken()->shouldBeCalled()->willReturn('2oKenN');
+        $this->userRepository->findByApiToken('2oKenN')->shouldBeCalled()->willReturn(null);
         $this->localeHelper->country('FR')->shouldBeCalled()->willReturn('France');
         $this->sizeCalculator
             ->calculateSize('uuid-1firstNamelastName+123123123FranceFR')
