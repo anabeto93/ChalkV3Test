@@ -5,12 +5,14 @@ import CourseManager from './CourseManager';
 export default {
   /**
    * @param {string} pathname from Object
-   * @returns {*}
+   * @returns {Object|undefined}
    */
   resolve({ pathname }) {
-    return Object.values(routes).map((path) => {
-      return matchPath(pathname, { path, exact: true });
-    }).find(match => match !== null);
+    return Object.values(routes)
+      .map(path => {
+        return matchPath(pathname, { path, exact: true });
+      })
+      .find(match => match !== null);
   },
 
   /**
@@ -45,4 +47,4 @@ export default {
         return 'Chalkboard Education';
     }
   }
-}
+};
