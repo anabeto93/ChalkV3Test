@@ -32,6 +32,8 @@ export const RECEIVE_USER_INFORMATIONS =
 
 export const FILE_LOADED = '@@CHALKBOARDEDUCATION/FILE_LOADED';
 
+export const SPOOL_TERMINATED = '@@CHALKBOARDEDUCATION/SPOOL_TERMINATED';
+
 export function requestCoursesInformations() {
   return { type: REQUEST_COURSES_INFORMATIONS };
 }
@@ -64,6 +66,10 @@ export function getCoursesInformations() {
 
 export function fileLoaded(file) {
   return { type: FILE_LOADED, payload: { file } };
+}
+
+export function spoolTerminated() {
+  return { type: SPOOL_TERMINATED };
 }
 
 // GET UPDATES
