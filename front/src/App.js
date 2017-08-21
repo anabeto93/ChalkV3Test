@@ -1,3 +1,4 @@
+import { darkBlack } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React, { Component } from 'react';
@@ -6,6 +7,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import NotFound from './components/NotFound';
+import Updates from './components/Updates/Updates';
 import * as routes from './config/routes';
 
 import CourseScreen from './containers/CourseScreen';
@@ -13,11 +15,10 @@ import FolderScreen from './containers/FolderScreen';
 import HomeScreen from './containers/HomeScreen';
 import LoginScreen from './containers/LoginScreen';
 import PrivateRoute from './containers/PrivateRoute';
+import SendScreen from './containers/SendScreen';
 import SessionDetailScreen from './containers/SessionDetailScreen';
 import SessionScreen from './containers/SessionScreen';
 import store from './store/store';
-import { darkBlack } from 'material-ui/styles/colors';
-import Updates from './components/Updates/Updates';
 
 const PRIMARY_COLOR = '#fc3691';
 
@@ -65,6 +66,11 @@ class App extends Component {
                   exact
                   path={routes.SESSION_DETAIL}
                   component={SessionDetailScreen}
+                />
+                <PrivateRoute
+                  exact
+                  path={routes.SESSION_SEND}
+                  component={SendScreen}
                 />
                 <Route component={NotFound} />
               </Switch>
