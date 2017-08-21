@@ -9,3 +9,5 @@ App\Domain\Model\User:
             - 44
             - <dateTime()>
         apiToken: 'api-key-token-user-1'
+        courses:
+            - '@course_1'

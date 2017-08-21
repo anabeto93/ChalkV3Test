@@ -214,4 +214,20 @@ class User
         $this->size = $size;
         $this->updatedAt = $updatedAt;
     }
+
+    /**
+     * @param Course $givenCourse
+     *
+     * @return bool
+     */
+    public function hasCourse(Course $givenCourse): bool
+    {
+        foreach ($this->getCourses() as $course) {
+            if ($course->getId() === $givenCourse->getId()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

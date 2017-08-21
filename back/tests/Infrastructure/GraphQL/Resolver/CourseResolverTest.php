@@ -12,13 +12,11 @@ namespace Tests\Infrastructure\GraphQL\Resolver;
 
 use App\Domain\Model\Course;
 use App\Domain\Model\User;
-use App\Domain\Repository\CourseRepositoryInterface;
 use App\Infrastructure\GraphQL\Resolver\CourseResolver;
 use App\Infrastructure\Normalizer\CourseNormalizer;
 use App\Infrastructure\Security\Api\ApiUserAdapter;
 use GraphQL\Error\UserError;
 use PHPUnit\Framework\TestCase;
-use Overblog\GraphQLBundle\Definition\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -67,8 +65,8 @@ class CourseResolverTest extends TestCase
         $token->getUser()->shouldBeCalled()->willReturn($apiUser);
         $user->getEnabledCourses()->shouldBeCalled()->willReturn([$course1->reveal(), $course2->reveal()]);
 
-        $this->normalizer->normalize($course1->reveal())->shouldBeCalled()->willReturn(['normalized-course1']);
-        $this->normalizer->normalize($course2->reveal())->shouldBeCalled()->willReturn(['normalized-course2']);
+        $this->normalizer->normalize($course1->reveal(), $user)->shouldBeCalled()->willReturn(['normalized-course1']);
+        $this->normalizer->normalize($course2->reveal(), $user)->shouldBeCalled()->willReturn(['normalized-course2']);
 
         $courseResolver = new CourseResolver(
             $this->normalizer->reveal(),

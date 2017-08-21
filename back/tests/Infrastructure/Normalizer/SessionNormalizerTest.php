@@ -35,14 +35,14 @@ class SessionNormalizerTest extends TestCase
 
         // Normalizer
         $sessionNormalier = new SessionNormalizer($fileNormalizer->reveal());
-        $result = $sessionNormalier->normalize($session);
+        $result = $sessionNormalier->normalize($session, false);
 
         $expected = [
             'uuid' => 'uuid',
             'rank' => 5,
             'title' => 'session title',
             'content' => 'this is the content',
-            'validated' => true,
+            'validated' => false,
             'needValidation' => true,
             'createdAt' => $createdAt,
             'updatedAt' => $createdAt,

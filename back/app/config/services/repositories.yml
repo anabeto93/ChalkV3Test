@@ -21,3 +21,7 @@ services:
     App\Infrastructure\Repository\Session\FileRepository:
         autowire: true
     App\Domain\Repository\Session\FileRepositoryInterface: '@App\Infrastructure\Repository\Session\FileRepository'
+
+    App\Infrastructure\Repository\User\ProgressionRepository:
+        autowire: true
+    App\Domain\Repository\User\ProgressionRepositoryInterface: '@App\Infrastructure\Repository\User\ProgressionRepository'

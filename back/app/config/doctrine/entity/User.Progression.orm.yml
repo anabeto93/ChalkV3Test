@@ -1,0 +1,22 @@
+App\Domain\Model\User\Progression:
+    type: entity
+    table: user_progression
+    id:
+        user:
+            associationKey: true
+        session:
+            associationKey: true
+    fields:
+        createdAt:
+            type: datetime
+    manyToOne:
+        user:
+            targetEntity: App\Domain\Model\User
+            joinColumn:
+                onDelete: CASCADE
+                nullable: false
+        session:
+            targetEntity: App\Domain\Model\Session
+            joinColumn:
+                onDelete: CASCADE
+                nullable: false

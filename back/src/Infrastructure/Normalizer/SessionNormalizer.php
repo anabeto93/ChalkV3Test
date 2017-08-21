@@ -28,10 +28,11 @@ class SessionNormalizer
 
     /**
      * @param Session $session
+     * @param bool    $isValidated
      *
      * @return array
      */
-    public function normalize(Session $session): array
+    public function normalize(Session $session, bool $isValidated = false): array
     {
         return [
             'uuid' => $session->getUuid(),
@@ -40,7 +41,7 @@ class SessionNormalizer
             'content' => $session->getContent(),
             'createdAt' => $session->getCreatedAt(),
             'updatedAt' => $session->getUpdatedAt(),
-            'validated' => true,
+            'validated' => $isValidated,
             'needValidation' => $session->needValidation(),
             'files' => array_map(function (Session\File $file) {
                 return $this->fileNormalizer->normalize($file);
