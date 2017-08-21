@@ -86,3 +86,34 @@ export function getUpdates() {
       });
   };
 }
+
+// VALIDATE SESSION
+
+export const REQUEST_VALIDATE_SESSION_INTERNET =
+  '@@CHALKBOARDEDUCATION/REQUEST_VALIDATE_SESSION_INTERNET';
+export const RECEIVE_VALIDATE_SESSION_INTERNET =
+  '@@CHALKBOARDEDUCATION/RECEIVE_VALIDATE_SESSION_INTERNET';
+
+export function requestValidateSessionInternet(sessionUuid) {
+  return { type: REQUEST_VALIDATE_SESSION_INTERNET, payload: { sessionUuid } };
+}
+
+export function receiveValidateSessionInternet({ sessionUuid, response }) {
+  return {
+    type: RECEIVE_VALIDATE_SESSION_INTERNET,
+    payload: { sessionUuid, response }
+  };
+}
+
+export function validateSession(sessionUuid) {
+  return dispatch => {
+    dispatch(requestValidateSessionInternet(sessionUuid));
+
+    //TODO: Add graphql query
+    const mockResponse = { response: { status: '200' } };
+
+    dispatch(
+      receiveValidateSessionInternet({ sessionUuid, response: mockResponse })
+    );
+  };
+}
