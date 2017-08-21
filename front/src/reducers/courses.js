@@ -2,7 +2,8 @@ import {
   FAIL_GET_COURSES_INFORMATIONS,
   FILE_LOADED,
   RECEIVE_COURSES_INFORMATIONS,
-  REQUEST_COURSES_INFORMATIONS
+  REQUEST_COURSES_INFORMATIONS,
+  SPOOL_TERMINATED
 } from '../actions/actionCreators';
 
 export default function courses(
@@ -94,6 +95,17 @@ export default function courses(
         ...state,
         isFetching: false,
         isErrorFetching: true
+      };
+    }
+
+    case SPOOL_TERMINATED: {
+      // Reset spool total to zero
+      return {
+        ...state,
+        spool: {
+          ...state.spool,
+          total: 0
+        }
       };
     }
 

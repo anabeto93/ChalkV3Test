@@ -12,6 +12,7 @@ const DEFAULT_STATE = {
   isAlreadyUpToDate: false,
   isErrorWhileCheckingUpdates: false,
   isErrorWhileUpdating: false,
+  isUpdated: false,
   spoolCompleted: 0
 };
 const MESSAGE_DELAY_IN_SECONDS = 5;
@@ -25,6 +26,15 @@ export class Updates extends Component {
   componentWillReceiveProps(nextProps) {
     const { isFetching: currentIsFetching } = this.props.updates;
     const { hasUpdates, isErrorFetching, isFetching } = nextProps.updates;
+
+    if (
+      0 < this.props.courses.spool.total > 0 &&
+      0 === nextProps.courses.spool.total
+    ) {
+      this.setState({ ...this.state, spoolCompleted: 0, isUpdated: true });
+      this.handleShortMessage('isUpdated');
+      return;
+    }
 
     const isErrorWhileCheckingUpdates =
       isErrorFetching && currentIsFetching && !isFetching;
@@ -82,12 +92,12 @@ export class Updates extends Component {
 
   render() {
     const { courses, network, updates } = this.props;
-    const currentSpoolTotal = courses.spool.total;
-    const spoolCompleted = this.state.spoolCompleted;
+    const spoolTotal = courses.spool.total;
+    const spoolUncompleted =
+      courses.spool.sessionText.length + courses.spool.sessionFiles.length;
+    const spoolCompleted = spoolTotal - spoolUncompleted;
     const percentSpoolCompleted =
-      currentSpoolTotal > 0
-        ? Math.round(spoolCompleted * 100 / currentSpoolTotal)
-        : 100;
+      spoolTotal > 0 ? Math.round(spoolCompleted * 100 / spoolTotal) : 100;
 
     const style = {
       container: {
@@ -96,6 +106,14 @@ export class Updates extends Component {
         textAlign: 'center'
       }
     };
+
+    if (this.state.isUpdated) {
+      return (
+        <div style={style.container}>
+          <p>App updated successfully!</p>
+        </div>
+      );
+    }
 
     if (!network.isOnline) {
       return (
