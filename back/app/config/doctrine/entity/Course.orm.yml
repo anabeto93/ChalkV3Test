@@ -36,3 +36,6 @@ App\Domain\Model\Course:
         sessions:
             targetEntity: App\Domain\Model\Session
             mappedBy: course
+        users:
+            targetEntity: App\Domain\Model\User
+            mappedBy: courses

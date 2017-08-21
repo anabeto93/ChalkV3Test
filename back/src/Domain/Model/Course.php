@@ -44,6 +44,9 @@ class Course
     /** @var ArrayCollection of Session */
     private $sessions;
 
+    /** @var ArrayCollection of User */
+    private $users;
+
     /** @var \DateTimeInterface */
     private $updatedAt;
 

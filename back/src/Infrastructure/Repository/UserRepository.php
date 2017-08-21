@@ -68,6 +68,20 @@ class UserRepository implements UserRepositoryInterface
     /**
      * {@inheritdoc}
      */
+    public function getAll()
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('user')
+            ->from(User::class, 'user');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function findByApiToken(string $apiToken = null): ?User
     {
         $queryBuilder = $this
