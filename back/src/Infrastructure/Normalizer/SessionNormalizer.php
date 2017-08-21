@@ -40,6 +40,8 @@ class SessionNormalizer
             'content' => $session->getContent(),
             'createdAt' => $session->getCreatedAt(),
             'updatedAt' => $session->getUpdatedAt(),
+            'validated' => true,
+            'needValidation' => $session->needValidation(),
             'files' => array_map(function (Session\File $file) {
                 return $this->fileNormalizer->normalize($file);
             }, $session->getFiles()),

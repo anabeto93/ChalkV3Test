@@ -9,6 +9,12 @@ Session:
             title:
                 type: "String!"
                 description: "Title of the session"
+            validated:
+                type: "Boolean!"
+                description: "Is the session validated by the user"
+            needValidation:
+                type: "Boolean!"
+                description: "Does the session required to send a validation at the end"
             content:
                 type: "String"
                 description: "Html content of the session"

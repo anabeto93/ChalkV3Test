@@ -73,6 +73,7 @@ class ContentImporter
      * @param UploadedFile       $uploadedFile
      * @param \DateTimeInterface $dateTime
      * @param Folder|null        $folder
+     * @param bool               $needValidation
      */
     public function import(
         Course $course,
@@ -81,7 +82,8 @@ class ContentImporter
         string $title,
         UploadedFile $uploadedFile,
         \DateTimeInterface $dateTime,
-        Folder $folder = null
+        Folder $folder = null,
+        bool $needValidation
     ) {
         $imagePath = sprintf(self::IMAGE_PATH, $course->getUuid(), $uuid);
 
@@ -110,6 +112,7 @@ class ContentImporter
             $result->content,
             $course,
             $folder,
+            $needValidation,
             $dateTime,
             $this->calculator->calculateSize(sprintf('%s%s%s', $uuid, $rank, $title))
         );

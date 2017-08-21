@@ -14,6 +14,7 @@ use App\Application\Command\Session\Create;
 use App\Domain\Model\Course;
 use App\Ui\Admin\Form\Type\Folder\FolderChoiceType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -41,7 +42,11 @@ class CreateType extends AbstractType
                 'course'      => $options['course'],
                 'placeholder' => '',
                 'required'    => false,
-            ]);
+            ])
+            ->add('needValidation', CheckboxType::class, [
+                'required' => false,
+            ])
+        ;
     }
 
     /**

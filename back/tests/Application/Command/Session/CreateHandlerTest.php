@@ -44,7 +44,8 @@ class CreateHandlerTest extends TestCase
             'title',
             $uploadedFile,
             $dateTime,
-            $folder->reveal()
+            $folder->reveal(),
+            true
         )->shouldBeCalled();
 
         // Handler
@@ -53,6 +54,7 @@ class CreateHandlerTest extends TestCase
         $create->rank = 9;
         $create->folder = $folder->reveal();
         $create->content = $uploadedFile;
+        $create->needValidation = true;
         $handler = new CreateHandler($generator->reveal(), $contentImporter->reveal(), $dateTime);
         $handler->handle($create);
     }
