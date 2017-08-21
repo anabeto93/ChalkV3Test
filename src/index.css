@@ -24,6 +24,11 @@ body {
   text-decoration: none;
 }
 
+.button-primary {
+  float: right;
+  margin-right: 10px;
+}
+
 .flash-container {
   padding: 10px;
   background-color: #eeeeee;

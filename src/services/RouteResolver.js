@@ -8,9 +8,11 @@ export default {
    * @returns {*}
    */
   resolve({ pathname }) {
-    return Object.values(routes).map((path) => {
-      return matchPath(pathname, { path, exact: true });
-    }).find(match => match !== null);
+    return Object.values(routes)
+      .map(path => {
+        return matchPath(pathname, { path, exact: true });
+      })
+      .find(match => match !== null);
   },
 
   /**
@@ -38,6 +40,7 @@ export default {
 
         return course ? course.title : '';
       case routes.SESSION_DETAIL:
+      case routes.SESSION_SEND:
         course = CourseManager.getCourse(params.courseId);
 
         return course ? course.title : '';
@@ -45,4 +48,4 @@ export default {
         return 'Chalkboard Education';
     }
   }
-}
+};

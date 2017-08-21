@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import CourseManager from '../services/CourseManager';
+import SessionFooter from '../components/SessionFooter';
 
 class SessionDetailScreen extends Component {
   renderContent() {
-    return { __html: this.props.session.content }
+    return { __html: this.props.session.content };
   }
 
   render() {
-    const { session } = this.props;
+    const { session, courseUuid } = this.props;
 
     if (session !== undefined) {
       return (
         <div>
-          <h1>{session.title}</h1>
-          <div dangerouslySetInnerHTML={this.renderContent()}/>
+          <h1>
+            {session.title}
+          </h1>
+          <div dangerouslySetInnerHTML={this.renderContent()} />
+          <SessionFooter courseUuid={courseUuid} sessionUuid={session.uuid} />
         </div>
-      )
+      );
     }
 
-    return (<div/>) // apollo persist/REHYDRATE trigger after render
+    return <div />; // apollo persist/REHYDRATE trigger after render
   }
 }
 
@@ -29,8 +33,7 @@ function mapStateToProps(state, props) {
     props.match.params.sessionId
   );
 
-  return { session };
+  return { session, courseUuid: props.match.params.courseId };
 }
 
 export default connect(mapStateToProps)(SessionDetailScreen);
-
