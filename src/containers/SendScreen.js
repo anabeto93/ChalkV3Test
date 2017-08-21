@@ -1,8 +1,14 @@
 import { RaisedButton } from 'material-ui';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import React, { Component } from 'react';
+import {
+  requestValidateSessionInternet,
+  validateSession
+} from '../actions/actionCreators';
+import store from '../store/store';
 
 const DEFAULT_STATE = { sendMode: null, submitEnabled: false };
+const SEND_MODE_INTERNET = 'internet';
 
 class SendScreen extends Component {
   constructor(...args) {
@@ -15,12 +21,15 @@ class SendScreen extends Component {
   };
 
   handleFormSubmit = () => {
-    console.log(this.state.sendMode);
+    const sessionUuid = this.props.match.params.sessionId;
+
+    switch (this.state.sendMode) {
+      case SEND_MODE_INTERNET:
+        store.dispatch(validateSession(sessionUuid));
+    }
   };
 
   render() {
-    const SEND_MODE_INTERNET = 'internet';
-
     return (
       <div>
         <h1>Send</h1>
