@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+
 import GraphqlClient from '../graphql/client/GraphqlClient';
 
 import courses from './courses';

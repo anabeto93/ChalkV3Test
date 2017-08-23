@@ -9,6 +9,9 @@ import { withRouter } from 'react-router-dom';
 import logoImage from '../assets/logo.png';
 import { ACCOUNT, COURSES, HOME, LOGIN } from '../config/routes';
 import RouteResolver from '../services/RouteResolver';
+import getConfig from '../config/index';
+
+const APP_NAME = getConfig().appName;
 
 class Header extends Component {
   handleRedirectCourseList = () => {
@@ -32,7 +35,7 @@ class Header extends Component {
       <span style={{ fontSize: '14px' }}>
         <img
           src={logoImage}
-          alt="Chalkboard Education"
+          alt={APP_NAME}
           style={{
             paddingTop: '10px',
             float: 'left',

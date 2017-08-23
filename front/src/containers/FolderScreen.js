@@ -27,6 +27,10 @@ class FolderScreen extends Component {
           course.folders[0].uuid === FolderScreen.DEFAULT_FOLDER &&
           <Redirect to={`/courses/${course.uuid}/sessions/list`} />}
 
+        {course !== undefined && 0 === course.folders.length
+          ? <p>No content available</p>
+          : ''}
+
         <List>
           {course !== undefined &&
             course.folders.map(folder => {
@@ -47,7 +51,10 @@ class FolderScreen extends Component {
 }
 
 function mapStateToProps(state, ownProps) {
-  let course = courseManager.getCourse(ownProps.match.params.courseId);
+  const course = courseManager.getCourse(
+    state.courses.items,
+    ownProps.match.params.courseUuid
+  );
 
   return { course };
 }

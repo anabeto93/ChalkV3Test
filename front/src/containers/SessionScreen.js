@@ -17,7 +17,7 @@ class SessionScreen extends Component {
   }
 
   render() {
-    let { folder, course } = this.props;
+    const { folder, course } = this.props;
 
     return (
       <div>
@@ -26,7 +26,6 @@ class SessionScreen extends Component {
             folder.sessions.map((session, index) => {
               return (
                 <Link
-                  className="link-primary"
                   key={session.uuid}
                   to={`/courses/${course.uuid}/session/${session.uuid}`}
                 >
@@ -50,12 +49,16 @@ class SessionScreen extends Component {
  * @return {{folder: (Object|undefined)}}
  */
 function mapStateToProps(state, props) {
-  let course = courseManager.getCourse(props.match.params.courseId);
-  let folderId = props.match.params.folderId || FolderScreen.DEFAULT_FOLDER;
+  const course = courseManager.getCourse(
+    state.courses.items,
+    props.match.params.courseUuid
+  );
+  const folderUuid =
+    props.match.params.folderUuid || FolderScreen.DEFAULT_FOLDER;
 
   if (course === undefined) return {};
 
-  let folder = courseManager.getFolderFromCourse(course, folderId);
+  const folder = courseManager.getFolderFromCourse(course, folderUuid);
 
   return { folder, course };
 }

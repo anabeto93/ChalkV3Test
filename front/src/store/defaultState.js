@@ -12,9 +12,15 @@ const defaultState = {
     token: 'api-key-token-user-1'
   },
   courses: {
+    updatedAt: null,
     isFetching: false,
     isErrorFetching: false,
-    items: []
+    items: [],
+    spool: {
+      sessionText: [],
+      sessionFiles: [],
+      total: 0
+    }
   },
   updates: {
     isFetching: false,
