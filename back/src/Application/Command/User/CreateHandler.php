@@ -77,9 +77,9 @@ class CreateHandler
 
         $uuid = $this->generator->generateUuid();
 
-        $token = $this->tokenGenerator->generateToken();
+        $token = null;
 
-        if (null !== $this->userRepository->findByApiToken($token)) {
+        while (null === $token || null !== $this->userRepository->findByApiToken($token)) {
             $token = $this->tokenGenerator->generateToken();
         }
 
