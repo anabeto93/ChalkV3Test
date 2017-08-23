@@ -11,7 +11,9 @@ export default function receiveCourseInformationHandler(state, action) {
   const sessions = {};
 
   items.forEach(course => {
-    courses[course.uuid] = course;
+    let newCourse = { ...course };
+    delete newCourse.folders;
+    courses[course.uuid] = newCourse;
 
     course.folders.forEach(folder => {
       let folderUuid =
@@ -19,7 +21,10 @@ export default function receiveCourseInformationHandler(state, action) {
           ? `${course.uuid}_${folder.uuid}`
           : folder.uuid;
 
-      folders[folderUuid] = { ...folder, courseUuid: course.uuid };
+      let newFolder = { ...folder, courseUuid: course.uuid };
+      delete newFolder.sessions;
+
+      folders[folderUuid] = newFolder;
 
       folder.sessions.forEach(session => {
         sessions[session.uuid] = {
