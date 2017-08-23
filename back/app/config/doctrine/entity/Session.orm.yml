@@ -1,0 +1,44 @@
+App\Domain\Model\Session:
+    type: entity
+    table: session
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        uuid:
+            type: string
+            unique: true
+        rank:
+            type: integer
+        title:
+            type: string
+        content:
+            type: text
+            nullable: true
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+        contentUpdatedAt:
+            type: datetime
+        size:
+            type: integer
+        contentSize:
+            type: integer
+    manyToOne:
+        folder:
+            targetEntity: App\Domain\Model\Folder
+            joinColumn:
+                onDelete: SET NULL
+        course:
+            targetEntity: App\Domain\Model\Course
+            inversedBy: sessions
+            joinColumn:
+                onDelete: CASCADE
+                nullable: false
+    oneToMany:
+        files:
+            targetEntity: App\Domain\Model\Session\File
+            mappedBy: session

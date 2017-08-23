@@ -1,13 +1,15 @@
 import { combineReducers } from 'redux';
+import GraphqlClient from '../graphql/client/GraphqlClient';
 
 import courses from './courses';
 import currentUser from './currentUser';
-import GraphqlClient from '../graphql/client/GraphqlClient';
+import updates from './updates';
 
 const appReducer = combineReducers({
+  apollo: GraphqlClient.reducer(),
   courses,
   currentUser,
-  apollo: GraphqlClient.reducer()
+  updates
 });
 
 export default appReducer;

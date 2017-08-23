@@ -1,0 +1,49 @@
+services:
+    App\Application\Command\Course\CreateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Course\Create }
+
+    App\Application\Command\Course\UpdateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Course\Update }
+
+    App\Application\Command\User\CreateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\Create }
+
+    App\Application\Command\User\UpdateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\Update }
+
+    App\Application\Command\Folder\CreateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Folder\Create }
+
+    App\Application\Command\Folder\UpdateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Folder\Update }
+
+    App\Application\Command\Folder\DeleteHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Folder\Delete }
+
+    App\Application\Command\Session\CreateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Session\Create }
+
+    App\Application\Command\Session\DeleteHandler:
+        arguments:
+            - '@App\Infrastructure\Repository\Session\FileRepository'
+            - '@App\Infrastructure\Repository\SessionRepository'
+            - '@App\Infrastructure\Adapter\FileStorage'
+            - '%kernel.root_dir%/../web'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Session\Delete }

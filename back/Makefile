@@ -98,11 +98,22 @@ install@prod:
 ##########
 
 build:
-	if [ -f "gulpfile" ]; then gulp --dev; fi;
+	./node_modules/.bin/encore dev
+watch:
+	./node_modules/.bin/encore dev --watch
 build@demo:
 	if [ -f "gulpfile" ]; then gulp; fi;
 build@prod:
 	if [ -f "gulpfile" ]; then gulp; fi;
+
+##########
+# Custom #
+##########
+
+init-db:
+	bin/console doctrine:schema:drop --force; \
+	bin/console doctrine:schema:create; \
+	bin/console doctrine:fixtures:load -n; \
 
 ##########
 # Deploy #

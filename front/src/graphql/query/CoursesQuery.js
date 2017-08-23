@@ -1,13 +1,30 @@
 import gql from 'graphql-tag';
 
 export default gql`
-  query {
+  {
     courses {
       uuid
       title
-      description
       teacherName
-      createdAt
+      description
+      folders {
+        uuid
+        title
+        updatedAt
+        sessions {
+          uuid
+          title
+          content
+          updatedAt
+        }
+      }
+    }
+    user {
+      uuid
+      firstName
+      lastName
+      country
+      phoneNumber
     }
   }
 `;

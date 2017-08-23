@@ -1,0 +1,9 @@
+services:
+    App\Ui\Admin\Form\Extension\TranslationDomainExtension:
+        tags:
+            - { name: 'form.type_extension', extended_type: 'Symfony\Component\Form\Extension\Core\Type\FormType' }
+
+    App\Ui\Admin\Form\Type\Folder\FolderChoiceType:
+        autowire: true
+        tags:
+            - { name: form.type, alias: App\Ui\Admin\Form\Type\Folder\FolderChoiceType }

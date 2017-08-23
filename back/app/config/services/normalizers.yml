@@ -1,2 +1,15 @@
 services:
-    App\Infrastructure\Normalizer\CourseNormalizer: ~
+    App\Infrastructure\Normalizer\FolderNormalizer:
+        autowire: true
+
+    App\Infrastructure\Normalizer\SessionNormalizer:
+        autowire: true
+
+    App\Infrastructure\Normalizer\CourseNormalizer:
+        autowire: true
+
+    App\Infrastructure\Normalizer\Session\FileNormalizer:
+        autowire: true
+
+    App\Infrastructure\Normalizer\UserNormalizer:
+        autowire: true

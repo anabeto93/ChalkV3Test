@@ -16,5 +16,11 @@ default:
                 - Features\Behat\Context\DoctrineORMContext: ~
                 - Features\Behat\Context\Domain\CourseContext:
                     - '@Features\Behat\Services\Proxy\CourseProxy'
+                - Features\Behat\Context\Domain\SessionContext:
+                    - '@Features\Behat\Services\Proxy\SessionProxy'
+                - Features\Behat\Context\Domain\FolderContext:
+                    - '@Features\Behat\Services\Proxy\FolderProxy'
+                - Features\Behat\Context\Domain\UserContext:
+                    - '@Features\Behat\Services\Proxy\UserProxy'
                 - behatch:json
                 - behatch:rest

@@ -12,6 +12,7 @@ namespace Features\Behat\Services\Manager;
 
 use App\Domain\Model\Course;
 use App\Domain\Repository\CourseRepositoryInterface;
+use Tests\Factory\CourseFactory;
 
 class CourseManager
 {
@@ -29,13 +30,44 @@ class CourseManager
     /**
      * @param string $uuid
      * @param string $title
-     * @param string $teacherName
      *
      * @return Course
      */
-    public function create($uuid, $title, $teacherName = 'teacher')
+    public function create(string $uuid, string $title): Course
     {
-        $course = new Course($uuid, $title, $teacherName, new \DateTime());
+        $course = CourseFactory::create($uuid, $title, new \DateTime());
+        $this->courseRepository->add($course);
+
+        return $course;
+    }
+
+    /**
+     * @param string    $uuid
+     * @param string    $title
+     * @param string    $teacherName
+     * @param string    $university
+     * @param bool      $enabled
+     * @param string    $description
+     * @param \DateTime $createdAt
+     * @param \DateTime $updatedAt
+     * @param int       $size
+     *
+     * @return Course
+     */
+    public function createWithAllParameters(
+        string $uuid,
+        string $title,
+        string $teacherName,
+        string $university,
+        bool $enabled,
+        string $description,
+        \DateTime $createdAt,
+        \DateTime $updatedAt,
+        int $size
+    ): Course {
+        $course = new Course($uuid, $title, $teacherName, $university, $enabled, $createdAt, $description, $size);
+        $course->setUpdatedAt($updatedAt);
+
         $this->courseRepository->add($course);
 
         return $course;

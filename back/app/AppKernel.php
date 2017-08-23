@@ -19,6 +19,17 @@ class AppKernel extends Kernel
             // GraphQL
             new Overblog\GraphQLBundle\OverblogGraphQLBundle(),
 
+            // Tactician
+            new League\Tactician\Bundle\TacticianBundle(),
+
+            // Sonata
+            new Sonata\IntlBundle\SonataIntlBundle(),
+
+            // Elao Form
+            new Elao\Bundle\FormBundle\ElaoFormBundle(),
+            new Elao\Bundle\FormTranslationBundle\ElaoFormTranslationBundle(),
+            new Elao\Bundle\Theme\TwitterBootstrap3Bundle\ElaoThemeTwitterBootstrap3Bundle(),
+
             // App
             new App\Infrastructure\InfrastructureBundle\InfrastructureBundle(),
         ];

@@ -3,20 +3,22 @@ Query:
     config:
         description: "Chalkboard Education API"
         fields:
-            course:
-                type: "Course"
-                args:
-                    uuid:
-                        description: "The uuid of the course"
-                        type: "String!"
-                resolve: "@=resolver('course', [args])"
+            user:
+                type: "User!"
+                resolve: "@=resolver('user')"
             courses:
                 type: "[Course]"
+                resolve: "@=resolver('courses')"
+            hasUpdates:
+                type: "HasUpdates"
                 args:
-                    offset:
-                        type: "Int"
-                        defaultValue: 0
-                    limit:
-                        type: "Int"
-                        defaultValue: 10
-                resolve: "@=resolver('courses', [args])"
+                    dateLastUpdate:
+                        type: "DateTime"
+                resolve: "@=resolver('hasUpdates', [args])"
+            session:
+                type: "Session"
+                args:
+                    uuid:
+                        description: "The uuid of the session"
+                        type: "String!"
+                resolve: "@=resolver('session', [args])"

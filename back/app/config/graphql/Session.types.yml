@@ -1,0 +1,23 @@
+Session:
+    type: object
+    config:
+        description: "Session"
+        fields:
+            uuid:
+                type: "String!"
+                description: "uuid"
+            title:
+                type: "String!"
+                description: "Title of the session"
+            content:
+                type: "String"
+                description: "Html content of the session"
+            updatedAt:
+                type: "DateTime!"
+                description: "Last update of the session in format 2017-01-15 10:00"
+            contentUpdatedAt:
+                type: "DateTime!"
+                description: "Last update of the session content in format 2017-01-15 10:00"
+            files:
+                type: "[SessionFile]"
+                description: "Images of the session"

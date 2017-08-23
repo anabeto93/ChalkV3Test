@@ -1,0 +1,11 @@
+services:
+    #
+    # DateTime
+    #
+    datetime:
+        class: DateTimeImmutable
+
+    App\Infrastructure\Service\UrlGenerator:
+        arguments:
+            - '%scheme%'
+            - '%domain%'

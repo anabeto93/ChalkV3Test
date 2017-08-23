@@ -1,0 +1,31 @@
+form.course_create.children.enabled.label: Enabled
+form.course_create.children.description.label: Description
+form.course_create.children.submit.label: Save
+form.course_create.children.teacherName.label: Lecturer
+form.course_create.children.title.label: Title
+form.course_create.children.university.label: University
+form.course_update.children.enabled.label: Enabled
+form.course_update.children.description.label: Description
+form.course_update.children.submit.label: Save
+form.course_update.children.teacherName.label: Lecturer
+form.course_update.children.title.label: Title
+form.course_update.children.university.label: University
+form.folder_create.children.submit.label: 'Save'
+form.folder_create.children.title.label: 'Title'
+form.folder_update.children.submit.label: 'Save'
+form.folder_update.children.title.label: 'Title'
+form.session_create.children.content.label: 'Content'
+form.session_create.children.folder.label: 'Folder'
+form.session_create.children.rank.label: 'Order'
+form.session_create.children.submit.label: 'Save'
+form.session_create.children.title.label: 'Title'
+form.user_create.children.country.label: 'Country'
+form.user_create.children.firstName.label: 'First name'
+form.user_create.children.lastName.label: 'Last name'
+form.user_create.children.phoneNumber.label: 'Phone number'
+form.user_create.children.submit.label: 'Save'
+form.user_update.children.country.label: 'Country'
+form.user_update.children.firstName.label: 'First name'
+form.user_update.children.lastName.label: 'Last name'
+form.user_update.children.phoneNumber.label: 'Phone number'
+form.user_update.children.submit.label: 'Save'

@@ -1,0 +1,6 @@
+validator.phoneNumber.mustStartWithPlus: 'The phone number must start with a +'
+validator.phoneNumber.alreadyUsed: 'This phone number is already used'
+validator.session.import.imageNotFound: 'The image %image% was found in the index file and not in the zip'
+validator.session.import.imageWithoutSrc: 'An image tag was found in the index file without a src attribute'
+validator.session.import.indexNotPresent: 'The index.html file is not present in the zip file'
+validator.session.import.zipFile: 'Please upload a valid ZIP file'

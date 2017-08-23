@@ -1,4 +1,23 @@
 services:
+    App\Infrastructure\Repository\Paginator:
+        autowire: true
+
     App\Infrastructure\Repository\CourseRepository:
         autowire: true
     App\Domain\Repository\CourseRepositoryInterface: '@App\Infrastructure\Repository\CourseRepository'
+
+    App\Infrastructure\Repository\SessionRepository:
+        autowire: true
+    App\Domain\Repository\SessionRepositoryInterface: '@App\Infrastructure\Repository\SessionRepository'
+
+    App\Infrastructure\Repository\FolderRepository:
+        autowire: true
+    App\Domain\Repository\FolderRepositoryInterface: '@App\Infrastructure\Repository\FolderRepository'
+
+    App\Infrastructure\Repository\UserRepository:
+        autowire: true
+    App\Domain\Repository\UserRepositoryInterface: '@App\Infrastructure\Repository\UserRepository'
+
+    App\Infrastructure\Repository\Session\FileRepository:
+        autowire: true
+    App\Domain\Repository\Session\FileRepositoryInterface: '@App\Infrastructure\Repository\Session\FileRepository'

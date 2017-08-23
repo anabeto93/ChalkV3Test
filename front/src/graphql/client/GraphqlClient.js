@@ -1,10 +1,10 @@
 import ApolloClient, { createNetworkInterface } from 'apollo-client';
-import getConfig from '../../config/config';
+import getConfig from '../../config';
 
-const GraphqlClient = new ApolloClient({
-  networkInterface: createNetworkInterface({
-    uri: getConfig().api.endpoint
-  })
+export const networkInterface = createNetworkInterface({
+  uri: getConfig().api.endpoint
 });
+
+const GraphqlClient = new ApolloClient({ networkInterface });
 
 export default GraphqlClient;

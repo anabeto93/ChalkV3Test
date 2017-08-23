@@ -1,0 +1,14 @@
+services:
+    App\Infrastructure\Adapter\QueryBus:
+        arguments:
+            - '@tactician.commandbus.query'
+    App\Application\Adapter\QueryBusInterface: '@App\Infrastructure\Adapter\QueryBus'
+
+    App\Infrastructure\Adapter\CommandBus:
+        arguments:
+            - '@tactician.commandbus'
+    App\Application\Adapter\CommandBusInterface: '@App\Infrastructure\Adapter\CommandBus'
+
+    App\Infrastructure\Adapter\FileStorage:
+        autowire: true
+    App\Application\Adapter\FileStorageInterface: '@App\Infrastructure\Adapter\FileStorage'

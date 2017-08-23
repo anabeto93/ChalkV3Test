@@ -1,25 +1,26 @@
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
-
-import LoginScreen from './LoginScreen';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { COURSES } from '../config/routes';
+import { LOGIN_STATE_LOGGED_IN } from '../store/defaultState';
 
 export class HomeScreen extends Component {
   render() {
-    console.log('rendering HomeScreen');
+    if (this.props.loggedIn) {
+      return <Redirect to={COURSES} />;
+    }
 
-    return this.props.loggedIn
-      ? <div>
-          <h1>Welcome!</h1>
-          <p>This is init!!!</p>
-          <Link to="/course">Course</Link>
-        </div>
-      : <LoginScreen />;
+    return (
+      <div className="alert">
+        Your link has a problem - please contact your Chalkboard Education for
+        support
+      </div>
+    );
   }
 }
 
 function mapStateToProps({ currentUser: { loginState } }) {
-  return { loggedIn: loginState === 'success' };
+  return { loggedIn: loginState === LOGIN_STATE_LOGGED_IN };
 }
 
 export default connect(mapStateToProps)(HomeScreen);

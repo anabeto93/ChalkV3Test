@@ -12,19 +12,19 @@ namespace App\Infrastructure\Repository;
 
 use App\Domain\Model\Course;
 use App\Domain\Repository\CourseRepositoryInterface;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 
 class CourseRepository implements CourseRepositoryInterface
 {
     /**
-     * @var EntityManagerInterface
+     * @var EntityManager
      */
     private $entityManager;
 
     /**
-     * @param EntityManagerInterface $entityManager
+     * @param EntityManager $entityManager
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManager $entityManager)
     {
         $this->entityManager = $entityManager;
     }
@@ -41,13 +41,23 @@ class CourseRepository implements CourseRepositoryInterface
     /**
      * {@inheritdoc}
      */
+    public function set(Course $course)
+    {
+        $this->entityManager->flush($course);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getAll(): array
     {
         $queryBuilder = $this
             ->entityManager
             ->createQueryBuilder()
-            ->select('course')
+            ->select('course, folder, session')
             ->from(Course::class, 'course')
+            ->leftJoin('course.folders', 'folder')
+            ->leftJoin('course.sessions', 'session')
         ;
 
         return $queryBuilder->getQuery()->getResult();
@@ -56,34 +66,35 @@ class CourseRepository implements CourseRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getByUuid(string $uuid)
+    public function getEnabledCourses(): array
     {
         $queryBuilder = $this
             ->entityManager
             ->createQueryBuilder()
             ->select('course')
             ->from(Course::class, 'course')
+            ->where('course.enabled = true')
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getByUuid(string $uuid): ?Course
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('course, session, folder')
+            ->from(Course::class, 'course')
+            ->leftJoin('course.sessions', 'session')
+            ->leftJoin('session.folder', 'folder')
             ->where('course.uuid = :uuid')
             ->setParameter('uuid', $uuid)
-            ->setMaxResults(1);
-
-        return $queryBuilder->getQuery()->getOneOrNullResult();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function paginate($offset, $limit): array
-    {
-        $queryBuilder = $this
-            ->entityManager
-            ->createQueryBuilder()
-            ->select('course')
-            ->from(Course::class, 'course')
-            ->setFirstResult($offset)
-            ->setMaxResults($limit)
         ;
 
-        return $queryBuilder->getQuery()->getResult();
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }

@@ -1,0 +1,11 @@
+HasUpdates:
+    type: object
+    config:
+        description: "Is there any new updates to download"
+        fields:
+            hasUpdates:
+                type: "Boolean!"
+            size:
+                type: "Int!"
+                description: "Size of the update in bytes"
+

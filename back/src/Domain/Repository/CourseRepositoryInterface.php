@@ -20,22 +20,24 @@ interface CourseRepositoryInterface
     public function add(Course $course);
 
     /**
+     * @param Course $course
+     */
+    public function set(Course $course);
+
+    /**
      * @return Course[]
      */
     public function getAll(): array;
+
+    /**
+     * @return Course[]
+     */
+    public function getEnabledCourses(): array;
 
     /**
      * @param string $uuid
      *
      * @return Course|null
      */
-    public function getByUuid(string $uuid);
-
-    /**
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return Course[]
-     */
-    public function paginate($offset, $limit): array;
+    public function getByUuid(string $uuid): ?Course;
 }
