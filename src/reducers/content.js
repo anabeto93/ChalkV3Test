@@ -6,19 +6,21 @@ import {
   SPOOL_TERMINATED
 } from '../actions/actionCreators';
 
-export default function courses(
-  state = {
-    isFetching: false,
-    isErrorFetching: false,
-    items: [],
-    spool: {
-      sessionText: [],
-      sessionFiles: [],
-      total: 0
-    }
-  },
-  action
-) {
+const DEFAULT_CONTENT_STATE = {
+  isFetching: false,
+  isErrorFetching: false,
+  courses: [],
+  folders: [],
+  sessions: [],
+  items: [],
+  spool: {
+    sessionText: [],
+    sessionFiles: [],
+    total: 0
+  }
+};
+
+export default function content(state = DEFAULT_CONTENT_STATE, action) {
   switch (action.type) {
     case FILE_LOADED: {
       const sessionFiles = state.spool.sessionFiles.filter(
