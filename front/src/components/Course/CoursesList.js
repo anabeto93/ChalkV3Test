@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { List, ListItem } from 'material-ui/List';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export class CoursesList extends Component {
   shouldComponentUpdate(nextProps) {

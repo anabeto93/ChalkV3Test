@@ -10,6 +10,8 @@
 
 namespace App\Domain\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class User
 {
     /** @var int */
@@ -42,6 +44,9 @@ class User
     /** @var int */
     private $size;
 
+    /** @var ArrayCollection */
+    private $courses;
+
     /**
      * @param string             $uuid
      * @param string             $firstName
@@ -69,6 +74,7 @@ class User
         $this->updatedAt = $createdAt;
         $this->size = $size;
         $this->apiToken = null;
+        $this->courses = new ArrayCollection();
     }
 
     /**
@@ -157,6 +163,32 @@ class User
     public function setApiToken(string $apiToken)
     {
         $this->apiToken = $apiToken;
+    }
+
+    /**
+     * @return Course[]
+     */
+    public function getCourses(): array
+    {
+        return $this->courses->toArray();
+    }
+
+    /**
+     * @return Course[]
+     */
+    public function getEnabledCourses(): array
+    {
+        return $this->courses->filter(function (Course $course) {
+            return $course->isEnabled();
+        })->toArray();
+    }
+
+    /**
+     * @param array $courses
+     */
+    public function setCourses(array $courses)
+    {
+        $this->courses = new ArrayCollection($courses);
     }
 
     /**
