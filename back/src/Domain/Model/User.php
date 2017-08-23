@@ -47,6 +47,9 @@ class User
     /** @var ArrayCollection */
     private $courses;
 
+    /** @var string */
+    private $locale;
+
     /**
      * @param string             $uuid
      * @param string             $firstName
@@ -54,6 +57,7 @@ class User
      * @param string             $phoneNumber
      * @param string             $country
      * @param int                $size
+     * @param string             $locale
      * @param \DateTimeInterface $createdAt
      */
     public function __construct(
@@ -62,6 +66,7 @@ class User
         string $lastName,
         string $phoneNumber,
         string $country,
+        string $locale,
         int $size,
         \DateTimeInterface $createdAt
     ) {
@@ -75,6 +80,7 @@ class User
         $this->size = $size;
         $this->apiToken = null;
         $this->courses = new ArrayCollection();
+        $this->locale = $locale;
     }
 
     /**
@@ -123,6 +129,14 @@ class User
     public function getCountry(): string
     {
         return $this->country;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocale(): string
+    {
+        return $this->locale;
     }
 
     /**
@@ -195,6 +209,7 @@ class User
      * @param string             $firstName
      * @param string             $lastName
      * @param string             $country
+     * @param string             $locale
      * @param string             $phoneNumber
      * @param int                $size
      * @param \DateTimeInterface $updatedAt
@@ -203,6 +218,7 @@ class User
         string $firstName,
         string $lastName,
         string $country,
+        string $locale,
         string $phoneNumber,
         int $size,
         \DateTimeInterface $updatedAt
@@ -210,6 +226,7 @@ class User
         $this->firstName = $firstName;
         $this->lastName = $lastName;
         $this->country = $country;
+        $this->locale = $locale;
         $this->phoneNumber = $phoneNumber;
         $this->size = $size;
         $this->updatedAt = $updatedAt;

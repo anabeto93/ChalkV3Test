@@ -6,6 +6,7 @@ App\Domain\Model\User:
             - "Paul"
             - '+33123456789'
             - 'FR'
+            - 'fr'
             - 44
             - <dateTime()>
         apiToken: 'api-key-token-user-1'
