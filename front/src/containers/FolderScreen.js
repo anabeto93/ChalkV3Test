@@ -1,9 +1,9 @@
-import { Link, Redirect } from "react-router-dom";
-import { List, ListItem } from "material-ui/List";
+import { Link, Redirect } from 'react-router-dom';
+import { List, ListItem } from 'material-ui/List';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import courseManager from "../services/CourseManager";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import courseManager from '../services/CourseManager';
 
 class FolderScreen extends Component {
   static DEFAULT_FOLDER = 'default';
@@ -23,21 +23,24 @@ class FolderScreen extends Component {
 
     return (
       <div>
-        { course !== undefined && course.folders.length > 0 && course.folders[0].uuid === FolderScreen.DEFAULT_FOLDER &&
-        <Redirect to={`/courses/${course.uuid}/sessions/list`}/>
-        }
+        {course !== undefined &&
+          course.folders.length > 0 &&
+          course.folders[0].uuid === FolderScreen.DEFAULT_FOLDER &&
+          <Redirect to={`/courses/${course.uuid}/sessions/list`} />}
 
         <List>
-          { course !== undefined && course.folders.map((folder) => {
-            return (
-              <Link key={folder.uuid} to={`/courses/${course.uuid}/folders/${folder.uuid}/sessions/list`}>
-                <ListItem
-                  primaryText={folder.title}
-                  rightIcon={<Arrow/>}
-                />
-              </Link>
-            )
-          }) }
+          {course !== undefined &&
+            course.folders.map(folder => {
+              return (
+                <Link
+                  className="link-primary"
+                  key={folder.uuid}
+                  to={`/courses/${course.uuid}/folders/${folder.uuid}/sessions/list`}
+                >
+                  <ListItem primaryText={folder.title} rightIcon={<Arrow />} />
+                </Link>
+              );
+            })}
         </List>
       </div>
     );

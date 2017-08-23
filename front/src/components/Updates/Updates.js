@@ -7,7 +7,7 @@ import { getCoursesInformations } from '../../actions/actionCreators';
 const DEFAULT_STATE = { alreadyUpToDate: false, updating: false };
 const ALREADY_UP_TO_DATE_MESSAGE_DELAY_IN_SECONDS = 5;
 
-export class Updates extends Component {
+class Updates extends Component {
   constructor(...args) {
     super(...args);
     this.state = DEFAULT_STATE;
