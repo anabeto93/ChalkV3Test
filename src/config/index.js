@@ -9,7 +9,8 @@ const config = {
     },
     updates: {
       intervalInSeconds: 86400
-    }
+    },
+    defaultFolder: 'default'
   },
   default: {
     api: {
@@ -18,7 +19,8 @@ const config = {
     appName: 'Chalkboard Education',
     updates: {
       intervalInSeconds: 20
-    }
+    },
+    defaultFolder: 'default'
   }
 };
 
