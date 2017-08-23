@@ -11,23 +11,17 @@
 namespace App\Application\Command\Course;
 
 use App\Domain\Repository\CourseRepositoryInterface;
-use App\Domain\Repository\UserRepositoryInterface;
 
 class AssignUserHandler
 {
-    /** @var UserRepositoryInterface */
-    private $userRepository;
-
     /** @var CourseRepositoryInterface */
     private $courseRepository;
 
     /**
-     * @param UserRepositoryInterface   $userRepository
      * @param CourseRepositoryInterface $courseRepository
      */
-    public function __construct(UserRepositoryInterface $userRepository, CourseRepositoryInterface $courseRepository)
+    public function __construct(CourseRepositoryInterface $courseRepository)
     {
-        $this->userRepository = $userRepository;
         $this->courseRepository = $courseRepository;
     }
 
