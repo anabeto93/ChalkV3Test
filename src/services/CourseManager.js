@@ -1,29 +1,47 @@
 export class CourseManager {
-  /**
-   * @param {array}  courseItems
-   * @param {string} courseUuid
-   * @return {Object|undefined}
-   */
   getCourse(courseItems, courseUuid) {
-    return courseItems.find(course => course.uuid === courseUuid);
+    return courseItems[courseUuid];
+  }
+
+  getFolder(folderItems, folderUuid) {
+    return folderItems[folderUuid];
+  }
+
+  getSession(sessionsItems, sessionUuid) {
+    return sessionsItems[sessionUuid];
   }
 
   /**
-   * @param {Object} course
-   * @param {string} folderUuid
-   * @return {Object|undefined}
+   *
+   * @param foldersItems
+   * @param courseUuid
+   * @returns {{}}
    */
-  getFolderFromCourse(course, folderUuid) {
-    return course.folders.find(folder => folder.uuid === folderUuid);
+  getFoldersFromCourse(foldersItems, courseUuid) {
+    let folders = {};
+    for (let key in foldersItems) {
+      if (foldersItems[key].courseUuid === courseUuid) {
+        folders[key] = foldersItems[key];
+      }
+    }
+
+    return folders;
   }
 
   /**
-   * @param {Object} folder
-   * @param {string} sessionUuid
+   * @param sessionsItems
+   * @param folderUuid
    * @returns {Object|undefined}
    */
-  getSessionFromFolder(folder, sessionUuid) {
-    return folder.sessions.find(session => session.uuid === sessionUuid);
+  getSessionsFromFolder(sessionsItems, folderUuid) {
+    let sessions = {};
+    for (let key in sessionsItems) {
+      if (sessionsItems[key].folderUuid === folderUuid) {
+        sessions[key] = sessionsItems[key];
+      }
+    }
+
+    return sessions;
   }
 
   /**

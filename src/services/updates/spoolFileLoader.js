@@ -14,7 +14,7 @@ export class SpoolFileLoader {
       return;
     }
 
-    const fileToLoad = store.getState().courses.spool.sessionFiles[0];
+    const fileToLoad = store.getState().content.spool.sessionFiles[0];
 
     if (undefined === fileToLoad) {
       return;

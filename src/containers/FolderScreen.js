@@ -1,8 +1,8 @@
 import { List, ListItem } from 'material-ui/List';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import { Link, Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
 
 import courseManager from '../services/CourseManager';
 
@@ -18,45 +18,49 @@ class FolderScreen extends Component {
   }
 
   render() {
-    const { course } = this.props;
+    const { course, folders } = this.props;
+    const totalFolders = Object.keys(folders).length;
+    const firstFolder = folders[Object.keys(folders)[0]];
 
     return (
       <div>
-        {course !== undefined &&
-          course.folders.length > 0 &&
-          course.folders[0].uuid === FolderScreen.DEFAULT_FOLDER &&
+        {totalFolders > 0 &&
+          firstFolder.uuid === FolderScreen.DEFAULT_FOLDER &&
           <Redirect to={`/courses/${course.uuid}/sessions/list`} />}
 
-        {course !== undefined && 0 === course.folders.length
-          ? <p>No content available</p>
-          : ''}
+        {totalFolders === 0 ? <p>No content available</p> : ''}
 
         <List>
-          {course !== undefined &&
-            course.folders.map(folder => {
-              return (
-                <Link
-                  className="link-primary"
-                  key={folder.uuid}
-                  to={`/courses/${course.uuid}/folders/${folder.uuid}/sessions/list`}
-                >
-                  <ListItem primaryText={folder.title} rightIcon={<Arrow />} />
-                </Link>
-              );
-            })}
+          {Object.keys(folders).map(key => {
+            let folder = folders[key];
+            return (
+              <Link
+                className="link-primary"
+                key={folder.uuid}
+                to={`/courses/${course.uuid}/folders/${folder.uuid}/sessions/list`}
+              >
+                <ListItem primaryText={folder.title} rightIcon={<Arrow />} />
+              </Link>
+            );
+          })}
         </List>
       </div>
     );
   }
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state, props) {
   const course = courseManager.getCourse(
-    state.courses.items,
-    ownProps.match.params.courseUuid
+    state.content.courses,
+    props.match.params.courseUuid
   );
 
-  return { course };
+  const folders = courseManager.getFoldersFromCourse(
+    state.content.folders,
+    props.match.params.courseUuid
+  );
+
+  return { course, folders };
 }
 
 export default connect(mapStateToProps)(FolderScreen);

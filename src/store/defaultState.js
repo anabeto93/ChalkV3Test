@@ -15,9 +15,9 @@ const defaultState = {
     isFetching: false,
     isErrorFetching: false,
     updatedAt: null,
-    courses: [],
-    folders: [],
-    sessions: [],
+    courses: {},
+    folders: {},
+    sessions: {},
     spool: {
       sessionText: [],
       sessionFiles: [],
