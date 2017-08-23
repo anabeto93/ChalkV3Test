@@ -1,7 +1,8 @@
 import { matchPath } from 'react-router-dom';
-import * as routes from '../config/routes';
+
 import CourseManager from './CourseManager';
 import getConfig from '../config/index';
+import * as routes from '../config/routes';
 import store from '../store/store';
 
 const APP_NAME = getConfig().appName;
@@ -9,7 +10,7 @@ const APP_NAME = getConfig().appName;
 export default {
   /**
    * @param {string} pathname from Object
-   * @returns {*}
+   * @returns {Object|undefined}
    */
   resolve({ pathname }) {
     return Object.values(routes)

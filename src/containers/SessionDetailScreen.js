@@ -21,7 +21,7 @@ class SessionDetailScreen extends Component {
       );
     }
 
-    return <div />; // apollo persist/REHYDRATE trigger after render
+    return <div />; // TODO: warning apollo persist/REHYDRATE trigger after render
   }
 }
 

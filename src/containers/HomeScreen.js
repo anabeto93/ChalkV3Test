@@ -1,22 +1,26 @@
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
-
-import LoginScreen from './LoginScreen';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { COURSES } from '../config/routes';
+import { LOGIN_STATE_LOGGED_IN } from '../store/defaultState';
+import I18n from 'i18n-js';
 
 export class HomeScreen extends Component {
   render() {
-    return this.props.loggedIn
-      ? <div>
-          <h1>You're logged</h1>
-          <Link to="/courses">Courses</Link>
-        </div>
-      : <LoginScreen />;
+    if (this.props.loggedIn) {
+      return <Redirect to={COURSES} />;
+    }
+
+    return (
+      <div className="alert">
+        {I18n.t('tokenError')}
+      </div>
+    );
   }
 }
 
 function mapStateToProps({ currentUser: { loginState } }) {
-  return { loggedIn: loginState === 'logged' };
+  return { loggedIn: loginState === LOGIN_STATE_LOGGED_IN };
 }
 
 export default connect(mapStateToProps)(HomeScreen);

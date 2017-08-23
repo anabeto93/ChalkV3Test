@@ -1,7 +1,8 @@
-import { connect } from 'react-redux';
+import I18n from 'i18n-js';
 import LinearProgress from 'material-ui/LinearProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import {
   getCoursesInformations,
@@ -17,7 +18,7 @@ const DEFAULT_STATE = {
 };
 const MESSAGE_DELAY_IN_SECONDS = 5;
 
-export class Updates extends Component {
+class Updates extends Component {
   constructor(...args) {
     super(...args);
     this.state = DEFAULT_STATE;
@@ -28,7 +29,7 @@ export class Updates extends Component {
     const { hasUpdates, isErrorFetching, isFetching } = nextProps.updates;
 
     if (
-      0 < this.props.courses.spool.total > 0 &&
+      0 < this.props.courses.spool.total &&
       0 === nextProps.courses.spool.total
     ) {
       this.setState({ ...this.state, spoolCompleted: 0, isUpdated: true });
@@ -91,7 +92,7 @@ export class Updates extends Component {
   };
 
   render() {
-    const { courses, network, updates } = this.props;
+    const { courses, locale, network, updates } = this.props;
     const spoolTotal = courses.spool.total;
     const spoolUncompleted =
       courses.spool.sessionText.length + courses.spool.sessionFiles.length;
@@ -156,11 +157,19 @@ export class Updates extends Component {
     }
 
     if (courses.isFetching) {
-      return <div style={style.container}>Updating app...</div>;
+      return (
+        <div style={style.container}>
+          {I18n.t('update.updating', { locale })}
+        </div>
+      );
     }
 
     if (updates.isFetching) {
-      return <div style={style.container}>Checking updates...</div>;
+      return (
+        <div style={style.container}>
+          {I18n.t('update.checking', { locale })}
+        </div>
+      );
     }
 
     if (updates.hasUpdates) {
@@ -169,12 +178,14 @@ export class Updates extends Component {
           <p>Your app must be updated</p>
           <p>
             <small>
-              {Math.round(1000 * updates.size / 1024) / 1000}
-              kb to download
+              {I18n.t('update.download', {
+                amount: Math.round(1000 * updates.size / 1024) / 1000,
+                locale
+              })}
             </small>
           </p>
           <RaisedButton
-            label="Update"
+            label={I18n.t('update.label', { locale })}
             primary={true}
             onClick={this.handleLoad}
           />
@@ -182,16 +193,20 @@ export class Updates extends Component {
       );
     }
 
-    if (this.state.isAlreadyUpToDate) {
-      return <div style={style.container}>Your app is already up to date!</div>;
+    if (this.state.alreadyUpToDate) {
+      return (
+        <div style={style.container}>
+          {I18n.t('update.upToDate', { locale })}
+        </div>
+      );
     }
 
     return null;
   }
 }
 
-function mapStateToProps({ courses, network, updates }) {
-  return { courses, network, updates };
+function mapStateToProps({ courses, network, settings: { locale }, updates }) {
+  return { courses, locale, network, updates };
 }
 
 export default connect(mapStateToProps)(Updates);
