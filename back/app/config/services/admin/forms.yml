@@ -7,3 +7,8 @@ services:
         autowire: true
         tags:
             - { name: form.type, alias: App\Ui\Admin\Form\Type\Folder\FolderChoiceType }
+
+    App\Ui\Admin\Form\Type\User\UserChoiceType:
+        autowire: true
+        tags:
+            - { name: form.type, alias: App\Ui\Admin\Form\Type\User\UserChoiceType }

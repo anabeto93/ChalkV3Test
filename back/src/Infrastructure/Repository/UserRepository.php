@@ -10,6 +10,7 @@
 
 namespace App\Infrastructure\Repository;
 
+use App\Domain\Model\Course;
 use App\Domain\Model\User;
 use App\Domain\Pagination\PaginatedResult;
 use App\Domain\Repository\UserRepositoryInterface;
@@ -73,8 +74,9 @@ class UserRepository implements UserRepositoryInterface
         $queryBuilder = $this
             ->entityManager
             ->createQueryBuilder()
-            ->select('user')
-            ->from(User::class, 'user');
+            ->select('user, course')
+            ->from(User::class, 'user')
+            ->leftJoin('user.courses', 'course');
 
         return $queryBuilder->getQuery()->getResult();
     }

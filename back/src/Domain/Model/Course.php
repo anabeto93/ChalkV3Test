@@ -83,6 +83,7 @@ class Course
         $this->updatedAt = $createdAt;
         $this->sessions = new ArrayCollection();
         $this->folders = new ArrayCollection();
+        $this->users = new ArrayCollection();
         $this->size = $size;
     }
 
@@ -159,6 +160,14 @@ class Course
     }
 
     /**
+     * @return User[]
+     */
+    public function getUsers(): array
+    {
+        return $this->users->toArray();
+    }
+
+    /**
      * @param Session[] $sessions
      */
     public function setSessions(array $sessions)
@@ -196,6 +205,18 @@ class Course
     public function getSize(): int
     {
         return $this->size;
+    }
+
+    /**
+     * @param User[] $users
+     */
+    public function affectUser(array $users)
+    {
+        foreach ($users as $user) {
+            if (!$this->users->containsKey($user->getId())) {
+                $this->users->set($user->getId(), $user);
+            }
+        }
     }
 
     /**

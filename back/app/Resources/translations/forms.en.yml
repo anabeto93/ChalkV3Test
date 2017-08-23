@@ -1,3 +1,5 @@
+form.assign_user.children.users.label: 'Students'
+form.assign_user.children.submit.label: 'Assign'
 form.course_create.children.enabled.label: Enabled
 form.course_create.children.description.label: Description
 form.course_create.children.submit.label: Save
