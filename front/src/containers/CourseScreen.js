@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import React, { Component } from 'react';
 
 import CoursesList from '../components/Course/CoursesList';
+import UserPanel from '../components/Course/UserPanel';
 
 export class CourseScreen extends Component {
   render() {
@@ -11,9 +11,8 @@ export class CourseScreen extends Component {
 
     return (
       <div>
-        <h1>Courses</h1>
+        <UserPanel />
         <CoursesList courses={items} />
-        <Link to="/">Home</Link>
       </div>
     );
   }

@@ -203,6 +203,14 @@ class Session
     }
 
     /**
+     * @param int $size
+     */
+    public function setContentSize(int $size)
+    {
+        $this->contentSize = $size;
+    }
+
+    /**
      * @return File[]
      */
     public function getFiles(): array

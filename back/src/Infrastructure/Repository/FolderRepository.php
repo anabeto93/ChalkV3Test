@@ -41,6 +41,23 @@ class FolderRepository implements FolderRepositoryInterface
     /**
      * {@inheritdoc}
      */
+    public function set(Folder $folder)
+    {
+        $this->entityManager->flush($folder);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function remove(Folder $folder)
+    {
+        $this->entityManager->remove($folder);
+        $this->entityManager->flush($folder);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function findByCourse($course): array
     {
         $queryBuilder = $this->entityManager
@@ -49,6 +66,7 @@ class FolderRepository implements FolderRepositoryInterface
             ->from(Folder::class, 'folder')
             ->where('folder.course = :course')
             ->setParameter('course', $course)
+            ->orderBy('folder.title', 'ASC')
         ;
 
         return $queryBuilder->getQuery()->getResult();

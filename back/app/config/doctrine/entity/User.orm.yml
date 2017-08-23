@@ -19,8 +19,17 @@ App\Domain\Model\User:
             unique: true
         country:
             type: string
+        size:
+            type: integer
         createdAt:
+            type: datetime
+        updatedAt:
             type: datetime
         apiToken:
             type: string
             nullable: true
+    manyToMany:
+        courses:
+            targetEntity: App\Domain\Model\Course
+            joinTable:
+                name: user_course

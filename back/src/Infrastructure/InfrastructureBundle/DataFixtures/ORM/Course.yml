@@ -10,3 +10,36 @@ App\Domain\Model\Course:
             - 'This is an example'
             - 1234
         updatedAt: <(new DateTime('2017-07-20 08:00:00.000'))>
+    course_2:
+        __construct:
+            - "4bf73791-18a2-4341"
+            - "Débuter avec Redux"
+            - "Paul"
+            - "University of Chalkboard"
+            - true
+            - <(new DateTime('2017-07-12 08:00:00.000'))>
+            - 'This is an example'
+            - 1234
+        updatedAt: <(new DateTime('2017-07-20 08:00:00.000'))>
+    course_3:
+        __construct:
+            - "4bf73791-18a2-4342"
+            - "React et React-Native"
+            - "Richard"
+            - "University of Chalkboard"
+            - true
+            - <(new DateTime('2017-07-12 08:00:00.000'))>
+            - 'This is an example'
+            - 1234
+        updatedAt: <(new DateTime('2017-07-20 08:00:00.000'))>
+    course_4:
+        __construct:
+            - "4bf73791-18a2-4343"
+            - "Le pattern Flux"
+            - "Maxime"
+            - "University of Chalkboard"
+            - true
+            - <(new DateTime('2017-07-12 08:00:00.000'))>
+            - 'This is an example'
+            - 1234
+        updatedAt: <(new DateTime('2017-07-20 08:00:00.000'))>

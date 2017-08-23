@@ -21,9 +21,26 @@ interface SessionRepositoryInterface
     public function add(Session $session);
 
     /**
+     * @param Session $session
+     */
+    public function set(Session $session);
+
+    /**
+     * @param Session $session
+     */
+    public function remove(Session $session);
+
+    /**
      * @param Course $course
      *
      * @return Session[]
      */
     public function findByCourse(Course $course): array;
+
+    /**
+     * @param null|string $uuid
+     *
+     * @return Session|null
+     */
+    public function getByUuid(?string $uuid): ?Session;
 }

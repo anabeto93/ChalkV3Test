@@ -1,3 +1,4 @@
+@folder
 Feature: Folder creation
   Scenario: I can create a folder in a course
     Given the database is purged

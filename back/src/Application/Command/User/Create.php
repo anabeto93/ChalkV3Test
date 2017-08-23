@@ -10,19 +10,6 @@
 
 namespace App\Application\Command\User;
 
-use App\Application\Command\Command;
-
-class Create implements Command
+class Create extends AbstractUserCommand
 {
-    /** @var string */
-    public $firstName;
-
-    /** @var string */
-    public $lastName;
-
-    /** @var string */
-    public $phoneNumber;
-
-    /** @var string */
-    public $country;
 }

@@ -10,16 +10,12 @@
 
 namespace App\Application\Command\Folder;
 
-use App\Application\Command\Command;
 use App\Domain\Model\Course;
 
-class Create implements Command
+class Create extends AbstractFolderCommand
 {
     /** @var Course */
     public $course;
-
-    /** @var string */
-    public $title;
 
     /**
      * @param Course $course

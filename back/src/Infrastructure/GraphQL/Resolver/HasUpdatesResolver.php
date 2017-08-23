@@ -15,23 +15,24 @@ use App\Domain\Course\SessionUpdateView;
 use App\Domain\Repository\CourseRepositoryInterface;
 use GraphQL\Error\UserError;
 use Overblog\GraphQLBundle\Definition\Argument;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class HasUpdatesResolver
 {
-    /** @var CourseRepositoryInterface */
-    private $courseRepository;
-
     /** @var HasUpdatesChecker */
     private $hasUpdatesChecker;
 
+    /** @var TokenStorageInterface */
+    private $tokenStorage;
+
     /**
-     * @param CourseRepositoryInterface $courseRepository
-     * @param HasUpdatesChecker         $hasUpdatesChecker
+     * @param HasUpdatesChecker     $hasUpdatesChecker
+     * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct(CourseRepositoryInterface $courseRepository, HasUpdatesChecker $hasUpdatesChecker)
+    public function __construct(HasUpdatesChecker $hasUpdatesChecker, TokenStorageInterface $tokenStorage)
     {
-        $this->courseRepository = $courseRepository;
         $this->hasUpdatesChecker = $hasUpdatesChecker;
+        $this->tokenStorage = $tokenStorage;
     }
 
     /**
@@ -47,8 +48,10 @@ class HasUpdatesResolver
             throw new UserError('The date is not in the valid format ');
         }
 
+        $apiUser = $this->tokenStorage->getToken()->getUser();
+
         $info = $this->hasUpdatesChecker->getUpdatesInfo(
-            $this->courseRepository->getEnabledCourses(),
+            $apiUser->getUser()->getEnabledCourses(),
             $dateLastUpdate
         );
 

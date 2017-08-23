@@ -4,3 +4,22 @@ services:
 
     App\Domain\Size\Calculator:
         autowire: true
+
+    App\Domain\Session\Import\ImageMover:
+        arguments:
+            - '@App\Infrastructure\Adapter\FileStorage'
+            - '@App\Infrastructure\Repository\Session\FileRepository'
+            - '%kernel.root_dir%/../web'
+        autowire: true
+
+    App\Domain\Session\Import\ContentParser:
+        autowire: true
+
+    App\Domain\Session\Import\ContentImporter:
+        arguments:
+            - '@App\Infrastructure\Adapter\FileStorage'
+            - '@App\Domain\Session\Import\ContentParser'
+            - '@App\Domain\Session\Import\ImageMover'
+            - '@App\Domain\Size\Calculator'
+            - '@App\Infrastructure\Repository\SessionRepository'
+            - '%path_to_store_upload%'

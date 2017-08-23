@@ -42,6 +42,23 @@ class SessionRepository implements SessionRepositoryInterface
     /**
      * {@inheritdoc}
      */
+    public function set(Session $session)
+    {
+        $this->entityManager->flush($session);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function remove(Session $session)
+    {
+        $this->entityManager->remove($session);
+        $this->entityManager->flush($session);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function findByCourse(Course $course): array
     {
         $queryBuilder = $this->entityManager
@@ -54,5 +71,22 @@ class SessionRepository implements SessionRepositoryInterface
         ;
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getByUuid(?string $uuid): ?Session
+    {
+        $queryBuilder = $this->entityManager
+            ->createQueryBuilder()
+            ->select('session')
+            ->from(Session::class, 'session')
+            ->where('session.uuid = :uuid')
+            ->setParameter('uuid', $uuid)
+            ->setMaxResults(1)
+        ;
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }
