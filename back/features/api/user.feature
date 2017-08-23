@@ -1,7 +1,9 @@
 Feature: User api
   Scenario: I can get all info of the logged user
     Given the database is purged
-    And there is a user called "jean" "paul" with the uuid "123-user" and the phone number "+33123213123" and the locale "en"
+    And there is following users
+      | uuid     | firstName | lastName | phoneNumber  | locale |
+      | 123-user | jean      | paul     | +33123213123 | en     |
     And the api token for this user is "api-token-user"
     And I add "Authorization" header equal to "Bearer api-token-user"
     When I add "Content-Type" header equal to "application/json"

@@ -21,7 +21,8 @@ App\Domain\Model\User:
             type: string
         locale:
             type: string
-            default: 'en'
+            option:
+              default: 'en'
         size:
             type: integer
         createdAt:

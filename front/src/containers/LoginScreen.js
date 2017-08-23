@@ -22,7 +22,6 @@ class LoginScreen extends Component {
 
   render() {
     console.log('rendering LoginScreen');
-    console.log(this.props);
 
     if (this.props.courses.isFetching) {
       return <div className="flash-container">Checking ...</div>;

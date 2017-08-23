@@ -13,6 +13,7 @@ namespace Features\Behat\Context\Domain;
 use App\Domain\Model\Course;
 use App\Domain\Model\User;
 use Behat\Behat\Context\Context;
+use Behat\Gherkin\Node\TableNode;
 use Features\Behat\Domain\Proxy\UserProxyInterface;
 
 class UserContext implements Context
@@ -29,19 +30,23 @@ class UserContext implements Context
     }
 
     /**
-     * @Given /^there is a user called "(?P<firstName>[^"]+)" "(?P<lastName>[^"]+)" with the uuid "(?P<uuid>[^"]+)" and the phone number "(?P<phoneNumber>[^"]+)" and the locale "(?P<locale>[^"]+)"$/
+     * @Given /^there is following users$/
      *
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $uuid
-     * @param string $phoneNumber
-     * @param string $locale
+     * @param TableNode $users
      */
-    public function createUser(string $firstName, string $lastName, string $uuid, string $phoneNumber, string $locale)
+    public function createUser(TableNode $users)
     {
-        $user = $this->userProxy->getUserManager()->create($uuid, $firstName, $lastName, $phoneNumber, $locale);
+        foreach ($users->getHash() as $userHash) {
+            $user = $this->userProxy->getUserManager()->create(
+                $userHash['uuid'],
+                $userHash['firstName'],
+                $userHash['lastName'],
+                $userHash['phoneNumber'],
+                $userHash['locale']
+            );
 
-        $this->userProxy->getStorage()->set('user', $user);
+            $this->userProxy->getStorage()->set('user', $user);
+        }
     }
 
     /**
