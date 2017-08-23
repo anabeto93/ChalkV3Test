@@ -1,3 +1,5 @@
+import getConfig from '../../config/index';
+
 export default function receiveCourseInformationHandler(state, action) {
   const lastUpdatedAt = state.updatedAt;
   const items = action.payload.courses;
@@ -12,7 +14,12 @@ export default function receiveCourseInformationHandler(state, action) {
     courses[course.uuid] = course;
 
     course.folders.forEach(folder => {
-      folders[folder.uuid] = { ...folder, courseUuid: course.uuid };
+      let folderUuid =
+        folder.uuid === getConfig().defaultFolder
+          ? `${course.uuid}_${folder.uuid}`
+          : folder.uuid;
+
+      folders[folderUuid] = { ...folder, courseUuid: course.uuid };
 
       folder.sessions.forEach(session => {
         sessions[session.uuid] = {
@@ -43,17 +50,15 @@ export default function receiveCourseInformationHandler(state, action) {
 
   return {
     ...state,
-    ...{
-      isFetching: false,
-      isErrorFetching: false,
-      courses,
-      folders,
-      sessions,
-      spool: {
-        sessionText,
-        sessionFiles,
-        total: sessionText.length + sessionFiles.length
-      }
+    isFetching: false,
+    isErrorFetching: false,
+    courses,
+    folders,
+    sessions,
+    spool: {
+      sessionText,
+      sessionFiles,
+      total: sessionText.length + sessionFiles.length
     }
   };
 }

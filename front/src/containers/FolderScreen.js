@@ -3,12 +3,11 @@ import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
+import getConfig from '../config/index';
 
 import courseManager from '../services/CourseManager';
 
 class FolderScreen extends Component {
-  static DEFAULT_FOLDER = 'default';
-
   constructor(props) {
     super(props);
 
@@ -25,7 +24,7 @@ class FolderScreen extends Component {
     return (
       <div>
         {totalFolders > 0 &&
-          firstFolder.uuid === FolderScreen.DEFAULT_FOLDER &&
+          firstFolder.uuid === getConfig().defaultFolder &&
           <Redirect to={`/courses/${course.uuid}/sessions/list`} />}
 
         {totalFolders === 0 ? <p>No content available</p> : ''}
