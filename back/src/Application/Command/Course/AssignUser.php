@@ -28,5 +28,6 @@ class AssignUser implements Command
     public function __construct(Course $course)
     {
         $this->course = $course;
+        $this->users = $course->getUsers();
     }
 }

@@ -212,11 +212,25 @@ class Course
      */
     public function affectUser(array $users)
     {
+        foreach ($this->getUsers() as $assignedUser) {
+            if (!in_array($assignedUser, $users)) {
+                $this->unAssignUser($assignedUser);
+            }
+        }
+
         foreach ($users as $user) {
-            if (!$this->users->containsKey($user->getId())) {
+            if (!$this->users->contains($user)) {
                 $this->users->set($user->getId(), $user);
             }
         }
+    }
+
+    /**
+     * @param User $user
+     */
+    public function unAssignUser(User $user)
+    {
+        $this->users->removeElement($user);
     }
 
     /**
