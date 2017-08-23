@@ -8,9 +8,11 @@ export default {
    * @returns {*}
    */
   resolve({ pathname }) {
-    return Object.values(routes).map((path) => {
-      return matchPath(pathname, { path, exact: true });
-    }).find(match => match !== null);
+    return Object.values(routes)
+      .map(path => {
+        return matchPath(pathname, { path, exact: true });
+      })
+      .find(match => match !== null);
   },
 
   /**
@@ -45,4 +47,4 @@ export default {
         return 'Chalkboard Education';
     }
   }
-}
+};

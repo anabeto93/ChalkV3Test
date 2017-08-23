@@ -6,10 +6,14 @@ class UserPanel extends React.Component {
   subtitle() {
     return (
       <div>
-        <div>{this.props.user.country}</div>
-        <div>{this.props.user.phoneNumber}</div>
+        <div>
+          {this.props.user.country}
+        </div>
+        <div>
+          {this.props.user.phoneNumber}
+        </div>
       </div>
-    )
+    );
   }
 
   render() {
@@ -21,10 +25,10 @@ class UserPanel extends React.Component {
             subtitle={this.subtitle()}
           />
         </Card>
-      )
+      );
     }
 
-    return (<div/>);
+    return <div />;
   }
 }
 

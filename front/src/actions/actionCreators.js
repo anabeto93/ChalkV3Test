@@ -1,5 +1,4 @@
 import GraphqlClient from '../graphql/client/GraphqlClient';
-
 import CoursesQuery from '../graphql/query/CoursesQuery';
 import HasUpdatesQuery from '../graphql/query/HasUpdatesQuery';
 

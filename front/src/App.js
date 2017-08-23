@@ -1,11 +1,16 @@
+import { darkBlack } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React, { Component } from 'react';
+
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import './App.css';
+import logo from './assets/logo.png';
 import Header from './components/Header';
 import NotFound from './components/NotFound';
+import Updates from './components/Updates/Updates';
 import * as routes from './config/routes';
 
 import CourseScreen from './containers/CourseScreen';
@@ -16,13 +21,22 @@ import PrivateRoute from './containers/PrivateRoute';
 import SessionDetailScreen from './containers/SessionDetailScreen';
 import SessionScreen from './containers/SessionScreen';
 import store from './store/store';
-import { darkBlack } from 'material-ui/styles/colors';
-import Updates from './components/Updates/Updates';
 
 const PRIMARY_COLOR = '#fc3691';
 
 class App extends Component {
   render() {
+    const logoApp = (
+      <span>
+        <img
+          src={logo}
+          alt="Chalkboard Education"
+          style={{ float: 'left', maxHeight: '80%', margin: '6px' }}
+        />{' '}
+        Chalkboard Education
+      </span>
+    );
+
     return (
       <Provider store={store}>
         <MuiThemeProvider
