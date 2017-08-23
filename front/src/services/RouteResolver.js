@@ -34,25 +34,25 @@ export default {
         return APP_NAME;
       case routes.FOLDER_LIST:
         course = CourseManager.getCourse(
-          store.getState().courses.items,
+          store.getState().content.courses,
           params.courseUuid
         );
         return course ? course.title : '';
       case routes.SESSION_LIST:
-        course = CourseManager.getCourse(
-          store.getState().courses.items,
-          params.courseUuid
-        );
+        const { courses, folders } = store.getState().content;
+
+        course = CourseManager.getCourse(courses, params.courseUuid);
 
         if (course !== undefined) {
-          folder = CourseManager.getFolderFromCourse(course, params.folderUuid);
+          folder = CourseManager.getFolder(folders, params.folderUuid);
+
           return folder ? folder.title : '';
         }
 
         return course ? course.title : '';
       case routes.SESSION_DETAIL:
         course = CourseManager.getCourse(
-          store.getState().courses.items,
+          store.getState().content.courses,
           params.courseUuid
         );
 

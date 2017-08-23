@@ -22,7 +22,7 @@ class LoginScreen extends Component {
   };
 
   render() {
-    if (this.props.courses.isFetching) {
+    if (this.props.content.isFetching) {
       return <div className="flash-container">Checking ...</div>;
     }
 
@@ -44,8 +44,8 @@ class LoginScreen extends Component {
   }
 }
 
-const mapStateToProps = ({ courses, currentUser }) => ({
-  courses,
+const mapStateToProps = ({ content, currentUser }) => ({
+  content,
   user: currentUser
 });
 

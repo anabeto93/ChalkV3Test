@@ -19,7 +19,9 @@ export class CoursesList extends Component {
     return (
       <List>
         {undefined !== courses &&
-          courses.map(course => {
+          Object.keys(courses).map(key => {
+            let course = courses[key];
+
             return (
               <Link
                 className="link-primary"

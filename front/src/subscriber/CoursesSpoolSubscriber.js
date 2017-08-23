@@ -6,7 +6,7 @@ let totalCurrentValue;
 
 export default function CoursesSpoolSubscriber() {
   const totalPreviousValue = totalCurrentValue;
-  const spool = store.getState().courses.spool;
+  const spool = store.getState().content.spool;
   totalCurrentValue = spool.total;
 
   //const currentSpool = spool.sessionText + spool.sessionFiles;

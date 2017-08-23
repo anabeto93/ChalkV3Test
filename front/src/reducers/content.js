@@ -5,13 +5,14 @@ import {
   REQUEST_COURSES_INFORMATIONS,
   SPOOL_TERMINATED
 } from '../actions/actionCreators';
+import receiveCourseInformationHandler from './handler/receiveCourseInformationHandler';
 
 const DEFAULT_CONTENT_STATE = {
   isFetching: false,
   isErrorFetching: false,
-  courses: [],
-  folders: [],
-  sessions: [],
+  courses: {},
+  folders: {},
+  sessions: {},
   items: [],
   spool: {
     sessionText: [],
@@ -45,51 +46,7 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
     }
 
     case RECEIVE_COURSES_INFORMATIONS: {
-      // @todo: copy previous session content to new session content
-      // const previousCourseItems = state.items;
-
-      const lastUpdatedAt = state.updatedAt;
-      const newCourseItems = action.payload.courses;
-      const sessionText = state.spool.sessionText;
-      const sessionFiles = state.spool.sessionFiles;
-
-      newCourseItems.forEach(course => {
-        course.folders.forEach(folder => {
-          folder.sessions.forEach(session => {
-            // Add session uuid to spool/sessionText
-            if (
-              isUpToDate(lastUpdatedAt, session.contentUpdatedAt) &&
-              !sessionText.includes(session.uuid)
-            ) {
-              sessionText.push(session.uuid);
-            }
-
-            // Add file url to spool/sessionFiles
-            session.files.forEach(file => {
-              if (
-                isUpToDate(lastUpdatedAt, file.updatedAt) &&
-                !sessionFiles.includes(file.url)
-              ) {
-                sessionFiles.push(file.url);
-              }
-            });
-          });
-        });
-      });
-
-      return {
-        ...state,
-        // @todo: set new updateAt date provided by the backend
-        // updatedAt: newCourseItems.updatedAt
-        isFetching: false,
-        isErrorFetching: false,
-        items: newCourseItems,
-        spool: {
-          sessionText,
-          sessionFiles,
-          total: sessionText.length + sessionFiles.length
-        }
-      };
+      return receiveCourseInformationHandler(state, action);
     }
 
     case FAIL_GET_COURSES_INFORMATIONS: {
@@ -114,16 +71,4 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
     default:
       return state;
   }
-}
-
-/**
- * @param {string} lastUpdatedAt
- * @param {string} contentUpdatedAt
- * @returns {boolean}
- */
-function isUpToDate(lastUpdatedAt, contentUpdatedAt) {
-  return (
-    null === lastUpdatedAt ||
-    new Date(contentUpdatedAt) < new Date(lastUpdatedAt)
-  );
 }

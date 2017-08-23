@@ -29,8 +29,8 @@ class Updates extends Component {
     const { hasUpdates, isErrorFetching, isFetching } = nextProps.updates;
 
     if (
-      0 < this.props.courses.spool.total &&
-      0 === nextProps.courses.spool.total
+      0 < this.props.content.spool.total &&
+      0 === nextProps.content.spool.total
     ) {
       this.setState({ ...this.state, spoolCompleted: 0, isUpdated: true });
       this.handleShortMessage('isUpdated');
@@ -46,9 +46,9 @@ class Updates extends Component {
     }
 
     const isErrorWhileUpdating =
-      this.props.courses.isFetching &&
-      nextProps.courses.isErrorFetching &&
-      !nextProps.courses.isFetching &&
+      this.props.content.isFetching &&
+      nextProps.content.isErrorFetching &&
+      !nextProps.content.isFetching &&
       hasUpdates;
 
     if (isErrorWhileUpdating) {
@@ -92,10 +92,10 @@ class Updates extends Component {
   };
 
   render() {
-    const { courses, locale, network, updates } = this.props;
-    const spoolTotal = courses.spool.total;
+    const { content, locale, network, updates } = this.props;
+    const spoolTotal = content.spool.total;
     const spoolUncompleted =
-      courses.spool.sessionText.length + courses.spool.sessionFiles.length;
+      content.spool.sessionText.length + content.spool.sessionFiles.length;
     const spoolCompleted = spoolTotal - spoolUncompleted;
     const percentSpoolCompleted =
       spoolTotal > 0 ? Math.round(spoolCompleted * 100 / spoolTotal) : 100;
@@ -156,7 +156,7 @@ class Updates extends Component {
       );
     }
 
-    if (courses.isFetching) {
+    if (content.isFetching) {
       return (
         <div style={style.container}>
           {I18n.t('update.updating', { locale })}
@@ -205,8 +205,8 @@ class Updates extends Component {
   }
 }
 
-function mapStateToProps({ courses, network, settings: { locale }, updates }) {
-  return { courses, locale, network, updates };
+function mapStateToProps({ content, network, settings: { locale }, updates }) {
+  return { content, locale, network, updates };
 }
 
 export default connect(mapStateToProps)(Updates);
