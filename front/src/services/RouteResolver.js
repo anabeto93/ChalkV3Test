@@ -5,7 +5,7 @@ import CourseManager from './CourseManager';
 export default {
   /**
    * @param {string} pathname from Object
-   * @returns {*}
+   * @returns {Object|undefined}
    */
   resolve({ pathname }) {
     return Object.values(routes)

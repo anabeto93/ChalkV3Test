@@ -3,13 +3,15 @@ import GraphqlClient from '../graphql/client/GraphqlClient';
 
 import courses from './courses';
 import currentUser from './currentUser';
+import settings from './settings';
 import updates from './updates';
 
 const appReducer = combineReducers({
   apollo: GraphqlClient.reducer(),
   courses,
   currentUser,
-  updates
+  updates,
+  settings
 });
 
 export default appReducer;

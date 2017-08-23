@@ -12,6 +12,7 @@ import Header from './components/Header';
 import NotFound from './components/NotFound';
 import Updates from './components/Updates/Updates';
 import * as routes from './config/routes';
+import AccountScreen from './containers/AccountScreen';
 
 import CourseScreen from './containers/CourseScreen';
 import FolderScreen from './containers/FolderScreen';
@@ -26,17 +27,6 @@ const PRIMARY_COLOR = '#fc3691';
 
 class App extends Component {
   render() {
-    const logoApp = (
-      <span>
-        <img
-          src={logo}
-          alt="Chalkboard Education"
-          style={{ float: 'left', maxHeight: '80%', margin: '6px' }}
-        />{' '}
-        Chalkboard Education
-      </span>
-    );
-
     return (
       <Provider store={store}>
         <MuiThemeProvider
@@ -79,6 +69,11 @@ class App extends Component {
                   exact
                   path={routes.SESSION_DETAIL}
                   component={SessionDetailScreen}
+                />
+                <PrivateRoute
+                  exact
+                  path={routes.ACCOUNT}
+                  component={AccountScreen}
                 />
                 <Route component={NotFound} />
               </Switch>
