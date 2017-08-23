@@ -1,14 +1,6 @@
-import GraphqlClient from '../graphql/client/GraphqlClient';
-
 import CoursesQuery from '../graphql/query/CoursesQuery';
+import GraphqlClient from '../graphql/client/GraphqlClient';
 import HasUpdatesQuery from '../graphql/query/HasUpdatesQuery';
-
-// LOGIN
-export const LOGIN_SUCCESS = '@@CHALKBOARDEDUCATION/LOGIN_SUCCESS';
-
-export function login() {
-  return { type: LOGIN_SUCCESS };
-}
 
 // NETWORK STATUS
 export const SET_NETWORK_STATUS = '@@CHALKBOARDEDUCATION/SET_NETWORK_STATUS';
@@ -99,4 +91,12 @@ export function getUpdates() {
         dispatch(failGetUpdates('Bad response from server'));
       });
   };
+}
+
+// USER SETTINGS
+
+export const SETTINGS_SET_LOCALE = '@@CHALKBOARDEDUCATION/SETTINGS/SET_LOCALE';
+
+export function setLocale(locale) {
+  return { type: SETTINGS_SET_LOCALE, payload: { locale } };
 }

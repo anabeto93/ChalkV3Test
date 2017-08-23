@@ -1,8 +1,9 @@
-import { Link, Redirect } from 'react-router-dom';
 import { List, ListItem } from 'material-ui/List';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import { Link, Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import courseManager from '../services/CourseManager';
 
 class FolderScreen extends Component {
@@ -31,6 +32,7 @@ class FolderScreen extends Component {
             course.folders.map(folder => {
               return (
                 <Link
+                  className="link-primary"
                   key={folder.uuid}
                   to={`/courses/${course.uuid}/folders/${folder.uuid}/sessions/list`}
                 >

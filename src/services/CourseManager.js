@@ -1,4 +1,4 @@
-import store from "../store/store";
+import store from '../store/store';
 
 class CourseManager {
   /**
@@ -17,7 +17,7 @@ class CourseManager {
 
     if (!state.hasOwnProperty('courses')) return undefined;
 
-    return state.courses.items.find((course) => course.uuid === uuid);
+    return state.courses.items.find(course => course.uuid === uuid);
   }
 
   /**
@@ -28,7 +28,7 @@ class CourseManager {
   getFolderFromCourse(course, folderId) {
     if (!course.hasOwnProperty('folders')) return undefined;
 
-    return course.folders.find((folder) => folder.uuid === folderId);
+    return course.folders.find(folder => folder.uuid === folderId);
   }
 
   /**
@@ -39,7 +39,7 @@ class CourseManager {
   getSessionFromFolder(folder, sessionId) {
     if (!folder.hasOwnProperty('sessions')) return undefined;
 
-    return folder.sessions.find((session) => session.uuid === sessionId);
+    return folder.sessions.find(session => session.uuid === sessionId);
   }
 
   /**
@@ -58,7 +58,7 @@ class CourseManager {
     if (course !== undefined && course.hasOwnProperty('folders')) {
       course.folders.forEach(folder => {
         session = this.getSessionFromFolder(folder, sessionId);
-      })
+      });
     }
 
     return session;
