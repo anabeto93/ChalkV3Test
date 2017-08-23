@@ -44,6 +44,7 @@ class SessionNormalizerTest extends TestCase
             'content' => 'this is the content',
             'createdAt' => $createdAt,
             'updatedAt' => $createdAt,
+            'contentUpdatedAt' => $createdAt,
             'files' => [
                 ['file1'],
                 ['file2'],
