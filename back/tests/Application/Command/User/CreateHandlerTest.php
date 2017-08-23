@@ -89,6 +89,7 @@ class CreateHandlerTest extends TestCase
             'lastName',
             '+123123123',
             'FR',
+            'fr',
             39,
             '2oKenN',
             $this->dateTime
@@ -100,6 +101,7 @@ class CreateHandlerTest extends TestCase
         $command->firstName = 'firstName';
         $command->lastName = 'lastName';
         $command->country = 'FR';
+        $command->locale = 'fr';
 
         // Mock
         $this->userRepository->findByPhoneNumber('+123123123')->shouldBeCalled()->willReturn(null);

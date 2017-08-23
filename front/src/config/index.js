@@ -15,6 +15,7 @@ const config = {
     api: {
       endpoint: 'http://api.chalkboardeducation.dev/app_dev.php/api/graphql/'
     },
+    appName: 'Chalkboard Education',
     updates: {
       intervalInSeconds: 20
     }

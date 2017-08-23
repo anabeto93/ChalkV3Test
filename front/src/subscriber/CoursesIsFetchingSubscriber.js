@@ -1,17 +1,14 @@
 import { reinitUpdates } from '../actions/actionCreators';
 import store from '../store/store';
 
-function select(state) {
-  return state.courses.isFetching;
-}
-
-let currentValue;
+let currentIsFetchingValue;
 
 export default function CoursesIsFetchingSubscriber() {
-  let previousValue = currentValue;
-  currentValue = select(store.getState());
+  let previousValue = currentIsFetchingValue;
+  const courses = store.getState().courses;
+  currentIsFetchingValue = courses.isFetching;
 
-  if (previousValue && !currentValue) {
+  if (previousValue && !currentIsFetchingValue && !courses.isErrorFetching) {
     // if courses isFetching changed from true to false, reinit updates
     store.dispatch(reinitUpdates());
   }

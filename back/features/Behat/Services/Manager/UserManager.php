@@ -47,10 +47,11 @@ class UserManager
      * @param string $firstName
      * @param string $lastName
      * @param string $phoneNumber
+     * @param string $locale
      *
      * @return User
      */
-    public function create(string $uuid, string $firstName, string $lastName, string $phoneNumber): User
+    public function create(string $uuid, string $firstName, string $lastName, string $phoneNumber, string $locale): User
     {
         $user = new User(
             $uuid,
@@ -58,6 +59,7 @@ class UserManager
             $lastName,
             $phoneNumber,
             'GH',
+            $locale,
             $this->sizeCalculator->calculateSize(
                 sprintf(
                     '%s%s%s%s%s%s',
