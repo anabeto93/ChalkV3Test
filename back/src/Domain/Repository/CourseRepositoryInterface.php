@@ -19,7 +19,6 @@ interface CourseRepositoryInterface
      */
     public function add(Course $course);
 
-
     /**
      * @param Course $course
      */

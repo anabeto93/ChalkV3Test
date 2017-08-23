@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { List, ListItem } from 'material-ui/List';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { List, ListItem } from 'material-ui/List';
+import React, { Component } from 'react';
+
 import courseManager from '../services/CourseManager';
 import FolderScreen from './FolderScreen';
 
@@ -25,6 +26,7 @@ class SessionScreen extends Component {
             folder.sessions.map((session, index) => {
               return (
                 <Link
+                  className="link-primary"
                   key={session.uuid}
                   to={`/courses/${course.uuid}/session/${session.uuid}`}
                 >

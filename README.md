@@ -33,6 +33,10 @@ $ yarn test
 
 You should access the front via http://localhost:3000/
 
+To login as a user:
+
+http://localhost:3000/login/api-key-token-user-1
+
 ## Back
 
 > Note: The `$` stands for your machine CLI, while the `⇒` stands for the VM CLI

@@ -25,4 +25,7 @@ abstract class AbstractUserCommand implements Command
 
     /** @var string */
     public $country;
+
+    /** @var string */
+    public $locale;
 }

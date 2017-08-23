@@ -76,6 +76,7 @@ class CreateHandler
             $command->lastName,
             $command->phoneNumber,
             $command->country,
+            $command->locale,
             $this->sizeCalculator->calculateSize(
                 sprintf(
                     '%s%s%s%s%s%s',

@@ -26,17 +26,23 @@ Launch vagrant box, and ssh into it
         $ vagrant up
         $ vagrant ssh
 
+Build admin assets
+
+        ⇒ make build
+
+Load fixtures into DB
+
+        ⇒ make init-db
+
 Tests
 
-        $ make test
+        ⇒ make test
 
+### Tools
 
 Enable/Disable php xdebug
 
         ⇒ elao_php_xdebug [on|off]
-
-
-### Tools
 
 * [MailHog](http://api.chalkboardeducation.dev:8025)
 * [RTail](http://api.chalkboardeducation.dev:8888)

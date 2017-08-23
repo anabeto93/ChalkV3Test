@@ -10,8 +10,10 @@
 
 namespace Features\Behat\Context\Domain;
 
+use App\Domain\Model\Course;
 use App\Domain\Model\User;
 use Behat\Behat\Context\Context;
+use Behat\Gherkin\Node\TableNode;
 use Features\Behat\Domain\Proxy\UserProxyInterface;
 
 class UserContext implements Context
@@ -28,18 +30,23 @@ class UserContext implements Context
     }
 
     /**
-     * @Given /^there is a user called "(?P<firstName>[^"]+)" "(?P<lastName>[^"]+)" with the uuid "(?P<uuid>[^"]+)" and the phone number "(?P<phoneNumber>[^"]+)"$/
+     * @Given /^there is following users$/
      *
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $uuid
-     * @param string $phoneNumber
+     * @param TableNode $users
      */
-    public function createUser(string $firstName, string $lastName, string $uuid, string $phoneNumber)
+    public function createUser(TableNode $users)
     {
-        $user = $this->userProxy->getUserManager()->create($uuid, $firstName, $lastName, $phoneNumber);
+        foreach ($users->getHash() as $userHash) {
+            $user = $this->userProxy->getUserManager()->create(
+                $userHash['uuid'],
+                $userHash['firstName'],
+                $userHash['lastName'],
+                $userHash['phoneNumber'],
+                $userHash['locale']
+            );
 
-        $this->userProxy->getStorage()->set('user', $user);
+            $this->userProxy->getStorage()->set('user', $user);
+        }
     }
 
     /**
@@ -56,5 +63,24 @@ class UserContext implements Context
         }
 
         $this->userProxy->getUserManager()->setApiToken($user, $apiToken);
+    }
+
+    /**
+     * @Given this user is assigned to this course
+     */
+    public function setCourseAssignedForUser()
+    {
+        $user = $this->userProxy->getStorage()->get('user');
+        $course = $this->userProxy->getStorage()->get('course');
+
+        if (!$user instanceof User) {
+            throw new \InvalidArgumentException('User not found');
+        }
+
+        if (!$course instanceof Course) {
+            throw new \InvalidArgumentException('Course not found');
+        }
+
+        $this->userProxy->getUserManager()->setCourse($user, $course);
     }
 }
