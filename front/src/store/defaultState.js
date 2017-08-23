@@ -11,11 +11,13 @@ const defaultState = {
     loginState: LOGIN_STATE_LOGGED_OUT,
     token: 'api-key-token-user-1'
   },
-  courses: {
-    updatedAt: null,
+  content: {
     isFetching: false,
     isErrorFetching: false,
-    items: [],
+    updatedAt: null,
+    courses: [],
+    folders: [],
+    sessions: [],
     spool: {
       sessionText: [],
       sessionFiles: [],
