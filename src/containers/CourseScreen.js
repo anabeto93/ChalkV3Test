@@ -11,7 +11,7 @@ export class CourseScreen extends Component {
 
     return (
       <div>
-        <UserPanel/>
+        <UserPanel />
         <CoursesList courses={items} />
       </div>
     );

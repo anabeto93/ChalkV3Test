@@ -1,12 +1,18 @@
+import { darkBlack } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React, { Component } from 'react';
+
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import './App.css';
+import logo from './assets/logo.png';
 import Header from './components/Header';
 import NotFound from './components/NotFound';
+import Updates from './components/Updates/Updates';
 import * as routes from './config/routes';
+import AccountScreen from './containers/AccountScreen';
 
 import CourseScreen from './containers/CourseScreen';
 import FolderScreen from './containers/FolderScreen';
@@ -16,9 +22,6 @@ import PrivateRoute from './containers/PrivateRoute';
 import SessionDetailScreen from './containers/SessionDetailScreen';
 import SessionScreen from './containers/SessionScreen';
 import store from './store/store';
-import { darkBlack } from 'material-ui/styles/colors';
-import Updates from './components/Updates/Updates';
-import AccountScreen from './containers/AccountScreen';
 
 const PRIMARY_COLOR = '#fc3691';
 
