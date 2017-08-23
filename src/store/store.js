@@ -1,8 +1,10 @@
 import { applyMiddleware, compose, createStore } from 'redux';
-import { persistStore, autoRehydrate } from 'redux-persist';
+import { autoRehydrate, persistStore } from 'redux-persist';
 import thunkMiddleware from 'redux-thunk';
+import { networkInterface } from '../graphql/client/GraphqlClient';
 
 import appReducer from '../reducers';
+import CoursesIsFetchingSubscriber from '../subscriber/CoursesIsFetchingSubscriber';
 import defaultState from './defaultState';
 
 const store = createStore(
@@ -17,7 +19,29 @@ const store = createStore(
   )
 );
 
+// Init subscribers
+store.subscribe(CoursesIsFetchingSubscriber);
+
+// Init Redux persist
 persistStore(store);
+
+// networkInterface need the store
+networkInterface.use([
+  {
+    applyMiddleware(req, next) {
+      // Create the header object if needed.
+      if (!req.options.headers) {
+        req.options.headers = {};
+      }
+
+      const userToken = store.getState().currentUser.token;
+      req.options.headers.authorization = userToken
+        ? `Bearer ${userToken}`
+        : null;
+      next();
+    }
+  }
+]);
 
 if (module.hot) {
   module.hot.accept('../reducers', () => {
