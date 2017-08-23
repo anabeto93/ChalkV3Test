@@ -5,7 +5,7 @@ import { spoolTerminated } from '../actions/actionCreators';
 let totalCurrentValue;
 
 export default function CoursesSpoolSubscriber() {
-  let totalPreviousValue = totalCurrentValue;
+  const totalPreviousValue = totalCurrentValue;
   const spool = store.getState().courses.spool;
   totalCurrentValue = spool.total;
 
