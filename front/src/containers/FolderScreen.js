@@ -1,8 +1,9 @@
-import { Link, Redirect } from 'react-router-dom';
 import { List, ListItem } from 'material-ui/List';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import { Link, Redirect } from 'react-router-dom';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+
 import courseManager from '../services/CourseManager';
 
 class FolderScreen extends Component {
@@ -18,8 +19,6 @@ class FolderScreen extends Component {
 
   render() {
     const { course } = this.props;
-
-    console.log('rendering FolderScreen');
 
     return (
       <div>

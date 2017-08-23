@@ -1,11 +1,12 @@
 import { RaisedButton } from 'material-ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCoursesInformations } from '../actions/actionCreators';
-import UserPanel from '../components/Course/UserPanel';
+
 import { COURSES } from '../config/routes';
+import { getCoursesInformations } from '../actions/actionCreators';
 import { LOGIN_STATE_LOGGED_OUT } from '../store/defaultState';
 import store from '../store/store';
+import UserPanel from '../components/Course/UserPanel';
 
 class LoginScreen extends Component {
   componentDidMount() {
@@ -21,8 +22,6 @@ class LoginScreen extends Component {
   };
 
   render() {
-    console.log('rendering LoginScreen');
-
     if (this.props.courses.isFetching) {
       return <div className="flash-container">Checking ...</div>;
     }

@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.css';
-import logo from './assets/logo.png';
 import Header from './components/Header';
 import NotFound from './components/NotFound';
 import Updates from './components/Updates/Updates';

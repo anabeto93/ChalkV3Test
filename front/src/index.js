@@ -9,6 +9,9 @@ import './index.css';
 
 import registerServiceWorker from './registerServiceWorker';
 
+// Check network status
+import './services/network/networkStatusEventListener';
+
 // Init the clock
 import './services/updates/clock';
 

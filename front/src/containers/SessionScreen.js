@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { List, ListItem } from 'material-ui/List';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { List, ListItem } from 'material-ui/List';
+import React, { Component } from 'react';
+
 import courseManager from '../services/CourseManager';
 import FolderScreen from './FolderScreen';
 
@@ -17,8 +18,6 @@ class SessionScreen extends Component {
 
   render() {
     let { folder, course } = this.props;
-
-    console.log('rendering SessionScreen');
 
     return (
       <div>

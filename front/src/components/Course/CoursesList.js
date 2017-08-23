@@ -16,8 +16,6 @@ export class CoursesList extends Component {
   render() {
     const { courses } = this.props;
 
-    console.log('rendering CoursesList');
-
     return (
       <List>
         {undefined !== courses &&

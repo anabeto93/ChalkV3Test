@@ -1,6 +1,13 @@
-import GraphqlClient from '../graphql/client/GraphqlClient';
 import CoursesQuery from '../graphql/query/CoursesQuery';
+import GraphqlClient from '../graphql/client/GraphqlClient';
 import HasUpdatesQuery from '../graphql/query/HasUpdatesQuery';
+
+// NETWORK STATUS
+export const SET_NETWORK_STATUS = '@@CHALKBOARDEDUCATION/SET_NETWORK_STATUS';
+
+export function setNetworkStatus(isOnline) {
+  return { type: SET_NETWORK_STATUS, payload: isOnline };
+}
 
 // GET COURSES
 export const REQUEST_COURSES_INFORMATIONS =

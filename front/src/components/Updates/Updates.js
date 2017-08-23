@@ -3,10 +3,17 @@ import RaisedButton from 'material-ui/RaisedButton';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { getCoursesInformations } from '../../actions/actionCreators';
+import {
+  getCoursesInformations,
+  getUpdates
+} from '../../actions/actionCreators';
 
-const DEFAULT_STATE = { alreadyUpToDate: false, updating: false };
-const ALREADY_UP_TO_DATE_MESSAGE_DELAY_IN_SECONDS = 5;
+const DEFAULT_STATE = {
+  isAlreadyUpToDate: false,
+  isErrorWhileCheckingUpdates: false,
+  isErrorWhileUpdating: false
+};
+const MESSAGE_DELAY_IN_SECONDS = 5;
 
 class Updates extends Component {
   constructor(...args) {
@@ -15,20 +22,53 @@ class Updates extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { isFetching } = this.props.updates;
+    console.log(nextProps);
+    const { isFetching: currentIsFetching } = this.props.updates;
+    const { hasUpdates, isErrorFetching, isFetching } = nextProps.updates;
 
-    const alreadyUpToDate =
-      isFetching && !nextProps.isFetching && !nextProps.hasUpdates;
+    const isErrorWhileCheckingUpdates =
+      isErrorFetching && currentIsFetching && !isFetching;
 
-    this.setState({ ...DEFAULT_STATE, alreadyUpToDate: alreadyUpToDate });
-
-    if (alreadyUpToDate) {
-      setTimeout(
-        () => this.setState({ ...DEFAULT_STATE, alreadyUpToDate: false }),
-        ALREADY_UP_TO_DATE_MESSAGE_DELAY_IN_SECONDS * 1000
-      );
+    if (isErrorWhileCheckingUpdates) {
+      this.setState({ ...DEFAULT_STATE, isErrorWhileCheckingUpdates: true });
+      return;
     }
+
+    const isErrorWhileUpdating =
+      this.props.courses.isFetching &&
+      nextProps.courses.isErrorFetching &&
+      !nextProps.courses.isFetching &&
+      hasUpdates;
+
+    if (isErrorWhileUpdating) {
+      this.setState({ ...DEFAULT_STATE, isErrorWhileUpdating: true });
+      this.handleShortMessage('isErrorWhileUpdating');
+      return;
+    }
+
+    const isAlreadyUpToDate =
+      !isErrorFetching && currentIsFetching && !isFetching && !hasUpdates;
+
+    if (isAlreadyUpToDate) {
+      this.setState({ ...DEFAULT_STATE, isAlreadyUpToDate: true });
+      this.handleShortMessage('isAlreadyUpToDate');
+      return;
+    }
+
+    this.setState(DEFAULT_STATE);
   }
+
+  handleShortMessage(stateName) {
+    setTimeout(
+      () => this.setState({ ...DEFAULT_STATE, [stateName]: false }),
+      MESSAGE_DELAY_IN_SECONDS * 1000
+    );
+  }
+
+  handleRetryCheckUpdates = event => {
+    event.preventDefault();
+    this.props.dispatch(getUpdates());
+  };
 
   handleLoad = event => {
     event.preventDefault();
@@ -36,7 +76,7 @@ class Updates extends Component {
   };
 
   render() {
-    const { updates, courses, locale } = this.props;
+    const { courses, locale, network, updates } = this.props;
 
     const style = {
       container: {
@@ -45,6 +85,35 @@ class Updates extends Component {
         textAlign: 'center'
       }
     };
+
+    if (!network.isOnline) {
+      return (
+        <div style={style.container}>
+          <small>You are offline.</small>
+        </div>
+      );
+    }
+
+    if (this.state.isErrorWhileUpdating) {
+      return (
+        <div style={style.container}>
+          <p>There is a network problem while updating.</p>
+        </div>
+      );
+    }
+
+    if (this.state.isErrorWhileCheckingUpdates) {
+      return (
+        <div style={style.container}>
+          <p>There is a network problem while checking updates.</p>
+          <RaisedButton
+            label="Retry"
+            primary={true}
+            onClick={this.handleRetryCheckUpdates}
+          />
+        </div>
+      );
+    }
 
     if (courses.isFetching) {
       return (
@@ -65,11 +134,14 @@ class Updates extends Component {
     if (updates.hasUpdates) {
       return (
         <div style={style.container}>
+          <p>Your app must be updated</p>
           <p>
-            {I18n.t('update.download', {
-              amount: Math.round(1000 * updates.size / 1024) / 1000,
-              locale
-            })}
+            <small>
+              {I18n.t('update.download', {
+                amount: Math.round(1000 * updates.size / 1024) / 1000,
+                locale
+              })}
+            </small>
           </p>
           <RaisedButton
             label={I18n.t('update.label', { locale })}
@@ -92,8 +164,8 @@ class Updates extends Component {
   }
 }
 
-function mapStateToProps({ updates, courses, settings: { locale } }) {
-  return { updates, courses, locale };
+function mapStateToProps({ courses, network, settings: { locale }, updates }) {
+  return { courses, locale, network, updates };
 }
 
 export default connect(mapStateToProps)(Updates);

@@ -1,6 +1,7 @@
 import { matchPath } from 'react-router-dom';
-import * as routes from '../config/routes';
+
 import CourseManager from './CourseManager';
+import * as routes from '../config/routes';
 
 export default {
   /**

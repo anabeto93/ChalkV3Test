@@ -6,7 +6,6 @@ import UserPanel from '../components/Course/UserPanel';
 
 export class CourseScreen extends Component {
   render() {
-    console.log('rendering CourseScreen');
     const { items } = this.props;
 
     return (
