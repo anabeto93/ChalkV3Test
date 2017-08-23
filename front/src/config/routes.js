@@ -1,5 +1,7 @@
 export const HOME = '/';
+export const LOGIN = '/login/:token';
 export const COURSES = '/courses';
+export const ACCOUNT = '/account';
 export const FOLDER_LIST = '/courses/:courseUuid/folders/list';
 export const SESSION_LIST =
   '/courses/:courseUuid/folders/:folderUuid/sessions/list';

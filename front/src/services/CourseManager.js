@@ -14,8 +14,6 @@ export class CourseManager {
    * @return {Object|undefined}
    */
   getFolderFromCourse(course, folderUuid) {
-    if (!course.hasOwnProperty('folders')) return undefined;
-
     return course.folders.find(folder => folder.uuid === folderUuid);
   }
 
@@ -25,8 +23,6 @@ export class CourseManager {
    * @returns {Object|undefined}
    */
   getSessionFromFolder(folder, sessionUuid) {
-    if (!folder.hasOwnProperty('sessions')) return undefined;
-
     return folder.sessions.find(session => session.uuid === sessionUuid);
   }
 

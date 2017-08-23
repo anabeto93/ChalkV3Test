@@ -5,6 +5,7 @@ import GraphqlClient from '../graphql/client/GraphqlClient';
 import courses from './courses';
 import currentUser from './currentUser';
 import network from './network';
+import settings from './settings';
 import updates from './updates';
 
 const appReducer = combineReducers({
@@ -12,7 +13,8 @@ const appReducer = combineReducers({
   courses,
   currentUser,
   network,
-  updates
+  updates,
+  settings
 });
 
 export default appReducer;

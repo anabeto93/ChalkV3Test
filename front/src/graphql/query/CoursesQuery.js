@@ -32,6 +32,7 @@ export default gql`
       lastName
       country
       phoneNumber
+      locale
     }
   }
 `;
