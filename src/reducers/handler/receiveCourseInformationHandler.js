@@ -11,6 +11,9 @@ export default function receiveCourseInformationHandler(state, action) {
   const folders = {};
   const sessions = {};
 
+  // @todo: copy previous session content to new session content
+  // const previousCourses = state.courses;
+
   items.forEach(course => {
     courses[course.uuid] = {
       uuid: course.uuid,
@@ -62,8 +65,8 @@ export default function receiveCourseInformationHandler(state, action) {
 
   return {
     ...state,
-    // @todo: copy previous session content to new session content
-    // const previousCourses = state.courses;
+    // @todo: set new updateAt date provided by the backend
+    // updatedAt: newUpdatedAt
     isFetching: false,
     isErrorFetching: false,
     courses,
