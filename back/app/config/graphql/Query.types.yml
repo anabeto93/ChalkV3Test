@@ -6,13 +6,6 @@ Query:
             user:
                 type: "User!"
                 resolve: "@=resolver('user')"
-            course:
-                type: "Course"
-                args:
-                    uuid:
-                        description: "The uuid of the course"
-                        type: "String!"
-                resolve: "@=resolver('course', [args])"
             courses:
                 type: "[Course]"
                 resolve: "@=resolver('courses')"
@@ -29,3 +22,6 @@ Query:
                         description: "The uuid of the session"
                         type: "String!"
                 resolve: "@=resolver('session', [args])"
+            currentDate:
+                type: "DateTime"
+                resolve: "@=resolver('currentDate')"

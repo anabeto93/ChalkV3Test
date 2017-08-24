@@ -55,7 +55,7 @@ class UserResolverTest extends TestCase
 
     public function testResolveUser()
     {
-        $user = new User('uuid-user', 'Jean', 'Paul', '+33123123123', 'FR', 34, new \DateTime());
+        $user = new User('uuid-user', 'Jean', 'Paul', '+33123123123', 'FR', 'fr', 34, new \DateTime());
         $apiUser = new ApiUserAdapter($user);
 
         $this->tokenStorage->getToken()->shouldBeCalled()->willReturn($this->token->reveal());
@@ -67,6 +67,7 @@ class UserResolverTest extends TestCase
             'phoneNumber' => '+33123123123',
             'countryCode' => 'FR',
             'country' => 'France',
+            'locale' => 'fr',
         ]);
 
         $userResolver = new UserResolver(
@@ -82,6 +83,7 @@ class UserResolverTest extends TestCase
             'phoneNumber' => '+33123123123',
             'countryCode' => 'FR',
             'country' => 'France',
+            'locale' => 'fr',
         ];
 
         $this->assertEquals($expected, $result);

@@ -11,55 +11,47 @@
 namespace Tests\Infrastructure\GraphQL\Resolver;
 
 use App\Domain\Model\Course;
+use App\Domain\Model\User;
 use App\Domain\Repository\CourseRepositoryInterface;
 use App\Infrastructure\GraphQL\Resolver\CourseResolver;
 use App\Infrastructure\Normalizer\CourseNormalizer;
+use App\Infrastructure\Security\Api\ApiUserAdapter;
 use GraphQL\Error\UserError;
 use PHPUnit\Framework\TestCase;
 use Overblog\GraphQLBundle\Definition\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class CourseResolverTest extends TestCase
 {
-    public function testResolveCourseNotFound()
+    /** @var ObjectProphecy */
+    private $normalizer;
+
+    /** @var ObjectProphecy */
+    private $tokenStorage;
+
+    public function setUp()
     {
-        $this->setExpectedException(UserError::class);
-
-        $repository = $this->prophesize(CourseRepositoryInterface::class);
-        $normalizer = $this->prophesize(CourseNormalizer::class);
-
-        $repository->getByUuid('1234-azerty')->shouldBeCalled()->willReturn(null);
-
-        $courseResolver = new CourseResolver($repository->reveal(), $normalizer->reveal());
-        $courseResolver->resolveCourse(new Argument(['uuid' => '1234-azerty']));
-    }
-
-    public function testResolveCourse()
-    {
-        $course = $this->prophesize(Course::class);
-        $repository = $this->prophesize(CourseRepositoryInterface::class);
-        $normalizer = $this->prophesize(CourseNormalizer::class);
-
-        $repository->getByUuid('1234-azerty')->shouldBeCalled()->willReturn($course->reveal());
-        $normalizer->normalize($course->reveal())->shouldBeCalled()->willReturn(['normalized-course']);
-
-        $courseResolver = new CourseResolver($repository->reveal(), $normalizer->reveal());
-
-        $result = $courseResolver->resolveCourse(new Argument(['uuid' => '1234-azerty']));
-        $expected = ['normalized-course'];
-
-        $this->assertEquals($expected, $result);
+        $this->normalizer = $this->prophesize(CourseNormalizer::class);
+        $this->tokenStorage = $this->prophesize(TokenStorageInterface::class);
     }
 
     public function testResolveCoursesNotFound()
     {
         $this->setExpectedException(UserError::class);
 
-        $repository = $this->prophesize(CourseRepositoryInterface::class);
-        $normalizer = $this->prophesize(CourseNormalizer::class);
+        $token = $this->prophesize(TokenInterface::class);
+        $user = $this->prophesize(User::class);
+        $apiUser = new ApiUserAdapter($user->reveal());
+        $this->tokenStorage->getToken()->shouldBeCalled()->willReturn($token->reveal());
+        $token->getUser()->shouldBeCalled()->willReturn($apiUser);
+        $user->getEnabledCourses()->shouldBeCalled()->willReturn([]);
 
-        $repository->getEnabledCourses()->shouldBeCalled()->willReturn([]);
-
-        $courseResolver = new CourseResolver($repository->reveal(), $normalizer->reveal());
+        $courseResolver = new CourseResolver(
+            $this->normalizer->reveal(),
+            $this->tokenStorage->reveal()
+        );
         $courseResolver->resolveCourses();
     }
 
@@ -67,14 +59,21 @@ class CourseResolverTest extends TestCase
     {
         $course1 = $this->prophesize(Course::class);
         $course2 = $this->prophesize(Course::class);
-        $repository = $this->prophesize(CourseRepositoryInterface::class);
-        $normalizer = $this->prophesize(CourseNormalizer::class);
 
-        $repository->getEnabledCourses()->shouldBeCalled()->willReturn([$course1->reveal(), $course2->reveal()]);
-        $normalizer->normalize($course1->reveal())->shouldBeCalled()->willReturn(['normalized-course1']);
-        $normalizer->normalize($course2->reveal())->shouldBeCalled()->willReturn(['normalized-course2']);
+        $token = $this->prophesize(TokenInterface::class);
+        $user = $this->prophesize(User::class);
+        $apiUser = new ApiUserAdapter($user->reveal());
+        $this->tokenStorage->getToken()->shouldBeCalled()->willReturn($token->reveal());
+        $token->getUser()->shouldBeCalled()->willReturn($apiUser);
+        $user->getEnabledCourses()->shouldBeCalled()->willReturn([$course1->reveal(), $course2->reveal()]);
 
-        $courseResolver = new CourseResolver($repository->reveal(), $normalizer->reveal());
+        $this->normalizer->normalize($course1->reveal())->shouldBeCalled()->willReturn(['normalized-course1']);
+        $this->normalizer->normalize($course2->reveal())->shouldBeCalled()->willReturn(['normalized-course2']);
+
+        $courseResolver = new CourseResolver(
+            $this->normalizer->reveal(),
+            $this->tokenStorage->reveal()
+        );
 
         $result = $courseResolver->resolveCourses();
         $expected = [

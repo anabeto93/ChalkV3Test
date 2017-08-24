@@ -38,6 +38,7 @@ class SessionNormalizer
             'rank' => $session->getRank(),
             'title' => $session->getTitle(),
             'content' => $session->getContent(),
+            'contentUpdatedAt' => $session->getContentUpdatedAt(),
             'createdAt' => $session->getCreatedAt(),
             'updatedAt' => $session->getUpdatedAt(),
             'files' => array_map(function (Session\File $file) {

@@ -10,6 +10,7 @@
 
 namespace Features\Behat\Services\Manager;
 
+use App\Domain\Model\Course;
 use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Size\Calculator;
@@ -46,10 +47,11 @@ class UserManager
      * @param string $firstName
      * @param string $lastName
      * @param string $phoneNumber
+     * @param string $locale
      *
      * @return User
      */
-    public function create(string $uuid, string $firstName, string $lastName, string $phoneNumber): User
+    public function create(string $uuid, string $firstName, string $lastName, string $phoneNumber, string $locale): User
     {
         $user = new User(
             $uuid,
@@ -57,6 +59,7 @@ class UserManager
             $lastName,
             $phoneNumber,
             'GH',
+            $locale,
             $this->sizeCalculator->calculateSize(
                 sprintf(
                     '%s%s%s%s%s%s',
@@ -85,6 +88,21 @@ class UserManager
     public function setApiToken(User $user, string $apiToken): User
     {
         $user->setApiToken($apiToken);
+
+        $this->userRepository->set($user);
+
+        return $user;
+    }
+
+    /**
+     * @param User   $user
+     * @param Course $course
+     *
+     * @return User
+     */
+    public function setCourse(User $user, Course $course): User
+    {
+        $user->setCourses([$course]);
 
         $this->userRepository->set($user);
 

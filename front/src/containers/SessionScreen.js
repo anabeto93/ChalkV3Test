@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { List, ListItem } from 'material-ui/List';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import courseManager from '../services/CourseManager';
 import FolderScreen from './FolderScreen';
 
@@ -16,18 +17,19 @@ class SessionScreen extends Component {
   }
 
   render() {
-    let { folder, course } = this.props;
-
-    console.log('rendering SessionScreen');
+    const { sessions, course } = this.props;
+    const totalSession = Object.keys(sessions).length;
 
     return (
       <div>
+        {totalSession === 0 ? <p>No content available</p> : ''}
+
         <List>
-          {folder !== undefined &&
-            folder.sessions.map((session, index) => {
+          {sessions !== undefined &&
+            Object.keys(sessions).map((key, index) => {
+              let session = sessions[key];
               return (
                 <Link
-                  className="link-primary"
                   key={session.uuid}
                   to={`/courses/${course.uuid}/session/${session.uuid}`}
                 >
@@ -47,18 +49,27 @@ class SessionScreen extends Component {
 }
 
 /**
+ * @param {Object} state
  * @param {Object} props
  * @return {{folder: (Object|undefined)}}
  */
 function mapStateToProps(state, props) {
-  let course = courseManager.getCourse(props.match.params.courseId);
-  let folderId = props.match.params.folderId || FolderScreen.DEFAULT_FOLDER;
+  const course = courseManager.getCourse(
+    state.content.courses,
+    props.match.params.courseUuid
+  );
+
+  const folderUuid =
+    props.match.params.folderUuid || FolderScreen.DEFAULT_FOLDER;
 
   if (course === undefined) return {};
 
-  let folder = courseManager.getFolderFromCourse(course, folderId);
+  const sessions = courseManager.getSessionsFromFolder(
+    state.content.sessions,
+    folderUuid
+  );
 
-  return { folder, course };
+  return { sessions, course };
 }
 
 export default connect(mapStateToProps)(SessionScreen);

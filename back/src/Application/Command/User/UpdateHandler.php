@@ -66,6 +66,7 @@ class UpdateHandler
             $command->firstName,
             $command->lastName,
             $command->country,
+            $command->locale,
             $command->phoneNumber,
             $this->sizeCalculator->calculateSize(
                 sprintf(
