@@ -2,13 +2,16 @@ import { darkBlack } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React, { Component } from 'react';
+
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import './App.css';
 import Header from './components/Header';
 import NotFound from './components/NotFound';
 import Updates from './components/Updates/Updates';
 import * as routes from './config/routes';
+import AccountScreen from './containers/AccountScreen';
 
 import CourseScreen from './containers/CourseScreen';
 import FolderScreen from './containers/FolderScreen';
@@ -72,6 +75,7 @@ class App extends Component {
                   path={routes.SESSION_SEND}
                   component={SendScreen}
                 />
+                <PrivateRoute path={routes.ACCOUNT} component={AccountScreen} />
                 <Route component={NotFound} />
               </Switch>
             </div>

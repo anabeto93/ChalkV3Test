@@ -1,11 +1,13 @@
 import { RaisedButton } from 'material-ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getCoursesInformations } from '../actions/actionCreators';
-import UserPanel from '../components/Course/UserPanel';
+import I18n from 'i18n-js';
+
 import { COURSES } from '../config/routes';
+import { getCoursesInformations } from '../actions/actionCreators';
 import { LOGIN_STATE_LOGGED_OUT } from '../store/defaultState';
 import store from '../store/store';
+import UserPanel from '../components/Course/UserPanel';
 
 class LoginScreen extends Component {
   componentDidMount() {
@@ -21,11 +23,14 @@ class LoginScreen extends Component {
   };
 
   render() {
-    console.log('rendering LoginScreen');
-    console.log(this.props);
+    const { locale } = this.props;
 
-    if (this.props.courses.isFetching) {
-      return <div className="flash-container">Checking ...</div>;
+    if (this.props.content.isFetching) {
+      return (
+        <div className="flash-container">
+          {I18n.t('login.checking', { locale })}
+        </div>
+      );
     }
 
     if (this.props.user.uuid !== undefined) {
@@ -36,7 +41,7 @@ class LoginScreen extends Component {
             style={{ margin: '10px' }}
             onClick={this.handleRedirectCourses}
           >
-            Start
+            {I18n.t('login.start', { locale })}
           </RaisedButton>
         </div>
       );
@@ -46,9 +51,10 @@ class LoginScreen extends Component {
   }
 }
 
-const mapStateToProps = ({ courses, currentUser }) => ({
-  courses,
-  user: currentUser
+const mapStateToProps = ({ content, currentUser, settings: { locale } }) => ({
+  content,
+  user: currentUser,
+  locale
 });
 
 export default connect(mapStateToProps)(LoginScreen);

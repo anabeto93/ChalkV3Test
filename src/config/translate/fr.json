@@ -1,0 +1,26 @@
+{
+  "tokenError": "Un problème est survenu avec votre lien - Merci de contacter Chalkboard Education pour assistance.",
+  "update": {
+    "label": "Mettre à jour",
+    "needUpdate": "L'application doit être mise à jour",
+    "updating": "Mise à jour de l'app...",
+    "checking": "Verification des mises à jours...",
+    "download": "L'application doit être mise à jour, {{amount}} ko à télécharger",
+    "upToDate": "L'application est déjà à jour !",
+    "errorWhileCheckingUpdates": "Problème réseau pendant la verification de la mise à jour.",
+    "errorWhileUpdating": "Il y a eu un problème pendant la mise à jour.",
+    "stayOnline": "Restez connecté pendant la mise à jour",
+    "offline": "Pas de connexion internet",
+    "updateSuccess": "L'application a été mise à jour !"
+  },
+  "account": {
+    "language": "Langue",
+    "settings": {
+      "label": "Réglages"
+    }
+  },
+  "login": {
+    "checking": "Verification ...",
+    "start": "Commencé"
+  }
+}
