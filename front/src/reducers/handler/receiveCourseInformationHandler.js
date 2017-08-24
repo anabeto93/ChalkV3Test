@@ -5,26 +5,33 @@ export default function receiveCourseInformationHandler(state, action) {
   const items = action.payload.courses;
   const sessionText = state.spool.sessionText;
   const sessionFiles = state.spool.sessionFiles;
+  const defaultFolder = getConfig().defaultFolder;
 
   const courses = {};
   const folders = {};
   const sessions = {};
 
   items.forEach(course => {
-    let newCourse = { ...course };
-    delete newCourse.folders;
-    courses[course.uuid] = newCourse;
+    courses[course.uuid] = {
+      uuid: course.uuid,
+      title: course.title,
+      teacherName: course.teacherName,
+      description: course.description,
+      updatedAt: course.updatedAt
+    };
 
     course.folders.forEach(folder => {
-      let folderUuid =
-        folder.uuid === getConfig().defaultFolder
+      const folderUuid =
+        folder.uuid === defaultFolder
           ? `${course.uuid}_${folder.uuid}`
           : folder.uuid;
 
-      let newFolder = { ...folder, courseUuid: course.uuid };
-      delete newFolder.sessions;
-
-      folders[folderUuid] = newFolder;
+      folders[folderUuid] = {
+        uuid: folder.uuid,
+        title: folder.title,
+        updatedAt: folder.updatedAt,
+        courseUuid: course.uuid
+      };
 
       folder.sessions.forEach(session => {
         sessions[session.uuid] = {
@@ -55,6 +62,8 @@ export default function receiveCourseInformationHandler(state, action) {
 
   return {
     ...state,
+    // @todo: copy previous session content to new session content
+    // const previousCourses = state.courses;
     isFetching: false,
     isErrorFetching: false,
     courses,
