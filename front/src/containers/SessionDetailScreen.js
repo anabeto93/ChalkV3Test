@@ -33,7 +33,7 @@ function mapStateToProps(state, props) {
     props.match.params.sessionUuid
   );
 
-  return { session, courseUuid: props.match.params.courseId };
+  return { session, courseUuid: props.match.params.courseUuid };
 }
 
 export default connect(mapStateToProps)(SessionDetailScreen);

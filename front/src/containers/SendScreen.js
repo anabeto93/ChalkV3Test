@@ -21,7 +21,7 @@ class SendScreen extends Component {
   };
 
   handleFormSubmit = () => {
-    const sessionUuid = this.props.match.params.sessionId;
+    const sessionUuid = this.props.match.params.sessionUuid;
 
     switch (this.state.sendMode) {
       case SEND_MODE_INTERNET:
