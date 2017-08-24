@@ -111,7 +111,9 @@ class Updates extends Component {
     if (this.state.isUpdated) {
       return (
         <div style={style.container}>
-          <p>App updated successfully!</p>
+          <p>
+            {I18n.t('update.updateSuccess', { locale })}
+          </p>
         </div>
       );
     }
@@ -119,7 +121,9 @@ class Updates extends Component {
     if (!network.isOnline) {
       return (
         <div style={style.container}>
-          <small>You are offline.</small>
+          <small>
+            {I18n.t('update.offline', { locale })}
+          </small>
         </div>
       );
     }
@@ -129,7 +133,9 @@ class Updates extends Component {
         <div>
           <LinearProgress mode="determinate" value={percentSpoolCompleted} />
           <div style={style.container}>
-            <p>Please stay online when downloading updates</p>
+            <p>
+              {I18n.t('stayOnline', { locale })}
+            </p>
           </div>
         </div>
       );
@@ -138,7 +144,9 @@ class Updates extends Component {
     if (this.state.isErrorWhileUpdating) {
       return (
         <div style={style.container}>
-          <p>There is a network problem while updating.</p>
+          <p>
+            {I18n.t('errorWhileUpdating', { locale })}
+          </p>
         </div>
       );
     }
@@ -146,7 +154,9 @@ class Updates extends Component {
     if (this.state.isErrorWhileCheckingUpdates) {
       return (
         <div style={style.container}>
-          <p>There is a network problem while checking updates.</p>
+          <p>
+            {I18n.t('errorWhileCheckingUpdates', { locale })}
+          </p>
           <RaisedButton
             label="Retry"
             primary={true}
@@ -175,7 +185,9 @@ class Updates extends Component {
     if (updates.hasUpdates) {
       return (
         <div style={style.container}>
-          <p>Your app must be updated</p>
+          <p>
+            {I18n.t('update.needUpdate', { locale })}
+          </p>
           <p>
             <small>
               {I18n.t('update.download', {
