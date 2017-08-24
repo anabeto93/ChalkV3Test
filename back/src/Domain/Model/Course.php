@@ -220,7 +220,7 @@ class Course
 
         foreach ($users as $user) {
             if (!$this->users->contains($user)) {
-                $this->users->set($user->getId(), $user);
+                $this->users->add($user);
             }
         }
     }

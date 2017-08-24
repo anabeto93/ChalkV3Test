@@ -38,7 +38,7 @@ class UserChoiceType extends AbstractType
         $resolver->setDefaults([
             'class'            => User::class,
             'choice_label'     => function (User $user) {
-                return sprintf('%s - %s - %s',
+                return sprintf('%s %s (%s)',
                     $user->getFirstName(),
                     $user->getLastName(),
                     $user->getPhoneNumber()

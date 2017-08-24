@@ -74,9 +74,8 @@ class UserRepository implements UserRepositoryInterface
         $queryBuilder = $this
             ->entityManager
             ->createQueryBuilder()
-            ->select('user, course')
-            ->from(User::class, 'user')
-            ->leftJoin('user.courses', 'course');
+            ->select('user')
+            ->from(User::class, 'user');
 
         return $queryBuilder->getQuery()->getResult();
     }
