@@ -18,9 +18,12 @@ class SessionScreen extends Component {
 
   render() {
     const { sessions, course } = this.props;
+    const totalSession = Object.keys(sessions).length;
 
     return (
       <div>
+        {totalSession === 0 ? <p>No content available</p> : ''}
+
         <List>
           {sessions !== undefined &&
             Object.keys(sessions).map((key, index) => {
