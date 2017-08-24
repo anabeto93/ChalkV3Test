@@ -1,49 +1,37 @@
 export class CourseManager {
-  /**
-   * @param {array}  courseItems
-   * @param {string} courseUuid
-   * @return {Object|undefined}
-   */
-  getCourse(courseItems, courseUuid) {
-    return courseItems.find(course => course.uuid === courseUuid);
+  static getCourse(courseItems, courseUuid) {
+    return courseItems[courseUuid];
   }
 
-  /**
-   * @param {Object} course
-   * @param {string} folderUuid
-   * @return {Object|undefined}
-   */
-  getFolderFromCourse(course, folderUuid) {
-    return course.folders.find(folder => folder.uuid === folderUuid);
+  static getFolder(folderItems, folderUuid) {
+    return folderItems[folderUuid];
   }
 
-  /**
-   * @param {Object} folder
-   * @param {string} sessionUuid
-   * @returns {Object|undefined}
-   */
-  getSessionFromFolder(folder, sessionUuid) {
-    return folder.sessions.find(session => session.uuid === sessionUuid);
+  static getSession(sessionsItems, sessionUuid) {
+    return sessionsItems[sessionUuid];
   }
 
-  /**
-   * @param {array}  courseItems
-   * @param {string} courseUuid
-   * @param {string} sessionUuid
-   * @returns {undefined|{Object}}
-   */
-  getSessionFromCourseAndSession(courseItems, courseUuid, sessionUuid) {
-    const course = courseItems.find(course => course.uuid === courseUuid);
-    let session = undefined;
-
-    if (course !== undefined && course.hasOwnProperty('folders')) {
-      course.folders.forEach(folder => {
-        session = this.getSessionFromFolder(folder, sessionUuid);
-      });
+  static getFoldersFromCourse(foldersItems, courseUuid) {
+    let folders = {};
+    for (let key in foldersItems) {
+      if (foldersItems[key].courseUuid === courseUuid) {
+        folders[key] = foldersItems[key];
+      }
     }
 
-    return session;
+    return folders;
+  }
+
+  static getSessionsFromFolder(sessionsItems, folderUuid) {
+    let sessions = {};
+    for (let key in sessionsItems) {
+      if (sessionsItems[key].folderUuid === folderUuid) {
+        sessions[key] = sessionsItems[key];
+      }
+    }
+
+    return sessions;
   }
 }
 
-export default new CourseManager();
+export default CourseManager;

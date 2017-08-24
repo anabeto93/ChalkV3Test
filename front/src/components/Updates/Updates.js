@@ -29,8 +29,8 @@ class Updates extends Component {
     const { hasUpdates, isErrorFetching, isFetching } = nextProps.updates;
 
     if (
-      0 < this.props.courses.spool.total &&
-      0 === nextProps.courses.spool.total
+      0 < this.props.content.spool.total &&
+      0 === nextProps.content.spool.total
     ) {
       this.setState({ ...this.state, spoolCompleted: 0, isUpdated: true });
       this.handleShortMessage('isUpdated');
@@ -46,9 +46,9 @@ class Updates extends Component {
     }
 
     const isErrorWhileUpdating =
-      this.props.courses.isFetching &&
-      nextProps.courses.isErrorFetching &&
-      !nextProps.courses.isFetching &&
+      this.props.content.isFetching &&
+      nextProps.content.isErrorFetching &&
+      !nextProps.content.isFetching &&
       hasUpdates;
 
     if (isErrorWhileUpdating) {
@@ -92,10 +92,10 @@ class Updates extends Component {
   };
 
   render() {
-    const { courses, locale, network, updates } = this.props;
-    const spoolTotal = courses.spool.total;
+    const { content, locale, network, updates } = this.props;
+    const spoolTotal = content.spool.total;
     const spoolUncompleted =
-      courses.spool.sessionText.length + courses.spool.sessionFiles.length;
+      content.spool.sessionText.length + content.spool.sessionFiles.length;
     const spoolCompleted = spoolTotal - spoolUncompleted;
     const percentSpoolCompleted =
       spoolTotal > 0 ? Math.round(spoolCompleted * 100 / spoolTotal) : 100;
@@ -111,7 +111,9 @@ class Updates extends Component {
     if (this.state.isUpdated) {
       return (
         <div style={style.container}>
-          <p>App updated successfully!</p>
+          <p>
+            {I18n.t('update.updateSuccess', { locale })}
+          </p>
         </div>
       );
     }
@@ -119,7 +121,9 @@ class Updates extends Component {
     if (!network.isOnline) {
       return (
         <div style={style.container}>
-          <small>You are offline.</small>
+          <small>
+            {I18n.t('update.offline', { locale })}
+          </small>
         </div>
       );
     }
@@ -129,7 +133,9 @@ class Updates extends Component {
         <div>
           <LinearProgress mode="determinate" value={percentSpoolCompleted} />
           <div style={style.container}>
-            <p>Please stay online when downloading updates</p>
+            <p>
+              {I18n.t('stayOnline', { locale })}
+            </p>
           </div>
         </div>
       );
@@ -138,7 +144,9 @@ class Updates extends Component {
     if (this.state.isErrorWhileUpdating) {
       return (
         <div style={style.container}>
-          <p>There is a network problem while updating.</p>
+          <p>
+            {I18n.t('errorWhileUpdating', { locale })}
+          </p>
         </div>
       );
     }
@@ -146,7 +154,9 @@ class Updates extends Component {
     if (this.state.isErrorWhileCheckingUpdates) {
       return (
         <div style={style.container}>
-          <p>There is a network problem while checking updates.</p>
+          <p>
+            {I18n.t('errorWhileCheckingUpdates', { locale })}
+          </p>
           <RaisedButton
             label="Retry"
             primary={true}
@@ -156,7 +166,7 @@ class Updates extends Component {
       );
     }
 
-    if (courses.isFetching) {
+    if (content.isFetching) {
       return (
         <div style={style.container}>
           {I18n.t('update.updating', { locale })}
@@ -175,7 +185,9 @@ class Updates extends Component {
     if (updates.hasUpdates) {
       return (
         <div style={style.container}>
-          <p>Your app must be updated</p>
+          <p>
+            {I18n.t('update.needUpdate', { locale })}
+          </p>
           <p>
             <small>
               {I18n.t('update.download', {
@@ -205,8 +217,8 @@ class Updates extends Component {
   }
 }
 
-function mapStateToProps({ courses, network, settings: { locale }, updates }) {
-  return { courses, locale, network, updates };
+function mapStateToProps({ content, network, settings: { locale }, updates }) {
+  return { content, locale, network, updates };
 }
 
 export default connect(mapStateToProps)(Updates);

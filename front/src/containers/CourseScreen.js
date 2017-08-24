@@ -6,19 +6,19 @@ import UserPanel from '../components/Course/UserPanel';
 
 export class CourseScreen extends Component {
   render() {
-    const { items } = this.props;
+    const { courses } = this.props;
 
     return (
       <div>
         <UserPanel />
-        <CoursesList courses={items} />
+        <CoursesList courses={courses} />
       </div>
     );
   }
 }
 
-function mapStateToProps({ courses: { items } }) {
-  return { items };
+function mapStateToProps({ content: { courses } }) {
+  return { courses };
 }
 
 export default connect(mapStateToProps)(CourseScreen);

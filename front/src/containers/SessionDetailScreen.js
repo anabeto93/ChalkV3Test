@@ -26,9 +26,8 @@ class SessionDetailScreen extends Component {
 }
 
 function mapStateToProps(state, props) {
-  let session = CourseManager.getSessionFromCourseAndSession(
-    state.courses.items,
-    props.match.params.courseUuid,
+  let session = CourseManager.getSession(
+    state.content.sessions,
     props.match.params.sessionUuid
   );
 

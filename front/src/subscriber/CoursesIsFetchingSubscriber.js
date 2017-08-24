@@ -5,10 +5,10 @@ let currentIsFetchingValue;
 
 export default function CoursesIsFetchingSubscriber() {
   let previousValue = currentIsFetchingValue;
-  const courses = store.getState().courses;
-  currentIsFetchingValue = courses.isFetching;
+  const content = store.getState().content;
+  currentIsFetchingValue = content.isFetching;
 
-  if (previousValue && !currentIsFetchingValue && !courses.isErrorFetching) {
+  if (previousValue && !currentIsFetchingValue && !content.isErrorFetching) {
     // if courses isFetching changed from true to false, reinit updates
     store.dispatch(reinitUpdates());
   }
