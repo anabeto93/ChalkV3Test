@@ -7,6 +7,7 @@ const config = {
     api: {
       endpoint: 'https://api.chalkboard.education/api/graphql/'
     },
+    appName: 'Chalkboard Education',
     updates: {
       intervalInSeconds: 86400
     },
@@ -16,7 +17,7 @@ const config = {
     api: {
       endpoint: 'http://api.chalkboardeducation.dev/app_dev.php/api/graphql/'
     },
-    appName: 'Chalkboard Education',
+    appName: 'Chalkboard Development',
     updates: {
       intervalInSeconds: 20
     },
