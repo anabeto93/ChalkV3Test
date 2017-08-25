@@ -6,8 +6,9 @@ import CourseManager from "../services/CourseManager";
 import { connect } from 'react-redux';
 import { RaisedButton } from "material-ui";
 import { Redirect } from "react-router-dom";
+import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 
-const DEFAULT_STATE = { sendMode: null, submitEnabled: false, redirectToSessionList: false };
+const DEFAULT_STATE = { sendMode: null, submitEnabled: false, redirectToSessionList: false, hasNextSession: false };
 const SEND_MODE_INTERNET = 'internet';
 
 class SendScreen extends Component {
@@ -20,14 +21,18 @@ class SendScreen extends Component {
     const nextSession = CourseManager.getNextSession(nextProps.sessions, nextProps.session);
 
     if (nextSession !== null) {
-      return nextProps.history.push(`/courses/${nextSession.courseUuid}/session/${nextSession.uuid}`);
+      this.setState({ ...this.state, nextSession, hasNextSession: true });
+    } else {
+      this.setState({ ...this.state, redirectToSessionList: true });
     }
-
-    this.setState({ ...this.state, redirectToSessionList: true });
   }
 
   handleFormChange = (event, value) => {
     this.setState({ ...this.state, sendMode: value, submitEnabled: true });
+  };
+
+  handleRedirectNextSession = () => {
+    return this.props.history.push(`/courses/${this.state.nextSession.courseUuid}/session/${this.state.nextSession.uuid}`);
   };
 
   handleFormSubmit = () => {
@@ -44,6 +49,23 @@ class SendScreen extends Component {
 
   render() {
     const { session } = this.props;
+
+    if (this.state.hasNextSession) {
+      return (
+        <div className="content-layout">
+          <p>Your session was successfully validated and you can go to the next session.</p>
+          <RaisedButton style={{ float: 'left' }} label="Back to the list"/>
+          <RaisedButton
+            className="button-primary"
+            primary={true}
+            onClick={this.handleRedirectNextSession}
+            label="Next"
+            labelPosition="before"
+            icon={<Arrow/>}
+          />
+        </div>
+      )
+    }
 
     if (this.state.redirectToSessionList) {
       return <Redirect to={`/courses/${session.courseUuid}/folders/${session.folderUuid}/sessions/list`}/>

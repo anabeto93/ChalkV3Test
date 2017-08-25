@@ -1,6 +1,7 @@
 import { RaisedButton } from 'material-ui';
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 
 const footer = props => {
   const { courseUuid, sessionUuid, history } = props;
@@ -12,12 +13,13 @@ const footer = props => {
   return (
     <footer style={{ marginTop: '10px' }}>
       <RaisedButton
+        label="Next"
+        labelPosition="before"
         primary={true}
         className="button-primary"
         onClick={handleNext}
-      >
-        Next
-      </RaisedButton>
+        icon={<Arrow/>}
+      />
     </footer>
   );
 };
