@@ -5,16 +5,22 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import courseManager from '../services/CourseManager';
-import FolderScreen from './FolderScreen';
+import getConfig from '../config/index';
 
 class SessionScreen extends Component {
-  leftIcon(index) {
+  leftIcon = (index, validated = false) => {
+    let iconClass = "session-index";
+
+    if (validated) {
+      iconClass += " session-index-validated";
+    }
+
     return (
-      <div className="session-index">
+      <div className={iconClass}>
         {index}
       </div>
     );
-  }
+  };
 
   render() {
     const { sessions, course } = this.props;
@@ -26,22 +32,22 @@ class SessionScreen extends Component {
 
         <List>
           {sessions !== undefined &&
-            Object.keys(sessions).map((key, index) => {
-              let session = sessions[key];
-              return (
-                <Link
+          Object.keys(sessions).map((key, index) => {
+            let session = sessions[key];
+            return (
+              <Link
+                key={session.uuid}
+                to={`/courses/${course.uuid}/session/${session.uuid}`}
+              >
+                <ListItem
+                  leftAvatar={this.leftIcon(index, session.validated)}
                   key={session.uuid}
-                  to={`/courses/${course.uuid}/session/${session.uuid}`}
-                >
-                  <ListItem
-                    leftAvatar={this.leftIcon(index)}
-                    key={session.uuid}
-                    primaryText={session.title}
-                    rightIcon={<Arrow />}
-                  />
-                </Link>
-              );
-            })}
+                  primaryText={session.title}
+                  rightIcon={<Arrow/>}
+                />
+              </Link>
+            );
+          })}
         </List>
       </div>
     );
@@ -60,7 +66,7 @@ function mapStateToProps(state, props) {
   );
 
   const folderUuid =
-    props.match.params.folderUuid || FolderScreen.DEFAULT_FOLDER;
+    props.match.params.folderUuid || getConfig().defaultFolder;
 
   if (course === undefined) return {};
 
