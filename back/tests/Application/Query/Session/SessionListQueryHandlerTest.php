@@ -45,18 +45,21 @@ class SessionListQueryHandlerTest extends TestCase
         $session1->getTitle()->shouldBeCalled()->willReturn('title 1');
         $session1->getRank()->shouldBeCalled()->willReturn(1);
         $session1->hasFolder()->shouldBeCalled()->willReturn(false);
+        $session1->needValidation()->shouldBeCalled()->willReturn(true);
 
         $session2->getId()->shouldBeCalled()->willReturn(2);
         $session2->getTitle()->shouldBeCalled()->willReturn('title 2');
         $session2->getRank()->shouldBeCalled()->willReturn(2);
         $session2->hasFolder()->shouldBeCalled()->willReturn(true);
         $session2->getFolder()->shouldBeCalled()->willReturn($folder->reveal());
+        $session2->needValidation()->shouldBeCalled()->willReturn(false);
 
         $session3->getId()->shouldBeCalled()->willReturn(3);
         $session3->getTitle()->shouldBeCalled()->willReturn('title 3');
         $session3->getRank()->shouldBeCalled()->willReturn(12);
         $session3->hasFolder()->shouldBeCalled()->willReturn(true);
         $session3->getFolder()->shouldBeCalled()->willReturn($folder->reveal());
+        $session3->needValidation()->shouldBeCalled()->willReturn(true);
 
         // Handler
         $query = new SessionListQuery($course->reveal());
@@ -64,9 +67,9 @@ class SessionListQueryHandlerTest extends TestCase
         $result = $queryHandler->handle($query);
 
         $expected = [
-            new SessionView(1, 'title 1', 1, null),
-            new SessionView(2, 'title 2', 2, 'Folder title'),
-            new SessionView(3, 'title 3', 12, 'Folder title'),
+            new SessionView(1, 'title 1', 1, null, true),
+            new SessionView(2, 'title 2', 2, 'Folder title', false),
+            new SessionView(3, 'title 3', 12, 'Folder title', true),
         ];
 
         $this->assertEquals($expected, $result);

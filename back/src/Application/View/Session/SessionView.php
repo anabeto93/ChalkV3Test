@@ -24,17 +24,22 @@ class SessionView
     /** @var string|null */
     public $folderTitle;
 
+    /** @var bool */
+    public $needValidation;
+
     /**
      * @param int         $id
      * @param string      $title
      * @param int         $rank
      * @param string|null $folderTitle
+     * @param bool        $needValidation
      */
-    public function __construct(int $id, string $title, int $rank, string $folderTitle = null)
+    public function __construct(int $id, string $title, int $rank, string $folderTitle = null, bool $needValidation)
     {
         $this->id = $id;
         $this->title = $title;
         $this->rank = $rank;
         $this->folderTitle = $folderTitle;
+        $this->needValidation = $needValidation;
     }
 }

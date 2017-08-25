@@ -7,6 +7,7 @@ App\Domain\Model\Session:
             - "This is the content"
             - '@course_1'
             - '@folder_1'
+            - true
             - <dateTime()>
             - 771
             - 123123
@@ -20,6 +21,7 @@ App\Domain\Model\Session:
             - "This is the content"
             - '@course_1'
             - '@folder_1'
+            - true
             - <dateTime()>
             - 771
             - 123123
@@ -33,6 +35,7 @@ App\Domain\Model\Session:
             - "This is the content"
             - '@course_2'
             - null
+            - true
             - <dateTime()>
             - 771
             - 123123

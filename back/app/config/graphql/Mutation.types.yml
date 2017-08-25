@@ -1,0 +1,10 @@
+Mutation:
+    type: object
+    config:
+        fields:
+            validateSession:
+                type: "Boolean"
+                resolve: "@=mutation('validateSession', [args['uuid']])"
+                args:
+                    uuid:
+                        type: "String!"

@@ -26,4 +26,5 @@ imports:
     - { resource: services/admin/queries.yml }
     - { resource: services/admin/services.yml }
     - { resource: services/api/resolvers.yml }
+    - { resource: services/api/mutators.yml }
     - { resource: services/api/security.yml }

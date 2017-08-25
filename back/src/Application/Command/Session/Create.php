@@ -32,6 +32,9 @@ class Create implements Command
     /** @var UploadedFile */
     public $content;
 
+    /** @var bool */
+    public $needValidation;
+
     /**
      * @param Course $course
      */

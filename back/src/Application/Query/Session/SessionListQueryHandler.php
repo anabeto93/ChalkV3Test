@@ -41,7 +41,8 @@ class SessionListQueryHandler
                 $session->getId(),
                 $session->getTitle(),
                 $session->getRank(),
-                $session->hasFolder() ? $session->getFolder()->getTitle() : null
+                $session->hasFolder() ? $session->getFolder()->getTitle() : null,
+                $session->needValidation()
             );
         }
 

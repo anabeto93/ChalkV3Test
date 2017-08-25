@@ -87,7 +87,7 @@ class ContentImporterTest extends TestCase
             $this->sessionRepository->reveal(),
             '/tmp'
         );
-        $contentImporter->import($course->reveal(), $uuid, $rank, $title, $uploadedFile, $dateTime, $folder);
+        $contentImporter->import($course->reveal(), $uuid, $rank, $title, $uploadedFile, $dateTime, $folder, false);
 
         $this->cleanAfterTest();
     }
@@ -118,6 +118,7 @@ class ContentImporterTest extends TestCase
             return $session->getUuid() === $uuid
                 && $session->getTitle() === $title
                 && $session->getRank() === $rank
+                && $session->needValidation() === true
             ;
         }))->shouldBeCalled();
 
@@ -150,7 +151,7 @@ class ContentImporterTest extends TestCase
             $this->sessionRepository->reveal(),
             '/tmp'
         );
-        $contentImporter->import($course->reveal(), $uuid, $rank, $title, $uploadedFile, $dateTime, $folder);
+        $contentImporter->import($course->reveal(), $uuid, $rank, $title, $uploadedFile, $dateTime, $folder, true);
 
         $this->cleanAfterTest();
     }
