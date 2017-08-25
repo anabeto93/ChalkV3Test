@@ -17,6 +17,7 @@ export default gql`
           title
           contentUpdatedAt
           updatedAt
+          validated
           files {
             url
             size
