@@ -53,6 +53,7 @@ class SendScreen extends Component {
     if (this.state.hasNextSession) {
       return (
         <div className="content-layout">
+          <h4>Thank you for submitted your answers.</h4>
           <p>Your session was successfully validated and you can go to the next session.</p>
           <RaisedButton style={{ float: 'left' }} label="Back to the list"/>
           <RaisedButton
