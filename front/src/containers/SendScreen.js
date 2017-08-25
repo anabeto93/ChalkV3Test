@@ -5,8 +5,9 @@ import store from '../store/store';
 import CourseManager from "../services/CourseManager";
 import { connect } from 'react-redux';
 import { RaisedButton } from "material-ui";
+import { Redirect } from "react-router-dom";
 
-const DEFAULT_STATE = { sendMode: null, submitEnabled: false };
+const DEFAULT_STATE = { sendMode: null, submitEnabled: false, redirectToSessionList: false };
 const SEND_MODE_INTERNET = 'internet';
 
 class SendScreen extends Component {
@@ -19,12 +20,14 @@ class SendScreen extends Component {
     const nextSession = CourseManager.getNextSession(nextProps.sessions, nextProps.session);
 
     if (nextSession !== null) {
-      nextProps.history.push(`/courses/${nextSession.courseUuid}/session/${nextSession.uuid}`);
+      return nextProps.history.push(`/courses/${nextSession.courseUuid}/session/${nextSession.uuid}`);
     }
+
+    this.setState({ ...this.state, redirectToSessionList: true });
   }
 
   handleFormChange = (event, value) => {
-    this.setState({ sendMode: value, submitEnabled: true });
+    this.setState({ ...this.state, sendMode: value, submitEnabled: true });
   };
 
   handleFormSubmit = () => {
@@ -40,8 +43,14 @@ class SendScreen extends Component {
   };
 
   render() {
+    const { session } = this.props;
+
+    if (this.state.redirectToSessionList) {
+      return <Redirect to={`/courses/${session.courseUuid}/folders/${session.folderUuid}/sessions/list`}/>
+    }
+
     return (
-      <div>
+      <div className="content-layout">
         <h1>Send</h1>
         <RadioButtonGroup name="sendMode" onChange={this.handleFormChange}>
           <RadioButton value={SEND_MODE_INTERNET} label="Internet"/>
