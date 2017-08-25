@@ -155,10 +155,10 @@ class Updates extends Component {
       return (
         <div style={style.container}>
           <p>
-            {I18n.t('errorWhileCheckingUpdates', { locale })}
+            {I18n.t('update.errorWhileCheckingUpdates', { locale })}
           </p>
           <RaisedButton
-            label="Retry"
+            label={I18n.t('update.retry', { locale })}
             primary={true}
             onClick={this.handleRetryCheckUpdates}
           />
