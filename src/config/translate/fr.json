@@ -11,7 +11,8 @@
     "errorWhileUpdating": "Il y a eu un problème pendant la mise à jour.",
     "stayOnline": "Restez connecté pendant la mise à jour",
     "offline": "Pas de connexion internet",
-    "updateSuccess": "L'application a été mise à jour !"
+    "updateSuccess": "L'application a été mise à jour !",
+    "retry": "Réessayer"
   },
   "account": {
     "language": "Langue",

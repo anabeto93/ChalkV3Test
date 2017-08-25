@@ -32,6 +32,23 @@ export class CourseManager {
 
     return sessions;
   }
+
+  static getNextSession(sessionsItems, session) {
+    const courseUuid = session.courseUuid;
+    const folderUuid = session.folderUuid;
+    const currentPosition = session.position;
+
+    for (let key in sessionsItems) {
+      if (sessionsItems[key].courseUuid === courseUuid
+        && sessionsItems[key].folderUuid === folderUuid
+        && sessionsItems[key].position === currentPosition + 1
+      ) {
+        return sessionsItems[key];
+      }
+    }
+
+    return null;
+  }
 }
 
 export default CourseManager;

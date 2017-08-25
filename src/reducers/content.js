@@ -3,7 +3,7 @@ import {
   FILE_LOADED,
   RECEIVE_COURSES_INFORMATIONS,
   RECEIVE_VALIDATE_SESSION_INTERNET,
-  REQUEST_COURSES_INFORMATIONS,
+  REQUEST_COURSES_INFORMATIONS, REQUEST_VALIDATE_SESSION_INTERNET,
   SPOOL_TERMINATED
 } from '../actions/actionCreators';
 import receiveCourseInformationHandler from './handler/receiveCourseInformationHandler';
@@ -11,6 +11,7 @@ import receiveCourseInformationHandler from './handler/receiveCourseInformationH
 const DEFAULT_CONTENT_STATE = {
   isFetching: false,
   isErrorFetching: false,
+  isValidating: false,
   courses: {},
   folders: {},
   sessions: {},
@@ -69,6 +70,10 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
       };
     }
 
+    case REQUEST_VALIDATE_SESSION_INTERNET: {
+      return { ...state, isValidating: true };
+    }
+
     case RECEIVE_VALIDATE_SESSION_INTERNET: {
       const validatedSession = {
         ...state.sessions[action.payload.sessionUuid],
@@ -80,7 +85,8 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
       if (validatedSession !== undefined) {
         return {
           ...state,
-          sessions: { ...currentSessions }
+          sessions: { ...currentSessions },
+          isValidating: false
         };
       }
 
