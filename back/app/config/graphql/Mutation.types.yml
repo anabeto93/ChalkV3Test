@@ -2,9 +2,9 @@ Mutation:
     type: object
     config:
         fields:
-            validateSession:
+            validateSessionMutation:
                 type: "Boolean"
-                resolve: "@=mutation('validateSession', [args['uuid']])"
+                resolve: "@=mutation('validateSessionMutation', [args['uuid']])"
                 args:
                     uuid:
                         type: "String!"
