@@ -73,7 +73,7 @@ class SendScreen extends Component {
 
     return (
       <div className="content-layout">
-        <h1>Send</h1>
+        <p>Submit your progression with :</p>
         <RadioButtonGroup name="sendMode" onChange={this.handleFormChange}>
           <RadioButton value={SEND_MODE_INTERNET} label="Internet"/>
         </RadioButtonGroup>
