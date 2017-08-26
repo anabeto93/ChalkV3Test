@@ -1,5 +1,5 @@
 import {
-  FAIL_GET_COURSES_INFORMATIONS,
+  FAIL_GET_COURSES_INFORMATIONS, FAIL_VALIDATE_SESSION_INTERNET,
   FILE_LOADED,
   RECEIVE_COURSES_INFORMATIONS,
   RECEIVE_VALIDATE_SESSION_INTERNET,
@@ -12,6 +12,7 @@ const DEFAULT_CONTENT_STATE = {
   isFetching: false,
   isErrorFetching: false,
   isValidating: false,
+  isFailValidating: false,
   courses: {},
   folders: {},
   sessions: {},
@@ -91,6 +92,10 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
       }
 
       return { ...state };
+    }
+
+    case FAIL_VALIDATE_SESSION_INTERNET: {
+      return { ...state, isFailValidating: true };
     }
 
     default:
