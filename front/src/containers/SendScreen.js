@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { RaisedButton } from "material-ui";
 import { Redirect } from "react-router-dom";
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import Error from "../components/Error";
 
 const DEFAULT_STATE = { sendMode: null, submitEnabled: false, redirectToSessionList: false, hasNextSession: false };
 const SEND_MODE_INTERNET = 'internet';
@@ -50,7 +51,7 @@ class SendScreen extends Component {
   render() {
     const { session } = this.props;
 
-    if (this.state.hasNextSession) {
+    if (this.state.hasNextSession && !this.props.isFailValidating) {
       return (
         <div className="content-layout">
           <h4>Thank you for submitted your answers.</h4>
@@ -74,6 +75,8 @@ class SendScreen extends Component {
 
     return (
       <div className="content-layout">
+        {this.props.isFailValidating && <Error message="Erreur" show={this.props.isFailValidating}/>}
+
         <p>Submit your progression with :</p>
         <RadioButtonGroup name="sendMode" onChange={this.handleFormChange}>
           <RadioButton value={SEND_MODE_INTERNET} label="Internet"/>
@@ -92,7 +95,7 @@ class SendScreen extends Component {
 function mapStateToProps(state, props) {
   const session = CourseManager.getSession(state.content.sessions, props.match.params.sessionUuid);
 
-  return { sessions: state.content.sessions, session };
+  return { sessions: state.content.sessions, session, isFailValidating: state.content.isFailValidating };
 }
 
 export default connect(mapStateToProps)(SendScreen);

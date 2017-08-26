@@ -46,3 +46,7 @@ body {
 .content-layout {
   padding: 0 15px 0 15px;
 }
+
+.hidden {
+  display: none;
+}

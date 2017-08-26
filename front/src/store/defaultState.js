@@ -14,6 +14,8 @@ const defaultState = {
   content: {
     isFetching: false,
     isErrorFetching: false,
+    isValidating: false,
+    isFailValidating: false,
     updatedAt: null,
     courses: {},
     folders: {},
