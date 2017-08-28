@@ -1,6 +1,7 @@
 import CoursesQuery from '../graphql/query/CoursesQuery';
 import GraphqlClient from '../graphql/client/GraphqlClient';
 import HasUpdatesQuery from '../graphql/query/HasUpdatesQuery';
+import validateSessionMutation from "../graphql/query/mutations/validateSessionMutation";
 
 // NETWORK STATUS
 export const SET_NETWORK_STATUS = '@@CHALKBOARDEDUCATION/SET_NETWORK_STATUS';
@@ -37,12 +38,13 @@ export function receiveCoursesInformations(courses) {
 export function failGetCoursesInformations(message) {
   return { type: FAIL_GET_COURSES_INFORMATIONS, payload: { message } };
 }
+
 export function receiveUserInformations(user) {
   return { type: RECEIVE_USER_INFORMATIONS, payload: { user } };
 }
 
 export function getCoursesInformations() {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch(requestCoursesInformations());
 
     GraphqlClient.query({ query: CoursesQuery, fetchPolicy: 'network-only' })
@@ -91,7 +93,7 @@ export function reinitUpdates() {
 }
 
 export function getUpdates() {
-  return function(dispatch) {
+  return function (dispatch) {
     dispatch(requestUpdates());
 
     GraphqlClient.query({ query: HasUpdatesQuery, fetchPolicy: 'network-only' })
@@ -101,6 +103,45 @@ export function getUpdates() {
       .catch(error => {
         dispatch(failGetUpdates('Bad response from server'));
       });
+  };
+}
+
+// VALIDATE SESSION
+
+export const REQUEST_VALIDATE_SESSION_INTERNET =
+  '@@CHALKBOARDEDUCATION/REQUEST_VALIDATE_SESSION_INTERNET';
+export const RECEIVE_VALIDATE_SESSION_INTERNET =
+  '@@CHALKBOARDEDUCATION/RECEIVE_VALIDATE_SESSION_INTERNET';
+export const FAIL_VALIDATE_SESSION_INTERNET = '@@CHALKBOARDEDUCATION/FAIL_VALIDATE_SESSION_INTERNET';
+
+export function requestValidateSessionInternet(sessionUuid) {
+  return { type: REQUEST_VALIDATE_SESSION_INTERNET, payload: { sessionUuid } };
+}
+
+export function failValidateSessionInternet() {
+  return { type: FAIL_VALIDATE_SESSION_INTERNET };
+}
+
+export function receiveValidateSessionInternet({ sessionUuid, response }) {
+  return {
+    type: RECEIVE_VALIDATE_SESSION_INTERNET,
+    payload: { sessionUuid, response }
+  };
+}
+
+export function validateSession(sessionUuid) {
+  return dispatch => {
+    dispatch(requestValidateSessionInternet(sessionUuid));
+
+    GraphqlClient.mutate({ mutation: validateSessionMutation, variables: { sessionUuid } })
+      .then((data) => {
+        dispatch(
+          receiveValidateSessionInternet({ sessionUuid, response: data})
+        );
+      })
+      .catch(() => {
+        dispatch(failValidateSessionInternet());
+      })
   };
 }
 

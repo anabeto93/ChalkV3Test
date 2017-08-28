@@ -2,4 +2,4 @@ services:
     App\Infrastructure\GraphQL\Mutator\ValidateSessionMutator:
         autowire: true
         tags:
-            - { name: overblog_graphql.mutation, alias: "validateSession", method: "mutateValidateSession" }
+            - { name: overblog_graphql.mutation, alias: "validateSessionMutation", method: "mutateValidateSession" }

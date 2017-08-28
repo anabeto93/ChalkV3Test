@@ -36,11 +36,12 @@ export default function receiveCourseInformationHandler(state, action) {
         courseUuid: course.uuid
       };
 
-      folder.sessions.forEach(session => {
+      folder.sessions.forEach((session, index) => {
         sessions[session.uuid] = {
           ...session,
           courseUuid: course.uuid,
-          folderUuid: folder.uuid
+          folderUuid: folder.uuid,
+          position: index
         };
 
         if (

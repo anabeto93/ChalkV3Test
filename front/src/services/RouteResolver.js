@@ -1,9 +1,9 @@
 import { matchPath } from 'react-router-dom';
-
-import CourseManager from './CourseManager';
 import getConfig from '../config/index';
 import * as routes from '../config/routes';
 import store from '../store/store';
+
+import CourseManager from './CourseManager';
 
 const APP_NAME = getConfig().appName;
 
@@ -51,6 +51,7 @@ export default {
 
         return course ? course.title : '';
       case routes.SESSION_DETAIL:
+      case routes.SESSION_SEND:
         course = CourseManager.getCourse(
           store.getState().content.courses,
           params.courseUuid

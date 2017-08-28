@@ -11,7 +11,13 @@
     "errorWhileUpdating": "There is a network problem while updating.",
     "stayOnline": "Please stay online when downloading updates",
     "offline": "You are offline.",
-    "updateSuccess": "App updated successfully!"
+    "updateSuccess": "App updated successfully!",
+    "retry": "Retry"
+  },
+  "send": {
+    "validation": {
+      "fail": "Error while validating session"
+    }
   },
   "login": {
     "checking": "Checking ...",

@@ -18,6 +18,7 @@ import FolderScreen from './containers/FolderScreen';
 import HomeScreen from './containers/HomeScreen';
 import LoginScreen from './containers/LoginScreen';
 import PrivateRoute from './containers/PrivateRoute';
+import SendScreen from './containers/SendScreen';
 import SessionDetailScreen from './containers/SessionDetailScreen';
 import SessionScreen from './containers/SessionScreen';
 import store from './store/store';
@@ -71,9 +72,10 @@ class App extends Component {
                 />
                 <PrivateRoute
                   exact
-                  path={routes.ACCOUNT}
-                  component={AccountScreen}
+                  path={routes.SESSION_SEND}
+                  component={SendScreen}
                 />
+                <PrivateRoute path={routes.ACCOUNT} component={AccountScreen} />
                 <Route component={NotFound} />
               </Switch>
             </div>
