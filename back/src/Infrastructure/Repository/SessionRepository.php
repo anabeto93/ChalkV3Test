@@ -68,6 +68,8 @@ class SessionRepository implements SessionRepositoryInterface
             ->leftJoin('session.folder', 'folder')
             ->where('session.course = :course')
             ->setParameter('course', $course)
+            ->orderBy('folder.title')
+            ->addOrderBy('session.rank')
         ;
 
         return $queryBuilder->getQuery()->getResult();

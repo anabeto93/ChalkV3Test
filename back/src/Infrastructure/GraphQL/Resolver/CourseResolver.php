@@ -47,7 +47,7 @@ class CourseResolver
         }
 
         foreach ($courseObjects as $course) {
-            $courses[] = $this->normalizer->normalize($course);
+            $courses[] = $this->normalizer->normalize($course, $apiUser->getUser());
         }
 
         return $courses;

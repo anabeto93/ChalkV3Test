@@ -50,7 +50,8 @@ class CreateHandler
             $create->title,
             $create->content,
             $this->dateTime,
-            $create->folder
+            $create->folder,
+            $create->needValidation
         );
     }
 }

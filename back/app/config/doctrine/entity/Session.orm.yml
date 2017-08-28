@@ -17,6 +17,8 @@ App\Domain\Model\Session:
         content:
             type: text
             nullable: true
+        needValidation:
+            type: boolean
         createdAt:
             type: datetime
         updatedAt:

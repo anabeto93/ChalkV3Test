@@ -40,10 +40,13 @@ services:
             - { name: tactician.handler, command: App\Application\Command\Session\Create }
 
     App\Application\Command\Session\DeleteHandler:
+        autowire: true
         arguments:
-            - '@App\Infrastructure\Repository\Session\FileRepository'
-            - '@App\Infrastructure\Repository\SessionRepository'
-            - '@App\Infrastructure\Adapter\FileStorage'
-            - '%kernel.root_dir%/../web'
+            $uploadDir: '%kernel.root_dir%/../web'
         tags:
             - { name: tactician.handler, command: App\Application\Command\Session\Delete }
+
+    App\Application\Command\User\Progression\ValidateSessionHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\Progression\ValidateSession }

@@ -54,6 +54,9 @@ class Session
     /** @var ArrayCollection of File */
     private $files;
 
+    /** @var bool */
+    private $needValidation;
+
     /**
      * @param string             $uuid
      * @param int                $rank
@@ -61,6 +64,7 @@ class Session
      * @param string|null        $content
      * @param Course             $course
      * @param Folder|null        $folder
+     * @param bool               $needValidation
      * @param \DateTimeInterface $createdAt
      * @param int                $size
      * @param int                $contentSize
@@ -72,6 +76,7 @@ class Session
         string $content = null,
         Course $course,
         Folder $folder = null,
+        bool $needValidation,
         \DateTimeInterface $createdAt,
         int $size = 0,
         int $contentSize = 0
@@ -82,6 +87,7 @@ class Session
         $this->content = $content;
         $this->course = $course;
         $this->folder = $folder;
+        $this->needValidation = $needValidation;
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
         $this->contentUpdatedAt = $createdAt;
@@ -224,5 +230,13 @@ class Session
     public function setFiles(array $files)
     {
         $this->files = new ArrayCollection($files);
+    }
+
+    /**
+     * @return bool
+     */
+    public function needValidation(): bool
+    {
+        return $this->needValidation;
     }
 }

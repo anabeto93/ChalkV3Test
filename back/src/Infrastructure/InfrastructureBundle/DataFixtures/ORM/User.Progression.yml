@@ -1,0 +1,6 @@
+App\Domain\Model\User\Progression:
+    user_progression:
+        __construct:
+            - '@user_dev'
+            - '@session_1'
+            - <(new DateTime('2017-08-01 04:00:00.000'))>
