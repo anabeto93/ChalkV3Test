@@ -11,6 +11,7 @@
 namespace App\Ui\Admin\Form\Type\User;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -34,6 +35,14 @@ abstract class AbstractUserType extends AbstractType
             ])
             ->add('country', CountryType::class, [
                 'required' => true,
+            ])
+            ->add('locale', ChoiceType::class, [
+                'required' => true,
+                'choices' => [
+                    'form.user_create.children.locale.english.label' => 'en',
+                    'form.user_create.children.locale.french.label' => 'fr',
+                ],
+                'choice_translation_domain' => true,
             ])
         ;
     }

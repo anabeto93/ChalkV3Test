@@ -10,6 +10,7 @@ import {
 export default function updates(
   state = {
     isFetching: false,
+    isErrorFetching: false,
     hasUpdates: false,
     dateLastCheck: null,
     size: 0
@@ -18,33 +19,42 @@ export default function updates(
 ) {
   switch (action.type) {
     case REINIT_UPDATES: {
-      return Object.assign({}, state, {
+      return {
+        ...state,
         isFetching: false,
+        isErrorFetching: false,
         hasUpdates: false,
         size: 0
-      });
+      };
     }
 
     case REQUEST_UPDATES: {
-      return Object.assign({}, state, {
-        isFetching: true
-      });
+      return {
+        ...state,
+        isFetching: true,
+        isErrorFetching: false
+      };
     }
 
     case RECEIVE_UPDATES: {
       const { hasUpdates, size } = action.payload.updates;
-      return Object.assign({}, state, {
+
+      return {
+        ...state,
         isFetching: false,
+        isErrorFetching: false,
         hasUpdates: hasUpdates,
         dateLastCheck: moment(),
         size: size
-      });
+      };
     }
 
     case FAIL_GET_UPDATES: {
-      return Object.assign({}, state, {
-        isFetching: false
-      });
+      return {
+        ...state,
+        isFetching: false,
+        isErrorFetching: true
+      };
     }
 
     default:

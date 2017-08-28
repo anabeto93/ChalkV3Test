@@ -56,6 +56,7 @@ class UpdateHandlerTest extends TestCase
             'lastName',
             '+123123123',
             'FR',
+            'fr',
             39,
             $this->dateTime
         );
@@ -85,8 +86,9 @@ class UpdateHandlerTest extends TestCase
             'uuid-1',
             'other firstname',
             'other last name',
-            'GB',
             '+33987987987',
+            'GB',
+            'fr',
             39,
             new \DateTime('2017-08-01 10:00:00.000')
         );
@@ -94,6 +96,7 @@ class UpdateHandlerTest extends TestCase
             'other first name',
             'other last name',
             'GB',
+            'fr',
             '+33987987987',
             62,
             $this->dateTime
@@ -106,6 +109,7 @@ class UpdateHandlerTest extends TestCase
             'lastName',
             '+33987987987',
             'FR',
+            'fr',
             39,
             new \DateTime('2017-08-01 10:00:00.000')
         );
@@ -114,6 +118,7 @@ class UpdateHandlerTest extends TestCase
         $command->firstName = 'other first name';
         $command->lastName = 'other last name';
         $command->country = 'GB';
+        $command->locale = 'fr';
 
         // Mock
         $this->userRepository->findByPhoneNumber(Argument::any())->shouldNotBeCalled();

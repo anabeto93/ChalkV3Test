@@ -1,16 +1,23 @@
 import { matchPath } from 'react-router-dom';
-import * as routes from '../config/routes';
+
 import CourseManager from './CourseManager';
+import getConfig from '../config/index';
+import * as routes from '../config/routes';
+import store from '../store/store';
+
+const APP_NAME = getConfig().appName;
 
 export default {
   /**
    * @param {string} pathname from Object
-   * @returns {*}
+   * @returns {Object|undefined}
    */
   resolve({ pathname }) {
-    return Object.values(routes).map((path) => {
-      return matchPath(pathname, { path, exact: true });
-    }).find(match => match !== null);
+    return Object.values(routes)
+      .map(path => {
+        return matchPath(pathname, { path, exact: true });
+      })
+      .find(match => match !== null);
   },
 
   /**
@@ -24,25 +31,34 @@ export default {
 
     switch (path) {
       case routes.COURSES:
-        return 'Chalkboard Education';
+        return APP_NAME;
       case routes.FOLDER_LIST:
-        course = CourseManager.getCourse(params.courseId);
+        course = CourseManager.getCourse(
+          store.getState().content.courses,
+          params.courseUuid
+        );
         return course ? course.title : '';
       case routes.SESSION_LIST:
-        course = CourseManager.getCourse(params.courseId);
+        const { courses, folders } = store.getState().content;
+
+        course = CourseManager.getCourse(courses, params.courseUuid);
 
         if (course !== undefined) {
-          folder = CourseManager.getFolderFromCourse(course, params.folderId);
+          folder = CourseManager.getFolder(folders, params.folderUuid);
+
           return folder ? folder.title : '';
         }
 
         return course ? course.title : '';
       case routes.SESSION_DETAIL:
-        course = CourseManager.getCourse(params.courseId);
+        course = CourseManager.getCourse(
+          store.getState().content.courses,
+          params.courseUuid
+        );
 
         return course ? course.title : '';
       default:
-        return 'Chalkboard Education';
+        return APP_NAME;
     }
   }
-}
+};

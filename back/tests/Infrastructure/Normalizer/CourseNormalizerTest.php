@@ -82,6 +82,7 @@ class CourseNormalizerTest extends TestCase
             'university' => 'University',
             'teacherName' => 'teacherName',
             'createdAt' => $dateTime,
+            'updatedAt' => $dateTime,
             'folders' => [
                 2 => [
                     'uuid' => '123456789',
@@ -138,6 +139,7 @@ class CourseNormalizerTest extends TestCase
             'teacherName' => 'teacherName',
             'university' => 'University',
             'createdAt' => $dateTime,
+            'updatedAt' => $dateTime,
             'folders' => [
                 'default' => [
                     'uuid' => 'default',

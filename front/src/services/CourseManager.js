@@ -1,68 +1,37 @@
-import store from "../store/store";
-
-class CourseManager {
-  /**
-   * @param {Object} store
-   */
-  constructor(store) {
-    this.store = store;
+export class CourseManager {
+  static getCourse(courseItems, courseUuid) {
+    return courseItems[courseUuid];
   }
 
-  /**
-   * @param {string} uuid
-   * @return {Object|undefined}
-   */
-  getCourse(uuid) {
-    let state = this.store.getState();
-
-    if (!state.hasOwnProperty('courses')) return undefined;
-
-    return state.courses.items.find((course) => course.uuid === uuid);
+  static getFolder(folderItems, folderUuid) {
+    return folderItems[folderUuid];
   }
 
-  /**
-   * @param {Object} course
-   * @param {string} folderId
-   * @return {Object|undefined}
-   */
-  getFolderFromCourse(course, folderId) {
-    if (!course.hasOwnProperty('folders')) return undefined;
-
-    return course.folders.find((folder) => folder.uuid === folderId);
+  static getSession(sessionsItems, sessionUuid) {
+    return sessionsItems[sessionUuid];
   }
 
-  /**
-   * @param {Object} folder
-   * @param {string} sessionId
-   * @returns {Object|undefined}
-   */
-  getSessionFromFolder(folder, sessionId) {
-    if (!folder.hasOwnProperty('sessions')) return undefined;
-
-    return folder.sessions.find((session) => session.uuid === sessionId);
-  }
-
-  /**
-   * @param {string} courseId
-   * @param {string} sessionId
-   * @returns {undefined|{Object}}
-   */
-  getSessionFromCourseIdAndSessionId(courseId, sessionId) {
-    let state = this.store.getState();
-
-    if (!state.hasOwnProperty('courses')) return undefined;
-
-    let session = undefined;
-    let course = state.courses.items.find(course => course.uuid === courseId);
-
-    if (course !== undefined && course.hasOwnProperty('folders')) {
-      course.folders.forEach(folder => {
-        session = this.getSessionFromFolder(folder, sessionId);
-      })
+  static getFoldersFromCourse(foldersItems, courseUuid) {
+    let folders = {};
+    for (let key in foldersItems) {
+      if (foldersItems[key].courseUuid === courseUuid) {
+        folders[key] = foldersItems[key];
+      }
     }
 
-    return session;
+    return folders;
+  }
+
+  static getSessionsFromFolder(sessionsItems, folderUuid) {
+    let sessions = {};
+    for (let key in sessionsItems) {
+      if (sessionsItems[key].folderUuid === folderUuid) {
+        sessions[key] = sessionsItems[key];
+      }
+    }
+
+    return sessions;
   }
 }
 
-export default new CourseManager(store);
+export default CourseManager;

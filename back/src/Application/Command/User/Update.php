@@ -25,6 +25,7 @@ class Update extends AbstractUserCommand
         $this->user = $user;
         $this->phoneNumber = $user->getPhoneNumber();
         $this->country = $user->getCountry();
+        $this->locale = $user->getLocale();
         $this->firstName = $user->getFirstName();
         $this->lastName = $user->getLastName();
     }

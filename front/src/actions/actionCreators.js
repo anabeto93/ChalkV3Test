@@ -1,13 +1,12 @@
-import GraphqlClient from "../graphql/client/GraphqlClient";
+import CoursesQuery from '../graphql/query/CoursesQuery';
+import GraphqlClient from '../graphql/client/GraphqlClient';
+import HasUpdatesQuery from '../graphql/query/HasUpdatesQuery';
 
-import CoursesQuery from "../graphql/query/CoursesQuery";
-import HasUpdatesQuery from "../graphql/query/HasUpdatesQuery";
+// NETWORK STATUS
+export const SET_NETWORK_STATUS = '@@CHALKBOARDEDUCATION/SET_NETWORK_STATUS';
 
-// LOGIN
-export const LOGIN_SUCCESS = '@@CHALKBOARDEDUCATION/LOGIN_SUCCESS';
-
-export function login() {
-  return { type: LOGIN_SUCCESS };
+export function setNetworkStatus(isOnline) {
+  return { type: SET_NETWORK_STATUS, payload: isOnline };
 }
 
 // GET COURSES
@@ -23,6 +22,10 @@ export const FAIL_GET_COURSES_INFORMATIONS =
 export const RECEIVE_USER_INFORMATIONS =
   '@@CHALKBOARDEDUCATION/RECEIVE_USER_INFORMATIONS';
 
+export const FILE_LOADED = '@@CHALKBOARDEDUCATION/FILE_LOADED';
+
+export const SPOOL_TERMINATED = '@@CHALKBOARDEDUCATION/SPOOL_TERMINATED';
+
 export function requestCoursesInformations() {
   return { type: REQUEST_COURSES_INFORMATIONS };
 }
@@ -34,13 +37,12 @@ export function receiveCoursesInformations(courses) {
 export function failGetCoursesInformations(message) {
   return { type: FAIL_GET_COURSES_INFORMATIONS, payload: { message } };
 }
-
 export function receiveUserInformations(user) {
   return { type: RECEIVE_USER_INFORMATIONS, payload: { user } };
 }
 
 export function getCoursesInformations() {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch(requestCoursesInformations());
 
     GraphqlClient.query({ query: CoursesQuery, fetchPolicy: 'network-only' })
@@ -52,6 +54,14 @@ export function getCoursesInformations() {
         dispatch(failGetCoursesInformations('Bad response from server'));
       });
   };
+}
+
+export function fileLoaded(file) {
+  return { type: FILE_LOADED, payload: { file } };
+}
+
+export function spoolTerminated() {
+  return { type: SPOOL_TERMINATED };
 }
 
 // GET UPDATES
@@ -81,7 +91,7 @@ export function reinitUpdates() {
 }
 
 export function getUpdates() {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch(requestUpdates());
 
     GraphqlClient.query({ query: HasUpdatesQuery, fetchPolicy: 'network-only' })
@@ -92,4 +102,12 @@ export function getUpdates() {
         dispatch(failGetUpdates('Bad response from server'));
       });
   };
+}
+
+// USER SETTINGS
+
+export const SETTINGS_SET_LOCALE = '@@CHALKBOARDEDUCATION/SETTINGS/SET_LOCALE';
+
+export function setLocale(locale) {
+  return { type: SETTINGS_SET_LOCALE, payload: { locale } };
 }

@@ -1,0 +1,26 @@
+{
+  "tokenError": "Your link has a problem - please contact your Chalkboard Education for support.",
+  "update": {
+    "label": "Update",
+    "needUpdate": "Your app must be updated",
+    "updating": "Updating app...",
+    "checking": "Checking updates...",
+    "download": "Your app must be updated {{amount}} kb to download",
+    "upToDate": "Your app is already up to date!",
+    "errorWhileCheckingUpdates": "There is a network problem while checking updates.",
+    "errorWhileUpdating": "There is a network problem while updating.",
+    "stayOnline": "Please stay online when downloading updates",
+    "offline": "You are offline.",
+    "updateSuccess": "App updated successfully!"
+  },
+  "login": {
+    "checking": "Checking ...",
+    "start": "Start"
+  },
+  "account": {
+    "language": "Language",
+    "settings": {
+      "label": "Settings"
+    }
+  }
+}

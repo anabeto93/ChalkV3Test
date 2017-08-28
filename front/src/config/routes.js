@@ -1,8 +1,9 @@
 export const HOME = '/';
+export const LOGIN = '/login/:token';
 export const COURSES = '/courses';
-export const FOLDER_LIST = '/courses/:courseId/folders/list';
-export const SESSION_LIST = '/courses/:courseId/folders/:folderId/sessions/list';
-export const SESSION_LIST_WITHOUT_FOLDER = '/courses/:courseId/sessions/list';
-export const SESSION_DETAIL = '/courses/:courseId/session/:sessionId';
-
-
+export const ACCOUNT = '/account';
+export const FOLDER_LIST = '/courses/:courseUuid/folders/list';
+export const SESSION_LIST =
+  '/courses/:courseUuid/folders/:folderUuid/sessions/list';
+export const SESSION_LIST_WITHOUT_FOLDER = '/courses/:courseUuid/sessions/list';
+export const SESSION_DETAIL = '/courses/:courseUuid/session/:sessionUuid';
