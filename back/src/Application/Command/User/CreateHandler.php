@@ -15,6 +15,7 @@ use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Size\Calculator;
 use App\Domain\Uuid\Generator;
+use App\Infrastructure\Service\TokenGenerator;
 use Sonata\IntlBundle\Templating\Helper\LocaleHelper;
 
 class CreateHandler
@@ -24,6 +25,9 @@ class CreateHandler
 
     /** @var Generator */
     private $generator;
+
+    /** @var TokenGenerator */
+    private $tokenGenerator;
 
     /** @var \DateTimeInterface */
     private $dateTime;
@@ -37,6 +41,7 @@ class CreateHandler
     /**
      * @param UserRepositoryInterface $userRepository
      * @param Generator               $generator
+     * @param TokenGenerator          $tokenGenerator
      * @param Calculator              $sizeCalculator
      * @param LocaleHelper            $localeHelper
      * @param \DateTimeInterface      $dateTime
@@ -44,12 +49,14 @@ class CreateHandler
     public function __construct(
         UserRepositoryInterface $userRepository,
         Generator $generator,
+        TokenGenerator $tokenGenerator,
         Calculator $sizeCalculator,
         LocaleHelper $localeHelper,
         \DateTimeInterface $dateTime
     ) {
         $this->userRepository = $userRepository;
         $this->generator = $generator;
+        $this->tokenGenerator = $tokenGenerator;
         $this->dateTime = $dateTime;
         $this->sizeCalculator = $sizeCalculator;
         $this->localeHelper = $localeHelper;
@@ -70,6 +77,12 @@ class CreateHandler
 
         $uuid = $this->generator->generateUuid();
 
+        $token = null;
+
+        while (null === $token || null !== $this->userRepository->findByApiToken($token)) {
+            $token = $this->tokenGenerator->generateToken();
+        }
+
         $user = new User(
             $uuid,
             $command->firstName,
@@ -88,6 +101,7 @@ class CreateHandler
                     $command->country
                 )
             ),
+            $token,
             $this->dateTime
         );
 

@@ -31,7 +31,6 @@ App\Domain\Model\User:
             type: datetime
         apiToken:
             type: string
-            nullable: true
     manyToMany:
         courses:
             targetEntity: App\Domain\Model\Course

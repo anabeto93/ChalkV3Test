@@ -17,6 +17,7 @@ use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Size\Calculator;
 use App\Domain\Uuid\Generator;
+use App\Infrastructure\Service\TokenGenerator;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 use Sonata\IntlBundle\Templating\Helper\LocaleHelper;
@@ -32,6 +33,9 @@ class CreateHandlerTest extends TestCase
     /** @var ObjectProphecy */
     private $generator;
 
+    /** @var ObjectProphecy */
+    private $tokenGenerator;
+
     /** @var \DateTime */
     private $dateTime;
 
@@ -42,6 +46,7 @@ class CreateHandlerTest extends TestCase
     {
         $this->userRepository = $this->prophesize(UserRepositoryInterface::class);
         $this->generator = $this->prophesize(Generator::class);
+        $this->tokenGenerator = $this->prophesize(TokenGenerator::class);
         $this->sizeCalculator = $this->prophesize(Calculator::class);
         $this->localeHelper = $this->prophesize(LocaleHelper::class);
         $this->dateTime = new \DateTime();
@@ -67,6 +72,7 @@ class CreateHandlerTest extends TestCase
         $handler = new CreateHandler(
             $this->userRepository->reveal(),
             $this->generator->reveal(),
+            $this->tokenGenerator->reveal(),
             $this->sizeCalculator->reveal(),
             $this->localeHelper->reveal(),
             $this->dateTime
@@ -85,6 +91,7 @@ class CreateHandlerTest extends TestCase
             'FR',
             'fr',
             39,
+            '2oKenN',
             $this->dateTime
         );
 
@@ -100,6 +107,8 @@ class CreateHandlerTest extends TestCase
         $this->userRepository->findByPhoneNumber('+123123123')->shouldBeCalled()->willReturn(null);
         $this->userRepository->add($expected)->shouldBeCalled();
         $this->generator->generateUuid()->shouldBeCalled()->willReturn('uuid-1');
+        $this->tokenGenerator->generateToken()->shouldBeCalled()->willReturn('2oKenN');
+        $this->userRepository->findByApiToken('2oKenN')->shouldBeCalled()->willReturn(null);
         $this->localeHelper->country('FR')->shouldBeCalled()->willReturn('France');
         $this->sizeCalculator
             ->calculateSize('uuid-1firstNamelastName+123123123FranceFR')
@@ -111,6 +120,7 @@ class CreateHandlerTest extends TestCase
         $handler = new CreateHandler(
             $this->userRepository->reveal(),
             $this->generator->reveal(),
+            $this->tokenGenerator->reveal(),
             $this->sizeCalculator->reveal(),
             $this->localeHelper->reveal(),
             $this->dateTime

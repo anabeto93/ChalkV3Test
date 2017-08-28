@@ -57,6 +57,7 @@ class User
      * @param string             $phoneNumber
      * @param string             $country
      * @param int                $size
+     * @param string             $apiToken
      * @param string             $locale
      * @param \DateTimeInterface $createdAt
      */
@@ -68,6 +69,7 @@ class User
         string $country,
         string $locale,
         int $size,
+        string $apiToken,
         \DateTimeInterface $createdAt
     ) {
         $this->uuid = $uuid;
@@ -78,7 +80,7 @@ class User
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
         $this->size = $size;
-        $this->apiToken = null;
+        $this->apiToken = $apiToken;
         $this->courses = new ArrayCollection();
         $this->locale = $locale;
     }

@@ -8,6 +8,7 @@ App\Domain\Model\User:
             - 'FR'
             - 'fr'
             - 44
+            - 'token'
             - <dateTime()>
         apiToken: 'api-key-token-user-1'
         courses:

@@ -64,7 +64,7 @@ class UpdateActionTest extends TestCase
     public function testInvoke()
     {
         // Context
-        $user = new User('uuid', 'firstName', 'lastName', 'phoneNumber', 'FR', 'fr', 40, new \DateTime());
+        $user = new User('uuid', 'firstName', 'lastName', 'phoneNumber', 'FR', 'fr', 40, 'token', new \DateTime());
         $request = new Request();
         $response = new Response();
         $update = new Update($user);
@@ -103,7 +103,7 @@ class UpdateActionTest extends TestCase
     public function testInvokeHandleException()
     {
         // Context
-        $user = new User('uuid', 'firstName', 'lastName', 'phoneNumber', 'FR', 'fr', 40, new \DateTime());
+        $user = new User('uuid', 'firstName', 'lastName', 'phoneNumber', 'FR', 'fr', 40, 'token', new \DateTime());
         $request = new Request();
         $response = new Response();
         $update = new Update($user);
@@ -152,7 +152,7 @@ class UpdateActionTest extends TestCase
     public function testInvokeHandle()
     {
         // Context
-        $user = new User('uuid', 'firstName', 'lastName', 'phoneNumber', 'FR', 'fr', 40, new \DateTime());
+        $user = new User('uuid', 'firstName', 'lastName', 'phoneNumber', 'FR', 'fr', 40, 'token', new \DateTime());
         $request = new Request();
         $response = new RedirectResponse('/admin/user');
         $update = new Update($user);
