@@ -4,9 +4,10 @@ import { IconMenu, MenuItem } from 'material-ui/IconMenu';
 import { List, ListItem } from 'material-ui/List';
 import { grey400 } from 'material-ui/styles/colors';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import RaisedButton from 'material-ui/RaisedButton';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { setLocale } from '../actions/actionCreators';
+import { getUpdates, setLocale } from '../actions/actionCreators';
 import UserPanel from '../components/Course/UserPanel';
 import { availableLocales } from '../config/translations';
 
@@ -48,12 +49,30 @@ class AccountScreen extends Component {
     );
   };
 
+  handleUpdate = () => {
+    this.props.dispatch(getUpdates());
+  };
+
   render() {
     const { settings } = this.props;
+
+    const updateButton =
+      !this.props.hasUpdates &&
+      !this.props.isFetchingContent &&
+      !this.props.isFetchingUpdates &&
+      <div style={{ textAlign: 'center' }}>
+        <RaisedButton
+          label={I18n.t('update.label', { locale: settings.locale })}
+          onClick={this.handleUpdate}
+          primary={true}
+          style={{ margin: '10px' }}
+        />
+      </div>;
 
     return (
       <div>
         <UserPanel />
+        {updateButton}
         <List>
           <Subheader>
             {I18n.t('account.settings.label', { locale: settings.locale })}
@@ -72,11 +91,18 @@ class AccountScreen extends Component {
 }
 
 /**
- * @param {Object} settings from redux state
- * @returns {{settings: *}}
+ * @param {object} content
+ * @param {object} settings
+ * @param {object} updates
+ * @returns {{settings: *, hasUpdates: boolean, isFetchingContent: boolean, isFetchingUpdates: boolean}}
  */
-function mapStateToProps({ settings }) {
-  return { settings };
+function mapStateToProps({ content, settings, updates }) {
+  return {
+    settings,
+    hasUpdates: updates.hasUpdates,
+    isFetchingContent: content.isFetching,
+    isFetchingUpdates: updates.isFetching
+  };
 }
 
 export default connect(mapStateToProps)(AccountScreen);
