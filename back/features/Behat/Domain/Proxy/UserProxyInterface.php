@@ -11,6 +11,7 @@
 namespace Features\Behat\Domain\Proxy;
 
 use Features\Behat\Domain\Storage\StorageInterface;
+use Features\Behat\Services\Manager\CourseManager;
 use Features\Behat\Services\Manager\UserManager;
 
 interface UserProxyInterface
@@ -24,4 +25,9 @@ interface UserProxyInterface
      * @return UserManager
      */
     public function getUserManager(): UserManager;
+
+    /**
+     * @return CourseManager
+     */
+    public function getCourseManager(): CourseManager;
 }

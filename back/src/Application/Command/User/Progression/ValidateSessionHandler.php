@@ -57,7 +57,7 @@ class ValidateSessionHandler
 
         if (!$command->user->hasCourse($session->getCourse())) {
             throw new SessionNotAccessibleForThisUserException(
-                sprintf('The session "%s" can not be found', $command->sessionUuid)
+                sprintf('The session "%s" not accessible for this user', $command->sessionUuid)
             );
         }
 

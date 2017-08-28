@@ -11,6 +11,7 @@
 namespace Features\Behat\Services\Manager;
 
 use App\Domain\Model\Course;
+use App\Domain\Model\User;
 use App\Domain\Repository\CourseRepositoryInterface;
 use Tests\Factory\CourseFactory;
 
@@ -71,5 +72,18 @@ class CourseManager
         $this->courseRepository->add($course);
 
         return $course;
+    }
+
+    /**
+     * @param User   $user
+     * @param Course $course
+     */
+    public function addCourseToUser(User $user, Course $course)
+    {
+        $usersAssigned = $course->getUsers();
+        $usersAssigned[] = $user;
+        $course->affectUser($usersAssigned);
+
+        $this->courseRepository->set($course);
     }
 }

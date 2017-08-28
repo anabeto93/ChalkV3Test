@@ -12,6 +12,7 @@ namespace Features\Behat\Services\Proxy;
 
 use Features\Behat\Domain\Proxy\UserProxyInterface;
 use Features\Behat\Domain\Storage\StorageInterface;
+use Features\Behat\Services\Manager\CourseManager;
 use Features\Behat\Services\Manager\UserManager;
 
 class UserProxy implements UserProxyInterface
@@ -22,14 +23,19 @@ class UserProxy implements UserProxyInterface
     /** @var UserManager */
     private $userManager;
 
+    /** @var CourseManager */
+    private $courseManager;
+
     /**
      * @param StorageInterface $storage
      * @param UserManager      $userManager
+     * @param CourseManager    $courseManager
      */
-    public function __construct(StorageInterface $storage, UserManager $userManager)
+    public function __construct(StorageInterface $storage, UserManager $userManager, CourseManager $courseManager)
     {
         $this->storage = $storage;
         $this->userManager = $userManager;
+        $this->courseManager = $courseManager;
     }
 
     /**
@@ -46,5 +52,13 @@ class UserProxy implements UserProxyInterface
     public function getUserManager(): UserManager
     {
         return $this->userManager;
+    }
+
+    /**
+     * @return CourseManager
+     */
+    public function getCourseManager(): CourseManager
+    {
+        return $this->courseManager;
     }
 }
