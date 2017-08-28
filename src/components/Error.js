@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
+import React, { Component } from 'react';
 
 class Error extends Component {
   constructor(...args) {
     super(...args);
     this.state = {
       show: this.props.show
-    }
+    };
   }
 
   toggleShow = () => {
@@ -15,15 +15,22 @@ class Error extends Component {
 
   render() {
     const style = {
-      container: {}
+      container: {
+        backgroundColor: '#eeeeee',
+        padding: '5px',
+        margin: '5px 0 5px 0',
+        textAlign: 'center'
+      }
     };
 
     return (
       <div style={style.container} className={!this.state.show ? 'hidden' : ''}>
-        <p>{this.props.message}</p>
-        <RaisedButton label="Dismiss" onClick={this.toggleShow}/>
+        <p>
+          {this.props.message}
+        </p>
+        <RaisedButton label="Dismiss" onClick={this.toggleShow} />
       </div>
-    )
+    );
   }
 }
 
