@@ -1,3 +1,4 @@
+flash.admin.course.assign_user.success: 'Well done ! Students assigned to course with success'
 flash.admin.course.create.success: 'Course created with success'
 flash.admin.course.update.success: 'Course updated with success'
 flash.admin.folder.create.success: 'Folder created with success'

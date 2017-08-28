@@ -23,6 +23,14 @@ admin_course_update:
         course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Course\UpdateAction }
 
+
+admin_course_assign_user:
+    path: /course/{course}/student
+    methods: [GET, POST]
+    requirements:
+        course: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Course\AssignUserAction }
+
 #
 # User
 #

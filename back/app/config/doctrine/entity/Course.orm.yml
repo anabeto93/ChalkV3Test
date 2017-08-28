@@ -36,3 +36,7 @@ App\Domain\Model\Course:
         sessions:
             targetEntity: App\Domain\Model\Session
             mappedBy: course
+    manyToMany:
+        users:
+            targetEntity: App\Domain\Model\User
+            inversedBy: courses

@@ -44,7 +44,8 @@ class CourseListQueryHandler
                 $course->getUniversity(),
                 $course->isEnabled(),
                 count($course->getFolders()),
-                count($course->getSessions())
+                count($course->getSessions()),
+                count($course->getUsers())
             );
         }
 

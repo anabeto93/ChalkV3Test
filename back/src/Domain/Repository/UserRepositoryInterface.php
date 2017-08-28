@@ -34,6 +34,11 @@ interface UserRepositoryInterface
     public function paginate(int $page, int $limit): PaginatedResult;
 
     /**
+     * @return User[]
+     */
+    public function getAll();
+
+    /**
      * @param string|null $apiToken
      *
      * @return User|null

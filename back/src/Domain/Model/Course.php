@@ -44,6 +44,9 @@ class Course
     /** @var ArrayCollection of Session */
     private $sessions;
 
+    /** @var ArrayCollection of User */
+    private $users;
+
     /** @var \DateTimeInterface */
     private $updatedAt;
 
@@ -80,6 +83,7 @@ class Course
         $this->updatedAt = $createdAt;
         $this->sessions = new ArrayCollection();
         $this->folders = new ArrayCollection();
+        $this->users = new ArrayCollection();
         $this->size = $size;
     }
 
@@ -156,6 +160,14 @@ class Course
     }
 
     /**
+     * @return User[]
+     */
+    public function getUsers(): array
+    {
+        return $this->users->toArray();
+    }
+
+    /**
      * @param Session[] $sessions
      */
     public function setSessions(array $sessions)
@@ -193,6 +205,32 @@ class Course
     public function getSize(): int
     {
         return $this->size;
+    }
+
+    /**
+     * @param User[] $users
+     */
+    public function affectUser(array $users)
+    {
+        foreach ($this->getUsers() as $assignedUser) {
+            if (!in_array($assignedUser, $users)) {
+                $this->unAssignUser($assignedUser);
+            }
+        }
+
+        foreach ($users as $user) {
+            if (!$this->users->contains($user)) {
+                $this->users->add($user);
+            }
+        }
+    }
+
+    /**
+     * @param User $user
+     */
+    public function unAssignUser(User $user)
+    {
+        $this->users->removeElement($user);
     }
 
     /**

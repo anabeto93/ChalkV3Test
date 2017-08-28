@@ -66,6 +66,10 @@ class CourseListQueryHandlerTest extends TestCase
             ->shouldBeCalled()
             ->willReturn([$session2->reveal(), $session3->reveal(), $session4->reveal()]);
 
+        $course1->getUsers()->shouldBeCalled()->willReturn([]);
+        $course2->getUsers()->shouldBeCalled()->willReturn([]);
+        $course3->getUsers()->shouldBeCalled()->willReturn([]);
+
         // Mock
         $courseRepository = $this->prophesize(CourseRepositoryInterface::class);
         $courseRepository->getAll()->shouldBeCalled()->willReturn([
@@ -78,9 +82,9 @@ class CourseListQueryHandlerTest extends TestCase
         $result = $handler->handle(new CourseListQuery());
 
         $expected = [
-            new CourseView(1, 'title 1', 'teacher Name 1', 'University 1', true, 1, 1),
-            new CourseView(2, 'title 2', 'teacher Name 2', 'University 2', false, 0, 0),
-            new CourseView(3, 'title 3', 'teacher Name 3', 'University 3', false, 2, 3),
+            new CourseView(1, 'title 1', 'teacher Name 1', 'University 1', true, 1, 1, 0),
+            new CourseView(2, 'title 2', 'teacher Name 2', 'University 2', false, 0, 0, 0),
+            new CourseView(3, 'title 3', 'teacher Name 3', 'University 3', false, 2, 3, 0),
         ];
 
         $this->assertEquals($expected, $result);

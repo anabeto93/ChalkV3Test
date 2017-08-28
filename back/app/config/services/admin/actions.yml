@@ -11,6 +11,9 @@ services:
     App\Ui\Admin\Action\Course\UpdateAction:
         autowire: true
 
+    App\Ui\Admin\Action\Course\AssignUserAction:
+        autowire: true
+
     App\Ui\Admin\Action\User\ListAction:
         autowire: true
 

@@ -10,6 +10,7 @@
 
 namespace App\Infrastructure\Repository;
 
+use App\Domain\Model\Course;
 use App\Domain\Model\User;
 use App\Domain\Pagination\PaginatedResult;
 use App\Domain\Repository\UserRepositoryInterface;
@@ -63,6 +64,20 @@ class UserRepository implements UserRepositoryInterface
             ->from(User::class, 'user', 'user.id');
 
         return $this->paginator->paginate($queryBuilder, $page, $limit, 'user', 'id');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAll()
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('user')
+            ->from(User::class, 'user');
+
+        return $queryBuilder->getQuery()->getResult();
     }
 
     /**
