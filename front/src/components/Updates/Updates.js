@@ -126,7 +126,7 @@ class Updates extends Component {
           <LinearProgress mode="determinate" value={percentSpoolCompleted} />
           <div style={style.container}>
             <p>
-              {I18n.t('stayOnline', { locale })}
+              {I18n.t('update.stayOnline', { locale })}
             </p>
           </div>
         </div>

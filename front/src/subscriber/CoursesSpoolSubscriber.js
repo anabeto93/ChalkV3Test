@@ -1,23 +1,38 @@
+import spoolContentLoader from '../services/updates/spoolContentLoader';
 import spoolFileLoader from '../services/updates/spoolFileLoader';
 import store from '../store/store';
 import { spoolTerminated } from '../actions/actionCreators';
 
-let totalCurrentValue;
+let currentSpoolSessionFilesCount = 0;
+let currentSpoolSessionTextCount = 0;
 
 export default function CoursesSpoolSubscriber() {
-  const totalPreviousValue = totalCurrentValue;
+  const previousSpoolSessionFilesCount = currentSpoolSessionFilesCount;
+  const previousSpoolSessionTextCount = currentSpoolSessionTextCount;
+
   const spool = store.getState().content.spool;
-  totalCurrentValue = spool.total;
+  currentSpoolSessionTextCount = spool.sessionText.length;
+  currentSpoolSessionFilesCount = spool.sessionFiles.length;
 
-  //const currentSpool = spool.sessionText + spool.sessionFiles;
-  const currentSpool = spool.sessionFiles;
-
-  if (0 === currentSpool.length && totalCurrentValue > 0) {
+  if (
+    previousSpoolSessionFilesCount + previousSpoolSessionTextCount > 0 &&
+    currentSpoolSessionFilesCount + currentSpoolSessionTextCount === 0
+  ) {
     store.dispatch(spoolTerminated());
     return;
   }
 
-  if (totalCurrentValue !== totalPreviousValue && totalCurrentValue > 0) {
+  if (
+    currentSpoolSessionFilesCount !== previousSpoolSessionFilesCount &&
+    currentSpoolSessionFilesCount > 0
+  ) {
     spoolFileLoader.handle();
+  }
+
+  if (
+    currentSpoolSessionTextCount !== previousSpoolSessionTextCount &&
+    currentSpoolSessionTextCount > 0
+  ) {
+    spoolContentLoader.handle();
   }
 }
