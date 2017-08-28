@@ -10,7 +10,6 @@
 
 namespace Features\Behat\Services\Manager;
 
-use App\Domain\Model\Course;
 use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Size\Calculator;
@@ -89,21 +88,6 @@ class UserManager
     public function setApiToken(User $user, string $apiToken): User
     {
         $user->setApiToken($apiToken);
-
-        $this->userRepository->set($user);
-
-        return $user;
-    }
-
-    /**
-     * @param User   $user
-     * @param Course $course
-     *
-     * @return User
-     */
-    public function setCourse(User $user, Course $course): User
-    {
-        $user->setCourses([$course]);
 
         $this->userRepository->set($user);
 

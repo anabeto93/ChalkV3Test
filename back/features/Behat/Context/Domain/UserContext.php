@@ -81,6 +81,6 @@ class UserContext implements Context
             throw new \InvalidArgumentException('Course not found');
         }
 
-        $this->userProxy->getUserManager()->setCourse($user, $course);
+        $this->userProxy->getCourseManager()->addCourseToUser($user, $course);
     }
 }
