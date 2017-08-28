@@ -38,11 +38,10 @@ class LoginScreen extends Component {
         <div>
           <UserPanel />
           <RaisedButton
+            label={I18n.t('login.start', { locale })}
             style={{ margin: '10px' }}
             onClick={this.handleRedirectCourses}
-          >
-            {I18n.t('login.start', { locale })}
-          </RaisedButton>
+          />
         </div>
       );
     }
