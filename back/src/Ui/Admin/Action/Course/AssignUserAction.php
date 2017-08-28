@@ -78,7 +78,7 @@ class AssignUserAction
             $this->commandBus->handle($assign);
             $this->flashBag->add('success', 'flash.admin.course.assign_user.success');
 
-            return new RedirectResponse($this->router->generate('admin_course_list'));
+            return new RedirectResponse($this->router->generate(self::ROUTE_REDIRECT_AFTER_SUCCESS));
         }
 
         return $this->engine->renderResponse(self::TEMPLATE, [
