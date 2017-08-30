@@ -51,7 +51,7 @@ export default function receiveCourseInformationHandler(state, action) {
         };
 
         if (
-          isUpToDate(lastUpdatedAt, session.contentUpdatedAt) &&
+          !isUpToDate(lastUpdatedAt, session.contentUpdatedAt) &&
           !sessionText.includes(session.uuid)
         ) {
           sessionText.push(session.uuid);
@@ -60,7 +60,7 @@ export default function receiveCourseInformationHandler(state, action) {
         // Add file url to spool/sessionFiles
         session.files.forEach(file => {
           if (
-            isUpToDate(lastUpdatedAt, file.updatedAt) &&
+            !isUpToDate(lastUpdatedAt, file.updatedAt) &&
             !sessionFiles.includes(file.url)
           ) {
             sessionFiles.push(file.url);
