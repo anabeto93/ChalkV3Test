@@ -14,13 +14,13 @@ use GraphQL\Language\AST\Node;
 
 class DateTime
 {
-    const FORMAT = 'Y-m-d H:i';
+    const FORMAT = 'Y-m-d H:i:s';
 
     /**
      * @var string
      */
     public $description = 'The `DateTime` scalar type represents textual data, represented as UTF-8
-        character sequences. The DateTime type have the format 2017-01-15 10:00';
+        character sequences. The DateTime type have the format 2017-01-15 10:00:00';
 
     /**
      * @param \DateTimeInterface $value

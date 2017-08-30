@@ -103,11 +103,15 @@ export function reinitUpdates() {
   return { type: REINIT_UPDATES };
 }
 
-export function getUpdates() {
+export function getUpdates(updatedAt) {
   return function(dispatch) {
     dispatch(requestUpdates());
 
-    GraphqlClient.query({ query: HasUpdatesQuery, fetchPolicy: 'network-only' })
+    GraphqlClient.query({
+      query: HasUpdatesQuery,
+      fetchPolicy: 'network-only',
+      variables: { dateLastUpdate: updatedAt }
+    })
       .then(response => {
         dispatch(receiveUpdates(response.data.hasUpdates));
       })

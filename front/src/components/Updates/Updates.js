@@ -85,7 +85,7 @@ class Updates extends Component {
 
   handleRetryCheckUpdates = event => {
     event.preventDefault();
-    this.props.dispatch(getUpdates());
+    this.props.dispatch(getUpdates(this.props.content.updatedAt));
   };
 
   handleLoad = event => {
