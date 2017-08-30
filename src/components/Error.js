@@ -1,4 +1,4 @@
-import RaisedButton from 'material-ui/RaisedButton';
+import { Snackbar } from 'material-ui';
 import React, { Component } from 'react';
 
 class Error extends Component {
@@ -9,27 +9,20 @@ class Error extends Component {
     };
   }
 
-  toggleShow = () => {
+  handleDismiss = () => {
     this.setState({ ...this.state, show: !this.state.show });
   };
 
   render() {
-    const style = {
-      container: {
-        backgroundColor: '#eeeeee',
-        padding: '5px',
-        margin: '5px 0 5px 0',
-        textAlign: 'center'
-      }
-    };
-
     return (
-      <div style={style.container} className={!this.state.show ? 'hidden' : ''}>
-        <p>
-          {this.props.message}
-        </p>
-        <RaisedButton label="Dismiss" onClick={this.toggleShow} />
-      </div>
+      <Snackbar
+        open={this.state.show}
+        message={this.props.message}
+        action="Dismiss"
+        autoHideDuration={3000}
+        onRequestClose={this.handleDismiss}
+        onActionTouchTap={this.handleDismiss}
+      />
     );
   }
 }
