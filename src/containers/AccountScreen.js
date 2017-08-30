@@ -50,7 +50,7 @@ class AccountScreen extends Component {
   };
 
   handleUpdate = () => {
-    this.props.dispatch(getUpdates());
+    this.props.dispatch(getUpdates(this.props.updatedAt));
   };
 
   render() {
@@ -101,7 +101,8 @@ function mapStateToProps({ content, settings, updates }) {
     settings,
     hasUpdates: updates.hasUpdates,
     isFetchingContent: content.isFetching,
-    isFetchingUpdates: updates.isFetching
+    isFetchingUpdates: updates.isFetching,
+    updatedAt: content.updatedAt
   };
 }
 
