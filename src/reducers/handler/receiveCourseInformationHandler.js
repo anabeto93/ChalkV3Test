@@ -1,6 +1,7 @@
 import getConfig from '../../config/index';
 
 export default function receiveCourseInformationHandler(state, action) {
+  const previousSessions = state.sessions;
   const lastUpdatedAt = state.updatedAt;
   const items = action.payload.courses;
   const sessionText = state.spool.sessionText;
@@ -10,9 +11,6 @@ export default function receiveCourseInformationHandler(state, action) {
   const courses = {};
   const folders = {};
   const sessions = {};
-
-  // @todo: copy previous session content to new session content
-  // const previousCourses = state.courses;
 
   items.forEach(course => {
     courses[course.uuid] = {
@@ -37,8 +35,16 @@ export default function receiveCourseInformationHandler(state, action) {
       };
 
       folder.sessions.forEach((session, index) => {
+        // copy previous session content to new session content
+        const previousSession = previousSessions[session.uuid] || null;
+        const previousSessionContent =
+          null !== previousSession && previousSession.content
+            ? previousSession.content
+            : null;
+
         sessions[session.uuid] = {
           ...session,
+          content: previousSessionContent,
           courseUuid: course.uuid,
           folderUuid: folder.uuid,
           position: index
