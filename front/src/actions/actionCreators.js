@@ -32,8 +32,11 @@ export function requestCoursesInformations() {
   return { type: REQUEST_COURSES_INFORMATIONS };
 }
 
-export function receiveCoursesInformations(courses) {
-  return { type: RECEIVE_COURSES_INFORMATIONS, payload: { courses } };
+export function receiveCoursesInformations({ courses, currentDate }) {
+  return {
+    type: RECEIVE_COURSES_INFORMATIONS,
+    payload: { courses, currentDate }
+  };
 }
 
 export function failGetCoursesInformations(message) {
@@ -50,7 +53,12 @@ export function getCoursesInformations() {
 
     GraphqlClient.query({ query: CoursesQuery, fetchPolicy: 'network-only' })
       .then(response => {
-        dispatch(receiveCoursesInformations(response.data.courses));
+        dispatch(
+          receiveCoursesInformations({
+            courses: response.data.courses,
+            currentDate: response.data.currentDate
+          })
+        );
         dispatch(receiveUserInformations(response.data.user));
       })
       .catch(error => {

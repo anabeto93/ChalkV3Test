@@ -1,9 +1,9 @@
 import getConfig from '../../config/index';
 
 export default function receiveCourseInformationHandler(state, action) {
+  const { courses: items, currentDate } = action.payload;
   const previousSessions = state.sessions;
   const lastUpdatedAt = state.updatedAt;
-  const items = action.payload.courses;
   const sessionText = state.spool.sessionText;
   const sessionFiles = state.spool.sessionFiles;
   const defaultFolder = getConfig().defaultFolder;
@@ -72,8 +72,8 @@ export default function receiveCourseInformationHandler(state, action) {
 
   return {
     ...state,
-    // @todo: set new updateAt date provided by the backend
-    // updatedAt: newUpdatedAt
+    // set new updatedAt date provided by the backend
+    updatedAt: currentDate,
     isFetching: false,
     isErrorFetching: false,
     courses,
