@@ -38,7 +38,7 @@ export default {
           params.courseUuid
         );
         return course ? course.title : '';
-      case routes.SESSION_LIST:
+      case routes.SESSION_LIST: {
         const { courses, folders } = store.getState().content;
 
         course = CourseManager.getCourse(courses, params.courseUuid);
@@ -50,6 +50,18 @@ export default {
         }
 
         return course ? course.title : '';
+      }
+      case routes.SESSION_LIST_WITHOUT_FOLDER: {
+        const { courses } = store.getState().content;
+
+        course = CourseManager.getCourse(courses, params.courseUuid);
+
+        if (course !== undefined) {
+          return course ? course.title : '';
+        }
+
+        return APP_NAME;
+      }
       case routes.SESSION_DETAIL:
       case routes.SESSION_SEND:
         course = CourseManager.getCourse(
