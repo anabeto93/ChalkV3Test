@@ -1,13 +1,31 @@
 import { RaisedButton } from 'material-ui';
-import React from 'react';
-import { withRouter } from 'react-router-dom';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import React from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import CourseManager from '../services/CourseManager';
 
 const footer = props => {
-  const { courseUuid, sessionUuid, history } = props;
+  const { courseUuid, session, sessions, history } = props;
 
   const handleNext = () => {
-    history.push(`/courses/${courseUuid}/session/${sessionUuid}/send`);
+    if (session.needValidation) {
+      return history.push(
+        `/courses/${courseUuid}/session/${session.uuid}/send`
+      );
+    }
+
+    const nextSession = CourseManager.getNextSession(sessions, session);
+
+    if (nextSession !== null) {
+      return history.push(
+        `/courses/${nextSession.courseUuid}/session/${nextSession.uuid}`
+      );
+    }
+
+    return history.push(
+      `/courses/${session.courseUuid}/folders/${session.folderUuid}/sessions/list`
+    );
   };
 
   return (
@@ -18,10 +36,14 @@ const footer = props => {
         primary={true}
         className="button-primary"
         onClick={handleNext}
-        icon={<Arrow/>}
+        icon={<Arrow />}
       />
     </footer>
   );
 };
 
-export default withRouter(footer);
+function mapStateToProps(state) {
+  return { sessions: state.content.sessions };
+}
+
+export default connect(mapStateToProps)(withRouter(footer));
