@@ -14,7 +14,8 @@ const DEFAULT_STATE = {
   sendMode: null,
   submitEnabled: false,
   redirectToSessionList: false,
-  hasNextSession: false
+  hasNextSession: false,
+  hasSubmit: false
 };
 const SEND_MODE_INTERNET = 'internet';
 
@@ -30,10 +31,12 @@ class SendScreen extends Component {
       nextProps.session
     );
 
-    if (nextSession !== null) {
+    if (nextSession !== null && !nextProps.isFailValidating) {
       this.setState({ ...this.state, nextSession, hasNextSession: true });
-    } else {
+    } else if (!nextProps.isFailValidating) {
       this.setState({ ...this.state, redirectToSessionList: true });
+    } else {
+      this.setState({ ...this.state, hasSubmit: false });
     }
   }
 
@@ -56,6 +59,7 @@ class SendScreen extends Component {
   };
 
   handleFormSubmit = () => {
+    this.setState({ ...this.state, hasSubmit: true });
     const sessionUuid = this.props.match.params.sessionUuid;
 
     switch (this.state.sendMode) {
@@ -116,7 +120,7 @@ class SendScreen extends Component {
           <RadioButton value={SEND_MODE_INTERNET} label="Internet" />
         </RadioButtonGroup>
         <RaisedButton
-          disabled={!this.state.submitEnabled}
+          disabled={!this.state.submitEnabled || this.state.hasSubmit}
           label="Ok"
           className="button-primary"
           onClick={this.handleFormSubmit}
