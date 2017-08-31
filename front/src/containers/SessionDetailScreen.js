@@ -18,7 +18,7 @@ class SessionDetailScreen extends Component {
             {session.title}
           </h1>
           <div dangerouslySetInnerHTML={this.renderContent()} />
-          <SessionFooter courseUuid={courseUuid} sessionUuid={session.uuid} />
+          <SessionFooter courseUuid={courseUuid} session={session} />
         </div>
       );
     }
