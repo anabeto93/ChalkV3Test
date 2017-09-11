@@ -39,8 +39,8 @@ class UserChoiceType extends AbstractType
             'class'            => User::class,
             'choice_label'     => function (User $user) {
                 return sprintf('%s %s (%s)',
-                    $user->getFirstName(),
                     $user->getLastName(),
+                    $user->getFirstName(),
                     $user->getPhoneNumber()
                 );
             },

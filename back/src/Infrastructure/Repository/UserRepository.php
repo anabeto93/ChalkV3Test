@@ -77,7 +77,9 @@ class UserRepository implements UserRepositoryInterface
             ->entityManager
             ->createQueryBuilder()
             ->select('user')
-            ->from(User::class, 'user');
+            ->from(User::class, 'user')
+            ->orderBy('user.lastName', 'ASC')
+            ->addOrderBy('user.firstName', 'ASC');
 
         return $queryBuilder->getQuery()->getResult();
     }
