@@ -28,3 +28,8 @@ parameters:
     # Url
     scheme: http
     domain: api.chalkboardeducation.dev
+
+    # Infobip
+    infobip_username: 'username'
+    infobip_password: 'password'
+    infobip_phone_number: '123213123'

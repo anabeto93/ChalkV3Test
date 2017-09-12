@@ -12,3 +12,11 @@ services:
     App\Infrastructure\Adapter\FileStorage:
         autowire: true
     App\Application\Adapter\FileStorageInterface: '@App\Infrastructure\Adapter\FileStorage'
+
+
+    App\Infrastructure\Adapter\SMSSender:
+        autowire: true
+        arguments:
+            $infoBipUsername: '%infobip_username%'
+            $infoBipPassword: '%infobip_password%'
+    App\Application\Adapter\SMSSenderInterface: '@App\Infrastructure\Adapter\SMSSender'
