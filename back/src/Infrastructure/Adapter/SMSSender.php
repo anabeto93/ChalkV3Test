@@ -13,25 +13,20 @@ namespace App\Infrastructure\Adapter;
 use App\Application\Adapter\SMSSenderInterface;
 use App\Application\View\SMS\SMSView;
 use infobip\api\client\SendSingleTextualSms;
-use infobip\api\configuration\BasicAuthConfiguration;
+use infobip\api\configuration\ApiKeyAuthConfiguration;
 use infobip\api\model\sms\mt\send\textual\SMSTextualRequest;
 
 class SMSSender implements SMSSenderInterface
 {
     /** @var string */
-    private $infoBipUsername;
-
-    /** @var string */
-    private $infoBipPassword;
+    private $infoBipApiKey;
 
     /**
-     * @param string $infoBipUsername
-     * @param string $infoBipPassword
+     * @param string $infoBipApiKey
      */
-    public function __construct(string $infoBipUsername, string $infoBipPassword)
+    public function __construct(string $infoBipApiKey)
     {
-        $this->infoBipUsername = $infoBipUsername;
-        $this->infoBipPassword = $infoBipPassword;
+        $this->infoBipApiKey = $infoBipApiKey;
     }
 
     /**
@@ -39,7 +34,7 @@ class SMSSender implements SMSSenderInterface
      */
     public function send(SMSView $sms)
     {
-        $configuration = new BasicAuthConfiguration($this->infoBipUsername, $this->infoBipPassword);
+        $configuration = new ApiKeyAuthConfiguration($this->infoBipApiKey);
         $client        = new SendSingleTextualSms($configuration);
 
         $requestBody = new SMSTextualRequest();

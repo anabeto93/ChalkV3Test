@@ -30,6 +30,5 @@ parameters:
     domain: api.chalkboardeducation.dev
 
     # Infobip
-    infobip_username: 'username'
-    infobip_password: 'password'
     infobip_phone_number: '123213123'
+    infobip_api_key: 'publicApiKey'
