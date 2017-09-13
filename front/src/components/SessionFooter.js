@@ -3,7 +3,9 @@ import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { SESSION_DETAIL, SESSION_LIST, SESSION_SEND } from '../config/routes';
 import CourseManager from '../services/CourseManager';
+import generateUrl from '../services/generateUrl';
 
 const footer = props => {
   const { courseUuid, session, sessions, history } = props;
@@ -11,7 +13,10 @@ const footer = props => {
   const handleNext = () => {
     if (session.needValidation) {
       return history.push(
-        `/courses/${courseUuid}/session/${session.uuid}/send`
+        generateUrl(SESSION_SEND, {
+          ':courseUuid': courseUuid,
+          ':sessionUuid': session.uuid
+        })
       );
     }
 
@@ -19,12 +24,18 @@ const footer = props => {
 
     if (nextSession !== null) {
       return history.push(
-        `/courses/${nextSession.courseUuid}/session/${nextSession.uuid}`
+        generateUrl(SESSION_DETAIL, {
+          ':courseUuid': nextSession.courseUuid,
+          ':sessionUuid': nextSession.uuid
+        })
       );
     }
 
     return history.push(
-      `/courses/${session.courseUuid}/folders/${session.folderUuid}/sessions/list`
+      generateUrl(SESSION_LIST, {
+        ':courseUuid': session.courseUuid,
+        ':folderUuid': session.folderUuid
+      })
     );
   };
 

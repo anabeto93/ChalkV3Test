@@ -6,6 +6,8 @@ import { Link, Redirect } from 'react-router-dom';
 import getConfig from '../config/index';
 
 import courseManager from '../services/CourseManager';
+import generateUrl from '../services/generateUrl';
+import { SESSION_LIST, SESSION_LIST_WITHOUT_FOLDER } from '../config/routes';
 
 class FolderScreen extends Component {
   constructor(props) {
@@ -25,7 +27,11 @@ class FolderScreen extends Component {
       <div>
         {totalFolders > 0 &&
           firstFolder.uuid === getConfig().defaultFolder &&
-          <Redirect to={`/courses/${course.uuid}/sessions/list`} />}
+          <Redirect
+            to={generateUrl(SESSION_LIST_WITHOUT_FOLDER, {
+              ':courseUuid': course.uuid
+            })}
+          />}
 
         {totalFolders === 0 ? <p>No content available</p> : ''}
 
@@ -36,7 +42,10 @@ class FolderScreen extends Component {
               <Link
                 className="link-primary"
                 key={folder.uuid}
-                to={`/courses/${course.uuid}/folders/${folder.uuid}/sessions/list`}
+                to={generateUrl(SESSION_LIST, {
+                  ':courseUuid': course.uuid,
+                  ':folderUuid': folder.uuid
+                })}
               >
                 <ListItem primaryText={folder.title} rightIcon={<Arrow />} />
               </Link>
