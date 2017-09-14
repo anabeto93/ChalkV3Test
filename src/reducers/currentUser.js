@@ -52,7 +52,6 @@ export default function currentUser(
     }
 
     case FAIL_GET_USER_INFORMATIONS: {
-      console.log('token invalid');
       return {
         ...state,
         token: null,
