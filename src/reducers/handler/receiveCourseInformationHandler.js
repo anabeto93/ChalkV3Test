@@ -94,7 +94,7 @@ export default function receiveCourseInformationHandler(state, action) {
  */
 function isUpToDate(lastUpdatedAt, contentUpdatedAt) {
   return (
-    null === lastUpdatedAt ||
+    null !== lastUpdatedAt &&
     new Date(contentUpdatedAt) < new Date(lastUpdatedAt)
   );
 }
