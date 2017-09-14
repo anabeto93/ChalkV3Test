@@ -13,7 +13,6 @@ namespace App\Ui\Admin\Action\Session;
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\Session\Create;
 use App\Domain\Exception\Session\Import\ImageFileNotPresentException;
-use App\Domain\Exception\Session\Import\ImageWithoutSrcException;
 use App\Domain\Exception\Session\Import\IndexFileNotContainInZipException;
 use App\Domain\Model\Course;
 use App\Ui\Admin\Form\Type\Session\CreateType;
@@ -33,7 +32,6 @@ class CreateAction
     const ROUTE_REDIRECT_AFTER_SUCCESS = 'admin_session_list';
 
     const TRANS_VALIDATOR_INDEX_NOT_PRESENT = 'validator.session.import.indexNotPresent';
-    const TRANS_VALIDATOR_IMAGE_WITHOUT_SRC = 'validator.session.import.imageWithoutSrc';
     const TRANS_VALIDATOR_IMAGE_NOT_FOUND = 'validator.session.import.imageNotFound';
 
     /** @var EngineInterface */
@@ -103,10 +101,6 @@ class CreateAction
             } catch (IndexFileNotContainInZipException $exception) {
                 $form->get('content')->addError(new FormError(
                     $this->translator->trans(self::TRANS_VALIDATOR_INDEX_NOT_PRESENT, [], 'validators')
-                ));
-            } catch (ImageWithoutSrcException $exception) {
-                $form->get('content')->addError(new FormError(
-                    $this->translator->trans(self::TRANS_VALIDATOR_IMAGE_WITHOUT_SRC, [], 'validators')
                 ));
             } catch (ImageFileNotPresentException $exception) {
                 $form->get('content')->addError(new FormError(

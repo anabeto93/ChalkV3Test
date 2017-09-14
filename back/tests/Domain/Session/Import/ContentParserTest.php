@@ -10,7 +10,6 @@
 
 namespace Tests\Domain\Session\Import;
 
-use App\Domain\Exception\Session\Import\ImageWithoutSrcException;
 use App\Domain\Session\Import\ContentParsedView;
 use App\Domain\Session\Import\ContentParser;
 use App\Infrastructure\Service\UrlGenerator;
@@ -36,12 +35,18 @@ class ContentParserTest extends TestCase
         $expectedContent = '
     <h1>Hello world</h1>
     <div>
-        <img src="http://api.chalkboardedu.dev/image/location/test.jpg"></div>
+        <img src="http://api.chalkboardedu.dev/image/location/test.jpg" style="width:100%" />
+    </div>
     <p>Lorem ipsum</p>
-    <sidebar><img src="http://api.chalkboardedu.dev/image/location/sidebar.jpg"></sidebar><footer><h4>Good bye</h4>
+    <sidebar>
+        <img style="width:100%" src="http://api.chalkboardedu.dev/image/location/sidebar.jpg"/>
+    </sidebar>
+    <footer>
+        <h4>Good bye</h4>
         <div class="footer">
             <div class="footer-bis">
-                <img src="http://api.chalkboardedu.dev/image/location/footer.jpg"></div>
+                <img src="http://api.chalkboardedu.dev/image/location/footer.jpg"/>
+            </div>
         </div>
     </footer>
 ';
@@ -49,13 +54,5 @@ class ContentParserTest extends TestCase
         $expected = new ContentParsedView($expectedContent, ['test.jpg', 'sidebar.jpg', 'footer.jpg',]);
 
         $this->assertEquals($expected, $result);
-    }
-
-    public function testParseWithError()
-    {
-        $this->setExpectedException(ImageWithoutSrcException::class);
-
-        $contentParser = new ContentParser($this->urlGenerator->reveal());
-        $contentParser->parse(__DIR__ . '/indexWithError.html', '/image/location');
     }
 }
