@@ -1,18 +1,11 @@
-import _ from 'lodash';
 import { List, ListItem } from 'material-ui/List';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import generateUrl from '../../services/generateUrl';
+import { FOLDER_LIST } from '../../config/routes';
 
 export class CoursesList extends Component {
-  shouldComponentUpdate(nextProps) {
-    if (!this.props.courses) {
-      return true;
-    }
-
-    return !_.isEqual(this.props.courses, nextProps.courses);
-  }
-
   render() {
     const { courses } = this.props;
 
@@ -26,7 +19,7 @@ export class CoursesList extends Component {
               <Link
                 className="link-primary"
                 key={course.uuid}
-                to={`/courses/${course.uuid}/folders/list`}
+                to={generateUrl(FOLDER_LIST, { ':courseUuid': course.uuid })}
               >
                 <ListItem
                   primaryText={course.title}
