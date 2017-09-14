@@ -30,7 +30,11 @@ Feature: Validate session api
     And I add "Content-Type" header equal to "application/json"
     When I send a POST request to "/api/graphql/" with body:
       """
-      {"query": "mutation Validate($sessionUuid: String!) {\n  validateSessionMutation(uuid: $sessionUuid)\n}\n\n","variables":{"sessionUuid":"1231-123-123"},"operationName":"Validate"}
+      {
+        "query": "mutation Validate($sessionUuid: String!) {validateSessionMutation(uuid: $sessionUuid) }",
+        "variables": {"sessionUuid":"1231-123-123"},
+        "operationName": "Validate"
+      }
       """
     Then the response status code should be 200
     And the JSON should be equal to:

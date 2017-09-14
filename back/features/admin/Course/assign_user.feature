@@ -13,7 +13,7 @@ Feature: Assign Users to Course
     Then I should see "admin.course.column.students"
     And I go to "/admin/course/1/student"
     Then I should see "admin.course.assign_users.title"
-    And I should see "John Cenna (+000000000)"
+    And I should see "Cenna John (+000000000)"
     And I check "assign_user_users_0"
     And I press "assign_user_submit"
     Then I should be on "/admin/course"
