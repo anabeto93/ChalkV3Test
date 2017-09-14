@@ -1,6 +1,7 @@
 import { RaisedButton } from 'material-ui';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import I18n from 'i18n-js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -8,13 +9,15 @@ import { validateSession } from '../actions/actionCreators';
 import Error from '../components/Error';
 import CourseManager from '../services/CourseManager';
 import store from '../store/store';
-import I18n from 'i18n-js';
+import generateUrl from '../services/generateUrl';
+import { SESSION_DETAIL, SESSION_LIST } from '../config/routes';
 
 const DEFAULT_STATE = {
   sendMode: null,
   submitEnabled: false,
   redirectToSessionList: false,
-  hasNextSession: false
+  hasNextSession: false,
+  hasSubmit: false
 };
 const SEND_MODE_INTERNET = 'internet';
 
@@ -30,10 +33,12 @@ class SendScreen extends Component {
       nextProps.session
     );
 
-    if (nextSession !== null) {
+    if (nextSession !== null && !nextProps.isFailValidating) {
       this.setState({ ...this.state, nextSession, hasNextSession: true });
-    } else {
+    } else if (!nextProps.isFailValidating) {
       this.setState({ ...this.state, redirectToSessionList: true });
+    } else {
+      this.setState({ ...this.state, hasSubmit: false });
     }
   }
 
@@ -43,19 +48,24 @@ class SendScreen extends Component {
 
   handleRedirectNextSession = () => {
     return this.props.history.push(
-      `/courses/${this.state.nextSession.courseUuid}/session/${this.state
-        .nextSession.uuid}`
+      generateUrl(SESSION_DETAIL, {
+        ':courseUuid': this.state.nextSession.courseUuid,
+        ':sessionUuid': this.state.nextSession.uuid
+      })
     );
   };
 
   handleRedirectSessionList = () => {
     this.props.history.push(
-      `/courses/${this.state.nextSession.courseUuid}/folders/${this.state
-        .nextSession.folderUuid}/sessions/list`
+      generateUrl(SESSION_LIST, {
+        ':courseUuid': this.state.nextSession.courseUuid,
+        ':folderUuid': this.state.nextSession.folderUuid
+      })
     );
   };
 
   handleFormSubmit = () => {
+    this.setState({ ...this.state, hasSubmit: true });
     const sessionUuid = this.props.match.params.sessionUuid;
 
     switch (this.state.sendMode) {
@@ -98,7 +108,10 @@ class SendScreen extends Component {
     if (this.state.redirectToSessionList) {
       return (
         <Redirect
-          to={`/courses/${session.courseUuid}/folders/${session.folderUuid}/sessions/list`}
+          to={generateUrl(SESSION_LIST, {
+            ':courseUuid': session.courseUuid,
+            ':folderUuid': session.folderUuid
+          })}
         />
       );
     }
@@ -116,7 +129,7 @@ class SendScreen extends Component {
           <RadioButton value={SEND_MODE_INTERNET} label="Internet" />
         </RadioButtonGroup>
         <RaisedButton
-          disabled={!this.state.submitEnabled}
+          disabled={!this.state.submitEnabled || this.state.hasSubmit}
           label="Ok"
           className="button-primary"
           onClick={this.handleFormSubmit}

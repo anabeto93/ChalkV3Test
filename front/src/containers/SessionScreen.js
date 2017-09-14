@@ -6,13 +6,15 @@ import { Link } from 'react-router-dom';
 
 import courseManager from '../services/CourseManager';
 import getConfig from '../config/index';
+import generateUrl from '../services/generateUrl';
+import { SESSION_DETAIL } from '../config/routes';
 
 class SessionScreen extends Component {
   leftIcon = (index, validated = false) => {
-    let iconClass = "session-index";
+    let iconClass = 'session-index';
 
     if (validated) {
-      iconClass += " session-index-validated";
+      iconClass += ' session-index-validated';
     }
 
     return (
@@ -32,22 +34,25 @@ class SessionScreen extends Component {
 
         <List>
           {sessions !== undefined &&
-          Object.keys(sessions).map((key, index) => {
-            let session = sessions[key];
-            return (
-              <Link
-                key={session.uuid}
-                to={`/courses/${course.uuid}/session/${session.uuid}`}
-              >
-                <ListItem
-                  leftAvatar={this.leftIcon(index, session.validated)}
+            Object.keys(sessions).map((key, index) => {
+              let session = sessions[key];
+              return (
+                <Link
                   key={session.uuid}
-                  primaryText={session.title}
-                  rightIcon={<Arrow/>}
-                />
-              </Link>
-            );
-          })}
+                  to={generateUrl(SESSION_DETAIL, {
+                    ':courseUuid': course.uuid,
+                    ':sessionUuid': session.uuid
+                  })}
+                >
+                  <ListItem
+                    leftAvatar={this.leftIcon(index, session.validated)}
+                    key={session.uuid}
+                    primaryText={session.title}
+                    rightIcon={<Arrow />}
+                  />
+                </Link>
+              );
+            })}
         </List>
       </div>
     );
@@ -65,8 +70,7 @@ function mapStateToProps(state, props) {
     props.match.params.courseUuid
   );
 
-  const folderUuid =
-    props.match.params.folderUuid || getConfig().defaultFolder;
+  const folderUuid = props.match.params.folderUuid || getConfig().defaultFolder;
 
   if (course === undefined) return {};
 
