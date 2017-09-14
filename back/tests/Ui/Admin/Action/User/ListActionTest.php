@@ -41,6 +41,6 @@ class ListActionTest extends TestCase
         $action = new ListAction($engine->reveal(), $queryBus->reveal());
         $result = $action($request);
 
-        $this->assertEquals($response, $result);
+        $this->assertInstanceOf(Response::class, $result);
     }
 }

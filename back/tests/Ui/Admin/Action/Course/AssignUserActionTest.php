@@ -89,7 +89,7 @@ class AssignUserActionTest extends TestCase
         );
         $result = $assignAction($request, $course);
 
-        $this->assertEquals($response, $result);
+        $this->assertInstanceOf(Response::class, $result);
     }
 
     public function testInvokeHandle()
@@ -97,7 +97,6 @@ class AssignUserActionTest extends TestCase
         // Context
         $course = CourseFactory::create();
         $request = new Request();
-        $response = new RedirectResponse('/admin/course');
         $create = new AssignUser($course);
         $form = $this->prophesize(FormInterface::class);
         $form->createView()->shouldNotBeCalled();
@@ -126,6 +125,7 @@ class AssignUserActionTest extends TestCase
         );
         $result = $assignAction($request, $course);
 
-        $this->assertEquals($response, $result);
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertEquals('/admin/course', $result->getTargetUrl());
     }
 }

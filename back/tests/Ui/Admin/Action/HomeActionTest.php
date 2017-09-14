@@ -27,6 +27,6 @@ class HomeActionTest extends TestCase
         $action = new HomeAction($engine->reveal());
         $result = $action();
 
-        $this->assertEquals($response, $result);
+        $this->assertInstanceOf(Response::class, $result);
     }
 }

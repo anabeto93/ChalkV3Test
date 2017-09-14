@@ -97,7 +97,7 @@ class UpdateActionTest extends TestCase
         );
         $result = $updateAction($request, $user);
 
-        $this->assertEquals($response, $result);
+        $this->assertInstanceOf(Response::class, $result);
     }
 
     public function testInvokeHandleException()
@@ -146,7 +146,7 @@ class UpdateActionTest extends TestCase
         );
         $result = $updateAction($request, $user);
 
-        $this->assertEquals($response, $result);
+        $this->assertInstanceOf(Response::class, $result);
     }
 
     public function testInvokeHandle()
@@ -184,6 +184,7 @@ class UpdateActionTest extends TestCase
         );
         $result = $updateAction($request, $user);
 
-        $this->assertEquals($response, $result);
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertEquals('/admin/user', $result->getTargetUrl());
     }
 }
