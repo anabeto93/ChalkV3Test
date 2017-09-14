@@ -12,7 +12,6 @@ namespace App\Infrastructure\GraphQL\Resolver;
 
 use App\Domain\Course\HasUpdatesChecker;
 use App\Domain\Course\SessionUpdateView;
-use App\Domain\Repository\CourseRepositoryInterface;
 use GraphQL\Error\UserError;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

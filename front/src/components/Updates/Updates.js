@@ -2,6 +2,7 @@ import I18n from 'i18n-js';
 import LinearProgress from 'material-ui/LinearProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import React, { Component } from 'react';
+import Snackbar from 'material-ui/Snackbar';
 import { connect } from 'react-redux';
 
 import {
@@ -33,7 +34,6 @@ class Updates extends Component {
       0 === nextProps.content.spool.total
     ) {
       this.setState({ ...this.state, spoolCompleted: 0, isUpdated: true });
-      this.handleShortMessage('isUpdated');
       return;
     }
 
@@ -53,7 +53,6 @@ class Updates extends Component {
 
     if (isErrorWhileUpdating) {
       this.setState({ ...this.state, isErrorWhileUpdating: true });
-      this.handleShortMessage('isErrorWhileUpdating');
       return;
     }
 
@@ -62,28 +61,31 @@ class Updates extends Component {
 
     if (isAlreadyUpToDate) {
       this.setState({ ...this.state, isAlreadyUpToDate: true });
-      this.handleShortMessage('isAlreadyUpToDate');
       return;
     }
 
     this.setState({
       ...this.state,
+      isUpdated: false,
       isAlreadyUpToDate: false,
       isErrorWhileCheckingUpdates: false,
       isErrorWhileUpdating: false
     });
   }
 
-  handleShortMessage(stateName) {
-    setTimeout(
-      () => this.setState({ ...this.state, [stateName]: false }),
-      MESSAGE_DELAY_IN_SECONDS * 1000
-    );
-  }
+  handleRequestClose = () => {
+    this.setState({
+      ...this.state,
+      isUpdated: false,
+      isAlreadyUpToDate: false,
+      isErrorWhileCheckingUpdates: false,
+      isErrorWhileUpdating: false
+    });
+  };
 
   handleRetryCheckUpdates = event => {
     event.preventDefault();
-    this.props.dispatch(getUpdates());
+    this.props.dispatch(getUpdates(this.props.content.updatedAt));
   };
 
   handleLoad = event => {
@@ -108,16 +110,6 @@ class Updates extends Component {
       }
     };
 
-    if (this.state.isUpdated) {
-      return (
-        <div style={style.container}>
-          <p>
-            {I18n.t('update.updateSuccess', { locale })}
-          </p>
-        </div>
-      );
-    }
-
     if (!network.isOnline) {
       return (
         <div style={style.container}>
@@ -134,19 +126,9 @@ class Updates extends Component {
           <LinearProgress mode="determinate" value={percentSpoolCompleted} />
           <div style={style.container}>
             <p>
-              {I18n.t('stayOnline', { locale })}
+              {I18n.t('update.stayOnline', { locale })}
             </p>
           </div>
-        </div>
-      );
-    }
-
-    if (this.state.isErrorWhileUpdating) {
-      return (
-        <div style={style.container}>
-          <p>
-            {I18n.t('errorWhileUpdating', { locale })}
-          </p>
         </div>
       );
     }
@@ -205,15 +187,26 @@ class Updates extends Component {
       );
     }
 
-    if (this.state.alreadyUpToDate) {
-      return (
-        <div style={style.container}>
-          {I18n.t('update.upToDate', { locale })}
-        </div>
-      );
-    }
-
-    return null;
+    return (
+      <div>
+        <Snackbar
+          open={this.state.isAlreadyUpToDate}
+          message={I18n.t('update.upToDate', { locale })}
+          autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
+        />
+        <Snackbar
+          open={this.state.isUpdated}
+          message={I18n.t('update.updateSuccess', { locale })}
+          autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
+        />
+        <Snackbar
+          open={this.state.isErrorWhileUpdating}
+          message={I18n.t('errorWhileUpdating', { locale })}
+          autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
+          onRequestClose={this.handleRequestClose}
+        />
+      </div>
+    );
   }
 }
 

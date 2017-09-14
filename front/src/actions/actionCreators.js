@@ -1,7 +1,8 @@
 import CoursesQuery from '../graphql/query/CoursesQuery';
 import GraphqlClient from '../graphql/client/GraphqlClient';
 import HasUpdatesQuery from '../graphql/query/HasUpdatesQuery';
-import validateSessionMutation from "../graphql/query/mutations/validateSessionMutation";
+import SessionContentQuery from '../graphql/query/SessionContentQuery';
+import validateSessionMutation from '../graphql/query/mutations/validateSessionMutation';
 
 // NETWORK STATUS
 export const SET_NETWORK_STATUS = '@@CHALKBOARDEDUCATION/SET_NETWORK_STATUS';
@@ -31,8 +32,11 @@ export function requestCoursesInformations() {
   return { type: REQUEST_COURSES_INFORMATIONS };
 }
 
-export function receiveCoursesInformations(courses) {
-  return { type: RECEIVE_COURSES_INFORMATIONS, payload: { courses } };
+export function receiveCoursesInformations({ courses, currentDate }) {
+  return {
+    type: RECEIVE_COURSES_INFORMATIONS,
+    payload: { courses, currentDate }
+  };
 }
 
 export function failGetCoursesInformations(message) {
@@ -44,16 +48,23 @@ export function receiveUserInformations(user) {
 }
 
 export function getCoursesInformations() {
-  return function (dispatch) {
+  return function(dispatch) {
     dispatch(requestCoursesInformations());
 
     GraphqlClient.query({ query: CoursesQuery, fetchPolicy: 'network-only' })
       .then(response => {
-        dispatch(receiveCoursesInformations(response.data.courses));
+        dispatch(
+          receiveCoursesInformations({
+            courses: response.data.courses,
+            currentDate: response.data.currentDate
+          })
+        );
         dispatch(receiveUserInformations(response.data.user));
       })
       .catch(error => {
-        dispatch(failGetCoursesInformations('Bad response from server'));
+        dispatch(
+          failGetCoursesInformations(`Bad response from server: ${error}`)
+        );
       });
   };
 }
@@ -92,16 +103,20 @@ export function reinitUpdates() {
   return { type: REINIT_UPDATES };
 }
 
-export function getUpdates() {
-  return function (dispatch) {
+export function getUpdates(updatedAt) {
+  return function(dispatch) {
     dispatch(requestUpdates());
 
-    GraphqlClient.query({ query: HasUpdatesQuery, fetchPolicy: 'network-only' })
+    GraphqlClient.query({
+      query: HasUpdatesQuery,
+      fetchPolicy: 'network-only',
+      variables: { dateLastUpdate: updatedAt }
+    })
       .then(response => {
         dispatch(receiveUpdates(response.data.hasUpdates));
       })
       .catch(error => {
-        dispatch(failGetUpdates('Bad response from server'));
+        dispatch(failGetUpdates(`Bad response from server: ${error}`));
       });
   };
 }
@@ -112,7 +127,8 @@ export const REQUEST_VALIDATE_SESSION_INTERNET =
   '@@CHALKBOARDEDUCATION/REQUEST_VALIDATE_SESSION_INTERNET';
 export const RECEIVE_VALIDATE_SESSION_INTERNET =
   '@@CHALKBOARDEDUCATION/RECEIVE_VALIDATE_SESSION_INTERNET';
-export const FAIL_VALIDATE_SESSION_INTERNET = '@@CHALKBOARDEDUCATION/FAIL_VALIDATE_SESSION_INTERNET';
+export const FAIL_VALIDATE_SESSION_INTERNET =
+  '@@CHALKBOARDEDUCATION/FAIL_VALIDATE_SESSION_INTERNET';
 
 export function requestValidateSessionInternet(sessionUuid) {
   return { type: REQUEST_VALIDATE_SESSION_INTERNET, payload: { sessionUuid } };
@@ -133,15 +149,18 @@ export function validateSession(sessionUuid) {
   return dispatch => {
     dispatch(requestValidateSessionInternet(sessionUuid));
 
-    GraphqlClient.mutate({ mutation: validateSessionMutation, variables: { sessionUuid } })
-      .then((data) => {
+    GraphqlClient.mutate({
+      mutation: validateSessionMutation,
+      variables: { sessionUuid }
+    })
+      .then(data => {
         dispatch(
-          receiveValidateSessionInternet({ sessionUuid, response: data})
+          receiveValidateSessionInternet({ sessionUuid, response: data })
         );
       })
       .catch(() => {
         dispatch(failValidateSessionInternet());
-      })
+      });
   };
 }
 
@@ -151,4 +170,50 @@ export const SETTINGS_SET_LOCALE = '@@CHALKBOARDEDUCATION/SETTINGS/SET_LOCALE';
 
 export function setLocale(locale) {
   return { type: SETTINGS_SET_LOCALE, payload: { locale } };
+}
+
+// SESSION CONTENT
+export const REQUEST_SESSION_CONTENT =
+  '@@CHALKBOARDEDUCATION/REQUEST_SESSION_CONTENT';
+
+export const RECEIVE_SESSION_CONTENT =
+  '@@CHALKBOARDEDUCATION/RECEIVE_SESSION_CONTENT';
+
+export const FAIL_GET_SESSION_CONTENT =
+  '@@CHALKBOARDEDUCATION/FAIL_GET_SESSION_CONTENT';
+
+export function requestSessionContent() {
+  return { type: REQUEST_SESSION_CONTENT };
+}
+
+export function receiveSessionContent(sessionContent) {
+  return { type: RECEIVE_SESSION_CONTENT, payload: { sessionContent } };
+}
+
+export function failGetSessionContent(message) {
+  return { type: FAIL_GET_SESSION_CONTENT, payload: { message } };
+}
+
+export function getSessionContent(sessionUuid) {
+  return function(dispatch) {
+    dispatch(requestSessionContent());
+
+    GraphqlClient.query({
+      query: SessionContentQuery,
+      fetchPolicy: 'network-only',
+      variables: { uuid: sessionUuid }
+    })
+      .then(response => {
+        dispatch(
+          receiveSessionContent({
+            uuid: sessionUuid,
+            content: response.data.session.content,
+            contentUpdatedAt: response.data.session.contentUpdatedAt
+          })
+        );
+      })
+      .catch(error => {
+        dispatch(failGetSessionContent(`Bad response from server: ${error}`));
+      });
+  };
 }

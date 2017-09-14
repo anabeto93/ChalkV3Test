@@ -1,9 +1,12 @@
 import {
-  FAIL_GET_COURSES_INFORMATIONS, FAIL_VALIDATE_SESSION_INTERNET,
+  FAIL_GET_COURSES_INFORMATIONS,
+  FAIL_VALIDATE_SESSION_INTERNET,
   FILE_LOADED,
   RECEIVE_COURSES_INFORMATIONS,
+  RECEIVE_SESSION_CONTENT,
   RECEIVE_VALIDATE_SESSION_INTERNET,
-  REQUEST_COURSES_INFORMATIONS, REQUEST_VALIDATE_SESSION_INTERNET,
+  REQUEST_COURSES_INFORMATIONS,
+  REQUEST_VALIDATE_SESSION_INTERNET,
   SPOOL_TERMINATED
 } from '../actions/actionCreators';
 import receiveCourseInformationHandler from './handler/receiveCourseInformationHandler';
@@ -36,6 +39,37 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
         spool: {
           ...state.spool,
           sessionFiles
+        }
+      };
+    }
+
+    case RECEIVE_SESSION_CONTENT: {
+      const {
+        uuid: sessionUuid,
+        contentUpdatedAt: sessionContentUpdatedAt,
+        content: sessionContent
+      } = action.payload.sessionContent;
+
+      // Set loaded session content
+      const loadedSession = {
+        ...state.sessions[sessionUuid],
+        content: sessionContent,
+        contentUpdatedAt: sessionContentUpdatedAt
+      };
+      const currentSessions = { ...state.sessions };
+      currentSessions[sessionUuid] = loadedSession;
+
+      // Recreate sessionText spool without loaded session
+      const sessionText = state.spool.sessionText.filter(
+        uuid => uuid !== sessionUuid
+      );
+
+      return {
+        ...state,
+        sessions: currentSessions,
+        spool: {
+          ...state.spool,
+          sessionText
         }
       };
     }

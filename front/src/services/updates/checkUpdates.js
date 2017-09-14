@@ -7,6 +7,8 @@ import store from '../../store/store';
 
 export default function checkUpdates() {
   const { isFetching, dateLastCheck } = store.getState().updates;
+  const { updatedAt } = store.getState().content;
+
   const isLogged =
     store.getState().currentUser.loginState === LOGIN_STATE_LOGGED_IN;
 
@@ -29,6 +31,6 @@ export default function checkUpdates() {
   }
 
   if (!isFetching && isOutOfDate) {
-    store.dispatch(getUpdates());
+    store.dispatch(getUpdates(updatedAt));
   }
 }
