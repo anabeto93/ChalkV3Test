@@ -90,6 +90,9 @@ app_patterns:
       template: configs/app.{{ env }}.j2
       config:
         - date.timezone: UTC
+        - upload_max_filesize: 32M
+        - post_max_size: 32M
+        - max_input_vars: 10000
 
   #########
   # Nginx #
@@ -126,7 +129,7 @@ app_patterns:
             - try_files: $uri /app.php$is_args$args
           - location ~ ^/(app(_[-\w]+)?)\.php(/|$):
             - include: conf.d/app_php_fpm
-            #- internal;
+          - client_max_body_size: 32M
 
   ########
   # Cron #
