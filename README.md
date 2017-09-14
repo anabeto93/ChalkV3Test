@@ -82,4 +82,4 @@ Run ngrok on this port:
 
     $ ngrok http 8000
 
-It will give you the nrgok subdomain for the front.
+It will give you the ngrok subdomain for the front.
