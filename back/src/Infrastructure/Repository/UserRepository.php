@@ -61,7 +61,9 @@ class UserRepository implements UserRepositoryInterface
             ->entityManager
             ->createQueryBuilder()
             ->select('user')
-            ->from(User::class, 'user', 'user.id');
+            ->from(User::class, 'user', 'user.id')
+            ->orderBy('user.lastName', 'ASC')
+            ->addOrderBy('user.firstName', 'ASC');
 
         return $this->paginator->paginate($queryBuilder, $page, $limit, 'user', 'id');
     }
@@ -75,7 +77,9 @@ class UserRepository implements UserRepositoryInterface
             ->entityManager
             ->createQueryBuilder()
             ->select('user')
-            ->from(User::class, 'user');
+            ->from(User::class, 'user')
+            ->orderBy('user.lastName', 'ASC')
+            ->addOrderBy('user.firstName', 'ASC');
 
         return $queryBuilder->getQuery()->getResult();
     }
