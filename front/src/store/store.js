@@ -1,5 +1,5 @@
 import { applyMiddleware, compose, createStore } from 'redux';
-import { autoRehydrate, persistStore } from 'redux-persist';
+import { autoRehydrate } from 'redux-persist';
 import thunkMiddleware from 'redux-thunk';
 
 import appReducer from '../reducers';
@@ -23,9 +23,6 @@ const store = createStore(
 // Init subscribers
 store.subscribe(coursesIsFetchingSubscriber);
 store.subscribe(coursesSpoolSubscriber);
-
-// Init Redux persist
-persistStore(store);
 
 // networkInterface need the store
 networkInterface.use([
