@@ -40,7 +40,7 @@ export function getUserInformations(token) {
 
     GraphqlClient.query({ query: UserQuery, fetchPolicy: 'network-only' })
       .then(response => {
-        dispatch(receiveUserInformations({ user: response.data.user }));
+        dispatch(receiveUserInformations(response.data.user));
         dispatch(getUpdates(null));
       })
       .catch(error => {
@@ -89,9 +89,7 @@ export function getCoursesInformations() {
         dispatch(receiveUserInformations(response.data.user));
       })
       .catch(error => {
-        dispatch(
-          failGetCoursesInformations(`Bad response from server: ${error}`)
-        );
+        dispatch(failGetCoursesInformations(error));
       });
   };
 }

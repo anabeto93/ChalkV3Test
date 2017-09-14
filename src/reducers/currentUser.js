@@ -38,7 +38,8 @@ export default function currentUser(
         country,
         phoneNumber,
         locale
-      } = action.payload.user;
+      } = action.payload;
+
       return {
         ...state,
         uuid,
