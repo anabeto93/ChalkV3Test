@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import courseManager from '../services/CourseManager';
-import getConfig from '../config/index';
 import generateUrl from '../services/generateUrl';
 import { SESSION_DETAIL } from '../config/routes';
+import getConfig from '../config/index';
 
 class SessionScreen extends Component {
   leftIcon = (index, validated = false) => {
@@ -45,7 +45,7 @@ class SessionScreen extends Component {
                   })}
                 >
                   <ListItem
-                    leftAvatar={this.leftIcon(index, session.validated)}
+                    leftAvatar={this.leftIcon(index + 1, session.validated)}
                     key={session.uuid}
                     primaryText={session.title}
                     rightIcon={<Arrow />}
@@ -70,9 +70,14 @@ function mapStateToProps(state, props) {
     props.match.params.courseUuid
   );
 
-  const folderUuid = props.match.params.folderUuid || getConfig().defaultFolder;
+  let folderUuid = props.match.params.folderUuid;
 
   if (course === undefined) return {};
+
+  if (undefined === folderUuid) {
+    const defaultFolder = getConfig().defaultFolder;
+    folderUuid = `${course.uuid}_${defaultFolder}`;
+  }
 
   const sessions = courseManager.getSessionsFromFolder(
     state.content.sessions,
