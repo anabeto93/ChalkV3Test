@@ -89,7 +89,7 @@ class CreateActionTest extends TestCase
         );
         $result = $createAction($request, $course->reveal());
 
-        $this->assertEquals($response, $result);
+        $this->assertInstanceOf(Response::class, $result);
     }
 
 
@@ -132,6 +132,7 @@ class CreateActionTest extends TestCase
         );
         $result = $createAction($request, $course->reveal());
 
-        $this->assertEquals($response, $result);
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertEquals('/admin/course/uuid-course/folder', $result->getTargetUrl());
     }
 }

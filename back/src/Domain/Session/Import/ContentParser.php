@@ -10,17 +10,12 @@
 
 namespace App\Domain\Session\Import;
 
-use App\Domain\Exception\Session\Import\ImageWithoutSrcException;
 use App\Infrastructure\Service\UrlGenerator;
-use DOMDocument;
 
 class ContentParser
 {
     /** @var UrlGenerator */
     private $urlGenerator;
-
-    /** @var array */
-    private $imagesFound = [];
 
     /**
      * @param UrlGenerator $urlGenerator
@@ -38,59 +33,60 @@ class ContentParser
      */
     public function parse(string $pathOfFileToParse, string $imageLocationPath): ContentParsedView
     {
-        libxml_use_internal_errors(true);
+        $content = $this->extractContent(file_get_contents($pathOfFileToParse));
+        $imageViews = $this->extractImages($content);
 
-        $document = new DOMDocument();
-        $result = new DOMDocument();
+        $imagesFound = [];
 
-        $document->loadHTML(file_get_contents($pathOfFileToParse));
-        $body = $document->getElementsByTagName('body')->item(0);
-
-        foreach ($body->childNodes as $child){
-            $this->exploreNode($child, $imageLocationPath);
-            $result->appendChild($result->importNode($child, true));
+        foreach ($imageViews as $imageView) {
+            $imagesFound[] = $imageView->src;
+            $content = $this->setAbsoluteUrlToImage($content, $imageView, $imageLocationPath);
         }
 
-        $content = $result->saveHTML();
-        libxml_use_internal_errors(false);
-
-        return new ContentParsedView($content, $this->imagesFound);
+        return new ContentParsedView($content, $imagesFound);
     }
 
     /**
-     * @param \DOMNode $node
-     * @param string   $imageLocationPath
+     * @param string    $content
+     * @param ImageView $imageView
+     * @param string    $imageLocationPath
+     *
+     * @return string
      */
-    private function exploreNode(\DOMNode $node, string $imageLocationPath)
+    private function setAbsoluteUrlToImage(string $content, ImageView $imageView, string $imageLocationPath): string
     {
-        if ($node->hasChildNodes()) {
-            foreach ($node->childNodes as $child){
-                $this->exploreNode($child, $imageLocationPath);
-            }
-        } else {
-            if ($node->nodeName === 'img') {
-                $this->treatImage($node, $imageLocationPath);
-            }
-        }
+        $newSrc = sprintf('%s%s/%s', $this->urlGenerator->getBaseUrl(), $imageLocationPath, $imageView->src);
+        $newTag = str_replace($imageView->src, $newSrc, $imageView->tag);
+
+        return str_replace($imageView->tag, $newTag, $content);
     }
 
     /**
-     * @param \DOMNode $imageNode
-     * @param string   $imageLocationPath
+     * @param string $html
+     *
+     * @return string
      */
-    private function treatImage(\DOMNode $imageNode, string $imageLocationPath)
+    private function extractContent(string $html): string
     {
-        $src = $imageNode->getAttribute('src');
+        preg_match("/<body[^>]*>(.*?)<\/body>/is", $html, $matches);
 
-        if (!empty($src)) {
-            $this->imagesFound[] = $src;
+        return $matches[1];
+    }
 
-            $imageNode->setAttribute(
-                'src',
-                sprintf('%s%s/%s', $this->urlGenerator->getBaseUrl(), $imageLocationPath, $src)
-            );
-        } else {
-            throw new ImageWithoutSrcException();
+    /**
+     * @param string $html
+     *
+     * @return ImageView[]
+     */
+    private function extractImages(string $html): array
+    {
+        $imageViews = [];
+        preg_match_all('/<img[^>]*src="([^"]*)/i', $html, $matches);
+
+        foreach ($matches[1] as $key => $src) {
+            $imageViews[$src] = new ImageView($matches[0][$key], $src);
         }
+
+        return $imageViews;
     }
 }

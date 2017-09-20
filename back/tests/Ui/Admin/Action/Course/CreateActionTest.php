@@ -87,7 +87,7 @@ class CreateActionTest extends TestCase
         );
         $result = $createAction($request);
 
-        $this->assertEquals($response, $result);
+        $this->assertInstanceOf(Response::class, $result);
     }
 
     public function testInvokeHandle()
@@ -123,6 +123,7 @@ class CreateActionTest extends TestCase
         );
         $result = $createAction($request);
 
-        $this->assertEquals($response, $result);
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertEquals('/admin/course', $result->getTargetUrl());
     }
 }

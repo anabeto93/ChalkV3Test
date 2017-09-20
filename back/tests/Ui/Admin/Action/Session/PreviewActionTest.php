@@ -41,6 +41,6 @@ class PreviewActionTest extends TestCase
         $action = new PreviewAction($engine->reveal());
         $result = $action($course->reveal(), $session->reveal());
 
-        $this->assertEquals($response, $result);
+        $this->assertInstanceOf(Response::class, $result);
     }
 }

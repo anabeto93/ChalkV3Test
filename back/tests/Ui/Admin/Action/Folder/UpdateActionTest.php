@@ -91,7 +91,7 @@ class UpdateActionTest extends TestCase
         );
         $result = $updateAction($request, $course->reveal(), $folder);
 
-        $this->assertEquals($response, $result);
+        $this->assertInstanceOf(Response::class, $result);
     }
 
 
@@ -135,6 +135,7 @@ class UpdateActionTest extends TestCase
         );
         $result = $updateAction($request, $course->reveal(), $folder);
 
-        $this->assertEquals($response, $result);
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertEquals('/admin/course/uuid-course/folder', $result->getTargetUrl());
     }
 }
