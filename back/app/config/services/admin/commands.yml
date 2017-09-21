@@ -19,6 +19,11 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\User\Create }
 
+    App\Application\Command\User\UnForceUpdateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\UnForceUpdate }
+
     App\Application\Command\User\UpdateHandler:
         autowire: true
         tags:
