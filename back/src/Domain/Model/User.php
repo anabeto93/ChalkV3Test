@@ -50,6 +50,9 @@ class User
     /** @var string */
     private $locale;
 
+    /** @var bool */
+    private $forceUpdate;
+
     /**
      * @param string             $uuid
      * @param string             $firstName
@@ -81,8 +84,10 @@ class User
         $this->updatedAt = $createdAt;
         $this->size = $size;
         $this->apiToken = $apiToken;
-        $this->courses = new ArrayCollection();
         $this->locale = $locale;
+
+        $this->courses = new ArrayCollection();
+        $this->forceUpdate = false;
     }
 
     /**
@@ -248,5 +253,23 @@ class User
         }
 
         return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isForceUpdate(): bool
+    {
+        return $this->forceUpdate;
+    }
+
+    public function forceUpdate()
+    {
+        $this->forceUpdate = true;
+    }
+
+    public function unForceUpdate()
+    {
+        $this->forceUpdate = false;
     }
 }

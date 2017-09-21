@@ -31,6 +31,8 @@ App\Domain\Model\User:
             type: datetime
         apiToken:
             type: string
+        forceUpdate:
+            type: boolean
     manyToMany:
         courses:
             targetEntity: App\Domain\Model\Course

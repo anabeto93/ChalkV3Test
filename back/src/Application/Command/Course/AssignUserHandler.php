@@ -30,7 +30,12 @@ class AssignUserHandler
      */
     public function handle(AssignUser $assign)
     {
-        $assign->course->affectUser($assign->users);
+        $updatedUsersAssignation = $assign->course->affectUsers($assign->users);
+
+        foreach ($updatedUsersAssignation as $user) {
+            $user->forceUpdate();
+        }
+
         $this->courseRepository->set($assign->course);
     }
 }

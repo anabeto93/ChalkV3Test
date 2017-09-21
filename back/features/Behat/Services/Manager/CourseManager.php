@@ -82,7 +82,7 @@ class CourseManager
     {
         $usersAssigned = $course->getUsers();
         $usersAssigned[] = $user;
-        $course->affectUser($usersAssigned);
+        $course->affectUsers($usersAssigned);
 
         $this->courseRepository->set($course);
     }

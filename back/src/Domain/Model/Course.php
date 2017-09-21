@@ -209,20 +209,36 @@ class Course
 
     /**
      * @param User[] $users
+     *
+     * @return User[]
      */
-    public function affectUser(array $users)
+    public function affectUsers(array $users)
     {
+        $updatedUsersAssignation = [];
+
         foreach ($this->getUsers() as $assignedUser) {
             if (!in_array($assignedUser, $users)) {
                 $this->unAssignUser($assignedUser);
+                $updatedUsersAssignation[] = $assignedUser;
             }
         }
 
         foreach ($users as $user) {
             if (!$this->users->contains($user)) {
-                $this->users->add($user);
+                $this->assignUser($user);
+                $updatedUsersAssignation[] = $user;
             }
         }
+
+        return $updatedUsersAssignation;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function assignUser(User $user)
+    {
+        $this->users->add($user);
     }
 
     /**
