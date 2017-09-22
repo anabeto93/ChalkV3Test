@@ -33,9 +33,7 @@ App\Domain\Model\User:
             type: string
         forceUpdate:
             type: boolean
-    manyToMany:
-        courses:
-            targetEntity: App\Domain\Model\Course
-            mappedBy: users
-            joinTable:
-                name: user_course
+    oneToMany:
+        userCourses:
+            targetEntity: App\Domain\Model\UserCourse
+            mappedBy: user

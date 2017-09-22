@@ -44,8 +44,8 @@ class Course
     /** @var ArrayCollection of Session */
     private $sessions;
 
-    /** @var ArrayCollection of User */
-    private $users;
+    /** @var ArrayCollection of UserCourse */
+    private $userCourses;
 
     /** @var \DateTimeInterface */
     private $updatedAt;
@@ -81,10 +81,11 @@ class Course
         $this->description = $description;
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
+        $this->size = $size;
+
         $this->sessions = new ArrayCollection();
         $this->folders = new ArrayCollection();
-        $this->users = new ArrayCollection();
-        $this->size = $size;
+        $this->userCourses = new ArrayCollection();
     }
 
     /**
@@ -164,7 +165,12 @@ class Course
      */
     public function getUsers(): array
     {
-        return $this->users->toArray();
+        return array_map(
+            function (UserCourse $userCourse) {
+                return $userCourse->getUser();
+            },
+            $this->userCourses->toArray()
+        );
     }
 
     /**

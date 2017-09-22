@@ -45,7 +45,7 @@ class User
     private $size;
 
     /** @var ArrayCollection */
-    private $courses;
+    private $userCourses;
 
     /** @var string */
     private $locale;
@@ -86,7 +86,7 @@ class User
         $this->apiToken = $apiToken;
         $this->locale = $locale;
 
-        $this->courses = new ArrayCollection();
+        $this->userCourses = new ArrayCollection();
         $this->forceUpdate = false;
     }
 
@@ -191,7 +191,12 @@ class User
      */
     public function getCourses(): array
     {
-        return $this->courses->toArray();
+        return array_map(
+            function (UserCourse $userCourse) {
+                return $userCourse->getCourse();
+            },
+            $this->userCourses->toArray()
+        );
     }
 
     /**
