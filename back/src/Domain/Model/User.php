@@ -204,17 +204,12 @@ class User
      */
     public function getEnabledCourses(): array
     {
-        return $this->courses->filter(function (Course $course) {
-            return $course->isEnabled();
-        })->toArray();
-    }
-
-    /**
-     * @param array $courses
-     */
-    public function setCourses(array $courses)
-    {
-        $this->courses = new ArrayCollection($courses);
+        return array_filter(
+            $this->getCourses(),
+            function (Course $course) {
+                return $course->isEnabled();
+            }
+        );
     }
 
     /**

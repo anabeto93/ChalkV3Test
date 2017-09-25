@@ -174,6 +174,50 @@ class Course
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getUserCourses(): ArrayCollection
+    {
+        return $this->userCourses;
+    }
+
+    public function addUserCourse(UserCourse $userCourse)
+    {
+        $this->userCourses->add($userCourse);
+    }
+
+    /**
+     * @param User   $user
+     * @param Course $course
+     *
+     * @return null|UserCourse
+     */
+    public function getUserCourse(User $user, Course $course): ?UserCourse
+    {
+        /** @var UserCourse $userCourse */
+        foreach ($this->userCourses as $userCourse) {
+            if ($user === $userCourse->getUser() && $course === $userCourse->getCourse()) {
+                return $userCourse;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param User   $user
+     * @param Course $course
+     */
+    public function removeUserCourse(User $user, Course $course)
+    {
+        $userCourse = $this->getUserCourse($user, $course);
+
+        if (null !== $userCourse) {
+            $this->userCourses->removeElement($userCourse);
+        }
+    }
+
+    /**
      * @param Session[] $sessions
      */
     public function setSessions(array $sessions)
@@ -211,48 +255,6 @@ class Course
     public function getSize(): int
     {
         return $this->size;
-    }
-
-    /**
-     * @param User[] $users
-     *
-     * @return User[]
-     */
-    public function affectUsers(array $users)
-    {
-        $updatedUsersAssignation = [];
-
-        foreach ($this->getUsers() as $assignedUser) {
-            if (!in_array($assignedUser, $users)) {
-                $this->unAssignUser($assignedUser);
-                $updatedUsersAssignation[] = $assignedUser;
-            }
-        }
-
-        foreach ($users as $user) {
-            if (!$this->users->contains($user)) {
-                $this->assignUser($user);
-                $updatedUsersAssignation[] = $user;
-            }
-        }
-
-        return $updatedUsersAssignation;
-    }
-
-    /**
-     * @param User $user
-     */
-    public function assignUser(User $user)
-    {
-        $this->users->add($user);
-    }
-
-    /**
-     * @param User $user
-     */
-    public function unAssignUser(User $user)
-    {
-        $this->users->removeElement($user);
     }
 
     /**
