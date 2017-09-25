@@ -17,6 +17,7 @@ use App\Domain\Course\SessionUpdateView;
 use App\Domain\Model\Course;
 use App\Domain\Model\Folder;
 use App\Domain\Model\Session;
+use App\Domain\Model\UserCourse;
 use PHPUnit\Framework\TestCase;
 
 class HasUpdatesCheckerTest extends TestCase
@@ -25,9 +26,15 @@ class HasUpdatesCheckerTest extends TestCase
     {
         $dateTime = null;
         $date = new \DateTime();
+        $userCourse = $this->prophesize(UserCourse::class);
         $course = $this->prophesize(Course::class);
         $folder = $this->prophesize(Folder::class);
         $session = $this->prophesize(Session::class);
+
+        $userCourse->getCourse()->willReturn($course->reveal());
+        $userCourse->getAssignedAt()->willReturn($date);
+
+        $course->isEnabled()->willReturn(true);
 
         $course->getSessions()->willReturn([$session->reveal()]);
         $course->getFolders()->willReturn([$folder->reveal()]);
@@ -46,7 +53,7 @@ class HasUpdatesCheckerTest extends TestCase
 
         // Checker
         $hasUpdatesChecker = new HasUpdatesChecker();
-        $result = $hasUpdatesChecker->getUpdatesInfo([$course->reveal()], $dateTime);
+        $result = $hasUpdatesChecker->getUpdatesInfo([$userCourse->reveal()], $dateTime);
 
         $expected = [
             new CourseUpdateView($date, 123),
@@ -77,6 +84,9 @@ class HasUpdatesCheckerTest extends TestCase
         $dateSession4 = new \DateTime('2017-06-01 10:10:10.000');
         $dateSession4Content = new \DateTime('2017-06-12 10:10:10.000');
 
+        $userCourse1 = $this->prophesize(UserCourse::class);
+        $userCourse2 = $this->prophesize(UserCourse::class);
+
         $course1 = $this->prophesize(Course::class);
         $course2 = $this->prophesize(Course::class);
         $folder1 = $this->prophesize(Folder::class);
@@ -85,6 +95,14 @@ class HasUpdatesCheckerTest extends TestCase
         $session2 = $this->prophesize(Session::class);
         $session3 = $this->prophesize(Session::class);
         $session4 = $this->prophesize(Session::class);
+
+        $userCourse1->getCourse()->willReturn($course1->reveal());
+        $userCourse1->getAssignedAt()->willReturn($dateTime);
+        $userCourse2->getCourse()->willReturn($course2->reveal());
+        $userCourse2->getAssignedAt()->willReturn($dateTime);
+
+        $course1->isEnabled()->willReturn(true);
+        $course2->isEnabled()->willReturn(true);
 
         $course1->getSessions()->willReturn([$session1->reveal(), $session2->reveal()]);
         $course1->getFolders()->willReturn([$folder1->reveal()]);
@@ -124,7 +142,7 @@ class HasUpdatesCheckerTest extends TestCase
 
         // Checker
         $hasUpdatesChecker = new HasUpdatesChecker();
-        $result = $hasUpdatesChecker->getUpdatesInfo([$course1->reveal(), $course2->reveal()], $dateTime);
+        $result = $hasUpdatesChecker->getUpdatesInfo([$userCourse1->reveal(), $userCourse2->reveal()], $dateTime);
 
         $expected = [
             new CourseUpdateView($dateCourse1, 123),
@@ -132,6 +150,64 @@ class HasUpdatesCheckerTest extends TestCase
             new SessionUpdateView($dateSession3, 9, $dateSession3Content, 6789),
             new SessionUpdateView($dateSession4, 0, $dateSession4Content, 45632),
             new FolderUpdateView($dateFolder2, 987),
+        ];
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function testNewAssignedCourse()
+    {
+        $lastUpdatedAt    = new \DateTime('2017-03-01 00:00:00');
+        $dateCourse1 = new \DateTime('2017-01-01 00:00:00');
+        $dateCourse2 = new \DateTime('2017-01-01 00:00:00');
+        $dateAssigned1 = new \DateTime('2017-02-01 00:00:00');
+        $dateAssigned2 = new \DateTime('2017-04-01 00:00:00');
+
+        $userCourse1 = $this->prophesize(UserCourse::class);
+        $userCourse2 = $this->prophesize(UserCourse::class);
+        $course1 = $this->prophesize(Course::class);
+        $course2 = $this->prophesize(Course::class);
+        $folder1 = $this->prophesize(Folder::class);
+        $session1 = $this->prophesize(Session::class);
+        $session2 = $this->prophesize(Session::class);
+
+        $userCourse1->getCourse()->willReturn($course1->reveal());
+        $userCourse1->getAssignedAt()->willReturn($dateAssigned1);
+
+        $userCourse2->getCourse()->willReturn($course2->reveal());
+        $userCourse2->getAssignedAt()->willReturn($dateAssigned2);
+
+        $course1->isEnabled()->willReturn(true);
+        $course2->isEnabled()->willReturn(true);
+
+        $course1->getSessions()->willReturn([$session1->reveal()]);
+        $course1->getFolders()->willReturn([$folder1->reveal()]);
+        $course2->getSessions()->willReturn([$session2->reveal()]);
+        $course2->getFolders()->willReturn([]);
+
+        // Expected
+        $course1->getUpdatedAt()->shouldBeCalled()->willReturn($dateCourse1);
+        $course2->getUpdatedAt()->shouldBeCalled()->willReturn($dateCourse2);
+
+        $course2->getSize()->shouldBeCalled()->willReturn(321);
+
+        $session1->getUpdatedAt()->shouldBeCalled()->willReturn($dateCourse1);
+        $session1->getContentUpdatedAt()->shouldBeCalled()->willReturn($dateCourse1);
+
+        $folder1->getUpdatedAt()->shouldBeCalled()->willReturn($dateCourse1);
+
+        $session2->getUpdatedAt()->shouldBeCalled()->willReturn($dateCourse2);
+        $session2->getSize()->shouldBeCalled()->willReturn(333);
+        $session2->getContentUpdatedAt()->shouldBeCalled()->willReturn($dateCourse2);
+        $session2->getContentSize()->shouldBeCalled()->willReturn(999);
+
+        // Checker
+        $hasUpdatesChecker = new HasUpdatesChecker();
+        $result = $hasUpdatesChecker->getUpdatesInfo([$userCourse1->reveal(), $userCourse2->reveal()], $lastUpdatedAt);
+
+        $expected = [
+            new CourseUpdateView($dateCourse1, 321),
+            new SessionUpdateView($dateCourse2, 333, $dateCourse2, 999),
         ];
 
         $this->assertEquals($expected, $result);

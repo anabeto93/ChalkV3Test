@@ -213,6 +213,14 @@ class User
     }
 
     /**
+     * @return UserCourse[]
+     */
+    public function getUserCourses(): array
+    {
+        return $this->userCourses->toArray();
+    }
+
+    /**
      * @param string             $firstName
      * @param string             $lastName
      * @param string             $country

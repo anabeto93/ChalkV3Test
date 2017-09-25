@@ -10,15 +10,15 @@ Feature: hasUpdates api
       | title     | Course 1         |
       | updatedAt | 2017-07-20 10:00 |
       | size      | 889              |
-    And this user is assigned to this course
+    And this user is assigned to this course on "2017-07-20 10:00:00"
     And there is a course with the following info
       | uuid      | uuid-course-2    |
       | title     | Course 2         |
       | updatedAt | 2017-01-01 08:00 |
       | size      | 200              |
-    And this user is assigned to this course
-    And I add "Authorization" header equal to "Bearer jean-paul-token"
-    When I add "Content-Type" header equal to "application/json"
+    And this user is assigned to this course on "2017-07-20 10:00:00"
+    When I add "Authorization" header equal to "Bearer jean-paul-token"
+    And I add "Content-Type" header equal to "application/json"
     And I send a POST request to "/api/graphql/" with body:
       """
       {
@@ -38,8 +38,8 @@ Feature: hasUpdates api
         }
       }
     """
-    Then I add "Authorization" header equal to "Bearer jean-paul-token"
-    When I add "Content-Type" header equal to "application/json"
+    When I add "Authorization" header equal to "Bearer jean-paul-token"
+    And I add "Content-Type" header equal to "application/json"
     And I send a POST request to "/api/graphql/" with body:
       """
       {
@@ -54,13 +54,13 @@ Feature: hasUpdates api
         "data": {
           "hasUpdates": {
             "hasUpdates": true,
-            "size": 889
+            "size": 1089
           }
         }
       }
     """
-    Then I add "Authorization" header equal to "Bearer jean-paul-token"
-    When I add "Content-Type" header equal to "application/json"
+    When I add "Authorization" header equal to "Bearer jean-paul-token"
+    And I add "Content-Type" header equal to "application/json"
     And I send a POST request to "/api/graphql/" with body:
       """
       {
