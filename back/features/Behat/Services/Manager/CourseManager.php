@@ -12,6 +12,7 @@ namespace Features\Behat\Services\Manager;
 
 use App\Domain\Model\Course;
 use App\Domain\Model\User;
+use App\Domain\Model\UserCourse;
 use App\Domain\Repository\CourseRepositoryInterface;
 use Tests\Factory\CourseFactory;
 
@@ -20,12 +21,17 @@ class CourseManager
     /** @var CourseRepositoryInterface */
     private $courseRepository;
 
+    /** @var \DateTimeInterface */
+    private $dateTime;
+
     /**
      * @param CourseRepositoryInterface $courseRepository
+     * @param \DateTimeInterface        $dateTime
      */
-    public function __construct(CourseRepositoryInterface $courseRepository)
+    public function __construct(CourseRepositoryInterface $courseRepository, \DateTimeInterface $dateTime)
     {
         $this->courseRepository = $courseRepository;
+        $this->dateTime = $dateTime;
     }
 
     /**
@@ -80,10 +86,7 @@ class CourseManager
      */
     public function addCourseToUser(User $user, Course $course)
     {
-        $usersAssigned = $course->getUsers();
-        $usersAssigned[] = $user;
-        $course->affectUsers($usersAssigned);
-
+        $course->addUserCourse(new UserCourse($user, $course, $this->dateTime));
         $this->courseRepository->set($course);
     }
 }
