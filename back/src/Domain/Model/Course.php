@@ -174,13 +174,16 @@ class Course
     }
 
     /**
-     * @return ArrayCollection
+     * @return UserCourse[]
      */
-    public function getUserCourses(): ArrayCollection
+    public function getUserCourses(): array
     {
-        return $this->userCourses;
+        return $this->userCourses->toArray();
     }
 
+    /**
+     * @param UserCourse $userCourse
+     */
     public function addUserCourse(UserCourse $userCourse)
     {
         $this->userCourses->add($userCourse);
@@ -196,7 +199,9 @@ class Course
     {
         /** @var UserCourse $userCourse */
         foreach ($this->userCourses as $userCourse) {
-            if ($user === $userCourse->getUser() && $course === $userCourse->getCourse()) {
+            if ($user->getId() === $userCourse->getUser()->getId()
+                && $course->getId() === $userCourse->getCourse()->getId()
+            ) {
                 return $userCourse;
             }
         }
