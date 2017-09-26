@@ -3,12 +3,50 @@ import GraphqlClient from '../graphql/client/GraphqlClient';
 import HasUpdatesQuery from '../graphql/query/HasUpdatesQuery';
 import SessionContentQuery from '../graphql/query/SessionContentQuery';
 import validateSessionMutation from '../graphql/query/mutations/validateSessionMutation';
+import UserQuery from '../graphql/query/UserQuery';
 
 // NETWORK STATUS
 export const SET_NETWORK_STATUS = '@@CHALKBOARDEDUCATION/SET_NETWORK_STATUS';
 
 export function setNetworkStatus(isOnline) {
   return { type: SET_NETWORK_STATUS, payload: isOnline };
+}
+
+// USER
+export const REQUEST_USER_INFORMATIONS =
+  '@@CHALKBOARDEDUCATION/REQUEST_USER_INFORMATIONS';
+
+export const RECEIVE_USER_INFORMATIONS =
+  '@@CHALKBOARDEDUCATION/RECEIVE_USER_INFORMATIONS';
+
+export const FAIL_GET_USER_INFORMATIONS =
+  '@@CHALKBOARDEDUCATION/FAIL_GET_USER_INFORMATIONS';
+
+export function requestUserInformations(token) {
+  return { type: REQUEST_USER_INFORMATIONS, payload: { token } };
+}
+
+export function receiveUserInformations(user) {
+  return { type: RECEIVE_USER_INFORMATIONS, payload: user };
+}
+
+export function failGetUserInformations(message) {
+  return { type: FAIL_GET_USER_INFORMATIONS, payload: { message } };
+}
+
+export function getUserInformations(token) {
+  return function(dispatch) {
+    dispatch(requestUserInformations(token));
+
+    GraphqlClient.query({ query: UserQuery, fetchPolicy: 'network-only' })
+      .then(response => {
+        dispatch(receiveUserInformations(response.data.user));
+        dispatch(getUpdates(null));
+      })
+      .catch(error => {
+        dispatch(failGetUserInformations(`Bad response from server: ${error}`));
+      });
+  };
 }
 
 // GET COURSES
@@ -20,13 +58,6 @@ export const RECEIVE_COURSES_INFORMATIONS =
 
 export const FAIL_GET_COURSES_INFORMATIONS =
   '@@CHALKBOARDEDUCATION/FAIL_GET_COURSES_INFORMATIONS';
-
-export const RECEIVE_USER_INFORMATIONS =
-  '@@CHALKBOARDEDUCATION/RECEIVE_USER_INFORMATIONS';
-
-export const FILE_LOADED = '@@CHALKBOARDEDUCATION/FILE_LOADED';
-
-export const SPOOL_TERMINATED = '@@CHALKBOARDEDUCATION/SPOOL_TERMINATED';
 
 export function requestCoursesInformations() {
   return { type: REQUEST_COURSES_INFORMATIONS };
@@ -41,10 +72,6 @@ export function receiveCoursesInformations({ courses, currentDate }) {
 
 export function failGetCoursesInformations(message) {
   return { type: FAIL_GET_COURSES_INFORMATIONS, payload: { message } };
-}
-
-export function receiveUserInformations(user) {
-  return { type: RECEIVE_USER_INFORMATIONS, payload: { user } };
 }
 
 export function getCoursesInformations() {
@@ -62,12 +89,15 @@ export function getCoursesInformations() {
         dispatch(receiveUserInformations(response.data.user));
       })
       .catch(error => {
-        dispatch(
-          failGetCoursesInformations(`Bad response from server: ${error}`)
-        );
+        dispatch(failGetCoursesInformations(error));
       });
   };
 }
+
+// FILE
+export const FILE_LOADED = '@@CHALKBOARDEDUCATION/FILE_LOADED';
+
+export const SPOOL_TERMINATED = '@@CHALKBOARDEDUCATION/SPOOL_TERMINATED';
 
 export function fileLoaded(file) {
   return { type: FILE_LOADED, payload: { file } };
@@ -78,7 +108,6 @@ export function spoolTerminated() {
 }
 
 // GET UPDATES
-
 export const REQUEST_UPDATES = '@@CHALKBOARDEDUCATION/REQUEST_UPDATES';
 
 export const RECEIVE_UPDATES = '@@CHALKBOARDEDUCATION/RECEIVE_UPDATES';
@@ -122,7 +151,6 @@ export function getUpdates(updatedAt) {
 }
 
 // VALIDATE SESSION
-
 export const REQUEST_VALIDATE_SESSION_INTERNET =
   '@@CHALKBOARDEDUCATION/REQUEST_VALIDATE_SESSION_INTERNET';
 export const RECEIVE_VALIDATE_SESSION_INTERNET =
@@ -165,7 +193,6 @@ export function validateSession(sessionUuid) {
 }
 
 // USER SETTINGS
-
 export const SETTINGS_SET_LOCALE = '@@CHALKBOARDEDUCATION/SETTINGS/SET_LOCALE';
 
 export function setLocale(locale) {

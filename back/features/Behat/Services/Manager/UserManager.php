@@ -47,17 +47,26 @@ class UserManager
      * @param string $lastName
      * @param string $phoneNumber
      * @param string $locale
+     * @param string $country
+     * @param string $token
      *
      * @return User
      */
-    public function create(string $uuid, string $firstName, string $lastName, string $phoneNumber, string $locale): User
-    {
+    public function create(
+        string $uuid,
+        string $firstName,
+        string $lastName,
+        string $phoneNumber,
+        string $locale,
+        ?string $country,
+        ?string $token
+    ): User {
         $user = new User(
             $uuid,
             $firstName,
             $lastName,
             $phoneNumber,
-            'GH',
+            $country ?? 'GH',
             $locale,
             $this->sizeCalculator->calculateSize(
                 sprintf(
@@ -70,7 +79,7 @@ class UserManager
                     $this->localeHelper->country('GH')
                 )
             ),
-            'token',
+            $token ?? 'api-token-user',
             new \DateTime()
         );
 

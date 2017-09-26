@@ -42,7 +42,9 @@ class UserContext implements Context
                 $userHash['firstName'],
                 $userHash['lastName'],
                 $userHash['phoneNumber'],
-                $userHash['locale']
+                $userHash['locale'],
+                $userHash['country'] ?? null,
+                $userHash['token'] ?? null
             );
 
             $this->userProxy->getStorage()->set('user', $user);

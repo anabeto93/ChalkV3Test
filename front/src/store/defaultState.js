@@ -9,7 +9,13 @@ const defaultState = {
   },
   currentUser: {
     loginState: LOGIN_STATE_LOGGED_OUT,
-    token: 'api-key-token-user-1'
+    token: null,
+    uuid: null,
+    firstName: null,
+    lastName: null,
+    country: null,
+    phoneNumber: null,
+    locale: null
   },
   content: {
     isFetching: false,

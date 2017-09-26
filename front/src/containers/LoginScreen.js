@@ -3,18 +3,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import I18n from 'i18n-js';
 
-import { COURSES } from '../config/routes';
-import { getCoursesInformations } from '../actions/actionCreators';
-import { LOGIN_STATE_LOGGED_OUT } from '../store/defaultState';
-import store from '../store/store';
+import { COURSES, HOME } from '../config/routes';
+import { getUserInformations } from '../actions/actionCreators';
+import { LOGIN_STATE_LOGGED_IN } from '../store/defaultState';
 import UserPanel from '../components/Course/UserPanel';
 
 class LoginScreen extends Component {
+  constructor(...args) {
+    super(...args);
+    this.state = { isFetching: false };
+  }
+
   componentDidMount() {
-    if (store.getState().currentUser.loginState === LOGIN_STATE_LOGGED_OUT) {
-      this.props.dispatch(getCoursesInformations());
-    } else {
-      this.handleRedirectCourses();
+    this.setState({ isFetching: true });
+    this.props.dispatch(getUserInformations(this.props.match.params.token));
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { token: previousToken } = this.props.currentUser;
+    const { token: nextToken, loginState } = nextProps.currentUser;
+
+    if (null !== previousToken && nextToken === null) {
+      this.props.history.push(HOME);
+    }
+
+    if (loginState === LOGIN_STATE_LOGGED_IN) {
+      this.setState({ isFetching: false });
     }
   }
 
@@ -25,7 +39,7 @@ class LoginScreen extends Component {
   render() {
     const { locale } = this.props;
 
-    if (this.props.content.isFetching) {
+    if (this.state.isFetching) {
       return (
         <div className="flash-container">
           {I18n.t('login.checking', { locale })}
@@ -33,7 +47,7 @@ class LoginScreen extends Component {
       );
     }
 
-    if (this.props.user.uuid !== undefined) {
+    if (this.props.currentUser.loginState === LOGIN_STATE_LOGGED_IN) {
       return (
         <div>
           <UserPanel />
@@ -50,9 +64,8 @@ class LoginScreen extends Component {
   }
 }
 
-const mapStateToProps = ({ content, currentUser, settings: { locale } }) => ({
-  content,
-  user: currentUser,
+const mapStateToProps = ({ currentUser, settings: { locale } }) => ({
+  currentUser,
   locale
 });
 

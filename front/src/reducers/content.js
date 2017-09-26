@@ -87,6 +87,8 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
     }
 
     case FAIL_GET_COURSES_INFORMATIONS: {
+      console.error(action);
+      alert(action.type + '/' + action.payload.message);
       return {
         ...state,
         isFetching: false,

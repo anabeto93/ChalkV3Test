@@ -2,7 +2,7 @@ import { darkBlack } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React, { Component } from 'react';
-
+import { persistStore } from 'redux-persist';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -23,10 +23,31 @@ import SessionDetailScreen from './containers/SessionDetailScreen';
 import SessionScreen from './containers/SessionScreen';
 import store from './store/store';
 
+// Check network status
+import networkStatusEventListener from './services/network/networkStatusEventListener';
+import clock from './services/updates/clock';
+
 const PRIMARY_COLOR = '#fc3691';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = { rehydrated: false };
+  }
+
+  componentWillMount() {
+    persistStore(store, {}, () => {
+      this.setState({ rehydrated: true });
+      networkStatusEventListener();
+      clock();
+    });
+  }
+
   render() {
+    if (!this.state.rehydrated) {
+      return <div>Loading...</div>;
+    }
+
     return (
       <Provider store={store}>
         <MuiThemeProvider
