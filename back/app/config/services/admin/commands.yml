@@ -55,3 +55,10 @@ services:
         autowire: true
         tags:
             - { name: tactician.handler, command: App\Application\Command\User\Progression\ValidateSession }
+
+    App\Application\Command\SMS\SendHandler:
+        autowire: true
+        arguments:
+            $fromNumber: '%infobip_phone_number%'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\SMS\Send }

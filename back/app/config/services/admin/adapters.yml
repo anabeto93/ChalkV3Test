@@ -12,3 +12,9 @@ services:
     App\Infrastructure\Adapter\FileStorage:
         autowire: true
     App\Application\Adapter\FileStorageInterface: '@App\Infrastructure\Adapter\FileStorage'
+
+    App\Infrastructure\Adapter\SMSSender:
+        autowire: true
+        arguments:
+            $infoBipApiKey: '%infobip_api_key%'
+    App\Application\Adapter\SMSSenderInterface: '@App\Infrastructure\Adapter\SMSSender'

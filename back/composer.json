@@ -21,6 +21,7 @@
         "elao/form-translation-bundle": "^2.0",
         "elao/theme-twitter-bootstrap-3-bundle": "^2.0",
         "incenteev/composer-parameter-handler": "^2.0",
+        "infobip/infobip-api-php-client": "^2.0",
         "league/tactician": "^1.0",
         "league/tactician-bundle": "^0.4.1",
         "league/tactician-doctrine": "^1.1",
