@@ -46,7 +46,9 @@ class UserListQueryHandler
                 $user->getLastName(),
                 $user->getPhoneNumber(),
                 $user->getCountry(),
-                $user->getApiToken()
+                $user->getApiToken(),
+                $user->getCreatedAt(),
+                $user->getLastLoginAccessNotificationAt()
             ));
         }
 
