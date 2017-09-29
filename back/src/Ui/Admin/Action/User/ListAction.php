@@ -10,6 +10,7 @@
 
 namespace App\Ui\Admin\Action\User;
 
+use App\Application\Adapter\CommandBusInterface;
 use App\Application\Adapter\QueryBusInterface;
 use App\Application\Command\User\Batch;
 use App\Application\Query\User\UserListQuery;
@@ -20,37 +21,50 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 class ListAction
 {
+    /** @var CommandBusInterface */
+    private $commandBus;
+
     /** @var EngineInterface */
     private $engine;
 
-    /** @var QueryBusInterface */
-    private $queryBus;
+    /** @var FlashBagInterface */
+    private $flashBag;
 
     /** @var FormFactoryInterface */
     private $formFactory;
+
+    /** @var QueryBusInterface */
+    private $queryBus;
 
     /** @var RouterInterface */
     private $router;
 
     /**
+     * @param CommandBusInterface  $commandBus
      * @param EngineInterface      $engine
-     * @param QueryBusInterface    $queryBus
+     * @param FlashBagInterface    $flashBag
      * @param FormFactoryInterface $formFactory
+     * @param QueryBusInterface    $queryBus
      * @param RouterInterface      $router
      */
     public function __construct(
+        CommandBusInterface $commandBus,
         EngineInterface $engine,
-        QueryBusInterface $queryBus,
+        FlashBagInterface $flashBag,
         FormFactoryInterface $formFactory,
+        QueryBusInterface $queryBus,
         RouterInterface $router
     ) {
+        $this->commandBus  = $commandBus;
         $this->engine      = $engine;
-        $this->queryBus    = $queryBus;
+        $this->flashBag    = $flashBag;
         $this->formFactory = $formFactory;
+        $this->queryBus    = $queryBus;
         $this->router      = $router;
     }
 
@@ -74,6 +88,11 @@ class ListAction
 
         if ($batchForm->handleRequest($request)->isSubmitted() && $batchForm->isValid()) {
             $batch->sendLoginAccessAction = $batchForm->get('sendLoginAccessAction')->isClicked();
+
+            if ($batch->sendLoginAccessAction) {
+                $this->commandBus->handle($batch);
+                $this->flashBag->add('success', 'flash.admin.user.batch.sendLoginAccessAction.success');
+            }
 
             return new RedirectResponse($this->router->generate('admin_user_list'));
         }

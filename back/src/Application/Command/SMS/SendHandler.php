@@ -36,7 +36,7 @@ class SendHandler
      */
     public function handle(Send $command)
     {
-        $sms = new SMSView($this->fromNumber, [$command->to], 'Hello, it works');
+        $sms = new SMSView($this->fromNumber, [$command->to], $command->message);
 
         $this->SMSSender->send($sms);
     }

@@ -116,12 +116,3 @@ admin_session_delete:
         course: \d+
         session: \d+
     defaults: { _controller: App\Ui\Admin\Action\Session\DeleteAction }
-
-
-#
-# SMS
-#
-admin_sms_send:
-    path: /sms/send
-    methods: [GET, POST]
-    defaults: { _controller: App\Ui\Admin\Action\SMS\SendAction }

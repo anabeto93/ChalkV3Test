@@ -1,4 +1,7 @@
 services:
+    #
+    # Course
+    #
     App\Application\Command\Course\CreateHandler:
         autowire: true
         tags:
@@ -14,6 +17,14 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\Course\AssignUser }
 
+    #
+    # User
+    #
+    App\Application\Command\User\BatchHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\Batch }
+
     App\Application\Command\User\CreateHandler:
         autowire: true
         tags:
@@ -24,6 +35,14 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\User\Update }
 
+    App\Application\Command\User\Progression\ValidateSessionHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\Progression\ValidateSession }
+
+    #
+    # Folder
+    #
     App\Application\Command\Folder\CreateHandler:
         autowire: true
         tags:
@@ -39,6 +58,9 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\Folder\Delete }
 
+    #
+    # Session
+    #
     App\Application\Command\Session\CreateHandler:
         autowire: true
         tags:
@@ -51,11 +73,9 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\Session\Delete }
 
-    App\Application\Command\User\Progression\ValidateSessionHandler:
-        autowire: true
-        tags:
-            - { name: tactician.handler, command: App\Application\Command\User\Progression\ValidateSession }
-
+    #
+    # SMS
+    #
     App\Application\Command\SMS\SendHandler:
         autowire: true
         arguments:

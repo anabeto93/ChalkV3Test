@@ -10,6 +10,7 @@
 
 namespace Tests\Ui\Admin\Action\User;
 
+use App\Application\Adapter\CommandBusInterface;
 use App\Application\Adapter\QueryBusInterface;
 use App\Application\Command\User\Batch;
 use App\Application\Query\User\UserListQuery;
@@ -23,6 +24,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 class ListActionTest extends TestCase
@@ -38,6 +40,9 @@ class ListActionTest extends TestCase
         $queryBus = $this->prophesize(QueryBusInterface::class);
         $formFactory = $this->prophesize(FormFactoryInterface::class);
         $router = $this->prophesize(RouterInterface::class);
+        $commandBus = $this->prophesize(CommandBusInterface::class);
+        $flashBag = $this->prophesize(FlashBagInterface::class);
+
         $batchForm = $this->prophesize(FormInterface::class);
         $batchFormView = $this->prophesize(FormView::class);
         $batchForm->createView()->shouldBeCalled()->willReturn($batchFormView->reveal());
@@ -67,7 +72,14 @@ class ListActionTest extends TestCase
         $batchForm->handleRequest($request)->shouldBeCalled()->willReturn($batchForm->reveal());
         $batchForm->isSubmitted()->shouldBeCalled()->willReturn(false);
 
-        $action = new ListAction($engine->reveal(), $queryBus->reveal(), $formFactory->reveal(), $router->reveal());
+        $action = new ListAction(
+            $commandBus->reveal(),
+            $engine->reveal(),
+            $flashBag->reveal(),
+            $formFactory->reveal(),
+            $queryBus->reveal(),
+            $router->reveal()
+        );
         $result = $action($request);
 
         $this->assertInstanceOf(Response::class, $result);

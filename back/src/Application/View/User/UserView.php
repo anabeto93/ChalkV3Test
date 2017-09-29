@@ -13,7 +13,7 @@ namespace App\Application\View\User;
 class UserView
 {
     /** @var int */
-    public  $id;
+    public $id;
 
     /** @var string */
     public $firstName;
