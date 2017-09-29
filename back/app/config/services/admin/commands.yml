@@ -40,6 +40,14 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\User\Progression\ValidateSession }
 
+    App\Application\Command\User\SendLoginAccessHandler:
+        autowire: true
+        arguments:
+            $frontUrl: '%front_url%'
+            $frontLoginRoute: '%front_login_route%'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\SendLoginAccess }
+
     #
     # Folder
     #

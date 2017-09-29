@@ -29,6 +29,8 @@ parameters:
     # Url
     scheme: http
     domain: api.chalkboardeducation.dev
+    front_url: https://app.chalkboard.education
+    front_login_route: '/login/{token}'
 
     # Infobip
     infobip_phone_number: '123213123'
