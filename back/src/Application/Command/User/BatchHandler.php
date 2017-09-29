@@ -25,13 +25,13 @@ class BatchHandler
 
     /**
      * @param Batch $batch
+     *
+     * @return int number of concerned users
      */
     public function handle(Batch $batch)
     {
         if ($batch->sendLoginAccessAction) {
-            $this->sendLoginAccessHandler->handle(new SendLoginAccess($batch->userViews));
-
-            return;
+            return $this->sendLoginAccessHandler->handle(new SendLoginAccess($batch->userViews));
         }
 
         throw new \InvalidArgumentException('Invalid user batch action');

@@ -26,6 +26,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class ListActionTest extends TestCase
 {
@@ -42,6 +43,7 @@ class ListActionTest extends TestCase
         $router = $this->prophesize(RouterInterface::class);
         $commandBus = $this->prophesize(CommandBusInterface::class);
         $flashBag = $this->prophesize(FlashBagInterface::class);
+        $translator = $this->prophesize(TranslatorInterface::class);
 
         $batchForm = $this->prophesize(FormInterface::class);
         $batchFormView = $this->prophesize(FormView::class);
@@ -78,7 +80,8 @@ class ListActionTest extends TestCase
             $flashBag->reveal(),
             $formFactory->reveal(),
             $queryBus->reveal(),
-            $router->reveal()
+            $router->reveal(),
+            $translator->reveal()
         );
         $result = $action($request);
 

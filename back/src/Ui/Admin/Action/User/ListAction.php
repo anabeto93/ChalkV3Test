@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class ListAction
 {
@@ -44,6 +45,9 @@ class ListAction
     /** @var RouterInterface */
     private $router;
 
+    /** @var TranslatorInterface */
+    private $translator;
+
     /**
      * @param CommandBusInterface  $commandBus
      * @param EngineInterface      $engine
@@ -51,6 +55,7 @@ class ListAction
      * @param FormFactoryInterface $formFactory
      * @param QueryBusInterface    $queryBus
      * @param RouterInterface      $router
+     * @param TranslatorInterface  $translator
      */
     public function __construct(
         CommandBusInterface $commandBus,
@@ -58,7 +63,8 @@ class ListAction
         FlashBagInterface $flashBag,
         FormFactoryInterface $formFactory,
         QueryBusInterface $queryBus,
-        RouterInterface $router
+        RouterInterface $router,
+        TranslatorInterface $translator
     ) {
         $this->commandBus  = $commandBus;
         $this->engine      = $engine;
@@ -66,6 +72,7 @@ class ListAction
         $this->formFactory = $formFactory;
         $this->queryBus    = $queryBus;
         $this->router      = $router;
+        $this->translator  = $translator;
     }
 
     /**
@@ -90,8 +97,17 @@ class ListAction
             $batch->sendLoginAccessAction = $batchForm->get('sendLoginAccessAction')->isClicked();
 
             if ($batch->sendLoginAccessAction) {
-                $this->commandBus->handle($batch);
-                $this->flashBag->add('success', 'flash.admin.user.batch.sendLoginAccessAction.success');
+                $countUsersNotified = $this->commandBus->handle($batch);
+
+                $this->flashBag->add(
+                    $countUsersNotified > 0 ? 'success' : 'warning',
+                    $this->translator->transChoice(
+                        'flash.admin.user.batch.sendLoginAccessAction.success',
+                        $countUsersNotified,
+                        ['%countUsersNotified%' => $countUsersNotified],
+                        'flashes'
+                    )
+                );
             }
 
             return new RedirectResponse($this->router->generate('admin_user_list'));

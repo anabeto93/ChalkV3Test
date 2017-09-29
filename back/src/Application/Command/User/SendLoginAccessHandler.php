@@ -45,6 +45,8 @@ class SendLoginAccessHandler implements Command
 
     /**
      * @param SendLoginAccess $sendLoginAccess
+     *
+     * @return int number of notified users
      */
     public function handle(SendLoginAccess $sendLoginAccess)
     {
@@ -57,6 +59,8 @@ class SendLoginAccessHandler implements Command
             )
         );
 
+        $usersNotified = [];
+
         foreach ($sendLoginAccess->userViews as $userView) {
             $user = $usersIndexedById[$userView->id] ?? null;
 
@@ -64,10 +68,14 @@ class SendLoginAccessHandler implements Command
                 continue;
             }
 
-            $this->sendHandler->handle(new Send($userView->phoneNumber, 'hello'));
+            //$this->sendHandler->handle(new Send($userView->phoneNumber, 'hello'));
 
             $user->setLastLoginAccessNotificationAt($this->dateTime);
             $this->userRepository->set($user);
+
+            $usersNotified[] = $user;
         }
+
+        return count($usersNotified);
     }
 }
