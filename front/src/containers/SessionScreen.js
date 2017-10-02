@@ -10,10 +10,12 @@ import generateUrl from '../services/generateUrl';
 import { SESSION_DETAIL } from '../config/routes';
 
 class SessionScreen extends Component {
-  leftIcon = (index, validated = false) => {
+  leftIcon = (index, validated = false, lastToRead = false) => {
     let iconClass = 'session-index';
 
-    if (validated) {
+    if (lastToRead) {
+      iconClass += ' session-index-last-to-read';
+    } else if (validated) {
       iconClass += ' session-index-validated';
     }
 
@@ -27,6 +29,12 @@ class SessionScreen extends Component {
   render() {
     const { sessions, course } = this.props;
     const totalSession = Object.keys(sessions).length;
+    const sessionsArray = Object.keys(sessions);
+
+    const lastToReadSessionKey = sessionsArray.find(key => {
+      const session = sessions[key];
+      return session.needValidation && !session.validated;
+    });
 
     return (
       <div>
@@ -34,24 +42,45 @@ class SessionScreen extends Component {
 
         <List>
           {sessions !== undefined &&
-            Object.keys(sessions).map((key, index) => {
-              let session = sessions[key];
-              return (
-                <Link
-                  key={session.uuid}
-                  to={generateUrl(SESSION_DETAIL, {
-                    ':courseUuid': course.uuid,
-                    ':sessionUuid': session.uuid
-                  })}
-                >
+            sessionsArray.map((key, index) => {
+              const session = sessions[key];
+              const isLastToRead = lastToReadSessionKey === key;
+              const enabledSession =
+                session.validated || !session.needValidation || isLastToRead;
+
+              if (enabledSession) {
+                return (
+                  <Link
+                    key={session.uuid}
+                    to={generateUrl(SESSION_DETAIL, {
+                      ':courseUuid': course.uuid,
+                      ':sessionUuid': session.uuid
+                    })}
+                    style={{ textDecoration: 'none' }}
+                  >
+                    <ListItem
+                      leftAvatar={this.leftIcon(index + 1, true, isLastToRead)}
+                      key={session.uuid}
+                      primaryText={session.title}
+                      rightIcon={<Arrow />}
+                      style={isLastToRead ? { fontWeight: 'bold' } : {}}
+                    />
+                  </Link>
+                );
+              } else {
+                return (
                   <ListItem
-                    leftAvatar={this.leftIcon(index, session.validated)}
+                    leftAvatar={this.leftIcon(index + 1, false, false)}
                     key={session.uuid}
                     primaryText={session.title}
-                    rightIcon={<Arrow />}
+                    disabled={true}
+                    style={{
+                      backgroundColor: '#ddd',
+                      borderTop: 'solid 1px #ccc'
+                    }}
                   />
-                </Link>
-              );
+                );
+              }
             })}
         </List>
       </div>
