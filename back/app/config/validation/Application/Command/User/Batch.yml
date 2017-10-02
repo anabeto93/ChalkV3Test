@@ -1,0 +1,6 @@
+App\Application\Command\User\Batch:
+    properties:
+        userViews:
+            - Count:
+                min: 1
+                minMessage: 'validator.user_batch.userViews.minMessage'

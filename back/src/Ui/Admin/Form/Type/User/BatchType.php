@@ -17,7 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\Count;
 
 class BatchType extends AbstractType
 {
@@ -38,7 +37,6 @@ class BatchType extends AbstractType
                 'choice_name' => $userViewCallBack,
                 'choice_value' => $userViewCallBack,
                 'label' => false,
-                'constraints' => new Count(['min' => 1, 'minMessage' => 'validator.user_batch.userViews.minMessage'])
             ])
             ->add('sendLoginAccessAction', SubmitType::class)
         ;
