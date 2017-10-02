@@ -27,7 +27,7 @@ import store from './store/store';
 import networkStatusEventListener from './services/network/networkStatusEventListener';
 import clock from './services/updates/clock';
 
-const PRIMARY_COLOR = '#fc3691';
+const PRIMARY_COLOR = '#d8497d';
 
 class App extends Component {
   constructor() {
