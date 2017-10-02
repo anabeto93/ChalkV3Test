@@ -33,8 +33,8 @@ class UserListQueryHandlerTest extends TestCase
         $paginatedResult = new PaginatedResult(
             [$user1->reveal(), $user2->reveal()],
             2,
-            50,
-            52
+            500,
+            530
         );
 
         $user1->getId()->willReturn(1);
@@ -57,13 +57,13 @@ class UserListQueryHandlerTest extends TestCase
 
         // Mock
         $userRepository = $this->prophesize(UserRepositoryInterface::class);
-        $userRepository->paginate(2, 50)->shouldBeCalled()->willReturn($paginatedResult);
+        $userRepository->paginate(2, 500)->shouldBeCalled()->willReturn($paginatedResult);
 
         // handler
         $handler = new UserListQueryHandler($userRepository->reveal());
         $result = $handler->handle(new UserListQuery(2));
 
-        $expected = new UserListView(2, 2, 52);
+        $expected = new UserListView(2, 2, 530);
         $expected->addUser(new UserView(1, 'FirstName1', 'LastName1', '+123123123', 'FR', 'token', $createdAt1));
         $expected->addUser(
             new UserView(
