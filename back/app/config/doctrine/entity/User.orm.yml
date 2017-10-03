@@ -29,6 +29,9 @@ App\Domain\Model\User:
             type: datetime
         updatedAt:
             type: datetime
+        lastLoginAccessNotificationAt:
+            type: datetime
+            nullable: true
         apiToken:
             type: string
         forceUpdate:

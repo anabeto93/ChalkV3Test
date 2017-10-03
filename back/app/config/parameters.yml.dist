@@ -18,6 +18,7 @@ parameters:
     # App
     admin_menu_color: '#fc3691'
     path_to_store_upload: '/tmp'
+    timezone: Africa/Accra
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
@@ -28,6 +29,8 @@ parameters:
     # Url
     scheme: http
     domain: api.chalkboardeducation.dev
+    front_url: https://app.chalkboard.education
+    front_login_route: '/login/{token}'
 
     # Infobip
     infobip_phone_number: '123213123'

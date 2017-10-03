@@ -17,6 +17,8 @@ use App\Domain\Repository\UserRepositoryInterface;
 
 class UserListQueryHandler
 {
+    const USERS_PER_PAGE = 500;
+
     /** @var UserRepositoryInterface */
     private $userRepository;
 
@@ -35,7 +37,7 @@ class UserListQueryHandler
      */
     public function handle(UserListQuery $query): UserListView
     {
-        $users = $this->userRepository->paginate($query->page, 50);
+        $users = $this->userRepository->paginate($query->page, self::USERS_PER_PAGE);
         $userListView = new UserListView($users->page, $users->pages, $users->total);
 
         /** @var User $user */
@@ -46,7 +48,9 @@ class UserListQueryHandler
                 $user->getLastName(),
                 $user->getPhoneNumber(),
                 $user->getCountry(),
-                $user->getApiToken()
+                $user->getApiToken(),
+                $user->getCreatedAt(),
+                $user->getLastLoginAccessNotificationAt()
             ));
         }
 

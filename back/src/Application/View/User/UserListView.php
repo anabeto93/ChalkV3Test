@@ -21,7 +21,7 @@ class UserListView
     /** @var int */
     public $total;
 
-    /** @var array */
+    /** @var UserView[] */
     public $users;
 
     /**

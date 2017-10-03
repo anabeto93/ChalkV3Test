@@ -21,7 +21,11 @@ body {
 }
 
 .session-index-validated {
-  background-color: #fc3691;
+  background-color: #99e04c;
+}
+
+.session-index-last-to-read {
+  background-color: #d8497d;
 }
 
 .link-primary {

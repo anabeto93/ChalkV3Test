@@ -71,7 +71,7 @@ class UserRepository implements UserRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function getAll()
+    public function getAll(): array
     {
         $queryBuilder = $this
             ->entityManager
@@ -80,6 +80,25 @@ class UserRepository implements UserRepositoryInterface
             ->from(User::class, 'user')
             ->orderBy('user.lastName', 'ASC')
             ->addOrderBy('user.firstName', 'ASC');
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByIdsIndexedById(array $ids): array
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('user')
+            ->from(User::class, 'user', 'user.id')
+            ->where('user.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->orderBy('user.lastName', 'ASC')
+            ->addOrderBy('user.firstName', 'ASC')
+        ;
 
         return $queryBuilder->getQuery()->getResult();
     }
