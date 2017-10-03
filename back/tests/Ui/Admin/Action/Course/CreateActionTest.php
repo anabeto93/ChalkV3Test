@@ -94,7 +94,6 @@ class CreateActionTest extends TestCase
     {
         // Context
         $request = new Request();
-        $response = new RedirectResponse('/admin/course');
         $create = new Create();
         $form = $this->prophesize(FormInterface::class);
         $form->createView()->shouldNotBeCalled();

@@ -46,6 +46,3 @@ services:
 
     App\Ui\Admin\Action\Session\DeleteAction:
         autowire: true
-
-    App\Ui\Admin\Action\SMS\SendAction:
-        autowire: true

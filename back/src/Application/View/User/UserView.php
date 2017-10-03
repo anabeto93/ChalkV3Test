@@ -13,7 +13,7 @@ namespace App\Application\View\User;
 class UserView
 {
     /** @var int */
-    public  $id;
+    public $id;
 
     /** @var string */
     public $firstName;
@@ -30,13 +30,21 @@ class UserView
     /** @var string */
     public $apiToken;
 
+    /** @var \DateTimeInterface */
+    public $createdAt;
+
+    /** @var \DateTimeInterface|null */
+    public $lastLoginAccessNotificationAt;
+
     /**
-     * @param int    $id
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $phoneNumber
-     * @param string $country
-     * @param string $apiToken
+     * @param int                     $id
+     * @param string                  $firstName
+     * @param string                  $lastName
+     * @param string                  $phoneNumber
+     * @param string                  $country
+     * @param string                  $apiToken
+     * @param \DateTimeInterface      $createdAt
+     * @param \DateTimeInterface|null $lastLoginAccessNotificationAt
      */
     public function __construct(
         int $id,
@@ -44,7 +52,9 @@ class UserView
         string $lastName,
         string $phoneNumber,
         string $country,
-        string $apiToken
+        string $apiToken,
+        \DateTimeInterface $createdAt,
+        ?\DateTimeInterface $lastLoginAccessNotificationAt = null
     ) {
         $this->id = $id;
         $this->firstName = $firstName;
@@ -52,5 +62,7 @@ class UserView
         $this->phoneNumber = $phoneNumber;
         $this->country = $country;
         $this->apiToken = $apiToken;
+        $this->createdAt = $createdAt;
+        $this->lastLoginAccessNotificationAt = $lastLoginAccessNotificationAt;
     }
 }

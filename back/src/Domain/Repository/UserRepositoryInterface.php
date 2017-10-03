@@ -36,7 +36,14 @@ interface UserRepositoryInterface
     /**
      * @return User[]
      */
-    public function getAll();
+    public function getAll(): array;
+
+    /**
+     * @param int[] $ids
+     *
+     * @return User[]
+     */
+    public function findByIdsIndexedById(array $ids): array;
 
     /**
      * @param string|null $apiToken

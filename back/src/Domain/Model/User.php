@@ -41,6 +41,9 @@ class User
     /** @var \DateTimeInterface */
     private $updatedAt;
 
+    /** @var null|\DateTimeInterface */
+    private $lastLoginAccessNotificationAt;
+
     /** @var int */
     private $size;
 
@@ -248,5 +251,21 @@ class User
         }
 
         return false;
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getLastLoginAccessNotificationAt(): ?\DateTimeInterface
+    {
+        return $this->lastLoginAccessNotificationAt;
+    }
+
+    /**
+     * @param \DateTimeInterface $lastLoginAccessNotificationAt
+     */
+    public function setLastLoginAccessNotificationAt(\DateTimeInterface $lastLoginAccessNotificationAt)
+    {
+        $this->lastLoginAccessNotificationAt = $lastLoginAccessNotificationAt;
     }
 }
