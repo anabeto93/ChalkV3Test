@@ -156,7 +156,16 @@ class Course
      */
     public function getSessions(): array
     {
-        return $this->sessions->toArray();
+        $sessions = $this->sessions->toArray();
+
+        usort(
+            $sessions,
+            function (Session $one, Session $other) {
+                return $one->getRank() > $other->getRank();
+            }
+        );
+
+        return $sessions;
     }
 
     /**
