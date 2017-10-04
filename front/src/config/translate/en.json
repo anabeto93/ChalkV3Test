@@ -17,6 +17,13 @@
   "send": {
     "validation": {
       "fail": "Error while validating session"
+    },
+    "sms": {
+      "label": "Submit your validation by SMS",
+      "button": "Send by SMS",
+      "notworking": {
+        "label": "Send it manually"
+      }
     }
   },
   "login": {
