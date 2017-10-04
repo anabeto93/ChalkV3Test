@@ -16,10 +16,11 @@ const NotWorking = props => {
         {I18n.t('send.sms.notworking.label', { locale })}
       </p>
       <p>
-        {I18n.t('send.sms.notworking.toPhone', { locale })} : +3323232323
+        {I18n.t('send.sms.notworking.toPhone', { locale })}:{' '}
+        <span>+3323232323</span>
       </p>
       <p>
-        {I18n.t('send.sms.notworking.validationCode', { locale })} :{' '}
+        {I18n.t('send.sms.notworking.validationCode', { locale })}:{' '}
         <span>{validationCode}</span>
       </p>
     </div>
@@ -32,6 +33,13 @@ class SendSMSScreen extends Component {
     this.state = DEFAULT_STATE;
   }
 
+  componentDidMount() {
+    const { sessionUuid } = this.props;
+    const validationCode = UnBlockSession.getCodeFromUuid(sessionUuid);
+
+    this.setState({ validationCode });
+  }
+
   openSMSAppLink = (phone, validationCode) => {
     return `sms://${phone}?body=${validationCode}`;
   };
@@ -41,8 +49,20 @@ class SendSMSScreen extends Component {
   };
 
   render() {
-    const { locale, sessionUuid, phoneNumber } = this.props;
-    const validationCode = UnBlockSession.getCodeFromUuid(sessionUuid);
+    const { locale, phoneNumber } = this.props;
+    const validationCode = this.state.validationCode;
+
+    const style = {
+      notWorking: {
+        display: 'block',
+        textDecoration: 'underline',
+        marginTop: '10px',
+        cursor: 'pointer',
+        padding: '0',
+        border: 'none',
+        background: 'none'
+      }
+    };
 
     return (
       <div className="content-layout">
@@ -53,11 +73,12 @@ class SendSMSScreen extends Component {
           href={this.openSMSAppLink(phoneNumber, validationCode)}
           target="_blank"
           label={I18n.t('send.sms.button', { locale })}
+          fullWidth={true}
         />
 
-        <div onClick={this.showNotWorking}>
+        <button style={style.notWorking} onClick={this.showNotWorking}>
           {I18n.t('send.sms.notworking.button', { locale })}
-        </div>
+        </button>
 
         {this.state.showNotWorking &&
           <NotWorking validationCode={validationCode} locale={locale} />}
