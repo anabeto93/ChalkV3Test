@@ -22,7 +22,10 @@
       "label": "Soumettre votre validation par SMS",
       "button": "Envoyer par SMS",
       "notworking": {
-        "label": "Envoyer le manuellement"
+        "label": "Envoyer le manuellement",
+        "button": "Ne fonctionne pas ?",
+        "toPhone": "Au ",
+        "validationCode": "Contenu à envoyer"
       }
     }
   },
