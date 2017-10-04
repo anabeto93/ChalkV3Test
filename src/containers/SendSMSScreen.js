@@ -3,6 +3,7 @@ import { RaisedButton } from 'material-ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { UnBlockSession } from '../services/session/UnBlockSession';
+import Clipboard from 'clipboard';
 
 const DEFAULT_STATE = {
   showNotWorking: false
@@ -17,11 +18,15 @@ const NotWorking = props => {
       </p>
       <p>
         {I18n.t('send.sms.notworking.toPhone', { locale })}:{' '}
-        <span>+3323232323</span>
+        <span id="phone-number" data-clipboard-target="#phone-number">
+          +3323232323
+        </span>
       </p>
       <p>
         {I18n.t('send.sms.notworking.validationCode', { locale })}:{' '}
-        <span>{validationCode}</span>
+        <span id="validation-code" data-clipboard-target="#validation-code">
+          {validationCode}
+        </span>
       </p>
     </div>
   );
@@ -36,6 +41,9 @@ class SendSMSScreen extends Component {
   componentDidMount() {
     const { sessionUuid } = this.props;
     const validationCode = UnBlockSession.getCodeFromUuid(sessionUuid);
+
+    new Clipboard('#phone-number');
+    new Clipboard('#validation-code');
 
     this.setState({ validationCode });
   }
