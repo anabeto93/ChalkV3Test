@@ -13,7 +13,7 @@ export class UnBlockSession {
     const privateKey = getConfig().privateKey;
     const hexString = this.getHexString();
 
-    const remainingLength = privateKey.length - hexString.length;
+    const remainingLength = privateKey.length - hexString.length - 1;
     const begin = Math.floor(Math.random() * remainingLength);
     const firstChar = privateKey.charAt(begin);
 
@@ -22,7 +22,7 @@ export class UnBlockSession {
     // remove '-'
     chars = chars.filter(char => char !== '-');
 
-    // replace a, b, c, d, e, f by 10, 11, 12, 13, 14, 15
+    // replace hex by equivalent int
     chars = chars.map(char => hexString.indexOf(char));
 
     return (
@@ -37,14 +37,14 @@ export class UnBlockSession {
 
     let chars = code.split('');
     const firstChar = chars[0];
-    chars.shift();
-
     const begin = privateKey.indexOf(firstChar);
 
+    chars.shift();
     chars = chars.map(char => privateKey.indexOf(char) - begin - 1);
 
     const result = chars.map(char => hexString.charAt(char)).join('');
 
+    // set '-' separator
     return (
       result.substr(0, 10) +
       '-' +
