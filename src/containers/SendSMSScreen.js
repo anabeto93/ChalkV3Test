@@ -1,7 +1,12 @@
 import I18n from 'i18n-js';
+import { RaisedButton } from 'material-ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { UnBlockSession } from '../services/session/UnBlockSession';
+
+const DEFAULT_STATE = {
+  showNotWorking: false
+};
 
 const NotWorking = props => {
   const { validationCode, locale } = props;
@@ -10,17 +15,29 @@ const NotWorking = props => {
       <p>
         {I18n.t('send.sms.notworking.label', { locale })}
       </p>
-      <p>To phone</p>
       <p>
-        Text to send: <span>{validationCode}</span>
+        {I18n.t('send.sms.notworking.toPhone', { locale })} : +3323232323
+      </p>
+      <p>
+        {I18n.t('send.sms.notworking.validationCode', { locale })} :{' '}
+        <span>{validationCode}</span>
       </p>
     </div>
   );
 };
 
 class SendSMSScreen extends Component {
+  constructor(...args) {
+    super(...args);
+    this.state = DEFAULT_STATE;
+  }
+
   openSMSAppLink = (phone, validationCode) => {
-    return `sms://+${phone}?body=${validationCode}`;
+    return `sms://${phone}?body=${validationCode}`;
+  };
+
+  showNotWorking = () => {
+    this.setState({ showNotWorking: true });
   };
 
   render() {
@@ -32,14 +49,18 @@ class SendSMSScreen extends Component {
         <p>
           {I18n.t('send.sms.label', { locale })}
         </p>
-        <a
+        <RaisedButton
           href={this.openSMSAppLink(phoneNumber, validationCode)}
-          className="button-primary"
-        >
-          {I18n.t('send.sms.button', { locale })}
-        </a>
+          target="_blank"
+          label={I18n.t('send.sms.button', { locale })}
+        />
 
-        <NotWorking validationCode={validationCode} locale={locale} />
+        <div onClick={this.showNotWorking}>
+          {I18n.t('send.sms.notworking.button', { locale })}
+        </div>
+
+        {this.state.showNotWorking &&
+          <NotWorking validationCode={validationCode} locale={locale} />}
       </div>
     );
   }

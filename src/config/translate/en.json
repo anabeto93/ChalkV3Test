@@ -22,7 +22,10 @@
       "label": "Submit your validation by SMS",
       "button": "Send by SMS",
       "notworking": {
-        "label": "Send it manually"
+        "label": "Send it manually",
+        "button": "Not working ?",
+        "toPhone": "To phone",
+        "validationCode": "Text to send"
       }
     }
   },
