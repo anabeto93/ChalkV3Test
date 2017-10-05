@@ -108,7 +108,7 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
     }
 
     case REQUEST_VALIDATE_SESSION_INTERNET: {
-      return { ...state, isValidating: true };
+      return { ...state, isValidating: true, isFailValidating: false };
     }
 
     case RECEIVE_VALIDATE_SESSION_INTERNET: {
@@ -123,7 +123,8 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
         return {
           ...state,
           sessions: { ...currentSessions },
-          isValidating: false
+          isValidating: false,
+          isFailValidating: false
         };
       }
 
@@ -131,7 +132,7 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
     }
 
     case FAIL_VALIDATE_SESSION_INTERNET: {
-      return { ...state, isFailValidating: true };
+      return { ...state, isFailValidating: true, isValidating: false };
     }
 
     default:
