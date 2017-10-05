@@ -43,7 +43,12 @@ class SendScreen extends Component {
     } else if (!nextProps.isFailValidating) {
       this.setState({ ...this.state, redirectToSessionList: true });
     } else {
-      this.setState({ ...this.state, hasSubmit: false });
+      this.setState({
+        ...this.state,
+        submitEnabled: true,
+        hasSubmit: false,
+        redirectToSessionList: false
+      });
     }
   }
 
