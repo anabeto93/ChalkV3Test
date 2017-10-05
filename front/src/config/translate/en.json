@@ -19,7 +19,8 @@
       "fail": "Error while validating session"
     },
     "sms": {
-      "label": "Submit your validation by SMS",
+      "title": "Submit your validation by SMS",
+      "label": "You will send a code by SMS. Do not modify the code, thank you.",
       "button": "Send by SMS",
       "notworking": {
         "label": "Send it manually",

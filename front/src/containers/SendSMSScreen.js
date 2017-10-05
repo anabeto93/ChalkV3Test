@@ -1,9 +1,9 @@
+import Clipboard from 'clipboard';
 import I18n from 'i18n-js';
 import { RaisedButton } from 'material-ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { UnBlockSession } from '../services/session/UnBlockSession';
-import Clipboard from 'clipboard';
 
 const DEFAULT_STATE = {
   showNotWorking: false
@@ -18,15 +18,21 @@ const NotWorking = props => {
       </p>
       <p>
         {I18n.t('send.sms.notworking.toPhone', { locale })}:{' '}
-        <span id="phone-number" data-clipboard-target="#phone-number">
-          +3323232323
-        </span>
+        <input
+          type="text"
+          id="phone-number"
+          data-clipboard-target="#phone-number"
+          defaultValue="+3323232323"
+        />
       </p>
       <p>
         {I18n.t('send.sms.notworking.validationCode', { locale })}:{' '}
-        <span id="validation-code" data-clipboard-target="#validation-code">
-          {validationCode}
-        </span>
+        <input
+          type="text"
+          id="validation-code"
+          data-clipboard-target="#validation-code"
+          defaultValue={validationCode}
+        />
       </p>
     </div>
   );
@@ -49,7 +55,7 @@ class SendSMSScreen extends Component {
   }
 
   openSMSAppLink = (phone, validationCode) => {
-    return `sms://${phone}?body=${validationCode}`;
+    return `sms:${phone}?body=${validationCode}`;
   };
 
   showNotWorking = () => {
@@ -64,7 +70,7 @@ class SendSMSScreen extends Component {
       notWorking: {
         display: 'block',
         textDecoration: 'underline',
-        marginTop: '10px',
+        marginTop: '15px',
         cursor: 'pointer',
         padding: '0',
         border: 'none',
@@ -74,6 +80,9 @@ class SendSMSScreen extends Component {
 
     return (
       <div className="content-layout">
+        <h4>
+          {I18n.t('send.sms.title', { locale })}
+        </h4>
         <p>
           {I18n.t('send.sms.label', { locale })}
         </p>
