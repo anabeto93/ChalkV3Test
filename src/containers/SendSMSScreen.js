@@ -10,7 +10,7 @@ const DEFAULT_STATE = {
 };
 
 const NotWorking = props => {
-  const { validationCode, locale } = props;
+  const { validationCode, locale, chalkboardPhone } = props;
   return (
     <div>
       <p>
@@ -22,7 +22,7 @@ const NotWorking = props => {
           type="text"
           id="phone-number"
           data-clipboard-target="#phone-number"
-          defaultValue="+3323232323"
+          defaultValue={chalkboardPhone}
         />
       </p>
       <p>
@@ -63,7 +63,8 @@ class SendSMSScreen extends Component {
   };
 
   render() {
-    const { locale, phoneNumber } = this.props;
+    const chalkboardPhoneNumber = '+3300000000'; // TODO: change it for Chalkboard phone
+    const { locale } = this.props;
     const validationCode = this.state.validationCode;
 
     const style = {
@@ -87,7 +88,7 @@ class SendSMSScreen extends Component {
           {I18n.t('send.sms.label', { locale })}
         </p>
         <RaisedButton
-          href={this.openSMSAppLink(phoneNumber, validationCode)}
+          href={this.openSMSAppLink(chalkboardPhoneNumber, validationCode)}
           target="_blank"
           label={I18n.t('send.sms.button', { locale })}
           fullWidth={true}
@@ -98,18 +99,21 @@ class SendSMSScreen extends Component {
         </button>
 
         {this.state.showNotWorking &&
-          <NotWorking validationCode={validationCode} locale={locale} />}
+          <NotWorking
+            validationCode={validationCode}
+            locale={locale}
+            chalkboardPhone={chalkboardPhoneNumber}
+          />}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state, props) => {
-  const { currentUser: { phoneNumber } } = state;
   const { settings: { locale } } = state;
   const { match: { params: { sessionUuid } } } = props;
 
-  return { phoneNumber, locale, sessionUuid };
+  return { locale, sessionUuid };
 };
 
 export default connect(mapStateToProps)(SendSMSScreen);
