@@ -16,6 +16,7 @@ use App\Domain\Course\HasUpdatesChecker;
 use App\Domain\Course\SessionUpdateView;
 use App\Domain\Model\Course;
 use App\Domain\Model\User;
+use App\Domain\Model\UserCourse;
 use App\Domain\Repository\CourseRepositoryInterface;
 use App\Infrastructure\GraphQL\Resolver\HasUpdatesResolver;
 use App\Infrastructure\Security\Api\ApiUserAdapter;
@@ -58,7 +59,8 @@ class HasUpdatesResolverTest extends TestCase
         $apiUser = new ApiUserAdapter($user->reveal());
         $this->tokenStorage->getToken()->shouldBeCalled()->willReturn($token->reveal());
         $token->getUser()->shouldBeCalled()->willReturn($apiUser);
-        $user->getEnabledCourses()->shouldBeCalled()->willReturn([]);
+        $user->getUserCourses()->shouldBeCalled()->willReturn([]);
+        $user->isForceUpdate()->willReturn(false);
         $this->hasUpdatesChecker->getUpdatesInfo([], null)->shouldBeCalled()->willReturn([]);
 
         $hasUpdatesResolver = new HasUpdatesResolver(
@@ -83,7 +85,8 @@ class HasUpdatesResolverTest extends TestCase
         $apiUser = new ApiUserAdapter($user->reveal());
         $this->tokenStorage->getToken()->shouldBeCalled()->willReturn($token->reveal());
         $token->getUser()->shouldBeCalled()->willReturn($apiUser);
-        $user->getEnabledCourses()->shouldBeCalled()->willReturn([]);
+        $user->getUserCourses()->shouldBeCalled()->willReturn([]);
+        $user->isForceUpdate()->willReturn(false);
         $this->hasUpdatesChecker->getUpdatesInfo([], $dateTime)->shouldBeCalled()->willReturn([]);
 
         $hasUpdatesResolver = new HasUpdatesResolver(
@@ -106,8 +109,8 @@ class HasUpdatesResolverTest extends TestCase
         $token = $this->prophesize(TokenInterface::class);
         $user = $this->prophesize(User::class);
         $apiUser = new ApiUserAdapter($user->reveal());
-        $course2 = $this->prophesize(Course::class);
-        $course1 = $this->prophesize(Course::class);
+        $userCourse1 = $this->prophesize(UserCourse::class);
+        $userCourse2 = $this->prophesize(UserCourse::class);
 
         $courseUpdate = new CourseUpdateView($dateTime, 123);
         $folderUpdate = new FolderUpdateView($dateTime, 432);
@@ -116,9 +119,11 @@ class HasUpdatesResolverTest extends TestCase
 
         $this->tokenStorage->getToken()->shouldBeCalled()->willReturn($token->reveal());
         $token->getUser()->shouldBeCalled()->willReturn($apiUser);
-        $user->getEnabledCourses()->shouldBeCalled()->willReturn([$course1->reveal(), $course2->reveal()]);
+        $user->getUserCourses()->shouldBeCalled()->willReturn([$userCourse1->reveal(), $userCourse2->reveal()]);
+        $user->isForceUpdate()->willReturn(false);
+
         $this->hasUpdatesChecker
-            ->getUpdatesInfo([$course1->reveal(), $course2->reveal()], $dateTime)
+            ->getUpdatesInfo([$userCourse1->reveal(), $userCourse2->reveal()], $dateTime)
             ->shouldBeCalled()
             ->willReturn([
                 $courseUpdate,

@@ -1,5 +1,5 @@
 App\Domain\Model\User:
-    user_dev:
+    user_1:
         __construct:
             - "12345-test-98765"
             - "Jean"
@@ -11,8 +11,3 @@ App\Domain\Model\User:
             - 'token'
             - <dateTime()>
         apiToken: 'api-key-token-user-1'
-        courses:
-            - '@course_1'
-            - '@course_2'
-            - '@course_3'
-            - '@course_4'

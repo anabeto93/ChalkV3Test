@@ -10,6 +10,8 @@
 
 namespace Tests\Infrastructure\GraphQL\Resolver;
 
+use App\Application\Command\User\UnForceUpdate;
+use App\Application\Command\User\UnForceUpdateHandler;
 use App\Domain\Model\Course;
 use App\Domain\Model\User;
 use App\Infrastructure\GraphQL\Resolver\CourseResolver;
@@ -29,28 +31,14 @@ class CourseResolverTest extends TestCase
     /** @var ObjectProphecy */
     private $tokenStorage;
 
+    /** @var ObjectProphecy */
+    private $unForceUpdateHandler;
+
     public function setUp()
     {
         $this->normalizer = $this->prophesize(CourseNormalizer::class);
         $this->tokenStorage = $this->prophesize(TokenStorageInterface::class);
-    }
-
-    public function testResolveCoursesNotFound()
-    {
-        $this->setExpectedException(UserError::class);
-
-        $token = $this->prophesize(TokenInterface::class);
-        $user = $this->prophesize(User::class);
-        $apiUser = new ApiUserAdapter($user->reveal());
-        $this->tokenStorage->getToken()->shouldBeCalled()->willReturn($token->reveal());
-        $token->getUser()->shouldBeCalled()->willReturn($apiUser);
-        $user->getEnabledCourses()->shouldBeCalled()->willReturn([]);
-
-        $courseResolver = new CourseResolver(
-            $this->normalizer->reveal(),
-            $this->tokenStorage->reveal()
-        );
-        $courseResolver->resolveCourses();
+        $this->unForceUpdateHandler = $this->prophesize(UnForceUpdateHandler::class);
     }
 
     public function testResolveCourses()
@@ -68,9 +56,12 @@ class CourseResolverTest extends TestCase
         $this->normalizer->normalize($course1->reveal(), $user)->shouldBeCalled()->willReturn(['normalized-course1']);
         $this->normalizer->normalize($course2->reveal(), $user)->shouldBeCalled()->willReturn(['normalized-course2']);
 
+        $this->unForceUpdateHandler->handle(new UnForceUpdate($user->reveal()))->shouldBeCalled();
+
         $courseResolver = new CourseResolver(
             $this->normalizer->reveal(),
-            $this->tokenStorage->reveal()
+            $this->tokenStorage->reveal(),
+            $this->unForceUpdateHandler->reveal()
         );
 
         $result = $courseResolver->resolveCourses();

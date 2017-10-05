@@ -68,9 +68,27 @@ class UserContext implements Context
     }
 
     /**
+     * @Given /^this user is assigned to this course on "(?P<dateTime>[^"]+)"$/
+     *
+     * @param string $dateTime
+     */
+    public function thisUserIsAssignedToThisCourseOnDateTime(string $dateTime)
+    {
+        $this->setCourseAssignedForUser(new \DateTime($dateTime));
+    }
+
+    /**
      * @Given this user is assigned to this course
      */
-    public function setCourseAssignedForUser()
+    public function thisUserIsAssignedToThisCourse()
+    {
+        $this->setCourseAssignedForUser();
+    }
+
+    /**
+     * @param \DateTimeInterface|null $dateTime
+     */
+    private function setCourseAssignedForUser(?\DateTimeInterface $dateTime = null)
     {
         $user = $this->userProxy->getStorage()->get('user');
         $course = $this->userProxy->getStorage()->get('course');
@@ -83,6 +101,6 @@ class UserContext implements Context
             throw new \InvalidArgumentException('Course not found');
         }
 
-        $this->userProxy->getCourseManager()->addCourseToUser($user, $course);
+        $this->userProxy->getCourseManager()->addCourseToUser($user, $course, $dateTime);
     }
 }

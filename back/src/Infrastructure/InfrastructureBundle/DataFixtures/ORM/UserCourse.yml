@@ -1,0 +1,21 @@
+App\Domain\Model\UserCourse:
+    user_1_course_1:
+        __construct:
+            - '@user_1'
+            - '@course_1'
+            - <(new DateTime('now'))>
+    user_1_course_2:
+        __construct:
+            - '@user_1'
+            - '@course_2'
+            - <(new DateTime('now'))>
+    user_1_course_3:
+        __construct:
+            - '@user_1'
+            - '@course_3'
+            - <(new DateTime('now'))>
+    user_1_course_4:
+        __construct:
+            - '@user_1'
+            - '@course_4'
+            - <(new DateTime('now'))>

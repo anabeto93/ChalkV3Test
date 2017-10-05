@@ -12,28 +12,39 @@ namespace Tests\Application\Command\Course;
 
 use App\Application\Command\Course\AssignUser;
 use App\Application\Command\Course\AssignUserHandler;
+use App\Domain\Model\Course;
+use App\Domain\Model\User;
+use App\Domain\Model\UserCourse;
 use App\Domain\Repository\CourseRepositoryInterface;
 use PHPUnit\Framework\TestCase;
-use Tests\Factory\CourseFactory;
 
 class AssignUserHandlerTest extends TestCase
 {
-    /** @var CourseRepositoryInterface */
-    private $courseRepository;
-
-    public function setUp()
-    {
-        $this->courseRepository = $this->prophesize(CourseRepositoryInterface::class);
-    }
-
     public function testHandle()
     {
-        $course = CourseFactory::create();
+        $datetime = new \DateTime();
 
-        $this->courseRepository->set($course)->shouldBeCalled();
+        $course = $this->prophesize(Course::class);
+        $user1 = $this->prophesize(User::class);
+        $user2 = $this->prophesize(User::class);
 
-        $handler = new AssignUserHandler($this->courseRepository->reveal());
+        // Previous users assigned was only User2
+        $course->getUsers()->shouldBeCalled()->willReturn([$user2->reveal()]);
 
-        $handler->handle(new AssignUser($course));
+        // User1 is assigned
+        $course->addUserCourse(new UserCourse($user1->reveal(), $course->reveal(), $datetime))->shouldBeCalled();
+
+        // User2 is unassigned
+        $course->removeUserCourse($user2->reveal(), $course->reveal())->shouldBeCalled();
+
+        $courseRepository = $this->prophesize(CourseRepositoryInterface::class);
+        $courseRepository->set($course->reveal())->shouldBeCalled();
+
+        $handler = new AssignUserHandler($courseRepository->reveal(), $datetime);
+        $assignUser = new AssignUser($course->reveal());
+        // User1 is assigned by the command
+        $assignUser->users = [$user1->reveal()];
+
+        $handler->handle($assignUser);
     }
 }

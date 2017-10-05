@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the back project.
+ * This file is part of the ChalkboardEducation Application project.
  *
- * Copyright (C) back
+ * Copyright (C) ChalkboardEducation
  *
  * @author Elao <contact@elao.com>
  */

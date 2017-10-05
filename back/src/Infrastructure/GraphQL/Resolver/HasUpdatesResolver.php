@@ -12,6 +12,8 @@ namespace App\Infrastructure\GraphQL\Resolver;
 
 use App\Domain\Course\HasUpdatesChecker;
 use App\Domain\Course\SessionUpdateView;
+use App\Domain\Model\User;
+use App\Infrastructure\Security\Api\ApiUserAdapter;
 use GraphQL\Error\UserError;
 use Overblog\GraphQLBundle\Definition\Argument;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -49,8 +51,14 @@ class HasUpdatesResolver
 
         $apiUser = $this->tokenStorage->getToken()->getUser();
 
+        if (!$apiUser instanceof ApiUserAdapter) {
+            throw new UserError('apiUser must be instance of ApiUserAdapter');
+        }
+
+        $user = $apiUser->getUser();
+
         $info = $this->hasUpdatesChecker->getUpdatesInfo(
-            $apiUser->getUser()->getEnabledCourses(),
+            $user->getUserCourses(),
             $dateLastUpdate
         );
 
@@ -63,6 +71,11 @@ class HasUpdatesResolver
             if ($updatedInfo instanceof SessionUpdateView) {
                 $size += $updatedInfo->contentSize;
             }
+        }
+
+        if ($user->isForceUpdate()) {
+            $hasUpdates = true;
+            $size += 1; // it could be only removed courses
         }
 
         return [
