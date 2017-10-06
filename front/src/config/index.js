@@ -11,6 +11,8 @@ const config = {
     updates: {
       intervalInSeconds: 86400
     },
+    appPrivateKey: '',
+    apiPrivateKey: '0C3abke2ty4Ah6RdDpSUKJHL7YnxfEjiP9FwQvX8rVgmqNscz5uBGWZ1TM',
     defaultFolder: 'default'
   },
   default: {
@@ -21,6 +23,8 @@ const config = {
     updates: {
       intervalInSeconds: 20
     },
+    appPrivateKey: '',
+    apiPrivateKey: '0C3abke2ty4Ah6RdDpSUKJHL7YnxfEjiP9FwQvX8rVgmqNscz5uBGWZ1TM',
     defaultFolder: 'default'
   }
 };

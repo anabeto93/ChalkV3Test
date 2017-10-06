@@ -12,6 +12,7 @@ import NotFound from './components/NotFound';
 import Updates from './components/Updates/Updates';
 import * as routes from './config/routes';
 import AccountScreen from './containers/AccountScreen';
+import ValidateSession from './services/ValidateSession';
 
 import CourseScreen from './containers/CourseScreen';
 import FolderScreen from './containers/FolderScreen';
@@ -97,6 +98,11 @@ class App extends Component {
                   component={SendScreen}
                 />
                 <PrivateRoute path={routes.ACCOUNT} component={AccountScreen} />
+                <PrivateRoute
+                  exact
+                  path={routes.SESSION_VALIDATE_SMS}
+                  component={ValidateSession}
+                />
                 <Route component={NotFound} />
               </Switch>
             </div>
