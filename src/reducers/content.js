@@ -5,6 +5,7 @@ import {
   RECEIVE_COURSES_INFORMATIONS,
   RECEIVE_SESSION_CONTENT,
   RECEIVE_VALIDATE_SESSION_INTERNET,
+  RECEIVE_VALIDATE_SESSION_SMS,
   REQUEST_COURSES_INFORMATIONS,
   REQUEST_VALIDATE_SESSION_INTERNET,
   SPOOL_TERMINATED
@@ -129,6 +130,22 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
       }
 
       return { ...state };
+    }
+
+    case RECEIVE_VALIDATE_SESSION_SMS: {
+      const validatedSession = {
+        ...state.sessions[action.sessionUuid],
+        validated: true
+      };
+      const currentSessions = { ...state.sessions };
+      currentSessions[validatedSession.uuid] = validatedSession;
+
+      return {
+        ...state,
+        sessions: { ...currentSessions },
+        isValidating: false,
+        isFailValidating: false
+      };
     }
 
     case FAIL_VALIDATE_SESSION_INTERNET: {
