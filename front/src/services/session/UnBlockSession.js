@@ -10,7 +10,7 @@ export class UnBlockSession {
   }
 
   static getCodeFromUuid(uuid) {
-    const privateKey = getConfig().privateKey;
+    const privateKey = getConfig().appPrivateKey;
     const hexString = this.getHexString();
 
     const remainingLength = privateKey.length - hexString.length - 1;
@@ -32,7 +32,7 @@ export class UnBlockSession {
   }
 
   static getUuidFromCode(code) {
-    const privateKey = getConfig().privateKey;
+    const privateKey = getConfig().appPrivateKey;
     const hexString = this.getHexString();
 
     let chars = code.split('');
