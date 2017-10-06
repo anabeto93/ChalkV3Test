@@ -4,7 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React, { Component } from 'react';
 import { persistStore } from 'redux-persist';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 
 import './App.css';
 import Header from './components/Header';
@@ -61,7 +61,7 @@ class App extends Component {
             }
           })}
         >
-          <Router>
+          <HashRouter>
             <div>
               <Header />
               <Updates />
@@ -112,7 +112,7 @@ class App extends Component {
                 <Route component={NotFound} />
               </Switch>
             </div>
-          </Router>
+          </HashRouter>
         </MuiThemeProvider>
       </Provider>
     );
