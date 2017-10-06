@@ -21,11 +21,13 @@
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "react-scripts": "1.0.13"
+    "react-scripts": "1.0.13",
+    "sw-precache": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && yarn run generate-sw",
+    "generate-sw": "sw-precache --root='build/' --config config/sw-precache-config.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
