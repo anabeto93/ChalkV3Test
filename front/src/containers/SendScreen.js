@@ -10,7 +10,11 @@ import Error from '../components/Error';
 import CourseManager from '../services/CourseManager';
 import store from '../store/store';
 import generateUrl from '../services/generateUrl';
-import { SESSION_DETAIL, SESSION_LIST } from '../config/routes';
+import {
+  SESSION_DETAIL,
+  SESSION_LIST,
+  SESSION_SEND_SMS
+} from '../config/routes';
 
 const DEFAULT_STATE = {
   sendMode: null,
@@ -20,6 +24,7 @@ const DEFAULT_STATE = {
   hasSubmit: false
 };
 const SEND_MODE_INTERNET = 'internet';
+const SEND_MODE_SMS = 'sms';
 
 class SendScreen extends Component {
   constructor(...args) {
@@ -33,12 +38,21 @@ class SendScreen extends Component {
       nextProps.session
     );
 
-    if (nextSession !== null && !nextProps.isFailValidating) {
+    if (
+      nextSession !== null &&
+      !nextProps.isFailValidating &&
+      !nextProps.isValidating
+    ) {
       this.setState({ ...this.state, nextSession, hasNextSession: true });
-    } else if (!nextProps.isFailValidating) {
+    } else if (!nextProps.isValidating && !nextProps.isFailValidating) {
       this.setState({ ...this.state, redirectToSessionList: true });
     } else {
-      this.setState({ ...this.state, hasSubmit: false });
+      this.setState({
+        ...this.state,
+        submitEnabled: true,
+        hasSubmit: false,
+        redirectToSessionList: false
+      });
     }
   }
 
@@ -64,13 +78,26 @@ class SendScreen extends Component {
     );
   };
 
+  handleRedirectSendSMS = (courseUuid, sessionUuid) => {
+    return this.props.history.push(
+      generateUrl(SESSION_SEND_SMS, {
+        ':courseUuid': courseUuid,
+        ':sessionUuid': sessionUuid
+      })
+    );
+  };
+
   handleFormSubmit = () => {
     this.setState({ ...this.state, hasSubmit: true });
-    const sessionUuid = this.props.match.params.sessionUuid;
+    const sessionUuid = this.props.session.uuid;
+    const courseUuid = this.props.session.courseUuid;
 
     switch (this.state.sendMode) {
       case SEND_MODE_INTERNET:
         store.dispatch(validateSession(sessionUuid));
+        break;
+      case SEND_MODE_SMS:
+        this.handleRedirectSendSMS(courseUuid, sessionUuid);
         break;
       default:
         break;
@@ -127,6 +154,7 @@ class SendScreen extends Component {
         <p>Submit your progression with :</p>
         <RadioButtonGroup name="sendMode" onChange={this.handleFormChange}>
           <RadioButton value={SEND_MODE_INTERNET} label="Internet" />
+          <RadioButton value={SEND_MODE_SMS} label="SMS" />
         </RadioButtonGroup>
         <RaisedButton
           disabled={!this.state.submitEnabled || this.state.hasSubmit}
@@ -148,6 +176,7 @@ function mapStateToProps(state, props) {
   return {
     sessions: state.content.sessions,
     session,
+    isValidating: state.content.isValidating,
     isFailValidating: state.content.isFailValidating,
     locale: state.settings.locale
   };

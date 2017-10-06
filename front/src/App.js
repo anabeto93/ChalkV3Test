@@ -22,6 +22,7 @@ import PrivateRoute from './containers/PrivateRoute';
 import SendScreen from './containers/SendScreen';
 import SessionDetailScreen from './containers/SessionDetailScreen';
 import SessionScreen from './containers/SessionScreen';
+import SendSMSScreen from './containers/SendSMSScreen';
 import store from './store/store';
 
 // Check network status
@@ -96,6 +97,11 @@ class App extends Component {
                   exact
                   path={routes.SESSION_SEND}
                   component={SendScreen}
+                />
+                <PrivateRoute
+                  exact
+                  path={routes.SESSION_SEND_SMS}
+                  component={SendSMSScreen}
                 />
                 <PrivateRoute path={routes.ACCOUNT} component={AccountScreen} />
                 <PrivateRoute
