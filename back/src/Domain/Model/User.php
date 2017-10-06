@@ -48,10 +48,13 @@ class User
     private $size;
 
     /** @var ArrayCollection */
-    private $courses;
+    private $userCourses;
 
     /** @var string */
     private $locale;
+
+    /** @var bool */
+    private $forceUpdate;
 
     /**
      * @param string             $uuid
@@ -84,8 +87,10 @@ class User
         $this->updatedAt = $createdAt;
         $this->size = $size;
         $this->apiToken = $apiToken;
-        $this->courses = new ArrayCollection();
         $this->locale = $locale;
+
+        $this->userCourses = new ArrayCollection();
+        $this->forceUpdate = false;
     }
 
     /**
@@ -189,7 +194,12 @@ class User
      */
     public function getCourses(): array
     {
-        return $this->courses->toArray();
+        return array_map(
+            function (UserCourse $userCourse) {
+                return $userCourse->getCourse();
+            },
+            $this->userCourses->toArray()
+        );
     }
 
     /**
@@ -197,17 +207,20 @@ class User
      */
     public function getEnabledCourses(): array
     {
-        return $this->courses->filter(function (Course $course) {
-            return $course->isEnabled();
-        })->toArray();
+        return array_filter(
+            $this->getCourses(),
+            function (Course $course) {
+                return $course->isEnabled();
+            }
+        );
     }
 
     /**
-     * @param array $courses
+     * @return UserCourse[]
      */
-    public function setCourses(array $courses)
+    public function getUserCourses(): array
     {
-        $this->courses = new ArrayCollection($courses);
+        return $this->userCourses->toArray();
     }
 
     /**
@@ -251,6 +264,24 @@ class User
         }
 
         return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isForceUpdate(): bool
+    {
+        return $this->forceUpdate;
+    }
+
+    public function forceUpdate()
+    {
+        $this->forceUpdate = true;
+    }
+
+    public function unForceUpdate()
+    {
+        $this->forceUpdate = false;
     }
 
     /**

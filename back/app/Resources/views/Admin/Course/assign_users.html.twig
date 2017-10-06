@@ -1,7 +1,7 @@
 {% extends ':Admin/Form:base_form_layout.html.twig' %}
 
-{% block title 'admin.course.assign_users.title'|trans %}
+{% block title 'admin.course.assign_users.title'|trans({'%courseTitle%': course.title}) %}
 
-{% block form_title 'admin.course.assign_users.title'|trans %}
+{% block form_title 'admin.course.assign_users.title'|trans({'%courseTitle%': course.title}) %}
 
 {% block goback_link path('admin_course_list') %}

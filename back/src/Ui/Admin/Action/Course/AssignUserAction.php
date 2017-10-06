@@ -82,7 +82,8 @@ class AssignUserAction
         }
 
         return $this->engine->renderResponse(self::TEMPLATE, [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'course' => $course,
         ]);
     }
 }

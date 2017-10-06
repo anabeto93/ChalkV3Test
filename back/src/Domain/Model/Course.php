@@ -44,8 +44,8 @@ class Course
     /** @var ArrayCollection of Session */
     private $sessions;
 
-    /** @var ArrayCollection of User */
-    private $users;
+    /** @var ArrayCollection of UserCourse */
+    private $userCourses;
 
     /** @var \DateTimeInterface */
     private $updatedAt;
@@ -81,10 +81,11 @@ class Course
         $this->description = $description;
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
+        $this->size = $size;
+
         $this->sessions = new ArrayCollection();
         $this->folders = new ArrayCollection();
-        $this->users = new ArrayCollection();
-        $this->size = $size;
+        $this->userCourses = new ArrayCollection();
     }
 
     /**
@@ -173,7 +174,61 @@ class Course
      */
     public function getUsers(): array
     {
-        return $this->users->toArray();
+        return array_map(
+            function (UserCourse $userCourse) {
+                return $userCourse->getUser();
+            },
+            $this->userCourses->toArray()
+        );
+    }
+
+    /**
+     * @return UserCourse[]
+     */
+    public function getUserCourses(): array
+    {
+        return $this->userCourses->toArray();
+    }
+
+    /**
+     * @param UserCourse $userCourse
+     */
+    public function addUserCourse(UserCourse $userCourse)
+    {
+        $this->userCourses->add($userCourse);
+    }
+
+    /**
+     * @param User   $user
+     * @param Course $course
+     *
+     * @return null|UserCourse
+     */
+    public function getUserCourse(User $user, Course $course): ?UserCourse
+    {
+        /** @var UserCourse $userCourse */
+        foreach ($this->userCourses as $userCourse) {
+            if ($user->getId() === $userCourse->getUser()->getId()
+                && $course->getId() === $userCourse->getCourse()->getId()
+            ) {
+                return $userCourse;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param User   $user
+     * @param Course $course
+     */
+    public function removeUserCourse(User $user, Course $course)
+    {
+        $userCourse = $this->getUserCourse($user, $course);
+
+        if (null !== $userCourse) {
+            $this->userCourses->removeElement($userCourse);
+        }
     }
 
     /**
@@ -214,32 +269,6 @@ class Course
     public function getSize(): int
     {
         return $this->size;
-    }
-
-    /**
-     * @param User[] $users
-     */
-    public function affectUser(array $users)
-    {
-        foreach ($this->getUsers() as $assignedUser) {
-            if (!in_array($assignedUser, $users)) {
-                $this->unAssignUser($assignedUser);
-            }
-        }
-
-        foreach ($users as $user) {
-            if (!$this->users->contains($user)) {
-                $this->users->add($user);
-            }
-        }
-    }
-
-    /**
-     * @param User $user
-     */
-    public function unAssignUser(User $user)
-    {
-        $this->users->removeElement($user);
     }
 
     /**

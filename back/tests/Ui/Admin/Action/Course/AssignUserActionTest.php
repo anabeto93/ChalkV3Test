@@ -67,7 +67,7 @@ class AssignUserActionTest extends TestCase
 
         // Mock
         $this->engine
-            ->renderResponse("Admin/Course/assign_users.html.twig", ['form' => $formView])
+            ->renderResponse("Admin/Course/assign_users.html.twig", ['form' => $formView, 'course' => $course])
             ->shouldBeCalled()
             ->willReturn($response)
         ;

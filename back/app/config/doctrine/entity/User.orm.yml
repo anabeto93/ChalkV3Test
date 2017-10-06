@@ -34,9 +34,9 @@ App\Domain\Model\User:
             nullable: true
         apiToken:
             type: string
-    manyToMany:
-        courses:
-            targetEntity: App\Domain\Model\Course
-            mappedBy: users
-            joinTable:
-                name: user_course
+        forceUpdate:
+            type: boolean
+    oneToMany:
+        userCourses:
+            targetEntity: App\Domain\Model\UserCourse
+            mappedBy: user

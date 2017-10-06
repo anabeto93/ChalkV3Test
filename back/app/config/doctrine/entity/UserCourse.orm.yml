@@ -1,0 +1,24 @@
+App\Domain\Model\UserCourse:
+    type: entity
+    table: user_course
+    id:
+        user:
+            associationKey: true
+        course:
+            associationKey: true
+    fields:
+        assignedAt:
+            type: datetime
+    manyToOne:
+        user:
+            targetEntity: App\Domain\Model\User
+            inversedBy: userCourses
+            joinColumn:
+                onDelete: CASCADE
+                nullable: false
+        course:
+            targetEntity: App\Domain\Model\Course
+            inversedBy: userCourses
+            joinColumn:
+                onDelete: CASCADE
+                nullable: false
