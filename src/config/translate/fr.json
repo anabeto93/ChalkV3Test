@@ -27,6 +27,9 @@
         "button": "Ne fonctionne pas ?",
         "toPhone": "Au ",
         "validationCode": "Code à envoyer"
+      },
+      "validation": {
+        "fail": "Mauvais code"
       }
     }
   },
@@ -39,5 +42,8 @@
   "login": {
     "checking": "Verification ...",
     "start": "Commencer"
+  },
+  "error": {
+    "dismiss": "Cacher"
   }
 }

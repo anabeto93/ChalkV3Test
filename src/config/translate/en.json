@@ -27,6 +27,9 @@
         "button": "Not working ?",
         "toPhone": "To phone",
         "validationCode": "Text to send"
+      },
+      "validation": {
+        "fail": "Wrong code"
       }
     }
   },
@@ -39,5 +42,8 @@
     "settings": {
       "label": "Settings"
     }
+  },
+  "error": {
+    "dismiss": "Dismiss"
   }
 }

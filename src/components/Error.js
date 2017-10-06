@@ -1,5 +1,7 @@
+import I18n from 'i18n-js';
 import { Snackbar } from 'material-ui';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 class Error extends Component {
   constructor(...args) {
@@ -14,11 +16,13 @@ class Error extends Component {
   };
 
   render() {
+    const { locale } = this.props;
+
     return (
       <Snackbar
         open={this.state.show}
         message={this.props.message}
-        action="Dismiss"
+        action={I18n.t('error.dismiss', { locale })}
         autoHideDuration={3000}
         onRequestClose={this.handleDismiss}
         onActionTouchTap={this.handleDismiss}
@@ -31,4 +35,6 @@ Error.defaultProps = {
   show: false
 };
 
-export default Error;
+const mapStateToProps = ({ settings: { locale } }) => ({ locale });
+
+export default connect(mapStateToProps)(Error);
