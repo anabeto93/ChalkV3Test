@@ -1,6 +1,6 @@
 import Clipboard from 'clipboard';
 import I18n from 'i18n-js';
-import { RaisedButton } from 'material-ui';
+import { RaisedButton, TextField } from 'material-ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { UnBlockSession } from '../services/session/UnBlockSession';
@@ -16,24 +16,26 @@ const NotWorking = props => {
       <p>
         {I18n.t('send.sms.notworking.label', { locale })}
       </p>
-      <p>
-        {I18n.t('send.sms.notworking.toPhone', { locale })}:{' '}
-        <input
-          type="text"
+      <div>
+        <span>
+          {I18n.t('send.sms.notworking.toPhone', { locale })}:{' '}
+        </span>
+        <TextField
           id="phone-number"
           data-clipboard-target="#phone-number"
           defaultValue={chalkboardPhone}
         />
-      </p>
-      <p>
-        {I18n.t('send.sms.notworking.validationCode', { locale })}:{' '}
-        <input
-          type="text"
+      </div>
+      <div>
+        <span>
+          {I18n.t('send.sms.notworking.validationCode', { locale })}:{' '}
+        </span>
+        <TextField
           id="validation-code"
           data-clipboard-target="#validation-code"
           defaultValue={validationCode}
         />
-      </p>
+      </div>
     </div>
   );
 };
