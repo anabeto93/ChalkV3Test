@@ -4,13 +4,14 @@ import { RaisedButton, TextField } from 'material-ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { UnBlockSession } from '../services/session/UnBlockSession';
+import getConfig from '../config/index';
 
 const DEFAULT_STATE = {
   showNotWorking: false
 };
 
 const NotWorking = props => {
-  const { validationCode, locale, chalkboardPhone } = props;
+  const { validationCode, locale } = props;
   return (
     <div>
       <p>
@@ -23,7 +24,7 @@ const NotWorking = props => {
         <TextField
           id="phone-number"
           data-clipboard-target="#phone-number"
-          defaultValue={chalkboardPhone}
+          defaultValue={getConfig().apiPhoneNumber}
         />
       </div>
       <div>
@@ -56,8 +57,8 @@ class SendSMSScreen extends Component {
     this.setState({ validationCode });
   }
 
-  openSMSAppLink = (phone, validationCode) => {
-    return `sms:${phone}?body=${validationCode}`;
+  openSMSAppLink = validationCode => {
+    return `sms:${getConfig().apiPhoneNumber}?body=${validationCode}`;
   };
 
   showNotWorking = () => {
@@ -65,7 +66,6 @@ class SendSMSScreen extends Component {
   };
 
   render() {
-    const chalkboardPhoneNumber = '+3300000000'; // TODO: change it for Chalkboard phone
     const { locale } = this.props;
     const validationCode = this.state.validationCode;
 
@@ -90,7 +90,7 @@ class SendSMSScreen extends Component {
           {I18n.t('send.sms.label', { locale })}
         </p>
         <RaisedButton
-          href={this.openSMSAppLink(chalkboardPhoneNumber, validationCode)}
+          href={this.openSMSAppLink(validationCode)}
           target="_blank"
           label={I18n.t('send.sms.button', { locale })}
           fullWidth={true}
@@ -101,11 +101,7 @@ class SendSMSScreen extends Component {
         </button>
 
         {this.state.showNotWorking &&
-          <NotWorking
-            validationCode={validationCode}
-            locale={locale}
-            chalkboardPhone={chalkboardPhoneNumber}
-          />}
+          <NotWorking validationCode={validationCode} locale={locale} />}
       </div>
     );
   }
