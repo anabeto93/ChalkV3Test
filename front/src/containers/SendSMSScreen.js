@@ -1,5 +1,6 @@
 import Clipboard from 'clipboard';
 import I18n from 'i18n-js';
+import getConfig from '../config/index';
 import { RaisedButton } from 'material-ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -48,7 +49,8 @@ class SendSMSScreen extends Component {
     const { sessionUuid, userUuid } = this.props;
     const validationCode = UnBlockSession.getUnlockCodeForSession(
       userUuid,
-      sessionUuid
+      sessionUuid,
+      getConfig().appPrivateKey
     );
 
     new Clipboard('#phone-number');
