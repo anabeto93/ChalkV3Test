@@ -45,8 +45,11 @@ class SendSMSScreen extends Component {
   }
 
   componentDidMount() {
-    const { sessionUuid } = this.props;
-    const validationCode = UnBlockSession.getCodeFromUuid(sessionUuid);
+    const { sessionUuid, userUuid } = this.props;
+    const validationCode = UnBlockSession.getUnlockCodeForSession(
+      userUuid,
+      sessionUuid
+    );
 
     new Clipboard('#phone-number');
     new Clipboard('#validation-code');
@@ -112,8 +115,9 @@ class SendSMSScreen extends Component {
 const mapStateToProps = (state, props) => {
   const { settings: { locale } } = state;
   const { match: { params: { sessionUuid } } } = props;
+  const { currentUser: { uuid } } = state;
 
-  return { locale, sessionUuid };
+  return { locale, sessionUuid, userUuid: uuid };
 };
 
 export default connect(mapStateToProps)(SendSMSScreen);
