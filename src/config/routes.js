@@ -9,3 +9,5 @@ export const SESSION_LIST_WITHOUT_FOLDER = '/courses/:courseUuid/sessions/list';
 export const SESSION_DETAIL = '/courses/:courseUuid/session/:sessionUuid';
 export const SESSION_SEND = '/courses/:courseUuid/session/:sessionUuid/send';
 export const SESSION_VALIDATE_SMS = '/session/validate/sms/:validationCode';
+export const SESSION_SEND_SMS =
+  '/courses/:courseUuid/session/:sessionUuid/sms/send';

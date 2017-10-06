@@ -17,6 +17,17 @@
   "send": {
     "validation": {
       "fail": "Erreur durant la validation de la session"
+    },
+    "sms": {
+      "title": "Soumettre votre validation par SMS",
+      "label": "Vous allez envoyer un code par SMS. Ne pas modifier ce code, merci.",
+      "button": "Envoyer par SMS",
+      "notworking": {
+        "label": "Envoyer le manuellement",
+        "button": "Ne fonctionne pas ?",
+        "toPhone": "Au ",
+        "validationCode": "Code à envoyer"
+      }
     }
   },
   "account": {
