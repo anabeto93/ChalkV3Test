@@ -38,9 +38,13 @@ class SendScreen extends Component {
       nextProps.session
     );
 
-    if (nextSession !== null && !nextProps.isFailValidating) {
+    if (
+      nextSession !== null &&
+      !nextProps.isFailValidating &&
+      !nextProps.isValidating
+    ) {
       this.setState({ ...this.state, nextSession, hasNextSession: true });
-    } else if (!nextProps.isFailValidating) {
+    } else if (!nextProps.isValidating && !nextProps.isFailValidating) {
       this.setState({ ...this.state, redirectToSessionList: true });
     } else {
       this.setState({
@@ -172,6 +176,7 @@ function mapStateToProps(state, props) {
   return {
     sessions: state.content.sessions,
     session,
+    isValidating: state.content.isValidating,
     isFailValidating: state.content.isFailValidating,
     locale: state.settings.locale
   };
