@@ -1,7 +1,10 @@
+import I18n from 'i18n-js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CourseManager from '../services/CourseManager';
+import { doneValidateSession } from '../actions/actionCreators';
 import SessionFooter from '../components/SessionFooter';
+import Success from '../components/Success';
+import CourseManager from '../services/CourseManager';
 
 class SessionDetailScreen extends Component {
   renderContent() {
@@ -9,7 +12,7 @@ class SessionDetailScreen extends Component {
   }
 
   render() {
-    const { session, courseUuid } = this.props;
+    const { session, courseUuid, isValidated, locale } = this.props;
 
     if (session !== undefined) {
       return (
@@ -19,6 +22,12 @@ class SessionDetailScreen extends Component {
           </h1>
           <div dangerouslySetInnerHTML={this.renderContent()} />
           <SessionFooter courseUuid={courseUuid} session={session} />
+          {isValidated &&
+            <Success
+              message={I18n.t('send.sms.validation.done', { locale })}
+              show={true}
+              dispatchOnDismiss={doneValidateSession}
+            />}
         </div>
       );
     }
@@ -28,12 +37,20 @@ class SessionDetailScreen extends Component {
 }
 
 function mapStateToProps(state, props) {
-  let session = CourseManager.getSession(
+  const session = CourseManager.getSession(
     state.content.sessions,
     props.match.params.sessionUuid
   );
 
-  return { session, courseUuid: props.match.params.courseUuid };
+  const { content: { isValidated } } = state;
+  const { settings: { locale } } = state;
+
+  return {
+    session,
+    courseUuid: props.match.params.courseUuid,
+    isValidated,
+    locale
+  };
 }
 
 export default connect(mapStateToProps)(SessionDetailScreen);

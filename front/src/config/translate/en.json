@@ -29,7 +29,8 @@
         "validationCode": "Text to send"
       },
       "validation": {
-        "fail": "Wrong code"
+        "fail": "Wrong code",
+        "done": "Session successfully validated"
       }
     }
   },

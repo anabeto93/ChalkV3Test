@@ -38,8 +38,8 @@ class ValidateSession extends Component {
 
     const session = CourseManager.getSession(this.props.sessions, sessionUuid);
 
-    if (session === null) {
-      store.dispatch(failValidateSessionSMS);
+    if (session === undefined) {
+      store.dispatch(failValidateSessionSMS());
 
       return <Redirect to={COURSES} />;
     }
