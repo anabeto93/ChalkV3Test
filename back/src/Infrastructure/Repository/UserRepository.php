@@ -159,4 +159,22 @@ class UserRepository implements UserRepositoryInterface
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByUuid(string $userUuid): ?User
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('user')
+            ->from(User::class, 'user')
+            ->where('user.uuid = :userUuid')
+            ->setParameter('userUuid', $userUuid)
+            ->setMaxResults(1)
+        ;
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
 }

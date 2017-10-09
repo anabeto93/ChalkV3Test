@@ -19,6 +19,8 @@ parameters:
     admin_menu_color: '#fc3691'
     path_to_store_upload: '/tmp'
     timezone: Africa/Accra
+    session_validation_private_key_decode: 'i5Rj10bMdZGeK9fWg6qhQkmACn8YrPpBstuv2DwNXVxayz7EFUcH3JLS4T'
+    session_validation_private_key_encode: '0C3abke2ty4Ah6RdDpSUKJHL7YnxfEjiP9FwQvX8rVgmqNscz5uBGWZ1TM'
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
@@ -35,3 +37,5 @@ parameters:
     # Infobip
     infobip_phone_number: '123213123'
     infobip_api_key: 'publicApiKey'
+    infobip_hook_key: '8T5dari7Ri'
+

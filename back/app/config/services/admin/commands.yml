@@ -95,3 +95,15 @@ services:
             $fromNumber: '%infobip_phone_number%'
         tags:
             - { name: tactician.handler, command: App\Application\Command\SMS\Send }
+
+    #
+    # External
+    #
+    App\Application\Command\External\Infobip\ForwardMessageHandler:
+        autowire: true
+        arguments:
+            $phoneNumberSender: '%infobip_phone_number%'
+            $sessionValidationDecodeKey: '%session_validation_private_key_decode%'
+            $sessionValidationEncodeKey: '%session_validation_private_key_encode%'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\External\Infobip\ForwardMessage }
