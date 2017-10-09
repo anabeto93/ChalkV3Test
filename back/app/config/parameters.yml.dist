@@ -31,7 +31,7 @@ parameters:
     # Url
     scheme: http
     domain: api.chalkboardeducation.dev
-    front_url: https://app.chalkboard.education
+    front_url: 'https://app.chalkboard.education/'
     front_login_route: '#/login/{token}'
     front_session_validation_response_route: '#/'
 
