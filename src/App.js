@@ -61,8 +61,8 @@ class App extends Component {
           <Router>
             <div>
               <Header />
-              <Updates />
               <div className="container-layout">
+                <Updates />
                 <Switch>
                   <Route exact path={routes.HOME} component={HomeScreen} />
                   <Route exact path={routes.LOGIN} component={LoginScreen} />
