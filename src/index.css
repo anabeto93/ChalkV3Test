@@ -20,6 +20,11 @@ body {
   left: 16px;
 }
 
+.session-content img {
+  width: 100%;
+  height: auto;
+}
+
 .session-index-validated {
   background-color: #99e04c;
 }
