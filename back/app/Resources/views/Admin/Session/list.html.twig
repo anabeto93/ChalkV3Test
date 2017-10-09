@@ -37,7 +37,9 @@
                     <td class="text-center">{{ session.needValidation ? '✔︎' : '' }}</td>
                     <td class="text-center">
                         {% if session.needValidation %}
-                            {{ session.userValidated }}/{{ session.userRegistered }}
+                            <a href="{{ path('admin_session_progression', {'course': course.id, 'session': session.id}) }}">
+                                {{ session.userValidated }}/{{ session.userRegistered }}
+                            </a>
                         {% endif %}
                     </td>
                     <td class="text-right">
