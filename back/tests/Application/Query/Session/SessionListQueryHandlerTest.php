@@ -17,6 +17,8 @@ use App\Domain\Model\Course;
 use App\Domain\Model\Folder;
 use App\Domain\Model\Session;
 use App\Domain\Repository\SessionRepositoryInterface;
+use App\Domain\Repository\User\ProgressionRepositoryInterface;
+use App\Domain\Repository\UserCourseRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
 class SessionListQueryHandlerTest extends TestCase
@@ -41,6 +43,13 @@ class SessionListQueryHandlerTest extends TestCase
                 $session3->reveal(),
             ])
         ;
+        $userCourseRepository = $this->prophesize(UserCourseRepositoryInterface::class);
+        $progressionRepository = $this->prophesize(ProgressionRepositoryInterface::class);
+
+        $userCourseRepository->countUserForCourse($course->reveal())->shouldBeCalled()->willReturn(120);
+        $progressionRepository->countUserForSession($session1->reveal())->shouldBeCalled()->willReturn(120);
+        $progressionRepository->countUserForSession($session3->reveal())->shouldBeCalled()->willReturn(19);
+
         $session1->getId()->shouldBeCalled()->willReturn(1);
         $session1->getTitle()->shouldBeCalled()->willReturn('title 1');
         $session1->getRank()->shouldBeCalled()->willReturn(1);
@@ -63,13 +72,17 @@ class SessionListQueryHandlerTest extends TestCase
 
         // Handler
         $query = new SessionListQuery($course->reveal());
-        $queryHandler = new SessionListQueryHandler($sessionRepository->reveal());
+        $queryHandler = new SessionListQueryHandler(
+            $sessionRepository->reveal(),
+            $progressionRepository->reveal(),
+            $userCourseRepository->reveal()
+        );
         $result = $queryHandler->handle($query);
 
         $expected = [
-            new SessionView(1, 'title 1', 1, null, true),
-            new SessionView(2, 'title 2', 2, 'Folder title', false),
-            new SessionView(3, 'title 3', 12, 'Folder title', true),
+            new SessionView(1, 'title 1', 1, null, true, 120, 120),
+            new SessionView(2, 'title 2', 2, 'Folder title', false, null, 120),
+            new SessionView(3, 'title 3', 12, 'Folder title', true, 19, 120),
         ];
 
         $this->assertEquals($expected, $result);

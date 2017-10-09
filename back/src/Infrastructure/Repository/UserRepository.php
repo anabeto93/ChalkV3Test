@@ -10,7 +10,6 @@
 
 namespace App\Infrastructure\Repository;
 
-use App\Domain\Model\Course;
 use App\Domain\Model\User;
 use App\Domain\Pagination\PaginatedResult;
 use App\Domain\Repository\UserRepositoryInterface;

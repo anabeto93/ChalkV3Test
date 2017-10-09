@@ -78,4 +78,39 @@ class ProgressionRepository implements ProgressionRepositoryInterface
 
         return $queryBuilder->getQuery()->getResult();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function countUserForSession(Session $session): int
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('COUNT(IDENTITY(progression))')
+            ->from(Progression::class, 'progression')
+            ->where('progression.session = :session')
+            ->setParameter('session', $session)
+        ;
+
+        return (int) $queryBuilder->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findUserForSession(Session $session): array
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('progression, user')
+            ->from(Progression::class, 'progression')
+            ->join('progression.user', 'user')
+            ->where('progression.session = :session')
+            ->setParameter('session', $session)
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }
