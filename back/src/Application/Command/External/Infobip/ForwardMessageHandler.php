@@ -11,12 +11,12 @@
 namespace App\Application\Command\External\Infobip;
 
 use App\Application\Adapter\SMSSenderInterface;
+use App\Application\Adapter\TranslatorInterface;
 use App\Application\Command\User\Progression\ValidateSession;
 use App\Application\Command\User\Progression\ValidateSessionHandler;
 use App\Application\View\SMS\SMSView;
 use App\Domain\Exception\Session\ValidateSession\SessionNotAccessibleForThisUserException;
 use App\Domain\Exception\Session\ValidateSession\SessionNotFoundException;
-use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use App\Domain\Session\Validation\Decoder;
 use App\Domain\Session\Validation\Encoder;
@@ -24,6 +24,10 @@ use App\Domain\User\Progression\Medium;
 
 class ForwardMessageHandler
 {
+    const TRANSLATION_VALIDATION_CODE_RESPONSE = 'sms.session.validation.success';
+    const TRANSLATION_DOMAIN                   = 'messages';
+    const CODE_URL_REPLACEMENT                 = '{unlockCode}';
+
     /** @var Decoder */
     private $decoder;
 
@@ -48,7 +52,17 @@ class ForwardMessageHandler
     /** @var string */
     private $phoneNumberSender;
 
+    /** @var TranslatorInterface */
+    private $translator;
+
+    /** @var string */
+    private $frontUrl;
+
+    /** @var string */
+    private $frontValidationSessionUrl;
+
     /**
+     * @param TranslatorInterface     $translator
      * @param UserRepositoryInterface $userRepository
      * @param ValidateSessionHandler  $validateSessionHandler
      * @param SMSSenderInterface      $SMSSender
@@ -57,8 +71,11 @@ class ForwardMessageHandler
      * @param Encoder                 $encoder
      * @param string                  $sessionValidationDecodeKey
      * @param string                  $sessionValidationEncodeKey
+     * @param string                  $frontUrl
+     * @param string                  $frontValidationSessionUrl
      */
     public function __construct(
+        TranslatorInterface $translator,
         UserRepositoryInterface $userRepository,
         ValidateSessionHandler $validateSessionHandler,
         SMSSenderInterface $SMSSender,
@@ -66,7 +83,9 @@ class ForwardMessageHandler
         Decoder $decoder,
         Encoder $encoder,
         string $sessionValidationDecodeKey,
-        string $sessionValidationEncodeKey
+        string $sessionValidationEncodeKey,
+        string $frontUrl,
+        string $frontValidationSessionUrl
     ) {
         $this->userRepository             = $userRepository;
         $this->validateSessionHandler     = $validateSessionHandler;
@@ -76,6 +95,9 @@ class ForwardMessageHandler
         $this->encoder                    = $encoder;
         $this->sessionValidationDecodeKey = $sessionValidationDecodeKey;
         $this->sessionValidationEncodeKey = $sessionValidationEncodeKey;
+        $this->translator                 = $translator;
+        $this->frontUrl                   = $frontUrl;
+        $this->frontValidationSessionUrl  = $frontValidationSessionUrl;
     }
 
     /**
@@ -124,8 +146,22 @@ class ForwardMessageHandler
                 $from = $user->getPhoneNumber();
             }
 
+            $frontValidationSessionUrlWithCode = str_replace(
+                self::CODE_URL_REPLACEMENT,
+                $unlockCode,
+                $this->frontValidationSessionUrl
+            );
+
+            $url     = sprintf('%s/%s', $this->frontUrl, $frontValidationSessionUrlWithCode);
+            $message = $this->translator->trans(
+                self::TRANSLATION_VALIDATION_CODE_RESPONSE,
+                ['%url%' => $url],
+                self::TRANSLATION_DOMAIN,
+                $user->getLocale()
+            );
+
             $this->SMSSender->send(
-                new SMSView($this->phoneNumberSender, [$from], $unlockCode)
+                new SMSView($this->phoneNumberSender, [$from], $message)
             );
         }
     }
