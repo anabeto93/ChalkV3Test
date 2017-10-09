@@ -33,5 +33,5 @@ parameters:
     front_login_route: '/login/{token}'
 
     # Infobip
-    infobip_phone_number: '123213123'
+    infobip_phone_number: 'ChalkEdu'
     infobip_api_key: 'publicApiKey'
