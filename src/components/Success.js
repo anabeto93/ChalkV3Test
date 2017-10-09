@@ -30,7 +30,7 @@ class Success extends Component {
       <Snackbar
         open={this.state.show}
         message={this.props.message}
-        action={I18n.t('error.dismiss', { locale })}
+        // action={I18n.t('error.dismiss', { locale })}
         autoHideDuration={3000}
         onRequestClose={this.handleDismiss}
         onActionTouchTap={this.handleDismiss}
