@@ -24,7 +24,7 @@ class ValidateSession extends Component {
   redirectSessionList = session => {
     return generateUrl(SESSION_LIST, {
       ':courseUuid': session.courseUuid,
-      ':folderUuid': session.folderUUid
+      ':folderUuid': session.folderUuid
     });
   };
 
@@ -46,7 +46,7 @@ class ValidateSession extends Component {
 
     store.dispatch(receiveValidateSessionSMS(sessionUuid));
 
-    const nextSession = CourseManager.getNextSession(
+    let nextSession = CourseManager.getNextSession(
       this.props.sessions,
       session
     );
