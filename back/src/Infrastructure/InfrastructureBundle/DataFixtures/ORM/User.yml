@@ -1,7 +1,7 @@
 App\Domain\Model\User:
     user_1:
         __construct:
-            - "12345-test-98765"
+            - "d1fae8c298-adb2e-e878b"
             - "Jean"
             - "Paul"
             - '+33123456789'
