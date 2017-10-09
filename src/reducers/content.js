@@ -1,4 +1,5 @@
 import {
+  DONE_VALIDATE_SESSION,
   FAIL_GET_COURSES_INFORMATIONS,
   FAIL_VALIDATE_SESSION_INTERNET,
   FAIL_VALIDATE_SESSION_SMS,
@@ -18,6 +19,7 @@ const DEFAULT_CONTENT_STATE = {
   isErrorFetching: false,
   isValidating: false,
   isFailValidating: false,
+  isValidated: false,
   courses: {},
   folders: {},
   sessions: {},
@@ -145,7 +147,8 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
         ...state,
         sessions: { ...currentSessions },
         isValidating: false,
-        isFailValidating: false
+        isFailValidating: false,
+        isValidated: true
       };
     }
 
@@ -155,6 +158,10 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
 
     case FAIL_VALIDATE_SESSION_SMS: {
       return { ...state, isFailValidating: true, isValidating: false };
+    }
+
+    case DONE_VALIDATE_SESSION: {
+      return { ...state, isValidated: false, isValidating: false };
     }
 
     default:

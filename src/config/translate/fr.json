@@ -29,7 +29,8 @@
         "validationCode": "Code à envoyer"
       },
       "validation": {
-        "fail": "Mauvais code"
+        "fail": "Mauvais code",
+        "done": "Session validé avec succès"
       }
     }
   },
