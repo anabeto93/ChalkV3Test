@@ -25,7 +25,8 @@ const config = {
     updates: {
       intervalInSeconds: 20
     },
-    defaultFolder: 'default'
+    defaultFolder: 'default',
+    apiPhoneNumber: '+233200659986'
   }
 };
 
