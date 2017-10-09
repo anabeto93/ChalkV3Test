@@ -21,19 +21,24 @@ class Progression
     /** @var Session */
     private $session;
 
+    /** @var string */
+    private $medium;
+
     /** @var \DateTimeInterface */
     private $createdAt;
 
     /**
      * @param User               $user
      * @param Session            $session
+     * @param string             $medium
      * @param \DateTimeInterface $createdAt
      */
-    public function __construct(User $user, Session $session, \DateTimeInterface $createdAt)
+    public function __construct(User $user, Session $session, string $medium, \DateTimeInterface $createdAt)
     {
         $this->user = $user;
         $this->session = $session;
         $this->createdAt = $createdAt;
+        $this->medium = $medium;
     }
 
     /**

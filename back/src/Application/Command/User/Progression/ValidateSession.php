@@ -21,13 +21,18 @@ class ValidateSession implements Command
     /** @var string */
     public $sessionUuid;
 
+    /** @var string */
+    public $medium;
+
     /**
      * @param User   $user
      * @param string $sessionUuid
+     * @param string $medium
      */
-    public function __construct(User $user, string $sessionUuid)
+    public function __construct(User $user, string $sessionUuid, string $medium)
     {
         $this->user = $user;
         $this->sessionUuid = $sessionUuid;
+        $this->medium = $medium;
     }
 }
