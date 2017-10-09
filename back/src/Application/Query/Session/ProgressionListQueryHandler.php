@@ -34,7 +34,6 @@ class ProgressionListQueryHandler
         UserCourseRepositoryInterface $userCourseRepository,
         ProgressionRepositoryInterface $progressionRepository
     ) {
-
         $this->userCourseRepository = $userCourseRepository;
         $this->progressionRepository = $progressionRepository;
     }
@@ -50,7 +49,7 @@ class ProgressionListQueryHandler
 
         $users = $this->indexByUserId($userCourses);
 
-        $userWithProgression = $this->progressionRepository->findUserForSession($query->session);
+        $userWithProgression = $this->progressionRepository->findForSession($query->session);
 
         $progressionListView = new ProgressionListView();
 

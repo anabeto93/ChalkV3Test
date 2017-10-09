@@ -99,7 +99,7 @@ class ProgressionRepository implements ProgressionRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function findUserForSession(Session $session): array
+    public function findForSession(Session $session): array
     {
         $queryBuilder = $this
             ->entityManager
