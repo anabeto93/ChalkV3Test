@@ -1,12 +1,12 @@
+import I18n from 'i18n-js';
 import { RaisedButton } from 'material-ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import I18n from 'i18n-js';
+import UserPanel from '../components/Course/UserPanel';
 
 import { COURSES, HOME } from '../config/routes';
-import { getUserInformations } from '../actions/actionCreators';
 import { LOGIN_STATE_LOGGED_IN } from '../store/defaultState';
-import UserPanel from '../components/Course/UserPanel';
+import { getUserInformations } from '../actions/actionCreators';
 
 class LoginScreen extends Component {
   constructor(...args) {
@@ -15,8 +15,12 @@ class LoginScreen extends Component {
   }
 
   componentDidMount() {
-    this.setState({ isFetching: true });
-    this.props.dispatch(getUserInformations(this.props.match.params.token));
+    const { currentUser } = this.props;
+
+    if (currentUser.loginState !== LOGIN_STATE_LOGGED_IN) {
+      this.setState({ isFetching: true });
+      this.props.dispatch(getUserInformations(this.props.match.params.token));
+    }
   }
 
   componentWillReceiveProps(nextProps) {
