@@ -152,7 +152,7 @@ class ForwardMessageHandler
                 $this->frontValidationSessionUrl
             );
 
-            $url     = sprintf('%s/%s', $this->frontUrl, $frontValidationSessionUrlWithCode);
+            $url     = sprintf('%s%s', $this->frontUrl, $frontValidationSessionUrlWithCode);
             $message = $this->translator->trans(
                 self::TRANSLATION_VALIDATION_CODE_RESPONSE,
                 ['%url%' => $url],
