@@ -33,7 +33,7 @@ parameters:
     domain: api.chalkboardeducation.dev
     front_url: 'https://app.chalkboard.education/'
     front_login_route: '#/login/{token}'
-    front_session_validation_response_route: '#/'
+    front_session_validation_response_route: '#/session/validate/sms/{unlockCode}'
 
     # Infobip
     infobip_phone_number: '123213123'
