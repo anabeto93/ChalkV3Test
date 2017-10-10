@@ -15,10 +15,10 @@ use App\Application\View\Session\Progression\UserView;
 
 class ProgressionListView
 {
-    /** @var UserValidatedView */
+    /** @var UserValidatedView[] */
     public $usersValidated;
 
-    /** @var UserView */
+    /** @var UserView[] */
     public $usersNotValidated;
 
     public function __construct()

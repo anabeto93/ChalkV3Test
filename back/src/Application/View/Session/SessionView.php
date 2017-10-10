@@ -28,10 +28,10 @@ class SessionView
     public $needValidation;
 
     /** @var int|null */
-    public $userValidated;
+    public $usersValidated;
 
     /** @var int */
-    public $userRegistered;
+    public $usersAssignedToCourse;
 
     /**
      * @param int         $id
@@ -39,8 +39,8 @@ class SessionView
      * @param int         $rank
      * @param string|null $folderTitle
      * @param bool        $needValidation
-     * @param int|null    $userValidated
-     * @param int         $userRegistered
+     * @param int|null    $usersValidated
+     * @param int         $usersAssignedToCourse
      */
     public function __construct(
         int $id,
@@ -48,15 +48,15 @@ class SessionView
         int $rank,
         string $folderTitle = null,
         bool $needValidation,
-        int $userValidated = null,
-        int $userRegistered
+        int $usersValidated = null,
+        int $usersAssignedToCourse
     ) {
         $this->id = $id;
         $this->title = $title;
         $this->rank = $rank;
         $this->folderTitle = $folderTitle;
         $this->needValidation = $needValidation;
-        $this->userValidated = $userValidated;
-        $this->userRegistered = $userRegistered;
+        $this->usersValidated = $usersValidated;
+        $this->usersAssignedToCourse = $usersAssignedToCourse;
     }
 }
