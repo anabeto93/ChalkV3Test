@@ -2,11 +2,15 @@ import I18n from 'i18n-js';
 import { RaisedButton } from 'material-ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {
+  getUserInformations,
+  purgeUserInformations
+} from '../actions/actionCreators';
 import UserPanel from '../components/Course/UserPanel';
 
 import { COURSES, HOME } from '../config/routes';
 import { LOGIN_STATE_LOGGED_IN } from '../store/defaultState';
-import { getUserInformations } from '../actions/actionCreators';
+import { Redirect } from 'react-router-dom';
 
 class LoginScreen extends Component {
   constructor(...args) {
@@ -41,7 +45,15 @@ class LoginScreen extends Component {
   };
 
   render() {
-    const { locale } = this.props;
+    const { locale, currentUser } = this.props;
+    const { token } = this.props.match.params;
+
+    if (currentUser.token === token) {
+      return <Redirect to={HOME} />;
+    } else if (currentUser.token !== null && currentUser.token !== token) {
+      this.props.dispatch(purgeUserInformations());
+      this.props.dispatch(getUserInformations(token));
+    }
 
     if (this.state.isFetching) {
       return (
@@ -51,7 +63,7 @@ class LoginScreen extends Component {
       );
     }
 
-    if (this.props.currentUser.loginState === LOGIN_STATE_LOGGED_IN) {
+    if (currentUser.loginState === LOGIN_STATE_LOGGED_IN) {
       return (
         <div>
           <UserPanel />
