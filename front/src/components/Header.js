@@ -85,12 +85,9 @@ class Header extends Component {
   };
 
   render() {
-    const headerStyle = { position: 'fixed', top: '0px' };
-
     return (
       <AppBar
         className="navbar-header"
-        style={headerStyle}
         title={this.logo()}
         onTitleTouchTap={this.handleRedirectCourseList}
         iconElementLeft={this.leftIcon()}
