@@ -50,6 +50,7 @@ class ProgressionListQueryHandlerTest extends TestCase
         $user1->getLastName()->willReturn('last name 1');
         $user1->getPhoneNumber()->willReturn('+33123123123');
         $progression1->getCreatedAt()->willReturn($date);
+        $progression1->getMedium()->willReturn('sms');
         $user2->getFirstName()->willReturn('Toto');
         $user2->getLastName()->willReturn('Tata');
         $user2->getPhoneNumber()->willReturn('+33987654321');
@@ -84,7 +85,7 @@ class ProgressionListQueryHandlerTest extends TestCase
         $result = $handler->handle($query);
 
         $expected = new ProgressionListView();
-        $expected->addUserValidated(new UserValidatedView('last name 1', 'first name 1', '33123123123', $date));
+        $expected->addUserValidated(new UserValidatedView('last name 1', 'first name 1', '33123123123', 'sms', $date));
         $expected->addUserNotValidated(new UserView('Aaaaa', 'Titi', '+335678912345'));
         $expected->addUserNotValidated(new UserView('Tata', 'Toto', '+33987654321'));
 

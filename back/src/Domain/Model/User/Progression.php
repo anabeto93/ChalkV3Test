@@ -64,4 +64,12 @@ class Progression
     {
         return $this->createdAt;
     }
+
+    /**
+     * @return string
+     */
+    public function getMedium(): string
+    {
+        return $this->medium;
+    }
 }

@@ -62,6 +62,7 @@ class ProgressionListQueryHandler
                 $user->getLastName(),
                 $user->getFirstName(),
                 $user->getPhoneNumber(),
+                $progression->getMedium(),
                 $progression->getCreatedAt()
             );
 
