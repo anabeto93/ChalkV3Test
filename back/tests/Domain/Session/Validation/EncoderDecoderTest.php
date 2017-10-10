@@ -40,12 +40,13 @@ class EncoderDecoderTest extends TestCase
         $sessionUuid = 'a6342f0bf7-a2aae-5a485';
         $sessionCode = 'dhWK9eCZQCghehhAfh96f';
         $privateKey  = "i5Rj10bMdZGeK9fWg6qhQkmACn8YrPpBstuv2DwNXVxayz7EFUcH3JLS4T";
+        $fullCode    = '2cw3EHzUN7zEcFNHHzyzFBxwv2uEsaENxuxx7Dx2XD';
 
         $decoder                       = new Decoder();
         $userUuidDecode                = $decoder->getUuidFromCode($privateKey, $userCode);
         $sessionUuidDecode             = $decoder->getUuidFromCode($privateKey, $sessionCode);
-        $userUuidDecodeFromFullCode    = $decoder->getUserUuidFromCode($privateKey, '2cw3EHzUN7zEcFNHHzyzFBxwv2uEsaENxuxx7Dx2XD');
-        $sessionUuidDecodeFromFullCode = $decoder->getSessionUuidFromCode($privateKey, '2cw3EHzUN7zEcFNHHzyzFBxwv2uEsaENxuxx7Dx2XD');
+        $userUuidDecodeFromFullCode    = $decoder->getUserUuidFromCode($privateKey, $fullCode);
+        $sessionUuidDecodeFromFullCode = $decoder->getSessionUuidFromCode($privateKey, $fullCode);
 
         $this->assertEquals($userUuid, $userUuidDecode);
         $this->assertEquals($sessionUuid, $sessionUuidDecode);
