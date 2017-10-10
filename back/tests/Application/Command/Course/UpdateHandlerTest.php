@@ -16,6 +16,8 @@ use App\Domain\Model\Course;
 use App\Domain\Repository\CourseRepositoryInterface;
 use App\Domain\Size\Calculator;
 use PHPUnit\Framework\TestCase;
+use App\Application\Command\User\ForceUpdate;
+use App\Application\Command\User\ForceUpdateHandler;
 
 class UpdateHandlerTest extends TestCase
 {
@@ -65,6 +67,7 @@ class UpdateHandlerTest extends TestCase
 
         // Mock
         $courseRepository = $this->prophesize(CourseRepositoryInterface::class);
+        $forceUpdateHandler = $this->prophesize(ForceUpdateHandler::class);
         $courseRepository->set($expectedCourse)->shouldBeCalled();
         $sizeCalculator = $this->prophesize(Calculator::class);
         $sizeCalculator
@@ -73,8 +76,13 @@ class UpdateHandlerTest extends TestCase
             ->willReturn(57)
         ;
 
+        $forceUpdateHandler->handle(
+            new ForceUpdate([])
+        )->shouldBeCalled();
+
         $handler = new UpdateHandler(
             $courseRepository->reveal(),
+            $forceUpdateHandler->reveal(),
             $sizeCalculator->reveal(),
             $dateTime
         );
