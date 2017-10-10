@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the ChalkboardEducationV2 Application project.
+ * This file is part of the ChalkboardEducation Application project.
  *
- * Copyright (C) ChalkboardEducationV2
+ * Copyright (C) ChalkboardEducation
  *
  * @author Elao <contact@elao.com>
  */
