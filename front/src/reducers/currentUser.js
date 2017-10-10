@@ -1,5 +1,6 @@
 import {
   FAIL_GET_USER_INFORMATIONS,
+  PURGE_USER_INFORMATIONS,
   RECEIVE_USER_INFORMATIONS,
   REQUEST_USER_INFORMATIONS
 } from '../actions/actionCreators';
@@ -7,6 +8,7 @@ import {
   LOGIN_STATE_LOGGED_IN,
   LOGIN_STATE_LOGGED_OUT
 } from '../store/defaultState';
+import defaultState from '../store/defaultState';
 
 export default function currentUser(
   state = {
@@ -57,6 +59,13 @@ export default function currentUser(
         ...state,
         token: null,
         loginState: LOGIN_STATE_LOGGED_OUT
+      };
+    }
+
+    case PURGE_USER_INFORMATIONS: {
+      return {
+        ...state,
+        ...defaultState.currentUser
       };
     }
 
