@@ -106,8 +106,7 @@ class ProgressionRepository implements ProgressionRepositoryInterface
             ->createQueryBuilder()
             ->select('progression, user')
             ->from(Progression::class, 'progression')
-            ->join('progression.user', 'user')
-            ->where('progression.session = :session')
+            ->join('progression.user', 'user', 'WITH', 'progression.session = :session')
             ->setParameter('session', $session)
         ;
 

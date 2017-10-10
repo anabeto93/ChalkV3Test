@@ -57,8 +57,7 @@ class UserCourseRepository implements UserCourseRepositoryInterface
             ->createQueryBuilder()
             ->select('user_course, user')
             ->from(UserCourse::class, 'user_course')
-            ->join('user_course.user', 'user')
-            ->where('user_course.course = :course')
+            ->join('user_course.user', 'user', 'WITH', 'user_course.course = :course')
             ->setParameter('course', $course)
         ;
 
