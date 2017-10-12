@@ -25,3 +25,8 @@ services:
     App\Infrastructure\Repository\User\ProgressionRepository:
         autowire: true
     App\Domain\Repository\User\ProgressionRepositoryInterface: '@App\Infrastructure\Repository\User\ProgressionRepository'
+
+
+    App\Infrastructure\Repository\Upload\FileRepository:
+        autowire: true
+    App\Domain\Repository\Upload\FileRepositoryInterface: '@App\Infrastructure\Repository\Upload\FileRepository'

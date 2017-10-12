@@ -1,0 +1,4 @@
+services:
+    App\Infrastructure\Denormalizer\User\Import\UserImportListViewDenormalizer:
+        tags:
+            - { name: serializer.normalizer }

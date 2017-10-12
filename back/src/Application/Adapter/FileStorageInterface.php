@@ -10,6 +10,8 @@
 
 namespace App\Application\Adapter;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 interface FileStorageInterface
 {
     /**
@@ -36,4 +38,12 @@ interface FileStorageInterface
      * @return int
      */
     public function size(string $path): int;
+
+    /**
+     * @param UploadedFile $file
+     * @param string|null  $importDir
+     *
+     * @return null|string
+     */
+    public function upload(UploadedFile $file, string $importDir = null);
 }

@@ -37,6 +37,7 @@ admin.session.title:  'List of sessions for "%courseTitle%"'
 admin.session.preview.title: 'Preview: "%sessionTitle%"'
 admin.sms.send.title: 'Send an SMS'
 admin.user.action.update: 'Update'
+admin.user.batch.confirm: 'Confirm this action?'
 admin.user.column.country: 'Country'
 admin.user.column.token: 'Token'
 admin.user.column.createdAt: 'Creation date'
@@ -44,8 +45,15 @@ admin.user.column.lastLoginAccessNotificationAt: 'Last login access notification
 admin.user.column.firstName: 'First name'
 admin.user.column.lastName: 'Last name'
 admin.user.column.phoneNumber: 'Phone number'
+admin.user.confirmImport.title: 'Preview of the import'
 admin.user.create.title: 'Create a student'
-admin.user.update.title: 'Update student'
+admin.user.import.title: 'Import students'
+admin.user.import.column.country: Country
+admin.user.import.column.error: Errors
+admin.user.import.column.firstName: First name
+admin.user.import.column.language: Language
+admin.user.import.column.lastName: Last name
+admin.user.import.column.phoneNumber: Phone number
 admin.user.list.title: 'List of students'
+admin.user.update.title: 'Update student'
 admin.user.no-result: 'No user'
-admin.user.batch.confirm: 'Confirm this action?'

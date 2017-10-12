@@ -1,0 +1,40 @@
+{% extends ':Admin/Form:base_form_layout.html.twig' %}
+
+{% block title 'admin.user.confirmImport.title'|trans %}
+
+{% block form_title 'admin.user.confirmImport.title'|trans %}
+
+{% block form_content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>{{ 'admin.user.import.column.firstName'|trans }}</th>
+                <th>{{ 'admin.user.import.column.lastName'|trans }}</th>
+                <th>{{ 'admin.user.import.column.phoneNumber'|trans }}</th>
+                <th>{{ 'admin.user.import.column.country'|trans }}</th>
+                <th>{{ 'admin.user.import.column.language'|trans }}</th>
+                <th>{{ 'admin.user.import.column.error'|trans }}</th>
+            </tr>
+        </thead>
+        {% for user in userImportListView.userImportViews %}
+            <tr>
+                <td>{{ user.firstName }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.phoneNumber }}</td>
+                <td>{{ user.country }}</td>
+                <td>{{ user.language }}</td>
+                <td>
+                    {% if user.errors is not empty %}
+                        <ul>
+                            {% for error in user.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
+
+{% block goback_link path('admin_user_list') %}
