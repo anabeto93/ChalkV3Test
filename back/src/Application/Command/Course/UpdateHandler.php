@@ -10,10 +10,10 @@
 
 namespace App\Application\Command\Course;
 
-use App\Domain\Repository\CourseRepositoryInterface;
-use App\Domain\Size\Calculator;
 use App\Application\Command\User\ForceUpdate;
 use App\Application\Command\User\ForceUpdateHandler;
+use App\Domain\Repository\CourseRepositoryInterface;
+use App\Domain\Size\Calculator;
 
 class UpdateHandler
 {
@@ -41,9 +41,9 @@ class UpdateHandler
         Calculator $sizeCalculator,
         \DateTimeInterface $dateTime
     ) {
-        $this->courseRepository = $courseRepository;
-        $this->sizeCalculator   = $sizeCalculator;
-        $this->dateTime         = $dateTime;
+        $this->courseRepository   = $courseRepository;
+        $this->sizeCalculator     = $sizeCalculator;
+        $this->dateTime           = $dateTime;
         $this->forceUpdateHandler = $forceUpdateHandler;
     }
 
