@@ -22,6 +22,9 @@ export const RECEIVE_USER_INFORMATIONS =
 export const FAIL_GET_USER_INFORMATIONS =
   '@@CHALKBOARDEDUCATION/FAIL_GET_USER_INFORMATIONS';
 
+export const PURGE_USER_INFORMATIONS =
+  '@@CHALKBOARDEDUCATION/PURGE_USER_INFORMATIONS';
+
 export function requestUserInformations(token) {
   return { type: REQUEST_USER_INFORMATIONS, payload: { token } };
 }
@@ -47,6 +50,10 @@ export function getUserInformations(token) {
         dispatch(failGetUserInformations(`Bad response from server: ${error}`));
       });
   };
+}
+
+export function purgeUserInformations() {
+  return { type: PURGE_USER_INFORMATIONS };
 }
 
 // GET COURSES
