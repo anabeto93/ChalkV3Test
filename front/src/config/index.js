@@ -21,7 +21,12 @@ const config = {
     updates: {
       intervalInSeconds: 20
     },
-    defaultFolder: 'default'
+    defaultFolder: 'default',
+    externalServices: {
+      sentry: {
+        dsn: 'https://ec87becf128a4e599caecca6ccdf410d@sentry.io/229837'
+      }
+    }
   }
 };
 
