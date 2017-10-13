@@ -30,6 +30,8 @@ const config = {
   }
 };
 
+export const isProduction = process.env.NODE_ENV === 'production';
+
 export default function getConfig() {
   return config[process.env.NODE_ENV] || config.default;
 }
