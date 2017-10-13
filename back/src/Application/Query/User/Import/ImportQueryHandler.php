@@ -81,7 +81,7 @@ class ImportQueryHandler
 
         $phoneNumbers = $this->userRepository->getPhoneNumbers();
 
-        foreach ($userImportListView->userImportViews as $userImportView) {
+        foreach ($userImportListView->userImportViews as $key => $userImportView) {
             if (!preg_match('/^\+/', $userImportView->phoneNumber)) {
                 $userImportView->addError($this->translateError('validator.phoneNumber.mustStartWithPlus'));
             }
@@ -96,6 +96,10 @@ class ImportQueryHandler
 
             if (!$this->localeHelper->isCountryValid($userImportView->country)) {
                 $userImportView->addError($this->translateError('validator.user.countryNotValid'));
+            }
+
+            if (!$userImportView->hasError()) {
+                $phoneNumbers[$userImportView->phoneNumber] = $userImportView->phoneNumber;
             }
         }
 
