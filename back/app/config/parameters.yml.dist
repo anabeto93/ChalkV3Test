@@ -36,3 +36,6 @@ parameters:
     # Infobip
     infobip_phone_number: 'ChalkEdu'
     infobip_api_key: 'publicApiKey'
+
+    # Sentry
+    sentry_dsn: ~
