@@ -54,11 +54,14 @@ body {
 
 .container-layout {
   margin-top: 64px;
-  padding-top: 5px;
 }
 
 .content-layout {
-  padding: 0 15px 0 15px;
+  padding-top: 5px;
+}
+
+.content {
+  padding: 0 10px 10px 10px;
 }
 
 .hidden {

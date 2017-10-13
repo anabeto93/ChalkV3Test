@@ -13,7 +13,7 @@ class SessionDetailScreen extends Component {
 
     if (session !== undefined) {
       return (
-        <div className="content-layout">
+        <div className="content">
           <h1>
             {session.title}
           </h1>
