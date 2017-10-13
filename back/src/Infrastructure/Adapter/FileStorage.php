@@ -11,6 +11,7 @@
 namespace App\Infrastructure\Adapter;
 
 use App\Application\Adapter\FileStorageInterface;
+use App\Domain\Charset\Charset;
 use App\Domain\Exception\FileStorage\FileDoesNotExistException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -95,6 +96,20 @@ class FileStorage implements FileStorageInterface
         $this->fileSystem->dumpFile(sprintf('%s/%s', $directoryPath, $filePath), $content);
 
         return $filePath;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function changeEncoding(UploadedFile $file, string $fromEncoding, string $toEncoding)
+    {
+        if ($fromEncoding !== $toEncoding) {
+            $oldContent = file_get_contents($file);
+
+            $output = iconv($fromEncoding, $toEncoding . "//TRANSLIT//IGNORE", $oldContent);
+
+            file_put_contents($file, $output);
+        }
     }
 
     /**

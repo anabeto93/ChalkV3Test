@@ -11,6 +11,7 @@
 namespace App\Application\Command\User\Import;
 
 use App\Application\Adapter\FileStorageInterface;
+use App\Domain\Charset\Charset;
 use App\Domain\Model\Upload\File;
 use App\Domain\Repository\Upload\FileRepositoryInterface;
 
@@ -53,6 +54,8 @@ class ImportHandler
      */
     public function handle(Import $command): File
     {
+        $this->fileStorage->changeEncoding($command->file, $command->charset, Charset::UTF_8);
+
         $filePath = $this
             ->fileStorage
             ->upload(

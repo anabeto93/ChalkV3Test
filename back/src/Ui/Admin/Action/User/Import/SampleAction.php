@@ -10,6 +10,7 @@
 
 namespace App\Ui\Admin\Action\User\Import;
 
+use App\Domain\Charset\Charset;
 use App\Infrastructure\HttpFoundation\CsvFileResponse;
 
 class SampleAction
@@ -20,6 +21,12 @@ class SampleAction
 Jean;Paul;+33123123;FR;fr
 Kaci;Ernser;+33321312;GH;en";
 
-        return new CsvFileResponse($sample, 'user-import-sample.csv');
+        return new CsvFileResponse(
+            $sample,
+            'user-import-sample.csv',
+            200,
+            [],
+            Charset::WINDOWS_1252
+        );
     }
 }

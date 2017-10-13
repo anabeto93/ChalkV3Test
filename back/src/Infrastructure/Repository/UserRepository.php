@@ -172,6 +172,6 @@ class UserRepository implements UserRepositoryInterface
             ->from(User::class, 'user', 'user.phoneNumber')
         ;
 
-        return $queryBuilder->getQuery()->getOneOrNullResult();
+        return $queryBuilder->getQuery()->getResult();
     }
 }

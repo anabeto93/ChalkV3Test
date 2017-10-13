@@ -48,6 +48,7 @@ admin.user.column.phoneNumber: 'Phone number'
 admin.user.confirmImport.title: 'Preview of the import'
 admin.user.create.title: 'Create a student'
 admin.user.import.title: 'Import students'
+admin.user.import.sample: 'Download a sample file'
 admin.user.import.column.country: Country
 admin.user.import.column.error: Errors
 admin.user.import.column.firstName: First name

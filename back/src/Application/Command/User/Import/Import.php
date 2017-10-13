@@ -17,4 +17,7 @@ class Import implements Command
 {
     /** @var UploadedFile */
     public $file;
+
+    /** @var string */
+    public $charset;
 }

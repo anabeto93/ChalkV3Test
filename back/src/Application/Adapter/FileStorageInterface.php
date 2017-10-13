@@ -46,4 +46,11 @@ interface FileStorageInterface
      * @return null|string
      */
     public function upload(UploadedFile $file, string $importDir = null);
+
+    /**
+     * @param UploadedFile $file
+     * @param string       $fromEncoding
+     * @param string       $toEncoding
+     */
+    public function changeEncoding(UploadedFile $file, string $fromEncoding, string $toEncoding);
 }
