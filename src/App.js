@@ -63,45 +63,47 @@ class App extends Component {
               <Header />
               <div className="container-layout">
                 <Updates />
-                <Switch>
-                  <Route exact path={routes.HOME} component={HomeScreen} />
-                  <Route exact path={routes.LOGIN} component={LoginScreen} />
-                  <PrivateRoute
-                    exact
-                    path={routes.COURSES}
-                    component={CourseScreen}
-                  />
-                  <PrivateRoute
-                    exact
-                    path={routes.FOLDER_LIST}
-                    component={FolderScreen}
-                  />
-                  <PrivateRoute
-                    exact
-                    path={routes.SESSION_LIST}
-                    component={SessionScreen}
-                  />
-                  <PrivateRoute
-                    exact
-                    path={routes.SESSION_LIST_WITHOUT_FOLDER}
-                    component={SessionScreen}
-                  />
-                  <PrivateRoute
-                    exact
-                    path={routes.SESSION_DETAIL}
-                    component={SessionDetailScreen}
-                  />
-                  <PrivateRoute
-                    exact
-                    path={routes.SESSION_SEND}
-                    component={SendScreen}
-                  />
-                  <PrivateRoute
-                    path={routes.ACCOUNT}
-                    component={AccountScreen}
-                  />
-                  <Route component={NotFound} />
-                </Switch>
+                <div className="content-layout">
+                  <Switch>
+                    <Route exact path={routes.HOME} component={HomeScreen} />
+                    <Route exact path={routes.LOGIN} component={LoginScreen} />
+                    <PrivateRoute
+                      exact
+                      path={routes.COURSES}
+                      component={CourseScreen}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={routes.FOLDER_LIST}
+                      component={FolderScreen}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={routes.SESSION_LIST}
+                      component={SessionScreen}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={routes.SESSION_LIST_WITHOUT_FOLDER}
+                      component={SessionScreen}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={routes.SESSION_DETAIL}
+                      component={SessionDetailScreen}
+                    />
+                    <PrivateRoute
+                      exact
+                      path={routes.SESSION_SEND}
+                      component={SendScreen}
+                    />
+                    <PrivateRoute
+                      path={routes.ACCOUNT}
+                      component={AccountScreen}
+                    />
+                    <Route component={NotFound} />
+                  </Switch>
+                </div>
               </div>
             </div>
           </Router>
