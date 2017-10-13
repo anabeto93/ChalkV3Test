@@ -19,6 +19,7 @@ parameters:
     admin_menu_color: '#fc3691'
     path_to_store_upload: '/tmp'
     timezone: Africa/Accra
+    admin_password: ~
 
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
