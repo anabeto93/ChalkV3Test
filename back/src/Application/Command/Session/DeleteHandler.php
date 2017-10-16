@@ -10,40 +10,33 @@
 
 namespace App\Application\Command\Session;
 
-use App\Application\Adapter\FileStorageInterface;
-use App\Domain\Repository\Session\FileRepositoryInterface;
 use App\Domain\Repository\SessionRepositoryInterface;
+use App\Domain\Session\Import\FilesImportRemover;
 
 class DeleteHandler
 {
-    /** @var FileRepositoryInterface */
-    private $fileRepository;
-
     /** @var SessionRepositoryInterface */
     private $sessionRepository;
-
-    /** @var FileStorageInterface */
-    private $fileStorage;
 
     /** @var string */
     private $uploadDir;
 
+    /** @var FilesImportRemover */
+    private $filesImportRemover;
+
     /**
-     * @param FileRepositoryInterface    $fileRepository
+     * @param FilesImportRemover         $filesImportRemover
      * @param SessionRepositoryInterface $sessionRepository
-     * @param FileStorageInterface       $fileStorage
      * @param string                     $uploadDir
      */
     public function __construct(
-        FileRepositoryInterface $fileRepository,
+        FilesImportRemover $filesImportRemover,
         SessionRepositoryInterface $sessionRepository,
-        FileStorageInterface $fileStorage,
         string $uploadDir
     ) {
-        $this->fileRepository = $fileRepository;
         $this->sessionRepository = $sessionRepository;
-        $this->fileStorage = $fileStorage;
         $this->uploadDir = $uploadDir;
+        $this->filesImportRemover = $filesImportRemover;
     }
 
     /**
@@ -51,10 +44,7 @@ class DeleteHandler
      */
     public function handle(Delete $command)
     {
-        foreach ($command->session->getFiles() as $file) {
-            $this->fileStorage->remove(sprintf('%s%s', $this->uploadDir, $file->getPath()));
-            $this->fileRepository->remove($file);
-        }
+        $this->filesImportRemover->removeFiles($command->session, $this->uploadDir);
 
         $this->sessionRepository->remove($command->session);
     }

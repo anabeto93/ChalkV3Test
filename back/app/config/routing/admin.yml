@@ -101,6 +101,14 @@ admin_session_create:
         course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Session\CreateAction }
 
+admin_session_update:
+    path: /course/{course}/session/{session}/update
+    methods: [GET, POST]
+    requirements:
+        course: \d+
+        session: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Session\UpdateAction }
+
 admin_session_preview:
     path: /course/{course}/session/{session}/preview
     methods: [GET]

@@ -12,28 +12,11 @@ namespace App\Application\Command\Session;
 
 use App\Application\Command\Command;
 use App\Domain\Model\Course;
-use App\Domain\Model\Folder;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class Create implements Command
+class Create extends AbstractSession implements Command
 {
     /** @var Course */
     public $course;
-
-    /** @var string */
-    public $title;
-
-    /** @var Folder|null */
-    public $folder;
-
-    /** @var int */
-    public $rank;
-
-    /** @var UploadedFile */
-    public $content;
-
-    /** @var bool */
-    public $needValidation;
 
     /**
      * @param Course $course

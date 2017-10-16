@@ -29,6 +29,14 @@ class Generator
      */
     private function generateUniqId(): string
     {
-        return hash('sha256', sprintf('%s%s', uniqid(mt_rand()), uniqid(mt_rand())));
+        return hash('sha256', sprintf('%s%s', $this->getRandomUniqId(), $this->getRandomUniqId()));
+    }
+
+    /**
+     * @return string
+     */
+    public function getRandomUniqId(): string
+    {
+        return uniqid(mt_rand());
     }
 }

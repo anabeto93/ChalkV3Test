@@ -18,4 +18,11 @@ use Behat\MinkExtension\Context\MinkContext;
  */
 class CommonContext extends MinkContext implements Context
 {
+    /**
+     * @Given /^I dump the page$/
+     */
+    public function dumpPage()
+    {
+        echo $this->getSession()->getPage()->getOuterHtml();
+    }
 }

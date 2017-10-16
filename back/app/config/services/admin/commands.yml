@@ -86,6 +86,11 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\Session\Delete }
 
+    App\Application\Command\Session\UpdateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Session\Update }
+
     #
     # SMS
     #

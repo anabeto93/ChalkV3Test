@@ -8,6 +8,7 @@ default:
             sessions:
                 default:
                     symfony2: ~
+            files_path: %paths.base%/features/Behat/Resources/files
         Behatch\Extension: ~
     suites:
         default:
