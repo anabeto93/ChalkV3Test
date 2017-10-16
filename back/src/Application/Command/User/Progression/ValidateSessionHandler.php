@@ -13,8 +13,8 @@ namespace App\Application\Command\User\Progression;
 use App\Domain\Model\User\Progression;
 use App\Domain\Repository\SessionRepositoryInterface;
 use App\Domain\Repository\User\ProgressionRepositoryInterface;
-use App\Domain\Session\ValidateSession\SessionNotAccessibleForThisUserException;
-use App\Domain\Session\ValidateSession\SessionNotFoundException;
+use App\Domain\Exception\Session\ValidateSession\SessionNotAccessibleForThisUserException;
+use App\Domain\Exception\Session\ValidateSession\SessionNotFoundException;
 
 class ValidateSessionHandler
 {
@@ -44,6 +44,9 @@ class ValidateSessionHandler
 
     /**
      * @param ValidateSession $command
+     *
+     * @throws SessionNotFoundException
+     * @throws SessionNotAccessibleForThisUserException
      */
     public function handle(ValidateSession $command)
     {
@@ -64,7 +67,7 @@ class ValidateSessionHandler
         $progression = $this->progressionRepository->findByUserAndSession($command->user, $session);
 
         if (null === $progression) {
-            $progression = new Progression($command->user, $session, $this->dateTime);
+            $progression = new Progression($command->user, $session, $command->medium, $this->dateTime);
 
             $this->progressionRepository->add($progression);
         }

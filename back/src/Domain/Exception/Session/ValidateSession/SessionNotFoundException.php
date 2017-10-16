@@ -8,9 +8,9 @@
  * @author Elao <contact@elao.com>
  */
 
-namespace App\Domain\Session\ValidateSession;
+namespace App\Domain\Exception\Session\ValidateSession;
 
-use App\Domain\Session\SessionException;
+use App\Domain\Exception\Session\SessionException;
 
 class SessionNotFoundException extends SessionException
 {

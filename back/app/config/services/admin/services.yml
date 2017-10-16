@@ -23,3 +23,9 @@ services:
             - '@App\Domain\Size\Calculator'
             - '@App\Infrastructure\Repository\SessionRepository'
             - '%path_to_store_upload%'
+
+    App\Domain\Session\Validation\Encoder:
+        autowire: true
+
+    App\Domain\Session\Validation\Decoder:
+        autowire: true

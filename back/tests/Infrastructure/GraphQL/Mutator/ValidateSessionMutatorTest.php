@@ -13,8 +13,9 @@ namespace Tests\Infrastructure\GraphQL\Mutator;
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\User\Progression\ValidateSession;
 use App\Domain\Model\User;
-use App\Domain\Session\ValidateSession\SessionNotAccessibleForThisUserException;
-use App\Domain\Session\ValidateSession\SessionNotFoundException;
+use App\Domain\Exception\Session\ValidateSession\SessionNotAccessibleForThisUserException;
+use App\Domain\Exception\Session\ValidateSession\SessionNotFoundException;
+use App\Domain\User\Progression\Medium;
 use App\Infrastructure\GraphQL\Mutator\ValidateSessionMutator;
 use App\Infrastructure\Security\Api\ApiUserAdapter;
 use GraphQL\Error\UserError;
@@ -49,7 +50,7 @@ class ValidateSessionMutatorTest extends TestCase
         $token->getUser()->shouldBeCalled()->willReturn($apiUser);
 
         $this->commandBus
-            ->handle(new ValidateSession($user->reveal(), $sessionUuid))
+            ->handle(new ValidateSession($user->reveal(), $sessionUuid, Medium::WEB))
             ->shouldBeCalled()
             ->willThrow(SessionNotFoundException::class)
         ;
@@ -73,7 +74,7 @@ class ValidateSessionMutatorTest extends TestCase
         $token->getUser()->shouldBeCalled()->willReturn($apiUser);
 
         $this->commandBus
-            ->handle(new ValidateSession($user->reveal(), $sessionUuid))
+            ->handle(new ValidateSession($user->reveal(), $sessionUuid, Medium::WEB))
             ->shouldBeCalled()
             ->willThrow(SessionNotAccessibleForThisUserException::class)
         ;
@@ -96,7 +97,7 @@ class ValidateSessionMutatorTest extends TestCase
         $token->getUser()->shouldBeCalled()->willReturn($apiUser);
 
         $this->commandBus
-            ->handle(new ValidateSession($user->reveal(), $sessionUuid))
+            ->handle(new ValidateSession($user->reveal(), $sessionUuid, Medium::WEB))
             ->shouldBeCalled()
         ;
 
