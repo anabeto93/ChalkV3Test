@@ -161,7 +161,11 @@ class ForwardMessageHandler
             );
 
             $this->SMSSender->send(
-                new SMSView($this->phoneNumberSender, [$from], $message)
+                new SMSView(
+                    $this->phoneNumberSender,
+                    [$from],
+                    $message
+                )
             );
         }
     }
