@@ -52,7 +52,7 @@ class SendSMSScreen extends Component {
     const validationCode = UnBlockSession.getUnlockCodeForSession(
       userUuid,
       sessionUuid,
-      getConfig().appPrivateKey
+      getConfig().apiPrivateKey
     );
 
     new Clipboard('#phone-number');
