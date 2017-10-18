@@ -137,7 +137,7 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
 
     case RECEIVE_VALIDATE_SESSION_SMS: {
       const validatedSession = {
-        ...state.sessions[action.sessionUuid],
+        ...state.sessions[action.payload.sessionUuid],
         validated: true
       };
       const currentSessions = { ...state.sessions };

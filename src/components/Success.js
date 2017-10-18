@@ -1,7 +1,5 @@
-import I18n from 'i18n-js';
 import { Snackbar } from 'material-ui';
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import store from '../store/store';
 
 class Success extends Component {
@@ -19,8 +17,6 @@ class Success extends Component {
   };
 
   render() {
-    const { locale } = this.props;
-
     const style = {
       backgroundColor: '#d8497d',
       color: '#ffffff'
@@ -30,7 +26,6 @@ class Success extends Component {
       <Snackbar
         open={this.state.show}
         message={this.props.message}
-        // action={I18n.t('error.dismiss', { locale })}
         autoHideDuration={3000}
         onRequestClose={this.handleDismiss}
         onActionTouchTap={this.handleDismiss}
@@ -44,6 +39,4 @@ Success.defaultProps = {
   show: false
 };
 
-const mapStateToProps = ({ settings: { locale } }) => ({ locale });
-
-export default connect(mapStateToProps)(Success);
+export default Success;
