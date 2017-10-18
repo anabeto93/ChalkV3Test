@@ -8,13 +8,13 @@ import Error from '../components/Error';
 
 export class CourseScreen extends Component {
   render() {
-    const { courses, isFailValidating, locale } = this.props;
+    const { courses, isSessionFailValidating, locale } = this.props;
 
     return (
       <div>
         <UserPanel />
         <CoursesList courses={courses} />
-        {isFailValidating &&
+        {isSessionFailValidating &&
           <Error
             show={true}
             message={I18n.t('send.sms.validation.fail', { locale })}
@@ -25,10 +25,10 @@ export class CourseScreen extends Component {
 }
 
 function mapStateToProps({
-  content: { courses, isFailValidating },
+  content: { courses, isSessionFailValidating },
   settings: { locale }
 }) {
-  return { courses, isFailValidating, locale };
+  return { courses, isSessionFailValidating, locale };
 }
 
 export default connect(mapStateToProps)(CourseScreen);

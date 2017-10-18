@@ -12,7 +12,7 @@ class SessionDetailScreen extends Component {
   }
 
   render() {
-    const { session, courseUuid, isValidated, locale } = this.props;
+    const { session, courseUuid, isSessionValidated, locale } = this.props;
 
     if (session !== undefined) {
       return (
@@ -22,7 +22,7 @@ class SessionDetailScreen extends Component {
           </h1>
           <div dangerouslySetInnerHTML={this.renderContent()} />
           <SessionFooter courseUuid={courseUuid} session={session} />
-          {isValidated &&
+          {isSessionValidated &&
             <Success
               message={I18n.t('send.sms.validation.done', { locale })}
               show={true}
@@ -42,13 +42,13 @@ function mapStateToProps(state, props) {
     props.match.params.sessionUuid
   );
 
-  const { content: { isValidated } } = state;
+  const { content: { isSessionValidated } } = state;
   const { settings: { locale } } = state;
 
   return {
     session,
     courseUuid: props.match.params.courseUuid,
-    isValidated,
+    isSessionValidated,
     locale
   };
 }

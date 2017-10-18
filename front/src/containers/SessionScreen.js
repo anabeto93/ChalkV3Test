@@ -30,7 +30,7 @@ class SessionScreen extends Component {
   };
 
   render() {
-    const { sessions, course, isValidated, locale } = this.props;
+    const { sessions, course, isSessionValidated, locale } = this.props;
     const totalSession = Object.keys(sessions).length;
     const sessionsArray = Object.keys(sessions);
 
@@ -87,7 +87,7 @@ class SessionScreen extends Component {
             })}
         </List>
 
-        {isValidated &&
+        {isSessionValidated &&
           <Success
             message={I18n.t('send.sms.validation.done', { locale })}
             show={true}
@@ -123,10 +123,10 @@ function mapStateToProps(state, props) {
     folderUuid
   );
 
-  const { content: { isValidated } } = state;
+  const { content: { isSessionValidated } } = state;
   const { settings: { locale } } = state;
 
-  return { sessions, course, isValidated, locale };
+  return { sessions, course, isSessionValidated, locale };
 }
 
 export default connect(mapStateToProps)(SessionScreen);

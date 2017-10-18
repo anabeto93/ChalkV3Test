@@ -17,9 +17,9 @@ import receiveCourseInformationHandler from './handler/receiveCourseInformationH
 const DEFAULT_CONTENT_STATE = {
   isFetching: false,
   isErrorFetching: false,
-  isValidating: false,
-  isFailValidating: false,
-  isValidated: false,
+  isSessionValidating: false,
+  isSessionFailValidating: false,
+  isSessionValidated: false,
   courses: {},
   folders: {},
   sessions: {},
@@ -112,7 +112,11 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
     }
 
     case REQUEST_VALIDATE_SESSION_INTERNET: {
-      return { ...state, isValidating: true, isFailValidating: false };
+      return {
+        ...state,
+        isSessionValidating: true,
+        isSessionFailValidating: false
+      };
     }
 
     case RECEIVE_VALIDATE_SESSION_INTERNET: {
@@ -127,8 +131,8 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
         return {
           ...state,
           sessions: { ...currentSessions },
-          isValidating: false,
-          isFailValidating: false
+          isSessionValidating: false,
+          isSessionFailValidating: false
         };
       }
 
@@ -146,22 +150,34 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
       return {
         ...state,
         sessions: { ...currentSessions },
-        isValidating: false,
-        isFailValidating: false,
-        isValidated: true
+        isSessionValidating: false,
+        isSessionFailValidating: false,
+        isSessionValidated: true
       };
     }
 
     case FAIL_VALIDATE_SESSION_INTERNET: {
-      return { ...state, isFailValidating: true, isValidating: false };
+      return {
+        ...state,
+        isSessionFailValidating: true,
+        isSessionValidating: false
+      };
     }
 
     case FAIL_VALIDATE_SESSION_SMS: {
-      return { ...state, isFailValidating: true, isValidating: false };
+      return {
+        ...state,
+        isSessionFailValidating: true,
+        isSessionValidating: false
+      };
     }
 
     case DONE_VALIDATE_SESSION: {
-      return { ...state, isValidated: false, isValidating: false };
+      return {
+        ...state,
+        isSessionValidated: false,
+        isSessionValidating: false
+      };
     }
 
     default:

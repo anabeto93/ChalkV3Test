@@ -176,8 +176,8 @@ function mapStateToProps(state, props) {
   return {
     sessions: state.content.sessions,
     session,
-    isValidating: state.content.isValidating,
-    isFailValidating: state.content.isFailValidating,
+    isValidating: state.content.isSessionValidating,
+    isFailValidating: state.content.isSessionFailValidating,
     locale: state.settings.locale
   };
 }
