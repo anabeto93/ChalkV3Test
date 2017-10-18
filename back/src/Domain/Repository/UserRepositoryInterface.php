@@ -65,4 +65,11 @@ interface UserRepositoryInterface
      * @return User|null
      */
     public function findByPhoneNumber(string $phoneNumber = null): ?User;
+
+    /**
+     * @param string $userUuid
+     *
+     * @return User|null
+     */
+    public function findByUuid(string $userUuid): ?User;
 }

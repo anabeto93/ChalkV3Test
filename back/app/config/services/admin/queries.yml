@@ -30,3 +30,8 @@ services:
             autowire: true
             tags:
                 - { name: tactician.handler, command: App\Application\Query\Session\SessionListQuery }
+
+        App\Application\Query\Session\ProgressionListQueryHandler:
+            autowire: true
+            tags:
+                - { name: tactician.handler, command: App\Application\Query\Session\ProgressionListQuery }
