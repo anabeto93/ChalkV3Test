@@ -13,7 +13,16 @@ import CourseManager from './CourseManager';
 import generateUrl from './generateUrl';
 import UnBlockSession from './session/UnBlockSession';
 
+const DEFAULT_STATE = {
+  session: null
+};
+
 class ValidateSession extends Component {
+  constructor(...args) {
+    super(...args);
+    this.state = DEFAULT_STATE;
+  }
+
   redirectNextSession = session => {
     return generateUrl(SESSION_DETAIL, {
       ':courseUuid': session.courseUuid,
@@ -28,7 +37,7 @@ class ValidateSession extends Component {
     });
   };
 
-  render() {
+  componentWillMount() {
     const { validationCode } = this.props.match.params;
 
     const sessionUuid = UnBlockSession.getSessionUuidFromCode(
@@ -38,13 +47,19 @@ class ValidateSession extends Component {
 
     const session = CourseManager.getSession(this.props.sessions, sessionUuid);
 
-    if (session === undefined) {
+    this.setState({ session: session });
+  }
+
+  render() {
+    const { session } = this.state;
+
+    if (session === null) {
       store.dispatch(failValidateSessionSMS());
 
       return <Redirect to={COURSES} />;
     }
 
-    store.dispatch(receiveValidateSessionSMS(sessionUuid));
+    store.dispatch(receiveValidateSessionSMS(session.uuid));
 
     let nextSession = CourseManager.getNextSession(
       this.props.sessions,
