@@ -17,8 +17,9 @@ use App\Domain\Model\Session;
 use App\Domain\Model\User;
 use App\Domain\Repository\SessionRepositoryInterface;
 use App\Domain\Repository\User\ProgressionRepositoryInterface;
-use App\Domain\Session\ValidateSession\SessionNotAccessibleForThisUserException;
-use App\Domain\Session\ValidateSession\SessionNotFoundException;
+use App\Domain\Exception\Session\ValidateSession\SessionNotAccessibleForThisUserException;
+use App\Domain\Exception\Session\ValidateSession\SessionNotFoundException;
+use App\Domain\User\Progression\Medium;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 
@@ -54,7 +55,7 @@ class ValidateSessionHandlerTest extends TestCase
             $this->progressionRepository->reveal(),
             $this->dateTime
         );
-        $handler->handle(new ValidateSession($user->reveal(), $sessionUuid));
+        $handler->handle(new ValidateSession($user->reveal(), $sessionUuid, Medium::WEB));
     }
 
     public function testHandleNotAccessible()
@@ -75,7 +76,7 @@ class ValidateSessionHandlerTest extends TestCase
             $this->progressionRepository->reveal(),
             $this->dateTime
         );
-        $handler->handle(new ValidateSession($user->reveal(), $sessionUuid));
+        $handler->handle(new ValidateSession($user->reveal(), $sessionUuid, Medium::WEB));
     }
 
     public function testHandle()
@@ -93,7 +94,7 @@ class ValidateSessionHandlerTest extends TestCase
             ->shouldBeCalled()
             ->willReturn(null)
         ;
-        $progression = new User\Progression($user->reveal(), $session->reveal(), $this->dateTime);
+        $progression = new User\Progression($user->reveal(), $session->reveal(), Medium::WEB, $this->dateTime);
         $this->progressionRepository->add($progression)->shouldBeCalled();
 
         $handler = new ValidateSessionHandler(
@@ -101,6 +102,6 @@ class ValidateSessionHandlerTest extends TestCase
             $this->progressionRepository->reveal(),
             $this->dateTime
         );
-        $handler->handle(new ValidateSession($user->reveal(), $sessionUuid));
+        $handler->handle(new ValidateSession($user->reveal(), $sessionUuid, Medium::WEB));
     }
 }

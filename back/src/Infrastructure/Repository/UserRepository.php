@@ -10,7 +10,6 @@
 
 namespace App\Infrastructure\Repository;
 
-use App\Domain\Model\Course;
 use App\Domain\Model\User;
 use App\Domain\Pagination\PaginatedResult;
 use App\Domain\Repository\UserRepositoryInterface;
@@ -173,5 +172,23 @@ class UserRepository implements UserRepositoryInterface
         ;
 
         return $queryBuilder->getQuery()->getResult();
+    }
+  
+    /**
+     * {@inheritdoc}
+     */
+    public function findByUuid(string $userUuid): ?User
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('user')
+            ->from(User::class, 'user')
+            ->where('user.uuid = :userUuid')
+            ->setParameter('userUuid', $userUuid)
+            ->setMaxResults(1)
+        ;
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }

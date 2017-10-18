@@ -57,3 +57,6 @@ services:
 
     App\Ui\Admin\Action\User\Import\SampleAction:
         autowire: true
+
+    App\Ui\Admin\Action\Session\ProgressionAction:
+        autowire: true
