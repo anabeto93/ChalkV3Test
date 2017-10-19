@@ -25,5 +25,9 @@ The infobip_hook_key is in the parameters.yml
 
 Then, click on save and that's it, the hook is ready to go.
 
+⚠️ Warning: They are no possibility to have two simultaneous actions that redirect to a different hook with the same phone number sadly
 
-Warning: They are no possibility to have two simultaneous actions that redirect to a different hook with the same phone number sadly
+
+The action we just created use the Forward Method described here:
+https://dev.infobip.com/docs/forward-received-messages
+
