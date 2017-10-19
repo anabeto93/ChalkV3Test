@@ -37,4 +37,18 @@ interface ProgressionRepositoryInterface
      * @return Progression[]
      */
     public function findForUserAndCourse(User $user, Course $course): array;
+
+    /**
+     * @param Session $session
+     *
+     * @return int
+     */
+    public function countUserForSession(Session $session): int;
+
+    /**
+     * @param Session $session
+     *
+     * @return Progression[]
+     */
+    public function findForSession(Session $session): array;
 }
