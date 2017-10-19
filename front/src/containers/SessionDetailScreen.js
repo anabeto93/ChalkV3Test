@@ -13,11 +13,14 @@ class SessionDetailScreen extends Component {
 
     if (session !== undefined) {
       return (
-        <div className="content-layout">
+        <div className="content">
           <h1>
             {session.title}
           </h1>
-          <div dangerouslySetInnerHTML={this.renderContent()} />
+          <div
+            className="session-content"
+            dangerouslySetInnerHTML={this.renderContent()}
+          />
           <SessionFooter courseUuid={courseUuid} session={session} />
         </div>
       );

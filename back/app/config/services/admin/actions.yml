@@ -23,6 +23,14 @@ services:
     App\Ui\Admin\Action\User\UpdateAction:
         autowire: true
 
+    App\Ui\Admin\Action\User\ImportAction:
+        autowire: true
+
+    App\Ui\Admin\Action\User\ConfirmImportAction:
+        autowire: true
+        arguments:
+            $importDir: '%infrastructure.user_import_dir%'
+
     App\Ui\Admin\Action\Folder\ListAction:
         autowire: true
 
@@ -45,4 +53,10 @@ services:
         autowire: true
 
     App\Ui\Admin\Action\Session\DeleteAction:
+        autowire: true
+
+    App\Ui\Admin\Action\User\Import\SampleAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Session\ProgressionAction:
         autowire: true

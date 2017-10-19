@@ -51,6 +51,21 @@ admin_user_update:
         user: \d+
     defaults: { _controller: App\Ui\Admin\Action\User\UpdateAction }
 
+admin_user_import:
+    path: /user/import
+    methods: [GET, POST]
+    defaults: { _controller: App\Ui\Admin\Action\User\ImportAction }
+
+admin_user_import_confirm:
+    path: /user/import/{file}/confirm
+    methods: [GET, POST]
+    defaults: { _controller: App\Ui\Admin\Action\User\ConfirmImportAction }
+
+admin_user_import_sample:
+    path: /user/import/sample
+    methods: [GET]
+    defaults: { _controller: App\Ui\Admin\Action\User\Import\SampleAction }
+
 #
 # Folder
 #
@@ -116,3 +131,11 @@ admin_session_delete:
         course: \d+
         session: \d+
     defaults: { _controller: App\Ui\Admin\Action\Session\DeleteAction }
+
+admin_session_progression:
+    path: /course/{course}/session/{session}/progression
+    methods: [GET]
+    requirements:
+        course: \d+
+        session: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Session\ProgressionAction }
