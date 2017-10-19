@@ -16,16 +16,15 @@ services:
         autowire: true
 
     App\Domain\Session\Import\ContentImporter:
+        autowire: true
         arguments:
-            - '@App\Infrastructure\Adapter\FileStorage'
-            - '@App\Domain\Session\Import\ContentParser'
-            - '@App\Domain\Session\Import\ImageMover'
-            - '@App\Domain\Size\Calculator'
-            - '@App\Infrastructure\Repository\SessionRepository'
-            - '%path_to_store_upload%'
+            $pathToStoreUpload: '%path_to_store_upload%'
 
     App\Domain\Session\Validation\Encoder:
         autowire: true
 
     App\Domain\Session\Validation\Decoder:
+        autowire: true
+
+    App\Domain\Session\Import\FilesImportRemover:
         autowire: true

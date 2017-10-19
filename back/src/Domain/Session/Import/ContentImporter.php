@@ -41,7 +41,11 @@ class ContentImporter
     /** @var string */
     private $pathToStoreUpload;
 
+    /** @var FilesImportRemover */
+    private $filesImportRemover;
+
     /**
+     * @param FilesImportRemover         $filesImportRemover
      * @param FileStorageInterface       $fileStorage
      * @param ContentParser              $contentParser
      * @param ImageMover                 $imageMover
@@ -50,6 +54,7 @@ class ContentImporter
      * @param string                     $pathToStoreUpload
      */
     public function __construct(
+        FilesImportRemover $filesImportRemover,
         FileStorageInterface $fileStorage,
         ContentParser $contentParser,
         ImageMover $imageMover,
@@ -63,6 +68,7 @@ class ContentImporter
         $this->calculator = $calculator;
         $this->sessionRepository = $sessionRepository;
         $this->pathToStoreUpload = $pathToStoreUpload;
+        $this->filesImportRemover = $filesImportRemover;
     }
 
     /**
@@ -75,7 +81,7 @@ class ContentImporter
      * @param Folder|null        $folder
      * @param bool               $needValidation
      */
-    public function import(
+    public function importNewSession(
         Course $course,
         string $uuid,
         int $rank,
@@ -85,10 +91,112 @@ class ContentImporter
         Folder $folder = null,
         bool $needValidation
     ) {
-        $imagePath = sprintf(self::IMAGE_PATH, $course->getUuid(), $uuid);
+        $imagePath = $this->getImagePath($course->getUuid(), $uuid);
+        $pathToUpload = $this->getPathToUpload($uuid);
 
-        $pathToUpload = sprintf('%s/chalkboard_session_%s', $this->pathToStoreUpload, $uuid);
+        $contentParsedView = $this->extractArchive($uploadedFile, $imagePath, $pathToUpload);
 
+        $session = new Session(
+            $uuid,
+            $rank,
+            $title,
+            $contentParsedView->content,
+            $course,
+            $folder,
+            $needValidation,
+            $dateTime,
+            $this->calculator->calculateSize(sprintf('%s%s%s', $uuid, $rank, $title))
+        );
+
+        $this->sessionRepository->add($session);
+
+        $this->moveImages($session, $contentParsedView, $pathToUpload, $imagePath, $dateTime);
+    }
+
+    /**
+     * @param Session            $session
+     * @param UploadedFile       $uploadedFile
+     * @param \DateTimeInterface $dateTime
+     */
+    public function importUpdateSession(
+        Session $session,
+        UploadedFile $uploadedFile,
+        \DateTimeInterface $dateTime
+    ) {
+        $imagePath = $this->getImagePath($session->getCourse()->getUuid(), $session->getUuid());
+        $pathToUpload = $this->getPathToUpload($session->getUuid());
+
+        $this->filesImportRemover->removeFiles($session, $this->imageMover->getUploadDir());
+
+        $contentParsedView = $this->extractArchive($uploadedFile, $imagePath, $pathToUpload);
+
+        $session->updateContent($contentParsedView->content);
+
+        // The set is done in the moveImages method
+        $this->moveImages($session, $contentParsedView, $pathToUpload, $imagePath, $dateTime);
+    }
+
+    /**
+     * @param string $courseUuid
+     * @param string $sessionUuid
+     *
+     * @return string
+     */
+    private function getImagePath(string $courseUuid, string $sessionUuid): string
+    {
+        return sprintf(self::IMAGE_PATH, $courseUuid, $sessionUuid);
+    }
+
+    /**
+     * @param string $sessionUuid
+     *
+     * @return string
+     */
+    private function getPathToUpload(string $sessionUuid): string
+    {
+        return sprintf('%s/chalkboard_session_%s', $this->pathToStoreUpload, $sessionUuid);
+    }
+
+    /**
+     * @param Session            $session
+     * @param ContentParsedView  $contentParsedView
+     * @param string             $pathToUpload
+     * @param string             $imagePath
+     * @param \DateTimeInterface $dateTime
+     */
+    private function moveImages(
+        Session $session,
+        ContentParsedView $contentParsedView,
+        string $pathToUpload,
+        string $imagePath,
+        \DateTimeInterface $dateTime
+    ) {
+        $imagesSize = $this->imageMover->moveImages(
+            $session,
+            $pathToUpload,
+            $imagePath,
+            $contentParsedView,
+            $dateTime
+        );
+        $session->setContentSize($imagesSize + $this->calculator->calculateSize($contentParsedView->content));
+
+        $this->sessionRepository->set($session);
+
+        $this->fileStorage->remove($pathToUpload);
+    }
+
+    /**
+     * @param UploadedFile $uploadedFile
+     * @param string       $imagePath
+     * @param string       $pathToUpload
+     *
+     * @return ContentParsedView
+     */
+    private function extractArchive(
+        UploadedFile $uploadedFile,
+        string $imagePath,
+        string $pathToUpload
+    ): ContentParsedView {
         $zip = new \ZipArchive();
         $zip->open($uploadedFile->getPath() . '/' . $uploadedFile->getFilename());
         $zip->extractTo($pathToUpload);
@@ -103,27 +211,6 @@ class ContentImporter
             throw new IndexFileNotContainInZipException();
         }
 
-        $result = $this->contentParser->parse($indexFile, $imagePath);
-
-        $session = new Session(
-            $uuid,
-            $rank,
-            $title,
-            $result->content,
-            $course,
-            $folder,
-            $needValidation,
-            $dateTime,
-            $this->calculator->calculateSize(sprintf('%s%s%s', $uuid, $rank, $title))
-        );
-
-        $this->sessionRepository->add($session);
-
-        $imagesSize = $this->imageMover->moveImages($session, $pathToUpload, $imagePath, $result, $dateTime);
-        $session->setContentSize($imagesSize + $this->calculator->calculateSize($result->content));
-
-        $this->sessionRepository->set($session);
-
-        $this->fileStorage->remove($pathToUpload);
+        return $this->contentParser->parse($indexFile, $imagePath);
     }
 }

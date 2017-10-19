@@ -16,11 +16,23 @@ class ImageView
     public $tag;
 
     /** @var string */
-    public $src;
+    public $hashedSrc;
 
-    public function __construct(string $tag, string $src)
-    {
-        $this->tag = $tag;
-        $this->src = $src;
+    /** @var string */
+    public $originalSrc;
+
+    /**
+     * @param string $tag
+     * @param string $hashedSrc
+     * @param string $originalSrc
+     */
+    public function __construct(
+        string $tag,
+        string $hashedSrc,
+        string $originalSrc
+    ) {
+        $this->tag         = $tag;
+        $this->hashedSrc   = $hashedSrc;
+        $this->originalSrc = $originalSrc;
     }
 }

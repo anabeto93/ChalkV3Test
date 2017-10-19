@@ -49,6 +49,9 @@ services:
     App\Ui\Admin\Action\Session\CreateAction:
         autowire: true
 
+    App\Ui\Admin\Action\Session\UpdateAction:
+        autowire: true
+
     App\Ui\Admin\Action\Session\PreviewAction:
         autowire: true
 

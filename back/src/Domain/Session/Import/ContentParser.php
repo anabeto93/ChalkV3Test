@@ -10,6 +10,7 @@
 
 namespace App\Domain\Session\Import;
 
+use App\Domain\Uuid\Generator;
 use App\Infrastructure\Service\UrlGenerator;
 
 class ContentParser
@@ -17,12 +18,19 @@ class ContentParser
     /** @var UrlGenerator */
     private $urlGenerator;
 
+    /** @var Generator */
+    private $uniqIdGenerator;
+
     /**
      * @param UrlGenerator $urlGenerator
+     * @param Generator    $uniqIdGenerator
      */
-    public function __construct(UrlGenerator $urlGenerator)
-    {
+    public function __construct(
+        UrlGenerator $urlGenerator,
+        Generator $uniqIdGenerator
+    ) {
         $this->urlGenerator = $urlGenerator;
+        $this->uniqIdGenerator = $uniqIdGenerator;
     }
 
     /**
@@ -39,7 +47,7 @@ class ContentParser
         $imagesFound = [];
 
         foreach ($imageViews as $imageView) {
-            $imagesFound[] = $imageView->src;
+            $imagesFound[] = $imageView;
             $content = $this->setAbsoluteUrlToImage($content, $imageView, $imageLocationPath);
         }
 
@@ -55,8 +63,8 @@ class ContentParser
      */
     private function setAbsoluteUrlToImage(string $content, ImageView $imageView, string $imageLocationPath): string
     {
-        $newSrc = sprintf('%s%s/%s', $this->urlGenerator->getBaseUrl(), $imageLocationPath, $imageView->src);
-        $newTag = str_replace($imageView->src, $newSrc, $imageView->tag);
+        $newSrc = sprintf('%s%s/%s', $this->urlGenerator->getBaseUrl(), $imageLocationPath, $imageView->hashedSrc);
+        $newTag = str_replace($imageView->originalSrc, $newSrc, $imageView->tag);
 
         return str_replace($imageView->tag, $newTag, $content);
     }
@@ -84,7 +92,11 @@ class ContentParser
         preg_match_all('/<img[^>]*src="([^"]*)/i', $html, $matches);
 
         foreach ($matches[1] as $key => $src) {
-            $imageViews[$src] = new ImageView($matches[0][$key], $src);
+            $imageViews[$src] = new ImageView(
+                $matches[0][$key],
+                sprintf('%s_%s', $this->uniqIdGenerator->getRandomUniqId(), $src),
+                $src
+            );
         }
 
         return $imageViews;

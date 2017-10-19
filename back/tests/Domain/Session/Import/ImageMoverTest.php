@@ -15,6 +15,7 @@ use App\Domain\Model\Session;
 use App\Domain\Repository\Session\FileRepositoryInterface;
 use App\Domain\Session\Import\ContentParsedView;
 use App\Domain\Session\Import\ImageMover;
+use App\Domain\Session\Import\ImageView;
 use PHPUnit\Framework\TestCase;
 
 class ImageMoverTest extends TestCase
@@ -26,26 +27,26 @@ class ImageMoverTest extends TestCase
         $dateTime = new \DateTime();
         $session = $this->prophesize(Session::class);
         $content = new ContentParsedView('content', [
-            'sidebar.jpg',
-            'footer.jpg',
-            'header.jpg',
+            new ImageView('<img src=', 'random_string_sidebar.jpg', 'sidebar.jpg'),
+            new ImageView('<img src=', 'random_string_footer.jpg', 'footer.jpg'),
+            new ImageView('<img src=', 'random_string_header.jpg', 'header.jpg'),
         ]);
 
         $expected1 = new Session\File(
             $session->reveal(),
-            '/content/course/123/session/321/sidebar.jpg',
+            '/content/course/123/session/321/random_string_sidebar.jpg',
             3,
             $dateTime
         );
         $expected2 = new Session\File(
             $session->reveal(),
-            '/content/course/123/session/321/footer.jpg',
+            '/content/course/123/session/321/random_string_footer.jpg',
             20,
             $dateTime
         );
         $expected3 = new Session\File(
             $session->reveal(),
-            '/content/course/123/session/321/header.jpg',
+            '/content/course/123/session/321/random_string_header.jpg',
             100,
             $dateTime
         );
@@ -59,20 +60,20 @@ class ImageMoverTest extends TestCase
 
         $fileStorage->copy(
             '/tmp/chalkboard_123/sidebar.jpg',
-            '/srv/app/web/content/course/123/session/321/sidebar.jpg'
+            '/srv/app/web/content/course/123/session/321/random_string_sidebar.jpg'
         )->shouldBeCalled();
         $fileStorage->copy(
             '/tmp/chalkboard_123/footer.jpg',
-            '/srv/app/web/content/course/123/session/321/footer.jpg'
+            '/srv/app/web/content/course/123/session/321/random_string_footer.jpg'
         )->shouldBeCalled();
         $fileStorage->copy(
             '/tmp/chalkboard_123/header.jpg',
-            '/srv/app/web/content/course/123/session/321/header.jpg'
+            '/srv/app/web/content/course/123/session/321/random_string_header.jpg'
         )->shouldBeCalled();
 
-        $fileStorage->size('/srv/app/web/content/course/123/session/321/sidebar.jpg')->shouldBeCalled()->willReturn(3);
-        $fileStorage->size('/srv/app/web/content/course/123/session/321/footer.jpg')->shouldBeCalled()->willReturn(20);
-        $fileStorage->size('/srv/app/web/content/course/123/session/321/header.jpg')->shouldBeCalled()->willReturn(100);
+        $fileStorage->size('/srv/app/web/content/course/123/session/321/random_string_sidebar.jpg')->shouldBeCalled()->willReturn(3);
+        $fileStorage->size('/srv/app/web/content/course/123/session/321/random_string_footer.jpg')->shouldBeCalled()->willReturn(20);
+        $fileStorage->size('/srv/app/web/content/course/123/session/321/random_string_header.jpg')->shouldBeCalled()->willReturn(100);
 
         $fileRepository->add($expected1)->shouldBeCalled();
         $fileRepository->add($expected2)->shouldBeCalled();
