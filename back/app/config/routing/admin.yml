@@ -116,3 +116,11 @@ admin_session_delete:
         course: \d+
         session: \d+
     defaults: { _controller: App\Ui\Admin\Action\Session\DeleteAction }
+
+admin_session_progression:
+    path: /course/{course}/session/{session}/progression
+    methods: [GET]
+    requirements:
+        course: \d+
+        session: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Session\ProgressionAction }

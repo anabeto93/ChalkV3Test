@@ -8,8 +8,10 @@
  * @author Elao <contact@elao.com>
  */
 
-namespace App\Domain\Session;
+namespace App\Domain\User\Progression;
 
-class SessionException extends \DomainException
+class Medium
 {
+    const SMS = 'sms';
+    const WEB = 'web';
 }
