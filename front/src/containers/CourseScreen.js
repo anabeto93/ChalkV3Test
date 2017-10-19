@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import CoursesList from '../components/Course/CoursesList';
 import UserPanel from '../components/Course/UserPanel';
 import Error from '../components/Error';
+import { doneValidateSession } from '../actions/actionCreators';
 
 export class CourseScreen extends Component {
   render() {
@@ -18,6 +19,7 @@ export class CourseScreen extends Component {
           <Error
             show={true}
             message={I18n.t('send.sms.validation.fail', { locale })}
+            dispatchOnDismiss={doneValidateSession}
           />}
       </div>
     );
