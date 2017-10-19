@@ -176,7 +176,8 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
       return {
         ...state,
         isSessionValidated: false,
-        isSessionValidating: false
+        isSessionValidating: false,
+        isSessionFailValidating: false
       };
     }
 
