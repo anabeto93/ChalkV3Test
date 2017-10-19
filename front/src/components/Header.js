@@ -7,9 +7,9 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import logoImage from '../assets/logo.png';
+import getConfig from '../config/index';
 import { ACCOUNT, COURSES, HOME, LOGIN } from '../config/routes';
 import RouteResolver from '../services/RouteResolver';
-import getConfig from '../config/index';
 
 const APP_NAME = getConfig().appName;
 
@@ -87,6 +87,7 @@ class Header extends Component {
   render() {
     return (
       <AppBar
+        className="navbar-header"
         title={this.logo()}
         onTitleTouchTap={this.handleRedirectCourseList}
         iconElementLeft={this.leftIcon()}
