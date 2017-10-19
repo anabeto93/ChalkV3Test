@@ -1,12 +1,16 @@
+import I18n from 'i18n-js';
 import { RaisedButton } from 'material-ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import I18n from 'i18n-js';
+import {
+  getUserInformations,
+  purgeUserInformations
+} from '../actions/actionCreators';
+import UserPanel from '../components/Course/UserPanel';
 
 import { COURSES, HOME } from '../config/routes';
-import { getUserInformations } from '../actions/actionCreators';
 import { LOGIN_STATE_LOGGED_IN } from '../store/defaultState';
-import UserPanel from '../components/Course/UserPanel';
+import { Redirect } from 'react-router-dom';
 
 class LoginScreen extends Component {
   constructor(...args) {
@@ -15,8 +19,12 @@ class LoginScreen extends Component {
   }
 
   componentDidMount() {
-    this.setState({ isFetching: true });
-    this.props.dispatch(getUserInformations(this.props.match.params.token));
+    const { currentUser } = this.props;
+
+    if (currentUser.loginState !== LOGIN_STATE_LOGGED_IN) {
+      this.setState({ isFetching: true });
+      this.props.dispatch(getUserInformations(this.props.match.params.token));
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,7 +45,15 @@ class LoginScreen extends Component {
   };
 
   render() {
-    const { locale } = this.props;
+    const { locale, currentUser } = this.props;
+    const { token } = this.props.match.params;
+
+    if (currentUser.token === token) {
+      return <Redirect to={HOME} />;
+    } else if (currentUser.token !== null && currentUser.token !== token) {
+      this.props.dispatch(purgeUserInformations());
+      this.props.dispatch(getUserInformations(token));
+    }
 
     if (this.state.isFetching) {
       return (
@@ -47,7 +63,7 @@ class LoginScreen extends Component {
       );
     }
 
-    if (this.props.currentUser.loginState === LOGIN_STATE_LOGGED_IN) {
+    if (currentUser.loginState === LOGIN_STATE_LOGGED_IN) {
       return (
         <div>
           <UserPanel />
