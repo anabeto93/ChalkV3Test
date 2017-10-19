@@ -1,11 +1,10 @@
 ---
 
 app_options:
-
   php:                   true
   php_version:           '7.1'
   nodejs:                true
-  nodejs_version:        '7'
+  nodejs_version:        '8'
   mysql:                 true
   mysql_version:         '5.6'
   mongodb:               false
@@ -28,31 +27,18 @@ app_patterns:
 
   timezone_default: Etc/UTC
 
-  ###############
-  # Environment #
-  ###############
-
-  environment_variables:
-    - SYMFONY_ENV:                 "{{ app.env }}"
-    - APP_SECRET:                  ThisTokenIsNotSoSecretChangeIt
-    - APP_DATABASE_HOST:           127.0.0.1
-    - APP_DATABASE_PORT:           null
-    - APP_DATABASE_NAME:           app
-    - APP_DATABASE_USER:           "{{ app.user }}"
-    - APP_DATABASE_PASSWORD:       null
-
   #########
   # Files #
   #########
 
   files_attributes:
-    - path:  "{{ app.dir }}{{ app.dir_release }}/var/logs"
+    - path:  "{{ app.dir }}{{ app.dir_release }}/back/var/logs"
       src:   "{{ app.log_dir }}"
       state: link_directory
-    - path:  "{{ app.dir }}{{ app.dir_release }}/var/cache"
+    - path:  "{{ app.dir }}{{ app.dir_release }}/back/var/cache"
       src:   "{{ app.cache_dir }}"
       state: link_directory
-    - path:  "{{ app.dir }}{{ app.dir_release }}/var/sessions"
+    - path:  "{{ app.dir }}{{ app.dir_release }}/back/var/sessions"
       src:   "{{ app.sessions_dir }}"
       state: link_directory
 
@@ -114,15 +100,15 @@ app_patterns:
         - add_header: "Access-Control-Allow-Credentials \"true\" always"
         - if ($request_method = OPTIONS):
           - return: 204
-    # App
-    - file: app.conf
+    # API
+    - file: api.conf
       config:
         - server:
-          - server_name: "{{ app.host }}"
+          - server_name: "api.{{ app.host }}"
           - server_name: "*.ngrok.io"
-          - root:        "{{ app.dir }}{{ app.dir_release }}/web"
-          - access_log:  "{{ app.log_dir }}/nginx.access.log"
-          - error_log:   "{{ app.log_dir }}/nginx.error.log"
+          - root:        "{{ app.dir }}{{ app.dir_release }}/back/web"
+          - access_log:  "{{ app.log_dir }}/api.nginx.access.log"
+          - error_log:   "{{ app.log_dir }}/api.nginx.error.log"
           - include:     conf.d/app_gzip
           - include:     conf.d/app_access_control
           - location /:
@@ -130,6 +116,17 @@ app_patterns:
           - location ~ ^/(app(_[-\w]+)?)\.php(/|$):
             - include: conf.d/app_php_fpm
           - client_max_body_size: 32M
+    # Front
+    - file: front.conf
+      config:
+        - server:
+          - server_name: "{{ app.host }}"
+          - root:        "{{ app.dir }}{{ app.dir_release }}/front/public"
+          - access_log:  "{{ app.log_dir }}/front.nginx.access.log"
+          - error_log:   "{{ app.log_dir }}/front.nginx.error.log"
+          - include:     conf.d/app_gzip
+          - location /:
+            - try_files: $uri /index.html
 
   ########
   # Cron #

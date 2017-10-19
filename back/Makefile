@@ -21,42 +21,6 @@ help:
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
-###############
-# Environment #
-###############
-
-## Setup environment & Install & Build application
-setup:
-	if [ -d  "./var/cache" ]; then rm -rf ./var/cache; fi;
-	if [ -d "./var/logs" ]; then rm -rf ./var/logs; fi;
-	if [ -d "./var/sessions" ]; then rm -rf ./var/sessions; fi;
-	vagrant up --no-provision
-	vagrant provision
-	vagrant ssh -- "cd /srv/app && make install && make build"
-
-## Update environment
-update: export ANSIBLE_TAGS = manala.update
-update:
-	vagrant provision
-
-## Update ansible
-update-ansible: export ANSIBLE_TAGS = manala.update
-update-ansible:
-	vagrant provision --provision-with ansible
-
-## Provision environment
-provision: export ANSIBLE_EXTRA_VARS = {"manala":{"update":false}}
-provision:
-	vagrant provision --provision-with app
-
-## Provision nginx
-provision-nginx: export ANSIBLE_TAGS = manala_nginx
-provision-nginx: provision
-
-## Provision php
-provision-php: export ANSIBLE_TAGS = manala_php
-provision-php: provision
-
 ###########
 # Install #
 ###########
@@ -65,6 +29,7 @@ provision-php: provision
 install:
 	composer install --verbose
 	bin/console doctrine:database:create --if-not-exists
+	yarn install
 
 install@test: export SYMFONY_ENV = test
 install@test:
@@ -75,14 +40,12 @@ install@test:
 	bin/console doctrine:database:create --if-not-exists
 	bin/console doctrine:schema:update --force
 
-install@demo: export SYMFONY_ENV = prod
-install@demo:
+install@staging: export SYMFONY_ENV = prod
+install@staging:
 	# Composer
 	composer install --verbose --no-progress --no-interaction --prefer-dist --optimize-autoloader
 	# Symfony cache
 	bin/console cache:warmup --no-debug
-	# Doctrine migrations
-	bin/console doctrine:migrations:migrate --no-debug --no-interaction
 
 install@prod: export SYMFONY_ENV = prod
 install@prod:
@@ -90,8 +53,6 @@ install@prod:
 	composer install --verbose --no-progress --no-interaction --prefer-dist --optimize-autoloader --no-dev
 	# Symfony cache
 	bin/console cache:warmup --no-debug
-	# Doctrine migrations
-	bin/console doctrine:migrations:migrate --no-debug --no-interaction
 
 ##########
 # Build #
@@ -101,10 +62,10 @@ build:
 	./node_modules/.bin/encore dev
 watch:
 	./node_modules/.bin/encore dev --watch
-build@demo:
-	if [ -f "gulpfile" ]; then gulp; fi;
+build@staging:
+	./node_modules/.bin/encore dev
 build@prod:
-	if [ -f "gulpfile" ]; then gulp; fi;
+	./node_modules/.bin/encore prod
 
 ##########
 # Custom #
@@ -114,17 +75,6 @@ init-db:
 	bin/console doctrine:schema:drop --force; \
 	bin/console doctrine:schema:create; \
 	bin/console doctrine:fixtures:load -n; \
-
-##########
-# Deploy #
-##########
-
-## Deploy application
-deploy@demo:
-	ansible-playbook ansible/deploy.yml --inventory-file=ansible/hosts --limit=deploy_demo
-	
-deploy@prod:
-	ansible-playbook ansible/deploy.yml --inventory-file=ansible/hosts --limit=deploy_prod
 
 ##########
 # Tests  #

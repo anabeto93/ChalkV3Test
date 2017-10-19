@@ -22,6 +22,7 @@
 
 # Ansible
 /ansible/*.retry
+/ansible/deploy/*.retry
 /ansible/group_vars/*_local.yml
 /ansible/roles/*
 !ansible/roles/.gitkeep
