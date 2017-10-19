@@ -12,17 +12,23 @@ namespace Tests\Infrastructure\Adapter;
 
 use App\Infrastructure\Adapter\FileStorage;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FileStorageTest extends TestCase
 {
     /** @var ObjectProphecy */
     private $fileSystem;
 
+    /** @var \DateTimeInterface */
+    private $dateTime;
+
     public function setUp()
     {
         $this->fileSystem = $this->prophesize(Filesystem::class);
+        $this->dateTime = new \DateTime('2017/10/10 10:00:00.000');
     }
 
     public function testCopy()
@@ -32,7 +38,7 @@ class FileStorageTest extends TestCase
 
         $this->fileSystem->copy($pathFrom, $pathTo, true)->shouldBeCalled();
 
-        $fileStorage = new FileStorage($this->fileSystem->reveal());
+        $fileStorage = new FileStorage($this->fileSystem->reveal(), $this->dateTime);
         $fileStorage->copy($pathFrom, $pathTo);
     }
 
@@ -42,7 +48,7 @@ class FileStorageTest extends TestCase
 
         $this->fileSystem->exists($path)->shouldBeCalled()->willReturn(true);
 
-        $fileStorage = new FileStorage($this->fileSystem->reveal());
+        $fileStorage = new FileStorage($this->fileSystem->reveal(), $this->dateTime);
         $expected = $fileStorage->exists($path);
 
         $this->assertTrue($expected);
@@ -54,7 +60,22 @@ class FileStorageTest extends TestCase
 
         $this->fileSystem->remove($path)->shouldBeCalled();
 
-        $fileStorage = new FileStorage($this->fileSystem->reveal());
+        $fileStorage = new FileStorage($this->fileSystem->reveal(), $this->dateTime);
         $fileStorage->remove($path);
+    }
+
+    public function testUpload()
+    {
+        $file = new UploadedFile(__DIR__ . '/../../files/dummy.txt', 'dummy.txt');
+
+        $this->fileSystem->dumpFile(
+            Argument::that(function ($element) {
+                return preg_match('/\/tmp\/\/2017\/10\//', $element);
+            }),
+            "dummy\n"
+        )->shouldBeCalled();
+
+        $fileStorage = new FileStorage($this->fileSystem->reveal(), $this->dateTime);
+        $fileStorage->upload($file, '/tmp');
     }
 }

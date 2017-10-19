@@ -49,6 +49,7 @@ class UserManager
      * @param string $locale
      * @param string $country
      * @param string $token
+     * @param bool   $forceUpdate
      *
      * @return User
      */
@@ -59,7 +60,8 @@ class UserManager
         string $phoneNumber,
         string $locale,
         ?string $country,
-        ?string $token
+        ?string $token,
+        bool $forceUpdate = false
     ): User {
         $user = new User(
             $uuid,
@@ -82,6 +84,10 @@ class UserManager
             $token ?? 'api-token-user',
             new \DateTime()
         );
+
+        if ($forceUpdate === true) {
+            $user->forceUpdate();
+        }
 
         $this->userRepository->add($user);
 

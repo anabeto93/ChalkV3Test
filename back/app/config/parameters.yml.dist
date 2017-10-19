@@ -16,6 +16,7 @@ parameters:
     mailer_password: ~
 
     # App
+    import_dir: '%kernel.project_dir%/web/content'
     admin_menu_color: '#fc3691'
     path_to_store_upload: '/tmp'
     timezone: Africa/Accra
