@@ -53,6 +53,20 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\User\SendLoginAccess }
 
+    App\Application\Command\User\Import\ImportHandler:
+        autowire: true
+        arguments:
+            $importDir: '%infrastructure.user_import_dir%'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\Import\Import }
+
+    App\Application\Command\User\Import\ConfirmImportHandler:
+        autowire: true
+        arguments:
+            $importDir: '%infrastructure.user_import_dir%'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\Import\ConfirmImport }
+
     #
     # Folder
     #
@@ -95,6 +109,14 @@ services:
             $fromNumber: '%infobip_phone_number%'
         tags:
             - { name: tactician.handler, command: App\Application\Command\SMS\Send }
+
+    #
+    # File
+    #
+    App\Application\Command\File\RemoveHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\File\Remove }
 
     #
     # External

@@ -162,6 +162,21 @@ class UserRepository implements UserRepositoryInterface
     /**
      * {@inheritdoc}
      */
+    public function getPhoneNumbers(): array
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('user.phoneNumber')
+            ->from(User::class, 'user', 'user.phoneNumber')
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+  
+    /**
+     * {@inheritdoc}
+     */
     public function findByUuid(string $userUuid): ?User
     {
         $queryBuilder = $this
