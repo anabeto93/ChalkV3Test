@@ -53,6 +53,11 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\User\SendLoginAccess }
 
+    App\Application\Command\User\ForceUpdateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\ForceUpdate }
+
     App\Application\Command\User\Import\ImportHandler:
         autowire: true
         arguments:

@@ -52,6 +52,25 @@ class UserContext implements Context
     }
 
     /**
+     * @Given /^there is a user with force update$/
+     */
+    public function createUserWithForceUpdate()
+    {
+        $user = $this->userProxy->getUserManager()->create(
+            1,
+            'john',
+            'doh',
+            '+33123213123',
+            'fr',
+            'fr',
+            'john-doh-token',
+            true
+        );
+
+        $this->userProxy->getStorage()->set('user', $user);
+    }
+
+    /**
      * @Given /^the api token for this user is "(?P<apiToken>[^"]+)"$/
      *
      * @param string $apiToken
