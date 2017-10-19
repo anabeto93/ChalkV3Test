@@ -53,7 +53,7 @@ class ValidateSession extends Component {
   render() {
     const { session } = this.state;
 
-    if (session === null) {
+    if (session === null || session === undefined) {
       store.dispatch(failValidateSessionSMS());
 
       return <Redirect to={COURSES} />;
