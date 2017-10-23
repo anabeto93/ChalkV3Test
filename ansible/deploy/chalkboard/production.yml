@@ -4,7 +4,7 @@
 # Dir #
 #######
 
-manala_deploy_dir: /srv/app
+manala_deploy_dir: /srv/app/api.chalkboard.education
 
 ############
 # Releases #
@@ -18,7 +18,7 @@ manala_deploy_releases: 5
 
 manala_deploy_strategy: git
 
-manala_deploy_strategy_git_repo:    "{{ lookup('pipe','git ls-remote --get-url origin') }}"
+manala_deploy_strategy_git_repo:    "git@github.com:chalkboardedu/ChalkboardEducationV2Back.git"
 manala_deploy_strategy_git_version: master
 
 ##########
@@ -38,15 +38,8 @@ manala_deploy_shared_files:
 manala_deploy_shared_dirs:
   - var/logs
   - var/sessions
+  - node_modules
 
-############
-# Writable #
-############
-
-#manala_deploy_writable_dirs_default:
-#  mode:   ug=rwx,o=rx
-#  follow: true
-#manala_deploy_writable_dirs:
-#  - var/cache
-#  - var/logs
-#  - var/sessions
+manala_deploy_tasks:
+  - make: install@prod
+  - make: build@prod
