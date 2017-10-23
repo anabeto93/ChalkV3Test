@@ -44,6 +44,8 @@ install@staging: export SYMFONY_ENV = prod
 install@staging:
 	# Composer
 	composer install --verbose --no-progress --no-interaction --prefer-dist --optimize-autoloader
+	# Yarn
+	yarn install
 	# Symfony cache
 	bin/console cache:warmup --no-debug
 
@@ -51,6 +53,8 @@ install@prod: export SYMFONY_ENV = prod
 install@prod:
 	# Composer
 	composer install --verbose --no-progress --no-interaction --prefer-dist --optimize-autoloader --no-dev
+	# Yarn
+	yarn install
 	# Symfony cache
 	bin/console cache:warmup --no-debug
 
@@ -65,7 +69,7 @@ watch:
 build@staging:
 	./node_modules/.bin/encore dev
 build@prod:
-	./node_modules/.bin/encore prod
+	./node_modules/.bin/encore production
 
 ##########
 # Custom #
