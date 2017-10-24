@@ -14,6 +14,7 @@ const store = createStore(
   compose(
     applyMiddleware(thunkMiddleware),
     autoRehydrate(),
+    process.env.NODE_ENV !== 'production' &&
     typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined'
       ? window.__REDUX_DEVTOOLS_EXTENSION__()
       : f => f
