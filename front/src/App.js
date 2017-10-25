@@ -3,7 +3,7 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import { persistStore } from 'redux-persist';
 
 import './App.css';
@@ -12,6 +12,7 @@ import NotFound from './components/NotFound';
 import Updates from './components/Updates/Updates';
 import * as routes from './config/routes';
 import AccountScreen from './containers/AccountScreen';
+import ValidateSession from './services/ValidateSession';
 
 import CourseScreen from './containers/CourseScreen';
 import FolderScreen from './containers/FolderScreen';
@@ -21,6 +22,8 @@ import PrivateRoute from './containers/PrivateRoute';
 import SendScreen from './containers/SendScreen';
 import SessionDetailScreen from './containers/SessionDetailScreen';
 import SessionScreen from './containers/SessionScreen';
+import SendSMSScreen from './containers/SendSMSScreen';
+
 // Check network status
 import networkStatusEventListener from './services/network/networkStatusEventListener';
 import clock from './services/updates/clock';
@@ -58,7 +61,7 @@ class App extends Component {
             }
           })}
         >
-          <Router>
+          <HashRouter>
             <div>
               <Header />
               <div className="container-layout">
@@ -98,15 +101,26 @@ class App extends Component {
                       component={SendScreen}
                     />
                     <PrivateRoute
+                      exact
+                      path={routes.SESSION_SEND_SMS}
+                      component={SendSMSScreen}
+                    />
+
+                    <PrivateRoute
                       path={routes.ACCOUNT}
                       component={AccountScreen}
+                    />
+                    <PrivateRoute
+                        exact
+                        path={routes.SESSION_VALIDATE_SMS}
+                        component={ValidateSession}
                     />
                     <Route component={NotFound} />
                   </Switch>
                 </div>
               </div>
             </div>
-          </Router>
+          </HashRouter>
         </MuiThemeProvider>
       </Provider>
     );

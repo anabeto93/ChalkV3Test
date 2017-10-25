@@ -20,8 +20,9 @@ const defaultState = {
   content: {
     isFetching: false,
     isErrorFetching: false,
-    isValidating: false,
-    isFailValidating: false,
+    isSessionValidating: false,
+    isSessionFailValidating: false,
+    isSessionValidated: false,
     updatedAt: null,
     courses: {},
     folders: {},
