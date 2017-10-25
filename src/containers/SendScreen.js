@@ -129,7 +129,9 @@ class SendScreen extends Component {
       <div>
         <div className="send-screen">
           <div className="content">
-            <p>Submit your progression with :</p>
+            <p>
+              {I18n.t('send.label', { locale })}
+            </p>
 
             <RaisedButton
               label={I18n.t('send.medium.internet', { locale })}

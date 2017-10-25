@@ -15,6 +15,7 @@
     "retry": "Retry"
   },
   "send": {
+    "label": "Submit your progression with:",
     "medium": {
       "internet": "Internet",
       "sms": "SMS"

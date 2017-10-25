@@ -15,12 +15,13 @@
     "retry": "Réessayer"
   },
   "send": {
-    "validation": {
-      "fail": "Erreur durant la validation de la session"
-    },
+    "label": "Soumettre sa progression avec:",
     "medium": {
       "internet": "Internet",
       "sms": "SMS"
+    },
+    "validation": {
+      "fail": "Erreur durant la validation de la session"
     },
     "sms": {
       "title": "Soumettre votre validation par SMS",
@@ -38,15 +39,15 @@
       }
     }
   },
+  "login": {
+    "checking": "Verification ...",
+    "start": "Commencer"
+  },
   "account": {
     "language": "Langue",
     "settings": {
       "label": "Réglages"
     }
-  },
-  "login": {
-    "checking": "Verification ...",
-    "start": "Commencer"
   },
   "error": {
     "dismiss": "Cacher"
