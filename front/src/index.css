@@ -4,6 +4,15 @@ body {
   font-family: sans-serif;
 }
 
+.background-grey {
+  background-color: #eeeeee;
+}
+
+.next-session-footer {
+  padding: 10px;
+  text-align: right;
+}
+
 .session-index {
   color: rgb(255, 255, 255);
   background-color: rgb(188, 188, 188);

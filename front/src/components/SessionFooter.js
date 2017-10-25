@@ -40,12 +40,11 @@ const footer = props => {
   };
 
   return (
-    <footer style={{ marginTop: '10px' }}>
+    <footer className="next-session-footer background-grey">
       <RaisedButton
         label="Next"
         labelPosition="before"
         primary={true}
-        className="button-primary"
         onClick={handleNext}
         icon={<Arrow />}
       />
