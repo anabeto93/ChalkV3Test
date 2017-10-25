@@ -111,9 +111,9 @@ class App extends Component {
                       component={AccountScreen}
                     />
                     <PrivateRoute
-                        exact
-                        path={routes.SESSION_VALIDATE_SMS}
-                        component={ValidateSession}
+                      exact
+                      path={routes.SESSION_VALIDATE_SMS}
+                      component={ValidateSession}
                     />
                     <Route component={NotFound} />
                   </Switch>

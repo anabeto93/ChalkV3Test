@@ -9,7 +9,11 @@ import { validateSession } from '../actions/actionCreators';
 import Error from '../components/Error';
 import CourseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
-import { SESSION_DETAIL, SESSION_LIST, SESSION_SEND_SMS } from '../config/routes';
+import {
+  SESSION_DETAIL,
+  SESSION_LIST,
+  SESSION_SEND_SMS
+} from '../config/routes';
 import store from '../store/store';
 
 const DEFAULT_STATE = {
