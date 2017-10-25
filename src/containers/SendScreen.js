@@ -1,20 +1,20 @@
+import I18n from 'i18n-js';
 import { RaisedButton } from 'material-ui';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import I18n from 'i18n-js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { validateSession } from '../actions/actionCreators';
 import Error from '../components/Error';
 import CourseManager from '../services/CourseManager';
-import store from '../store/store';
 import generateUrl from '../services/generateUrl';
 import {
   SESSION_DETAIL,
   SESSION_LIST,
   SESSION_SEND_SMS
 } from '../config/routes';
+import store from '../store/store';
 
 const DEFAULT_STATE = {
   sendMode: null,
@@ -110,24 +110,26 @@ class SendScreen extends Component {
     if (this.state.hasNextSession && !this.props.isFailValidating) {
       return (
         <div className="content-layout">
-          <h4>Thank you for submitted your answers.</h4>
-          <p>
-            Your session was successfully validated and you can go to the next
-            session.
-          </p>
-          <RaisedButton
-            style={{ float: 'left' }}
-            label="Back to the list"
-            onClick={this.handleRedirectSessionList}
-          />
-          <RaisedButton
-            className="button-primary"
-            primary={true}
-            onClick={this.handleRedirectNextSession}
-            label="Next"
-            labelPosition="before"
-            icon={<Arrow />}
-          />
+          <div className="content">
+            <h4>Thank you for submitted your answers.</h4>
+            <p>
+              Your session was successfully validated and you can go to the next
+              session.
+            </p>
+            <RaisedButton
+              style={{ float: 'left' }}
+              label="Back to the list"
+              onClick={this.handleRedirectSessionList}
+            />
+            <RaisedButton
+              className="button-primary"
+              primary={true}
+              onClick={this.handleRedirectNextSession}
+              label="Next"
+              labelPosition="before"
+              icon={<Arrow />}
+            />
+          </div>
         </div>
       );
     }
@@ -151,17 +153,19 @@ class SendScreen extends Component {
             show={this.props.isFailValidating}
           />}
 
-        <p>Submit your progression with :</p>
-        <RadioButtonGroup name="sendMode" onChange={this.handleFormChange}>
-          <RadioButton value={SEND_MODE_INTERNET} label="Internet" />
-          <RadioButton value={SEND_MODE_SMS} label="SMS" />
-        </RadioButtonGroup>
-        <RaisedButton
-          disabled={!this.state.submitEnabled || this.state.hasSubmit}
-          label="Ok"
-          className="button-primary"
-          onClick={this.handleFormSubmit}
-        />
+        <div className="content">
+          <p>Submit your progression with :</p>
+          <RadioButtonGroup name="sendMode" onChange={this.handleFormChange}>
+            <RadioButton value={SEND_MODE_INTERNET} label="Internet" />
+            <RadioButton value={SEND_MODE_SMS} label="SMS" />
+          </RadioButtonGroup>
+          <RaisedButton
+            disabled={!this.state.submitEnabled || this.state.hasSubmit}
+            label="Ok"
+            className="button-primary"
+            onClick={this.handleFormSubmit}
+          />
+        </div>
       </div>
     );
   }
@@ -176,8 +180,8 @@ function mapStateToProps(state, props) {
   return {
     sessions: state.content.sessions,
     session,
-    isValidating: state.content.isValidating,
-    isFailValidating: state.content.isFailValidating,
+    isValidating: state.content.isSessionValidating,
+    isFailValidating: state.content.isSessionFailValidating,
     locale: state.settings.locale
   };
 }

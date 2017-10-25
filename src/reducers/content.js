@@ -1,10 +1,13 @@
 import {
+  DONE_VALIDATE_SESSION,
   FAIL_GET_COURSES_INFORMATIONS,
   FAIL_VALIDATE_SESSION_INTERNET,
+  FAIL_VALIDATE_SESSION_SMS,
   FILE_LOADED,
   RECEIVE_COURSES_INFORMATIONS,
   RECEIVE_SESSION_CONTENT,
   RECEIVE_VALIDATE_SESSION_INTERNET,
+  RECEIVE_VALIDATE_SESSION_SMS,
   REQUEST_COURSES_INFORMATIONS,
   REQUEST_VALIDATE_SESSION_INTERNET,
   SPOOL_TERMINATED
@@ -14,8 +17,9 @@ import receiveCourseInformationHandler from './handler/receiveCourseInformationH
 const DEFAULT_CONTENT_STATE = {
   isFetching: false,
   isErrorFetching: false,
-  isValidating: false,
-  isFailValidating: false,
+  isSessionValidating: false,
+  isSessionFailValidating: false,
+  isSessionValidated: false,
   courses: {},
   folders: {},
   sessions: {},
@@ -108,7 +112,11 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
     }
 
     case REQUEST_VALIDATE_SESSION_INTERNET: {
-      return { ...state, isValidating: true, isFailValidating: false };
+      return {
+        ...state,
+        isSessionValidating: true,
+        isSessionFailValidating: false
+      };
     }
 
     case RECEIVE_VALIDATE_SESSION_INTERNET: {
@@ -123,16 +131,54 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
         return {
           ...state,
           sessions: { ...currentSessions },
-          isValidating: false,
-          isFailValidating: false
+          isSessionValidating: false,
+          isSessionFailValidating: false
         };
       }
 
       return { ...state };
     }
 
+    case RECEIVE_VALIDATE_SESSION_SMS: {
+      const validatedSession = {
+        ...state.sessions[action.payload.sessionUuid],
+        validated: true
+      };
+      const currentSessions = { ...state.sessions };
+      currentSessions[validatedSession.uuid] = validatedSession;
+
+      return {
+        ...state,
+        sessions: { ...currentSessions },
+        isSessionValidating: false,
+        isSessionFailValidating: false,
+        isSessionValidated: true
+      };
+    }
+
     case FAIL_VALIDATE_SESSION_INTERNET: {
-      return { ...state, isFailValidating: true, isValidating: false };
+      return {
+        ...state,
+        isSessionFailValidating: true,
+        isSessionValidating: false
+      };
+    }
+
+    case FAIL_VALIDATE_SESSION_SMS: {
+      return {
+        ...state,
+        isSessionFailValidating: true,
+        isSessionValidating: false
+      };
+    }
+
+    case DONE_VALIDATE_SESSION: {
+      return {
+        ...state,
+        isSessionValidated: false,
+        isSessionValidating: false,
+        isSessionFailValidating: false
+      };
     }
 
     default:
