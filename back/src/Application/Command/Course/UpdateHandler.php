@@ -10,6 +10,8 @@
 
 namespace App\Application\Command\Course;
 
+use App\Application\Command\User\ForceUpdate;
+use App\Application\Command\User\ForceUpdateHandler;
 use App\Domain\Repository\CourseRepositoryInterface;
 use App\Domain\Size\Calculator;
 
@@ -24,19 +26,25 @@ class UpdateHandler
     /** @var \DateTimeInterface */
     private $dateTime;
 
+    /** @var ForceUpdateHandler */
+    private $forceUpdateHandler;
+
     /**
      * @param CourseRepositoryInterface $courseRepository
+     * @param ForceUpdateHandler        $forceUpdateHandler
      * @param Calculator                $sizeCalculator
      * @param \DateTimeInterface        $dateTime
      */
     public function __construct(
         CourseRepositoryInterface $courseRepository,
+        ForceUpdateHandler $forceUpdateHandler,
         Calculator $sizeCalculator,
         \DateTimeInterface $dateTime
     ) {
-        $this->courseRepository = $courseRepository;
-        $this->sizeCalculator = $sizeCalculator;
-        $this->dateTime = $dateTime;
+        $this->courseRepository   = $courseRepository;
+        $this->sizeCalculator     = $sizeCalculator;
+        $this->dateTime           = $dateTime;
+        $this->forceUpdateHandler = $forceUpdateHandler;
     }
 
     /**
@@ -44,6 +52,12 @@ class UpdateHandler
      */
     public function handle(Update $command)
     {
+        if ($command->course->isEnabled() !== $command->enabled) {
+            $this->forceUpdateHandler->handle(
+                new ForceUpdate($command->course->getUsers())
+            );
+        }
+
         $command->course->update(
             $command->title,
             $command->description,
@@ -62,7 +76,6 @@ class UpdateHandler
             ),
             $this->dateTime
         );
-
 
         $this->courseRepository->set($command->course);
     }

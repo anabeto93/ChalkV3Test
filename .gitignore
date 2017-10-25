@@ -1,3 +1,15 @@
+# Gitsplit
+/.gitsplit
+
+# Vagrant
+/.vagrant/
+
+# Ansible
+/ansible/**/*.retry
+/ansible/group_vars/*_local.yml
+/ansible/roles/*
+!ansible/roles/.gitkeep
+
 # dependencies
 /node_modules
 

@@ -1,0 +1,17 @@
+---
+
+- name: api.chalkboard.education
+  hosts: deploy_production_back_chalkboard
+  any_errors_fatal: true
+  vars_files:
+    - deploy/{{ app }}/{{ app_env }}.yml
+  roles:
+    - manala.deploy
+
+- name: www.chalkedu.co
+  hosts: deploy_production_front_chalkboard
+  any_errors_fatal: true
+  vars_files:
+    - deploy/{{ app }}/{{ app_env }}.yml
+  roles:
+    - manala.deploy

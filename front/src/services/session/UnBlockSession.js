@@ -1,16 +1,16 @@
-import getConfig from '../../config/index';
-
 export class UnBlockSession {
   static getHexString() {
     return '0123456789abcdef';
   }
 
-  static getUnlockCodeForSession(userUuid, sessionUuid) {
-    return this.getCodeFromUuid(userUuid) + this.getCodeFromUuid(sessionUuid);
+  static getUnlockCodeForSession(userUuid, sessionUuid, privateKey) {
+    return (
+      this.getCodeFromUuid(userUuid, privateKey) +
+      this.getCodeFromUuid(sessionUuid, privateKey)
+    );
   }
 
-  static getCodeFromUuid(uuid) {
-    const privateKey = getConfig().privateKey;
+  static getCodeFromUuid(uuid, privateKey) {
     const hexString = this.getHexString();
 
     const remainingLength = privateKey.length - hexString.length - 1;
@@ -31,8 +31,7 @@ export class UnBlockSession {
     );
   }
 
-  static getUuidFromCode(code) {
-    const privateKey = getConfig().privateKey;
+  static getUuidFromCode(code, privateKey) {
     const hexString = this.getHexString();
 
     let chars = code.split('');
@@ -54,12 +53,25 @@ export class UnBlockSession {
     );
   }
 
-  static getSessionUuidFromCode(code) {
-    return this.getUuidFromCode(code.substr(code.length / 2, code.length));
+  /**
+   * @param {string} code
+   * @param {string} privateKey
+   * @returns {string}
+   */
+  static getSessionUuidFromCode(code, privateKey) {
+    return this.getUuidFromCode(
+      code.substr(code.length / 2, code.length),
+      privateKey
+    );
   }
 
-  static getUserUuidFromCode(code) {
-    return this.getUuidFromCode(code.substr(0, code.length / 2));
+  /**
+   * @param {string} code
+   * @param {string} privateKey
+   * @returns {string}
+   */
+  static getUserUuidFromCode(code, privateKey) {
+    return this.getUuidFromCode(code.substr(0, code.length / 2), privateKey);
   }
 }
 
