@@ -13,7 +13,6 @@ export class CourseScreen extends Component {
 
     return (
       <div>
-        <UserPanel />
         <CoursesList courses={courses} />
         {isSessionFailValidating &&
           <Error

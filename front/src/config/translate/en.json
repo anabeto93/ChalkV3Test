@@ -15,6 +15,10 @@
     "retry": "Retry"
   },
   "send": {
+    "medium": {
+      "internet": "Internet",
+      "sms": "SMS"
+    },
     "validation": {
       "fail": "Error while validating session"
     },
