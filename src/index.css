@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: #eeeeee;
 }
 
 .background-grey {
@@ -66,11 +67,11 @@ body {
 }
 
 .content-layout {
-  padding-top: 5px;
+  background-color: #ffffff;
 }
 
 .content {
-  padding: 0 10px 10px 10px;
+  padding: 10px;
 }
 
 .hidden {
@@ -80,4 +81,19 @@ body {
 .navbar-header {
   position: fixed !important;
   top: 0;
+}
+
+.updates-container {
+  padding: 10px;
+  background-color: #dddddd;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+
+.send-screen {
+  position: fixed;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  transform: translate(0, -50%);
 }
