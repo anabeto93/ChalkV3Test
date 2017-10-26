@@ -19,6 +19,7 @@ const DEFAULT_STATE = {
   sendMode: null,
   redirectToSessionList: false,
   hasNextSession: false,
+  nextSession: null,
   hasSubmit: false
 };
 
@@ -45,7 +46,6 @@ class SendScreen extends Component {
     } else {
       this.setState({
         ...this.state,
-        submitEnabled: true,
         hasSubmit: false,
         redirectToSessionList: false
       });
@@ -89,27 +89,25 @@ class SendScreen extends Component {
 
     if (this.state.hasNextSession && !this.props.isFailValidating) {
       return (
-        <div className="content-layout">
-          <div className="content">
-            <h4>Thank you for submitted your answers.</h4>
-            <p>
-              Your session was successfully validated and you can go to the next
-              session.
-            </p>
-            <RaisedButton
-              style={{ float: 'left' }}
-              label="Back to the list"
-              onClick={this.handleRedirectSessionList}
-            />
-            <RaisedButton
-              className="button-primary"
-              primary={true}
-              onClick={this.handleRedirectNextSession}
-              label="Next"
-              labelPosition="before"
-              icon={<Arrow />}
-            />
-          </div>
+        <div className="screen-centered">
+          <h4>Thank you for submitted your answers.</h4>
+          <p>
+            Your session was successfully validated and you can go to the next
+            session.
+          </p>
+          <RaisedButton
+            style={{ float: 'left' }}
+            label="Back to the list"
+            onClick={this.handleRedirectSessionList}
+          />
+          <RaisedButton
+            className="button-primary"
+            primary={true}
+            onClick={this.handleRedirectNextSession}
+            label="Next"
+            labelPosition="before"
+            icon={<Arrow />}
+          />
         </div>
       );
     }
