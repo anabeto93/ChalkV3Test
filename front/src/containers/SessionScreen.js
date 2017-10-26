@@ -1,3 +1,4 @@
+import I18n from 'i18n-js';
 import { List, ListItem } from 'material-ui/List';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import React, { Component } from 'react';
@@ -7,7 +8,6 @@ import { doneValidateSession } from '../actions/actionCreators';
 import Success from '../components/Success';
 import getConfig from '../config/index';
 import { SESSION_DETAIL } from '../config/routes';
-import I18n from 'i18n-js';
 
 import courseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
@@ -41,7 +41,11 @@ class SessionScreen extends Component {
 
     return (
       <div>
-        {totalSession === 0 ? <p>No content available</p> : ''}
+        {totalSession === 0
+          ? <p>
+              {I18n.t('course.noContentAvailable', { locale })}
+            </p>
+          : ''}
 
         <List>
           {sessions !== undefined &&
