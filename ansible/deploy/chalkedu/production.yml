@@ -4,7 +4,7 @@
 # Dir #
 #######
 
-manala_deploy_dir: /srv/app/www.chalkedu.co
+manala_deploy_dir: /srv/app/chalkedu
 
 ############
 # Releases #
@@ -25,8 +25,7 @@ manala_deploy_strategy_git_version: master
 # Shared #
 ##########
 
-manala_deploy_shared_dirs:
-  - node_modules
+manala_deploy_shared_dirs: []
 
 manala_deploy_tasks:
   - make: install@prod

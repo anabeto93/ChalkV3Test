@@ -4,7 +4,7 @@
 # Dir #
 #######
 
-manala_deploy_dir: /srv/app/api.chalkboard.education
+manala_deploy_dir: /srv/app/chalkboard
 
 ############
 # Releases #
@@ -38,7 +38,6 @@ manala_deploy_shared_files:
 manala_deploy_shared_dirs:
   - var/logs
   - var/sessions
-  - node_modules
 
 manala_deploy_tasks:
   - make: install@prod
