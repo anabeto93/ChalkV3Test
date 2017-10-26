@@ -2,7 +2,6 @@ import {
   DONE_VALIDATE_SESSION,
   FAIL_GET_COURSES_INFORMATIONS,
   FAIL_VALIDATE_SESSION_INTERNET,
-  FAIL_VALIDATE_SESSION_SMS,
   FILE_LOADED,
   RECEIVE_COURSES_INFORMATIONS,
   RECEIVE_SESSION_CONTENT,
@@ -144,6 +143,7 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
         ...state.sessions[action.payload.sessionUuid],
         validated: true
       };
+
       const currentSessions = { ...state.sessions };
       currentSessions[validatedSession.uuid] = validatedSession;
 
@@ -157,14 +157,6 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
     }
 
     case FAIL_VALIDATE_SESSION_INTERNET: {
-      return {
-        ...state,
-        isSessionFailValidating: true,
-        isSessionValidating: false
-      };
-    }
-
-    case FAIL_VALIDATE_SESSION_SMS: {
       return {
         ...state,
         isSessionFailValidating: true,

@@ -1,9 +1,6 @@
-import I18n from 'i18n-js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { doneValidateSession } from '../actions/actionCreators';
 import SessionFooter from '../components/SessionFooter';
-import Success from '../components/Success';
 import CourseManager from '../services/CourseManager';
 
 class SessionDetailScreen extends Component {
@@ -12,7 +9,7 @@ class SessionDetailScreen extends Component {
   }
 
   render() {
-    const { session, courseUuid, isSessionValidated, locale } = this.props;
+    const { session, courseUuid } = this.props;
 
     if (session !== undefined) {
       return (
@@ -25,19 +22,13 @@ class SessionDetailScreen extends Component {
               className="session-content"
               dangerouslySetInnerHTML={this.renderContent()}
             />
-            {isSessionValidated &&
-              <Success
-                message={I18n.t('send.sms.validation.done', { locale })}
-                show={true}
-                dispatchOnDismiss={doneValidateSession}
-              />}
           </div>
           <SessionFooter courseUuid={courseUuid} session={session} />
         </div>
       );
     }
 
-    return <div />; // apollo persist/REHYDRATE trigger after render
+    return <div />;
   }
 }
 
@@ -47,14 +38,9 @@ function mapStateToProps(state, props) {
     props.match.params.sessionUuid
   );
 
-  const { content: { isSessionValidated } } = state;
-  const { settings: { locale } } = state;
-
   return {
     session,
-    courseUuid: props.match.params.courseUuid,
-    isSessionValidated,
-    locale
+    courseUuid: props.match.params.courseUuid
   };
 }
 

@@ -20,7 +20,7 @@ import SendScreen from './containers/SendScreen';
 import SessionDetailScreen from './containers/SessionDetailScreen';
 import SessionScreen from './containers/SessionScreen';
 import SendSMSScreen from './containers/SendSMSScreen';
-import ValidateSessionScreen from './containers/ValidateSessionScreen';
+import ValidateSessionByCodeScreen from './containers/ValidateSessionByCodeScreen';
 
 // Check network status
 import networkStatusEventListener from './services/network/networkStatusEventListener';
@@ -110,7 +110,7 @@ class App extends Component {
                     <PrivateRoute
                       exact
                       path={routes.SESSION_VALIDATE_SMS}
-                      component={ValidateSessionScreen}
+                      component={ValidateSessionByCodeScreen}
                     />
                     <Route component={NotFound} />
                   </Switch>
