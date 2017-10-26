@@ -11,7 +11,7 @@ const footer = props => {
   const { courseUuid, session, sessions, history } = props;
 
   const handleNext = () => {
-    if (session.needValidation) {
+    if (session.needValidation && !session.validated) {
       return history.push(
         generateUrl(SESSION_SEND, {
           ':courseUuid': courseUuid,
