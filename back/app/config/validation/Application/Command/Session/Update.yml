@@ -1,0 +1,12 @@
+App\Application\Command\Session\Update:
+    properties:
+        title:
+            - NotBlank: ~
+        rank:
+            - NotNull: ~
+            - Range:
+                min: 0
+        content:
+            - File:
+                mimeTypes: [application/zip]
+                mimeTypesMessage: 'validator.session.import.zipFile'

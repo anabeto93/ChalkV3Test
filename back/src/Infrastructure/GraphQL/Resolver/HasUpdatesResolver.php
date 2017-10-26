@@ -12,7 +12,6 @@ namespace App\Infrastructure\GraphQL\Resolver;
 
 use App\Domain\Course\HasUpdatesChecker;
 use App\Domain\Course\SessionUpdateView;
-use App\Domain\Model\User;
 use App\Infrastructure\Security\Api\ApiUserAdapter;
 use GraphQL\Error\UserError;
 use Overblog\GraphQLBundle\Definition\Argument;

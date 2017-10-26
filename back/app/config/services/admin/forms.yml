@@ -12,3 +12,8 @@ services:
         autowire: true
         tags:
             - { name: form.type, alias: App\Ui\Admin\Form\Type\User\UserChoiceType }
+
+    App\Ui\Admin\Form\Type\User\ConfirmImportType:
+        autowire: true
+        tags:
+            - { name: form.type, alias: Symfony\Component\Form\Extension\Core\Type\FormType }

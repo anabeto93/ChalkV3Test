@@ -37,7 +37,7 @@ class CreateHandlerTest extends TestCase
         $contentImporter = $this->prophesize(ContentImporter::class);
         $dateTime = new \DateTime();
         $generator->generateUuid()->shouldBeCalled()->willReturn('123-123-123');
-        $contentImporter->import(
+        $contentImporter->importNewSession(
             $course->reveal(),
             '123-123-123',
             9,

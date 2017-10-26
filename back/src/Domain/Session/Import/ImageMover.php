@@ -43,6 +43,14 @@ class ImageMover
     }
 
     /**
+     * @return string
+     */
+    public function getUploadDir(): string
+    {
+        return $this->uploadDir;
+    }
+
+    /**
      * @param Session            $session
      * @param string             $imagesLocation
      * @param string             $finalLocation
@@ -61,17 +69,16 @@ class ImageMover
         $filesSize = 0;
 
         foreach ($contentParsedView->imagesFound as $image) {
-            $currentPath = sprintf('%s/%s', $imagesLocation, $image);
+            $currentPath = sprintf('%s/%s', $imagesLocation, $image->originalSrc);
 
             if (!$this->fileStorage->exists($currentPath)) {
-                throw new ImageFileNotPresentException($image);
+                throw new ImageFileNotPresentException($image->originalSrc);
             }
 
-            $finalPath = sprintf('%s/%s', $finalLocation, $image);
+            $finalPath = sprintf('%s/%s', $finalLocation, $image->hashedSrc);
             $absolutePath = sprintf('%s%s', $this->uploadDir, $finalPath);
 
             $this->fileStorage->copy($currentPath, $absolutePath);
-
             $imageSize = $this->fileStorage->size($absolutePath);
             $filesSize += $imageSize;
 

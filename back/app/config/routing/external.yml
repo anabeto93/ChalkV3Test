@@ -1,0 +1,6 @@
+external_infobip_hook:
+    path: /infobip/hook/{key}
+    requirements:
+        key: '%infobip_hook_key%'
+    condition: "request.headers.get('Content-Type') matches '$application\/json$'"
+    defaults: { _controller: App\Ui\External\Action\Infobip\HookAction }

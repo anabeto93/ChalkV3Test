@@ -12,8 +12,9 @@ namespace App\Infrastructure\GraphQL\Mutator;
 
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\User\Progression\ValidateSession;
-use App\Domain\Session\ValidateSession\SessionNotAccessibleForThisUserException;
-use App\Domain\Session\ValidateSession\SessionNotFoundException;
+use App\Domain\Exception\Session\ValidateSession\SessionNotAccessibleForThisUserException;
+use App\Domain\Exception\Session\ValidateSession\SessionNotFoundException;
+use App\Domain\User\Progression\Medium;
 use App\Infrastructure\Security\Api\ApiUserAdapter;
 use GraphQL\Error\UserError;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -50,7 +51,7 @@ class ValidateSessionMutator
             /** @var ApiUserAdapter $apiUser */
             $apiUser = $this->tokenStorage->getToken()->getUser();
 
-            $this->commandBus->handle(new ValidateSession($apiUser->getUser(), $sessionUuid));
+            $this->commandBus->handle(new ValidateSession($apiUser->getUser(), $sessionUuid, Medium::WEB));
 
             return true;
         } catch (SessionNotFoundException $exception) {

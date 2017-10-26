@@ -6,6 +6,9 @@
     <h1>
         {{ 'admin.user.list.title'|trans }}
         <span class="pull-right">
+            <a class="btn btn-default" href="{{ path('admin_user_import') }}">
+                {{ 'admin.user.import.title'|trans }}
+            </a>
             <a class="btn btn-primary" href="{{ path('admin_user_create') }}">
                 {{ 'admin.user.create.title'|trans }}
             </a>

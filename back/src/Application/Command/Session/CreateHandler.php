@@ -43,7 +43,7 @@ class CreateHandler
     {
         $sessionUuid = $this->generator->generateUuid();
 
-        $this->contentImporter->import(
+        $this->contentImporter->importNewSession(
             $create->course,
             $sessionUuid,
             $create->rank,

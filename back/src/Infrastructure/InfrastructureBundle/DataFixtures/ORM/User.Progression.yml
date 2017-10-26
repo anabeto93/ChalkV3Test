@@ -2,5 +2,6 @@ App\Domain\Model\User\Progression:
     user_progression:
         __construct:
             - '@user_1'
-            - '@session_1'
+            - '@session_4'
+            - 'sms'
             - <(new DateTime('2017-08-01 04:00:00.000'))>

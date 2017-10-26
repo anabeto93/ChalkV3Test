@@ -15,6 +15,13 @@ services:
             tags:
                 - { name: tactician.handler, command: App\Application\Query\User\UserListQuery }
 
+        App\Application\Query\User\Import\ImportQueryHandler:
+            autowire: true
+            arguments:
+                $importDir: '%infrastructure.user_import_dir%'
+            tags:
+                - { name: tactician.handler, command: App\Application\Query\User\Import\ImportQuery }
+
         #
         # Folder
         #
@@ -30,3 +37,8 @@ services:
             autowire: true
             tags:
                 - { name: tactician.handler, command: App\Application\Query\Session\SessionListQuery }
+
+        App\Application\Query\Session\ProgressionListQueryHandler:
+            autowire: true
+            tags:
+                - { name: tactician.handler, command: App\Application\Query\Session\ProgressionListQuery }

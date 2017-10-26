@@ -1,16 +1,20 @@
+import I18n from 'i18n-js';
 import { RaisedButton } from 'material-ui';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
-import I18n from 'i18n-js';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { validateSession } from '../actions/actionCreators';
 import Error from '../components/Error';
 import CourseManager from '../services/CourseManager';
-import store from '../store/store';
 import generateUrl from '../services/generateUrl';
-import { SESSION_DETAIL, SESSION_LIST } from '../config/routes';
+import {
+  SESSION_DETAIL,
+  SESSION_LIST,
+  SESSION_SEND_SMS
+} from '../config/routes';
+import store from '../store/store';
 
 const DEFAULT_STATE = {
   sendMode: null,
@@ -20,6 +24,7 @@ const DEFAULT_STATE = {
   hasSubmit: false
 };
 const SEND_MODE_INTERNET = 'internet';
+const SEND_MODE_SMS = 'sms';
 
 class SendScreen extends Component {
   constructor(...args) {
@@ -33,12 +38,21 @@ class SendScreen extends Component {
       nextProps.session
     );
 
-    if (nextSession !== null && !nextProps.isFailValidating) {
+    if (
+      nextSession !== null &&
+      !nextProps.isFailValidating &&
+      !nextProps.isValidating
+    ) {
       this.setState({ ...this.state, nextSession, hasNextSession: true });
-    } else if (!nextProps.isFailValidating) {
+    } else if (!nextProps.isValidating && !nextProps.isFailValidating) {
       this.setState({ ...this.state, redirectToSessionList: true });
     } else {
-      this.setState({ ...this.state, hasSubmit: false });
+      this.setState({
+        ...this.state,
+        submitEnabled: true,
+        hasSubmit: false,
+        redirectToSessionList: false
+      });
     }
   }
 
@@ -64,13 +78,26 @@ class SendScreen extends Component {
     );
   };
 
+  handleRedirectSendSMS = (courseUuid, sessionUuid) => {
+    return this.props.history.push(
+      generateUrl(SESSION_SEND_SMS, {
+        ':courseUuid': courseUuid,
+        ':sessionUuid': sessionUuid
+      })
+    );
+  };
+
   handleFormSubmit = () => {
     this.setState({ ...this.state, hasSubmit: true });
-    const sessionUuid = this.props.match.params.sessionUuid;
+    const sessionUuid = this.props.session.uuid;
+    const courseUuid = this.props.session.courseUuid;
 
     switch (this.state.sendMode) {
       case SEND_MODE_INTERNET:
         store.dispatch(validateSession(sessionUuid));
+        break;
+      case SEND_MODE_SMS:
+        this.handleRedirectSendSMS(courseUuid, sessionUuid);
         break;
       default:
         break;
@@ -83,24 +110,26 @@ class SendScreen extends Component {
     if (this.state.hasNextSession && !this.props.isFailValidating) {
       return (
         <div className="content-layout">
-          <h4>Thank you for submitted your answers.</h4>
-          <p>
-            Your session was successfully validated and you can go to the next
-            session.
-          </p>
-          <RaisedButton
-            style={{ float: 'left' }}
-            label="Back to the list"
-            onClick={this.handleRedirectSessionList}
-          />
-          <RaisedButton
-            className="button-primary"
-            primary={true}
-            onClick={this.handleRedirectNextSession}
-            label="Next"
-            labelPosition="before"
-            icon={<Arrow />}
-          />
+          <div className="content">
+            <h4>Thank you for submitted your answers.</h4>
+            <p>
+              Your session was successfully validated and you can go to the next
+              session.
+            </p>
+            <RaisedButton
+              style={{ float: 'left' }}
+              label="Back to the list"
+              onClick={this.handleRedirectSessionList}
+            />
+            <RaisedButton
+              className="button-primary"
+              primary={true}
+              onClick={this.handleRedirectNextSession}
+              label="Next"
+              labelPosition="before"
+              icon={<Arrow />}
+            />
+          </div>
         </div>
       );
     }
@@ -124,16 +153,19 @@ class SendScreen extends Component {
             show={this.props.isFailValidating}
           />}
 
-        <p>Submit your progression with :</p>
-        <RadioButtonGroup name="sendMode" onChange={this.handleFormChange}>
-          <RadioButton value={SEND_MODE_INTERNET} label="Internet" />
-        </RadioButtonGroup>
-        <RaisedButton
-          disabled={!this.state.submitEnabled || this.state.hasSubmit}
-          label="Ok"
-          className="button-primary"
-          onClick={this.handleFormSubmit}
-        />
+        <div className="content">
+          <p>Submit your progression with :</p>
+          <RadioButtonGroup name="sendMode" onChange={this.handleFormChange}>
+            <RadioButton value={SEND_MODE_INTERNET} label="Internet" />
+            <RadioButton value={SEND_MODE_SMS} label="SMS" />
+          </RadioButtonGroup>
+          <RaisedButton
+            disabled={!this.state.submitEnabled || this.state.hasSubmit}
+            label="Ok"
+            className="button-primary"
+            onClick={this.handleFormSubmit}
+          />
+        </div>
       </div>
     );
   }
@@ -148,7 +180,8 @@ function mapStateToProps(state, props) {
   return {
     sessions: state.content.sessions,
     session,
-    isFailValidating: state.content.isFailValidating,
+    isValidating: state.content.isSessionValidating,
+    isFailValidating: state.content.isSessionFailValidating,
     locale: state.settings.locale
   };
 }

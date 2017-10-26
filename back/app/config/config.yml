@@ -16,6 +16,8 @@ framework:
         strict_requirements: ~
     form: ~
     csrf_protection: ~
+    serializer:
+        enable_annotations: false
     validation:
         enable_annotations: false
         mapping:
@@ -50,6 +52,9 @@ twig:
         admin_menu_color: "%admin_menu_color%"
     date:
         timezone: '%timezone%'
+
+infrastructure:
+    user_import_dir: '%import_dir%/import/users/'
 
 # Doctrine Configuration
 doctrine:

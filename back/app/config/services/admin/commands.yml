@@ -53,6 +53,25 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\User\SendLoginAccess }
 
+    App\Application\Command\User\ForceUpdateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\ForceUpdate }
+
+    App\Application\Command\User\Import\ImportHandler:
+        autowire: true
+        arguments:
+            $importDir: '%infrastructure.user_import_dir%'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\Import\Import }
+
+    App\Application\Command\User\Import\ConfirmImportHandler:
+        autowire: true
+        arguments:
+            $importDir: '%infrastructure.user_import_dir%'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\Import\ConfirmImport }
+
     #
     # Folder
     #
@@ -86,6 +105,11 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\Session\Delete }
 
+    App\Application\Command\Session\UpdateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Session\Update }
+
     #
     # SMS
     #
@@ -95,3 +119,25 @@ services:
             $fromNumber: '%infobip_phone_number%'
         tags:
             - { name: tactician.handler, command: App\Application\Command\SMS\Send }
+
+    #
+    # File
+    #
+    App\Application\Command\File\RemoveHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\File\Remove }
+
+    #
+    # External
+    #
+    App\Application\Command\External\Infobip\ForwardMessageHandler:
+        autowire: true
+        arguments:
+            $phoneNumberSender: '%infobip_phone_number%'
+            $sessionValidationDecodeKey: '%session_validation_private_key_decode%'
+            $sessionValidationEncodeKey: '%session_validation_private_key_encode%'
+            $frontUrl: '%front_url%'
+            $frontValidationSessionUrl: '%front_session_validation_response_route%'
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\External\Infobip\ForwardMessage }

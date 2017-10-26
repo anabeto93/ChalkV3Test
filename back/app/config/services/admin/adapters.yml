@@ -27,3 +27,12 @@ services:
         autowire: true
 
     App\Application\Adapter\TranslatorInterface: '@App\Infrastructure\Adapter\Translator'
+
+    App\Infrastructure\Adapter\LocaleHelperAdapter:
+        autowire: true
+    App\Application\Adapter\LocaleHelperInterface: '@App\Infrastructure\Adapter\LocaleHelperAdapter'
+
+    App\Infrastructure\Adapter\SerializerAdapter:
+        arguments:
+            - '@serializer'
+    App\Application\Adapter\SerializerInterface: '@App\Infrastructure\Adapter\SerializerAdapter'

@@ -239,4 +239,36 @@ class Session
     {
         return $this->needValidation;
     }
+
+    /**
+     * @param string             $title
+     * @param int                $rank
+     * @param Folder|null        $folder
+     * @param bool               $needValidation
+     * @param int                $size
+     * @param \DateTimeInterface $updatedAt
+     */
+    public function update(
+        string $title,
+        int $rank,
+        Folder $folder = null,
+        bool $needValidation,
+        int $size,
+        \DateTimeInterface $updatedAt
+    ) {
+        $this->title = $title;
+        $this->rank = $rank;
+        $this->folder = $folder;
+        $this->size = $size;
+        $this->needValidation = $needValidation;
+        $this->updatedAt = $updatedAt;
+    }
+
+    /**
+     * @param string $content
+     */
+    public function updateContent(string $content)
+    {
+        $this->content = $content;
+    }
 }
