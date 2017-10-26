@@ -40,7 +40,6 @@ class LoginScreen extends Component {
     const { token: nextToken, loginState } = nextProps.currentUser;
 
     if (nextToken === null) {
-      console.log('push home');
       this.props.history.push(HOME);
     }
 
