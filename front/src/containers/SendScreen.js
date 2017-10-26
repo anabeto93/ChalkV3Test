@@ -90,21 +90,19 @@ class SendScreen extends Component {
     if (this.state.hasNextSession && !this.props.isFailValidating) {
       return (
         <div className="screen-centered">
-          <h4>Thank you for submitted your answers.</h4>
-          <p>
-            Your session was successfully validated and you can go to the next
-            session.
-          </p>
+          <h4>
+            {I18n.t('send.validation.success', { locale })}
+          </h4>
           <RaisedButton
             style={{ float: 'left' }}
-            label="Back to the list"
+            label={I18n.t('send.sessionListButton', { locale })}
             onClick={this.handleRedirectSessionList}
           />
           <RaisedButton
             className="button-primary"
             primary={true}
             onClick={this.handleRedirectNextSession}
-            label="Next"
+            label={I18n.t('send.nextButton', { locale })}
             labelPosition="before"
             icon={<Arrow />}
           />
