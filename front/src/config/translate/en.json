@@ -5,7 +5,7 @@
   "session": {
     "nextButton": "Next"
   },
-  "tokenError": "Your link has a problem - please contact your Chalkboard Education for support.",
+  "tokenError": "Your link has a problem - please contact Chalkboard Education for support.",
   "update": {
     "label": "Update",
     "needUpdate": "Your app must be updated",
@@ -21,7 +21,7 @@
     "retry": "Retry"
   },
   "send": {
-    "label": "Submit your progression with:",
+    "label": "Submit your progress with:",
     "sessionListButton": "Sessions list",
     "nextButton": "Next",
     "medium": {
@@ -29,7 +29,7 @@
       "sms": "SMS"
     },
     "validation": {
-      "success": "Thank you. Your progression is saved.",
+      "success": "Thank you. Your progress is saved.",
       "fail": "Error while validating session"
     },
     "sms": {
