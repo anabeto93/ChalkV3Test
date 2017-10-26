@@ -22,9 +22,6 @@ export const RECEIVE_USER_INFORMATIONS =
 export const FAIL_GET_USER_INFORMATIONS =
   '@@CHALKBOARDEDUCATION/FAIL_GET_USER_INFORMATIONS';
 
-export const PURGE_USER_INFORMATIONS =
-  '@@CHALKBOARDEDUCATION/PURGE_USER_INFORMATIONS';
-
 export function requestUserInformations(token) {
   return { type: REQUEST_USER_INFORMATIONS, payload: { token } };
 }
@@ -44,16 +41,11 @@ export function getUserInformations(token) {
     GraphqlClient.query({ query: UserQuery, fetchPolicy: 'network-only' })
       .then(response => {
         dispatch(receiveUserInformations(response.data.user));
-        dispatch(getUpdates(null));
       })
       .catch(error => {
         dispatch(failGetUserInformations(`Bad response from server: ${error}`));
       });
   };
-}
-
-export function purgeUserInformations() {
-  return { type: PURGE_USER_INFORMATIONS };
 }
 
 // GET COURSES

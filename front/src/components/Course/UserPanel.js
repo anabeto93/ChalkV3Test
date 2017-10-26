@@ -23,6 +23,7 @@ class UserPanel extends React.Component {
           <CardHeader
             title={`${this.props.user.firstName} ${this.props.user.lastName}`}
             subtitle={this.subtitle()}
+            style={{ textAlign: 'left' }}
           />
         </Card>
       );
