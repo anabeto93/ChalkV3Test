@@ -39,16 +39,16 @@ class ValidatedSession extends Component {
           {I18n.t('send.validation.success', { locale })}
         </h4>
         <RaisedButton
-          style={{ float: 'left' }}
           label={I18n.t('send.sessionListButton', { locale })}
           onClick={this.handleRedirectSessionList}
+          style={{ marginRight: '10px', width: '40%' }}
         />
         {null !== this.props.nextSession &&
           <RaisedButton
-            className="button-primary"
             primary={true}
             onClick={this.handleRedirectNextSession}
             label={I18n.t('send.nextButton', { locale })}
+            style={{ width: '40%' }}
             labelPosition="before"
             icon={<Arrow />}
           />}
