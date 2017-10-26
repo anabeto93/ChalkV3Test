@@ -9,15 +9,15 @@ import {
 import getConfig from '../config/index';
 import { COURSES, SESSION_DETAIL, SESSION_LIST } from '../config/routes';
 import store from '../store/store';
-import CourseManager from './CourseManager';
-import generateUrl from './generateUrl';
-import UnBlockSession from './session/UnBlockSession';
+import CourseManager from '../services/CourseManager';
+import generateUrl from '../services/generateUrl';
+import UnBlockSession from '../services/session/UnBlockSession';
 
 const DEFAULT_STATE = {
   session: null
 };
 
-class ValidateSession extends Component {
+class ValidateSessionScreen extends Component {
   constructor(...args) {
     super(...args);
     this.state = DEFAULT_STATE;
@@ -37,7 +37,7 @@ class ValidateSession extends Component {
     });
   };
 
-  componentWillMount() {
+  componentDidMount() {
     const { validationCode } = this.props.match.params;
 
     const sessionUuid = UnBlockSession.getSessionUuidFromCode(
@@ -46,6 +46,7 @@ class ValidateSession extends Component {
     );
 
     const session = CourseManager.getSession(this.props.sessions, sessionUuid);
+    store.dispatch(receiveValidateSessionSMS(session.uuid));
 
     this.setState({ session: session });
   }
@@ -58,8 +59,6 @@ class ValidateSession extends Component {
 
       return <Redirect to={COURSES} />;
     }
-
-    store.dispatch(receiveValidateSessionSMS(session.uuid));
 
     let nextSession = CourseManager.getNextSession(
       this.props.sessions,
@@ -79,4 +78,4 @@ const mapStateToProps = state => {
   return { sessions };
 };
 
-export default connect(mapStateToProps)(ValidateSession);
+export default connect(mapStateToProps)(ValidateSessionScreen);
