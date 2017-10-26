@@ -2,6 +2,9 @@
   "course": {
     "noContentAvailable": "No content available"
   },
+  "session": {
+    "nextButton": "Next"
+  },
   "tokenError": "Your link has a problem - please contact your Chalkboard Education for support.",
   "update": {
     "label": "Update",
