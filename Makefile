@@ -119,19 +119,23 @@ init-db/back:
 ## Deploy applications (Staging)
 deploy@staging: deploy/back@staging deploy/front@staging
 
+## Deploy back application (Staging)
 deploy/back@staging:
 	ansible-playbook ansible/deploy.yml --inventory-file=ansible/hosts --limit=deploy_staging
 
+## Deploy front application (Staging)
 deploy/front@staging:
 	ansible-playbook ansible/deploy.yml --inventory-file=ansible/hosts --limit=deploy_staging
 
 ## Deploy applications (Production)
-deploy@prod: deploy/back@prod deploy/front@staging
+deploy@prod: deploy/back@prod deploy/front@prod
 
+## Deploy back application (Production)
 deploy/back@prod:
 	ansible-playbook --inventory-file=ansible/hosts.yml ansible/deploy.yml \
 		--limit=deploy_production_back_chalkboard
 
+## Deploy front application (Production)
 deploy/front@prod:
 	ansible-playbook --inventory-file=ansible/hosts.yml ansible/deploy.yml \
 		--limit=deploy_production_front_chalkboard
