@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import { persistStore } from 'redux-persist';
 
-import './App.css';
 import Header from './components/Header';
 import NotFound from './components/NotFound';
 import Updates from './components/Updates/Updates';
@@ -105,7 +104,6 @@ class App extends Component {
                       path={routes.SESSION_SEND_SMS}
                       component={SendSMSScreen}
                     />
-
                     <PrivateRoute
                       path={routes.ACCOUNT}
                       component={AccountScreen}
