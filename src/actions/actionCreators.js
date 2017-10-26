@@ -158,17 +158,11 @@ export const FAIL_VALIDATE_SESSION_INTERNET =
   '@@CHALKBOARDEDUCATION/FAIL_VALIDATE_SESSION_INTERNET';
 export const RECEIVE_VALIDATE_SESSION_SMS =
   '@@CHALKBOARDEDUCATION/RECEIVE_VALIDATE_SESSION_SMS';
-export const FAIL_VALIDATE_SESSION_SMS =
-  '@@CHALKBOARDEDUCATION/FAIL_VALIDATE_SESSION_SMS';
 export const DONE_VALIDATE_SESSION =
   '@@CHALKBOARDEDUCATION/DONE_VALIDATE_SESSION';
 
 export function requestValidateSessionInternet(sessionUuid) {
   return { type: REQUEST_VALIDATE_SESSION_INTERNET, payload: { sessionUuid } };
-}
-
-export function failValidateSessionSMS() {
-  return { type: FAIL_VALIDATE_SESSION_SMS };
 }
 
 export function failValidateSessionInternet() {
