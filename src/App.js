@@ -11,8 +11,6 @@ import NotFound from './components/NotFound';
 import Updates from './components/Updates/Updates';
 import * as routes from './config/routes';
 import AccountScreen from './containers/AccountScreen';
-import ValidateSession from './services/ValidateSession';
-
 import CourseScreen from './containers/CourseScreen';
 import FolderScreen from './containers/FolderScreen';
 import HomeScreen from './containers/HomeScreen';
@@ -22,6 +20,7 @@ import SendScreen from './containers/SendScreen';
 import SessionDetailScreen from './containers/SessionDetailScreen';
 import SessionScreen from './containers/SessionScreen';
 import SendSMSScreen from './containers/SendSMSScreen';
+import ValidateSessionScreen from './containers/ValidateSessionScreen';
 
 // Check network status
 import networkStatusEventListener from './services/network/networkStatusEventListener';
@@ -111,7 +110,7 @@ class App extends Component {
                     <PrivateRoute
                       exact
                       path={routes.SESSION_VALIDATE_SMS}
-                      component={ValidateSession}
+                      component={ValidateSessionScreen}
                     />
                     <Route component={NotFound} />
                   </Switch>
