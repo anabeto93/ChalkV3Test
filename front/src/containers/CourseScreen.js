@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import CoursesList from '../components/Course/CoursesList';
-import UserPanel from '../components/Course/UserPanel';
 import Error from '../components/Error';
 import { doneValidateSession } from '../actions/actionCreators';
 
@@ -13,7 +12,6 @@ export class CourseScreen extends Component {
 
     return (
       <div>
-        <UserPanel />
         <CoursesList courses={courses} />
         {isSessionFailValidating &&
           <Error

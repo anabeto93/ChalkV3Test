@@ -1,3 +1,4 @@
+import I18n from 'i18n-js';
 import { RaisedButton } from 'material-ui';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import React from 'react';
@@ -8,7 +9,7 @@ import CourseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
 
 const footer = props => {
-  const { courseUuid, session, sessions, history } = props;
+  const { courseUuid, session, sessions, history, locale } = props;
 
   const handleNext = () => {
     if (session.needValidation) {
@@ -40,12 +41,11 @@ const footer = props => {
   };
 
   return (
-    <footer style={{ marginTop: '10px' }}>
+    <footer className="next-session-footer background-grey">
       <RaisedButton
-        label="Next"
+        label={I18n.t('session.nextButton', { locale })}
         labelPosition="before"
         primary={true}
-        className="button-primary"
         onClick={handleNext}
         icon={<Arrow />}
       />
@@ -54,7 +54,7 @@ const footer = props => {
 };
 
 function mapStateToProps(state) {
-  return { sessions: state.content.sessions };
+  return { sessions: state.content.sessions, locale: state.settings.locale };
 }
 
 export default connect(mapStateToProps)(withRouter(footer));
