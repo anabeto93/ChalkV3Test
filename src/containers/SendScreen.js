@@ -127,7 +127,7 @@ class SendScreen extends Component {
 
     return (
       <div>
-        <div className="send-screen">
+        <div className="screen-centered">
           <div className="content">
             <p>
               {I18n.t('send.label', { locale })}

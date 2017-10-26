@@ -74,7 +74,7 @@ class SendSMSScreen extends Component {
     const validationCode = this.state.validationCode;
 
     return (
-      <div className="send-screen">
+      <div className="screen-centered">
         <h4>
           {I18n.t('send.sms.title', { locale })}
         </h4>

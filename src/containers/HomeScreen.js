@@ -12,7 +12,7 @@ export class HomeScreen extends Component {
     }
 
     return (
-      <div className="alert">
+      <div className="screen-centered alert">
         {I18n.t('tokenError')}
       </div>
     );
