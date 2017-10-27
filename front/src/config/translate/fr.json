@@ -22,8 +22,8 @@
   },
   "send": {
     "label": "Soumettre sa progression avec :",
-    "sessionListButton": "Sessions list",
-    "nextButton": "Next",
+    "sessionListButton": "Liste sessions",
+    "nextButton": "Suivant",
     "medium": {
       "internet": "Internet",
       "sms": "SMS"
@@ -41,10 +41,6 @@
         "button": "Ne fonctionne pas ?",
         "toPhone": "Au ",
         "validationCode": "Code à envoyer"
-      },
-      "validation": {
-        "fail": "Mauvais code",
-        "done": "Session validé avec succès"
       }
     }
   },
