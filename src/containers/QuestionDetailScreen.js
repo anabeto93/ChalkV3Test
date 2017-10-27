@@ -1,99 +1,108 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import QuestionFooter from '../components/QuestionFooter';
+import QuestionFooter from '../components/QuestionFooter';
 import CourseManager from '../services/CourseManager';
 import { RadioButtonGroup, RadioButton, Checkbox } from 'material-ui';
 
 class QuestionDetailScreen extends Component {
-	handleRadioChange = (answer) => {
-		//Do something with the answer
-	}
+  handleRadioChange = answer => {
+    //Do something with the answer
+  };
 
-	handleCheckChange = (answer) => {
-		//Do something with multiple answers
-	}
+  handleCheckChange = answer => {
+    //Do something with multiple answers
+  };
 
-	render() {
-		const { question, sessionUuid } = this.props;
+  render() {
+    const { question, session } = this.props;
 
-		const styles = {
-			option: {
-				marginBottom: 16
-			}
-		};
+    const styles = {
+      option: {
+        marginBottom: 16
+      }
+    };
 
-		if (question !== undefined) {
-			return (
-				<div>
-					<div className="content">
-						<h1>
-							{question.title}
-						</h1>
+    if (question !== undefined) {
+      return (
+        <div>
+          <div className="content">
+            <h1>
+              {question.title}
+            </h1>
 
-						{/* Single Answer [RadioButton] in [RadioButtonGroup] */}
-						{
-							!question.isMultiple &&
-							<RadioButtonGroup
-								name={question.title}
-								onChange={(e, value)=>{this.handleRadioChange(value)}}>
+            {/* Single Answer [RadioButton] in [RadioButtonGroup] */}
+            {!question.isMultiple &&
+              <RadioButtonGroup
+                name={question.title}
+                onChange={(e, value) => {
+                  this.handleRadioChange(value);
+                }}
+              >
+                {question.answers.map((key, index) => {
+                  const answer = question.answers[key];
 
-								{question.answers.map((key, index) => {
-									let answer = question.answers[key];
+                  return (
+                    <RadioButton
+                      key={index}
+                      label={answer.title}
+                      value={answer.uuid}
+                      style={styles.option}
+                    />
+                  );
+                })}
+              </RadioButtonGroup>}
 
-									return (
-										<RadioButton
-											key={index}
-											label={answer}
-											value={answer}
-											style={styles.option}
-										/>
-									)
-								})}
+            {/* Multiple Answers [Checkbox] */}
+            {question.isMultiple &&
+              question.answers.map((key, index) => {
+                const answer = question.answers[key];
 
-							</RadioButtonGroup>
-						}
+                return (
+                  <Checkbox
+                    key={index}
+                    label={answer.title}
+                    onCheck={(e, value) => {
+                      this.handleCheckChange(answer.uuid);
+                    }}
+                    style={styles.option}
+                  />
+                );
+              })}
+          </div>
+          <QuestionFooter session={session} />
+        </div>
+      );
+    }
 
-						{/* Multiple Answers [Checkbox] */}
-						{
-							question.isMultiple &&
-							question.answers.map((key, index) => {
-								let answer = question.answers[key];
-
-								return (
-									<Checkbox
-										label={answer}
-										onCheck={(e, value)=>{this.handleCheckChange(value)}}
-										style={styles.option}
-									/>
-								)
-							})
-						}
-					</div>
-					{/* <QuestionFooter sessionUuid={sessionUuid} question={question} /> */}
-				</div>
-			);
-		}
-
-		return <div />;
-	}
+    return <div />;
+  }
 }
 
 function mapStateToProps(state, props) {
-	let sessionUuid = props.match.params.sessionUuid;
+  let sessionUuid = props.match.params.sessionUuid;
+  let questionUuid = props.match.params.questionUuid;
 
-	if(sessionUuid === undefined) {
-		return {};
-	}
+  if (sessionUuid === undefined) {
+    return {};
+  }
 
-	const question = CourseManager.getQuestion(
-		state.content.sessions[sessionUuid],
-		props.match.params.questionUuid
-    );
+  if (questionUuid === undefined) {
+    return {};
+  }
 
-    return {
-		question,
-		sessionUuid: props.match.params.sessionUuid
-    };
+  const session = CourseManager.getSession(state.content.sessions, sessionUuid);
+
+  if (session === null) {
+    return {};
+  }
+
+  const question = CourseManager.getQuestion(session, questionUuid);
+
+  return {
+    sessionUuid,
+    session,
+    question
+  };
 }
 
 export default connect(mapStateToProps)(QuestionDetailScreen);
