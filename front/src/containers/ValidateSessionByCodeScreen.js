@@ -65,7 +65,7 @@ class ValidateSessionByCodeScreen extends Component {
       <ValidatedSession
         session={session}
         nextSession={nextSession}
-        local={locale}
+        locale={locale}
       />
     );
   }

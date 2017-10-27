@@ -1,6 +1,5 @@
 import I18n from 'i18n-js';
-import { RaisedButton } from 'material-ui';
-import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import { RaisedButton, FlatButton } from 'material-ui';
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 
@@ -38,19 +37,18 @@ class ValidatedSession extends Component {
         <h4>
           {I18n.t('send.validation.success', { locale })}
         </h4>
-        <RaisedButton
+        <FlatButton
           label={I18n.t('send.sessionListButton', { locale })}
           onClick={this.handleRedirectSessionList}
-          style={{ marginRight: '10px', width: '40%' }}
+          style={{ marginRight: '10px', fontSize: '10px', width: '60%' }}
+          secondary={true}
         />
         {null !== this.props.nextSession &&
           <RaisedButton
             primary={true}
             onClick={this.handleRedirectNextSession}
             label={I18n.t('send.nextButton', { locale })}
-            style={{ width: '40%' }}
-            labelPosition="before"
-            icon={<Arrow />}
+            style={{ width: '20%' }}
           />}
       </div>
     );

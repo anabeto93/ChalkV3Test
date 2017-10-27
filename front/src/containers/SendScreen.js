@@ -55,7 +55,7 @@ class SendScreen extends Component {
         <ValidatedSession
           session={session}
           nextSession={this.state.nextSession}
-          local={locale}
+          locale={locale}
         />
       );
     }

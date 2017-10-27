@@ -22,8 +22,8 @@
   },
   "send": {
     "label": "Soumettre sa progression avec :",
-    "sessionListButton": "Sessions list",
-    "nextButton": "Next",
+    "sessionListButton": "Liste sessions",
+    "nextButton": "Suivant",
     "medium": {
       "internet": "Internet",
       "sms": "SMS"
