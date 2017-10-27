@@ -13,7 +13,7 @@ import store from '../store/store';
 
 const DEFAULT_STATE = {
   nextSession: null,
-  isSessionValided: false
+  isSessionValidated: false
 };
 
 class SendScreen extends Component {
@@ -29,7 +29,7 @@ class SendScreen extends Component {
         nextProps.session
       );
 
-      this.setState({ ...this.state, nextSession, isSessionValided: true });
+      this.setState({ ...this.state, nextSession, isSessionValidated: true });
     }
   }
 
@@ -50,7 +50,7 @@ class SendScreen extends Component {
   render() {
     const { session, locale, isValidating, isFailValidating } = this.props;
 
-    if (this.state.isSessionValided) {
+    if (this.state.isSessionValidated) {
       return (
         <ValidatedSession
           session={session}
