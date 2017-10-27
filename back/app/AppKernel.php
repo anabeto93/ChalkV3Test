@@ -30,6 +30,9 @@ class AppKernel extends Kernel
             new Elao\Bundle\FormTranslationBundle\ElaoFormTranslationBundle(),
             new Elao\Bundle\Theme\TwitterBootstrap3Bundle\ElaoThemeTwitterBootstrap3Bundle(),
 
+            // Sentry
+            new Sentry\SentryBundle\SentryBundle(),
+
             // App
             new App\Infrastructure\InfrastructureBundle\InfrastructureBundle(),
         ];
@@ -44,11 +47,6 @@ class AppKernel extends Kernel
                 $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
                 $bundles[] = new Symfony\Bundle\WebServerBundle\WebServerBundle();
             }
-        }
-
-        if ($this->getEnvironment() === 'prod') {
-            // Sentry
-            $bundles[] = new Sentry\SentryBundle\SentryBundle();
         }
 
         return $bundles;
