@@ -92,7 +92,11 @@ function mapStateToProps(state, props) {
 
   const session = CourseManager.getSession(state.content.sessions, sessionUuid);
 
-  if (session === null || session.questions === undefined) {
+  if (session === null) {
+    return {};
+  }
+
+  if (session.questions === undefined) {
     return {};
   }
 
