@@ -19,6 +19,7 @@ import PrivateRoute from './containers/PrivateRoute';
 import SendScreen from './containers/SendScreen';
 import SessionDetailScreen from './containers/SessionDetailScreen';
 import SessionScreen from './containers/SessionScreen';
+import QuestionDetailScreen from './containers/QuestionDetailScreen';
 import SendSMSScreen from './containers/SendSMSScreen';
 import ValidateSessionByCodeScreen from './containers/ValidateSessionByCodeScreen';
 
@@ -102,6 +103,11 @@ class App extends Component {
                       exact
                       path={routes.SESSION_SEND_SMS}
                       component={SendSMSScreen}
+                    />
+					<PrivateRoute
+                      exact
+                      path={routes.QUESTION_DETAIL}
+                      component={QuestionDetailScreen}
                     />
                     <PrivateRoute
                       path={routes.ACCOUNT}
