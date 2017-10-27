@@ -5,6 +5,9 @@
   "session": {
     "nextButton": "Suivant"
   },
+  "question": {
+    "nextButton": "Next & Save (French)"
+  },
   "tokenError": "Un problème est survenu avec votre lien - Merci de contacter Chalkboard Education pour assistance.",
   "update": {
     "label": "Mettre à jour",

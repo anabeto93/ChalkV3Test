@@ -5,6 +5,9 @@
   "session": {
     "nextButton": "Next"
   },
+  "question": {
+    "nextButton": "Save & Next"
+  },
   "tokenError": "Your link has a problem - please contact Chalkboard Education for support.",
   "update": {
     "label": "Update",

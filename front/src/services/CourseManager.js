@@ -11,8 +11,8 @@ export class CourseManager {
     return sessionsItems[sessionUuid];
   }
 
-  static getQuestion(questionsItems, questionUuid) {
-    return questionsItems[questionUuid];
+  static getQuestion(session, questionUuid) {
+    return session.questions[questionUuid];
   }
 
   static getFoldersFromCourse(foldersItems, courseUuid) {
@@ -43,12 +43,31 @@ export class CourseManager {
     const currentPosition = session.position;
 
     for (let key in sessionsItems) {
-      if (sessionsItems[key].courseUuid === courseUuid
-        && sessionsItems[key].folderUuid === folderUuid
-        && sessionsItems[key].position === currentPosition + 1
+      if (
+        sessionsItems[key].courseUuid === courseUuid &&
+        sessionsItems[key].folderUuid === folderUuid &&
+        sessionsItems[key].position === currentPosition + 1
       ) {
         return sessionsItems[key];
       }
+    }
+
+    return null;
+  }
+
+  static getNextQuestion(session, questionUuid) {
+    //Get all the keys in session
+    let keys = Object.keys(session.questions);
+
+    //Get the length of the session questions indexes
+    const questionIndexes = keys.length - 1;
+
+    //Get the current question index
+    const questionIndex = keys.indexOf(questionUuid);
+
+    //Not the last question and not the first question
+    if (questionIndex < questionIndexes && questionIndex > 0) {
+      return session.question[keys[questionIndex + 1]];
     }
 
     return null;
