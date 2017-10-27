@@ -16,7 +16,7 @@ const config = {
     defaultFolder: 'default',
     externalServices: {
       sentry: {
-        dsn: 'https://ec87becf128a4e599caecca6ccdf410d@sentry.io/229837'
+        dsn: 'https://8a9f37b455334d5f9602868749b2aa82@sentry.io/236454'
       }
     },
     apiPhoneNumber: '+233200659986'
@@ -34,14 +34,12 @@ const config = {
     defaultFolder: 'default',
     externalServices: {
       sentry: {
-        dsn: 'https://ec87becf128a4e599caecca6ccdf410d@sentry.io/229837'
+        dsn: null
       }
     },
     apiPhoneNumber: '+233200659986'
   }
 };
-
-export const isProduction = process.env.NODE_ENV === 'production';
 
 export default function getConfig() {
   return config[process.env.NODE_ENV] || config.default;
