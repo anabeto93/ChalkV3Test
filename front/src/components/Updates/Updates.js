@@ -102,17 +102,9 @@ class Updates extends Component {
     const percentSpoolCompleted =
       spoolTotal > 0 ? Math.round(spoolCompleted * 100 / spoolTotal) : 100;
 
-    const style = {
-      container: {
-        padding: '10px',
-        backgroundColor: '#eeeeee',
-        textAlign: 'center'
-      }
-    };
-
     if (!network.isOnline) {
       return (
-        <div style={style.container}>
+        <div className="updates-container">
           <small>
             {I18n.t('update.offline', { locale })}
           </small>
@@ -124,7 +116,7 @@ class Updates extends Component {
       return (
         <div>
           <LinearProgress mode="determinate" value={percentSpoolCompleted} />
-          <div style={style.container}>
+          <div className="updates-container">
             <p>
               {I18n.t('update.stayOnline', { locale })}
             </p>
@@ -135,7 +127,7 @@ class Updates extends Component {
 
     if (this.state.isErrorWhileCheckingUpdates) {
       return (
-        <div style={style.container}>
+        <div className="updates-container">
           <p>
             {I18n.t('update.errorWhileCheckingUpdates', { locale })}
           </p>
@@ -150,7 +142,7 @@ class Updates extends Component {
 
     if (content.isFetching) {
       return (
-        <div style={style.container}>
+        <div className="updates-container">
           {I18n.t('update.updating', { locale })}
         </div>
       );
@@ -158,7 +150,7 @@ class Updates extends Component {
 
     if (updates.isFetching) {
       return (
-        <div style={style.container}>
+        <div className="updates-container">
           {I18n.t('update.checking', { locale })}
         </div>
       );
@@ -166,7 +158,7 @@ class Updates extends Component {
 
     if (updates.hasUpdates) {
       return (
-        <div style={style.container}>
+        <div className="updates-container">
           <p>
             {I18n.t('update.needUpdate', { locale })}
           </p>

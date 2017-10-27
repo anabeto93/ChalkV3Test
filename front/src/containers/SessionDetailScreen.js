@@ -16,21 +16,23 @@ class SessionDetailScreen extends Component {
 
     if (session !== undefined) {
       return (
-        <div className="content">
-          <h1>
-            {session.title}
-          </h1>
-          <div
-            className="session-content"
-            dangerouslySetInnerHTML={this.renderContent()}
-          />
+        <div>
+          <div className="content">
+            <h1>
+              {session.title}
+            </h1>
+            <div
+              className="session-content"
+              dangerouslySetInnerHTML={this.renderContent()}
+            />
+            {isSessionValidated &&
+              <Success
+                message={I18n.t('send.sms.validation.done', { locale })}
+                show={true}
+                dispatchOnDismiss={doneValidateSession}
+              />}
+          </div>
           <SessionFooter courseUuid={courseUuid} session={session} />
-          {isSessionValidated &&
-            <Success
-              message={I18n.t('send.sms.validation.done', { locale })}
-              show={true}
-              dispatchOnDismiss={doneValidateSession}
-            />}
         </div>
       );
     }

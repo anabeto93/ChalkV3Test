@@ -2,6 +2,16 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  background-color: #eeeeee;
+}
+
+.background-grey {
+  background-color: #eeeeee;
+}
+
+.next-session-footer {
+  padding: 10px;
+  text-align: right;
 }
 
 .session-index {
@@ -48,8 +58,9 @@ body {
 }
 
 .alert {
-  margin: 15px;
+  padding: 10px;
   text-align: center;
+  background-color: white;
 }
 
 .container-layout {
@@ -57,11 +68,11 @@ body {
 }
 
 .content-layout {
-  padding-top: 5px;
+  background-color: #ffffff;
 }
 
 .content {
-  padding: 0 10px 10px 10px;
+  padding: 10px;
 }
 
 .hidden {
@@ -71,4 +82,20 @@ body {
 .navbar-header {
   position: fixed !important;
   top: 0;
+}
+
+.updates-container {
+  padding: 10px;
+  background-color: #dddddd;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+}
+
+.screen-centered {
+  position: fixed;
+  top: 50%;
+  text-align: center;
+  transform: translate(0, -50%);
+  width: 90%;
+  padding: 5%;
 }

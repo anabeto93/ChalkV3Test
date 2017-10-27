@@ -19,10 +19,11 @@ class UserPanel extends React.Component {
   render() {
     if (this.props.user.uuid !== undefined) {
       return (
-        <Card style={{ margin: '10px 10px 0 10px' }}>
+        <Card>
           <CardHeader
             title={`${this.props.user.firstName} ${this.props.user.lastName}`}
             subtitle={this.subtitle()}
+            style={{ textAlign: 'left' }}
           />
         </Card>
       );
