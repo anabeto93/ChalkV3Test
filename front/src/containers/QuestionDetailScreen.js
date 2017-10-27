@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import QuestionFooter from '../components/QuestionFooter';
+import I18n from 'i18n-js';
+import { QUESTION_DETAIL, SESSION_LIST } from '../config/routes';
 import CourseManager from '../services/CourseManager';
-import { RadioButtonGroup, RadioButton, Checkbox } from 'material-ui';
+import generateUrl from '../services/generateUrl';
+import {
+  RaisedButton,
+  RadioButtonGroup,
+  RadioButton,
+  Checkbox
+} from 'material-ui';
+import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 
 class QuestionDetailScreen extends Component {
   handleRadioChange = answer => {
@@ -13,8 +22,30 @@ class QuestionDetailScreen extends Component {
     //Do something with multiple answers
   };
 
+  handleNext = () => {
+    const { session, questionUuid } = this.props;
+    const nextQuestion = CourseManager.getNextQuestion(session, questionUuid);
+
+    if (nextQuestion !== null) {
+      return this.props.history.push(
+        generateUrl(QUESTION_DETAIL, {
+          ':courseUuid': session.courseUuid,
+          ':sessionUuid': session.uuid,
+          ':questionUuid': questionUuid
+        })
+      );
+    }
+
+    return this.props.history.push(
+      generateUrl(SESSION_LIST, {
+        ':courseUuid': session.courseUuid,
+        ':folderUuid': session.folderUuid
+      })
+    );
+  };
+
   render() {
-    const { question, session } = this.props;
+    const { question, locale } = this.props;
 
     const styles = {
       option: {
@@ -69,7 +100,16 @@ class QuestionDetailScreen extends Component {
                 );
               })}
           </div>
-          <QuestionFooter session={session} />
+
+          <footer className="next-session-footer background-grey">
+            <RaisedButton
+              label={I18n.t('question.nextButton', { locale })}
+              labelPosition="before"
+              primary={true}
+              onClick={this.handleNext}
+              icon={<Arrow />}
+            />
+          </footer>
         </div>
       );
     }
@@ -105,8 +145,9 @@ function mapStateToProps(state, props) {
   return {
     sessionUuid,
     session,
-    question
+    question,
+    locale: state.settings.locale
   };
 }
 
-export default connect(mapStateToProps)(QuestionDetailScreen);
+export default withRouter(connect(mapStateToProps)(QuestionDetailScreen));
