@@ -11,5 +11,5 @@ export const SESSION_SEND = '/courses/:courseUuid/session/:sessionUuid/send';
 export const SESSION_VALIDATE_SMS = '/session/validate/sms/:validationCode';
 export const SESSION_SEND_SMS =
   '/courses/:courseUuid/session/:sessionUuid/sms/send';
-export const QUESTION_UUID =
+export const QUESTION_DETAIL =
   '/courses/:courseUuid/session/:sessionUuid/question/:questionUuid';

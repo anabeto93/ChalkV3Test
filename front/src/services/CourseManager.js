@@ -11,6 +11,10 @@ export class CourseManager {
     return sessionsItems[sessionUuid];
   }
 
+  static getQuestion(questionsItems, questionUuid) {
+    return questionsItems[questionUuid];
+  }
+
   static getFoldersFromCourse(foldersItems, courseUuid) {
     let folders = {};
     for (let key in foldersItems) {
