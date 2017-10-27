@@ -1,26 +1,19 @@
 import I18n from 'i18n-js';
 import { RaisedButton } from 'material-ui';
-import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+
 import { validateSession } from '../actions/actionCreators';
 import Error from '../components/Error';
+import ValidatedSession from '../components/ValidatedSession';
 import CourseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
-import {
-  SESSION_DETAIL,
-  SESSION_LIST,
-  SESSION_SEND_SMS
-} from '../config/routes';
+import { SESSION_SEND_SMS } from '../config/routes';
 import store from '../store/store';
 
 const DEFAULT_STATE = {
-  sendMode: null,
-  redirectToSessionList: false,
-  hasNextSession: false,
   nextSession: null,
-  hasSubmit: false
+  isSessionValidated: false
 };
 
 class SendScreen extends Component {
@@ -30,48 +23,18 @@ class SendScreen extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const nextSession = CourseManager.getNextSession(
-      nextProps.sessions,
-      nextProps.session
-    );
+    if (!this.props.session.validated && nextProps.session.validated) {
+      const nextSession = CourseManager.getNextSession(
+        nextProps.sessions,
+        nextProps.session
+      );
 
-    if (
-      nextSession !== null &&
-      !nextProps.isFailValidating &&
-      !nextProps.isValidating
-    ) {
-      this.setState({ ...this.state, nextSession, hasNextSession: true });
-    } else if (!nextProps.isValidating && !nextProps.isFailValidating) {
-      this.setState({ ...this.state, redirectToSessionList: true });
-    } else {
-      this.setState({
-        ...this.state,
-        hasSubmit: false,
-        redirectToSessionList: false
-      });
+      this.setState({ ...this.state, nextSession, isSessionValidated: true });
     }
   }
 
-  handleRedirectNextSession = () => {
-    return this.props.history.push(
-      generateUrl(SESSION_DETAIL, {
-        ':courseUuid': this.state.nextSession.courseUuid,
-        ':sessionUuid': this.state.nextSession.uuid
-      })
-    );
-  };
-
-  handleRedirectSessionList = () => {
-    this.props.history.push(
-      generateUrl(SESSION_LIST, {
-        ':courseUuid': this.state.nextSession.courseUuid,
-        ':folderUuid': this.state.nextSession.folderUuid
-      })
-    );
-  };
-
   handleSendByInternet = () => {
-    this.setState({ ...this.state, hasSubmit: true });
+    this.setState({ ...this.state });
     store.dispatch(validateSession(this.props.session.uuid));
   };
 
@@ -85,38 +48,14 @@ class SendScreen extends Component {
   };
 
   render() {
-    const { session, locale } = this.props;
+    const { session, locale, isValidating, isFailValidating } = this.props;
 
-    if (this.state.hasNextSession && !this.props.isFailValidating) {
+    if (this.state.isSessionValidated) {
       return (
-        <div className="screen-centered">
-          <h4>
-            {I18n.t('send.validation.success', { locale })}
-          </h4>
-          <RaisedButton
-            style={{ float: 'left' }}
-            label={I18n.t('send.sessionListButton', { locale })}
-            onClick={this.handleRedirectSessionList}
-          />
-          <RaisedButton
-            className="button-primary"
-            primary={true}
-            onClick={this.handleRedirectNextSession}
-            label={I18n.t('send.nextButton', { locale })}
-            labelPosition="before"
-            icon={<Arrow />}
-          />
-        </div>
-      );
-    }
-
-    if (this.state.redirectToSessionList) {
-      return (
-        <Redirect
-          to={generateUrl(SESSION_LIST, {
-            ':courseUuid': session.courseUuid,
-            ':folderUuid': session.folderUuid
-          })}
+        <ValidatedSession
+          session={session}
+          nextSession={this.state.nextSession}
+          locale={locale}
         />
       );
     }
@@ -131,7 +70,7 @@ class SendScreen extends Component {
 
             <RaisedButton
               label={I18n.t('send.medium.internet', { locale })}
-              disabled={this.state.hasSubmit}
+              disabled={isValidating}
               onClick={this.handleSendByInternet}
               style={{ marginRight: '10px', width: '40%' }}
             />
@@ -144,10 +83,10 @@ class SendScreen extends Component {
           </div>
         </div>
 
-        {this.props.isFailValidating &&
+        {isFailValidating &&
           <Error
             message={I18n.t('send.validation.fail', { locale })}
-            show={this.props.isFailValidating}
+            show={true}
           />}
       </div>
     );

@@ -4,8 +4,6 @@ import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { doneValidateSession } from '../actions/actionCreators';
-import Success from '../components/Success';
 import getConfig from '../config/index';
 import { SESSION_DETAIL } from '../config/routes';
 
@@ -30,7 +28,7 @@ class SessionScreen extends Component {
   };
 
   render() {
-    const { sessions, course, isSessionValidated, locale } = this.props;
+    const { sessions, course, locale } = this.props;
     const totalSession = Object.keys(sessions).length;
     const sessionsArray = Object.keys(sessions);
 
@@ -90,13 +88,6 @@ class SessionScreen extends Component {
               }
             })}
         </List>
-
-        {isSessionValidated &&
-          <Success
-            message={I18n.t('send.sms.validation.done', { locale })}
-            show={true}
-            dispatchOnDismiss={doneValidateSession}
-          />}
       </div>
     );
   }
@@ -127,10 +118,9 @@ function mapStateToProps(state, props) {
     folderUuid
   );
 
-  const { content: { isSessionValidated } } = state;
   const { settings: { locale } } = state;
 
-  return { sessions, course, isSessionValidated, locale };
+  return { sessions, course, locale };
 }
 
 export default connect(mapStateToProps)(SessionScreen);

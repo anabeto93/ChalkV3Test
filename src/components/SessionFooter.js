@@ -57,4 +57,4 @@ function mapStateToProps(state) {
   return { sessions: state.content.sessions, locale: state.settings.locale };
 }
 
-export default connect(mapStateToProps)(withRouter(footer));
+export default withRouter(connect(mapStateToProps)(footer));
