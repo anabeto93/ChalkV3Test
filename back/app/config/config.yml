@@ -103,3 +103,6 @@ tactician:
             middleware:
                 - tactician.middleware.validator
                 - tactician.middleware.command_handler
+
+sentry:
+    dsn: '%sentry_dsn%'

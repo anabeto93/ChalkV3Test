@@ -42,3 +42,5 @@ parameters:
     infobip_api_key: 'publicApiKey'
     infobip_hook_key: '8T5dari7Ri'
 
+    # Sentry
+    sentry_dsn: https://8a9f37b455334d5f9602868749b2aa82:adcc8d35480c4f37a226d3286fab6ae2@sentry.io/236454

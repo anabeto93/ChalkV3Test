@@ -14,6 +14,11 @@ const config = {
       intervalInSeconds: 86400
     },
     defaultFolder: 'default',
+    externalServices: {
+      sentry: {
+        dsn: 'https://8a9f37b455334d5f9602868749b2aa82@sentry.io/236454'
+      }
+    },
     apiPhoneNumber: '+233200659986'
   },
   default: {
@@ -27,6 +32,11 @@ const config = {
       intervalInSeconds: 20
     },
     defaultFolder: 'default',
+    externalServices: {
+      sentry: {
+        dsn: null
+      }
+    },
     apiPhoneNumber: '+233200659986'
   }
 };
