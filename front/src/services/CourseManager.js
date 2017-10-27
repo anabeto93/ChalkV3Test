@@ -67,7 +67,7 @@ export class CourseManager {
 
     //Not the last question and not the first question
     if (questionIndex < questionIndexes && questionIndex > 0) {
-      return session.question[keys[questionIndex + 1]];
+      return session.questions[keys[questionIndex + 1]];
     }
 
     return null;
