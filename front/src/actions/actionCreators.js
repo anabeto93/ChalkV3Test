@@ -58,6 +58,13 @@ export const RECEIVE_COURSES_INFORMATIONS =
 export const FAIL_GET_COURSES_INFORMATIONS =
   '@@CHALKBOARDEDUCATION/FAIL_GET_COURSES_INFORMATIONS';
 
+export const REINIT_CONTENT_STATES =
+  '@@CHALKBOARDEDUCATION/REINIT_CONTENT_STATES';
+
+export function reInitContentStates() {
+  return { type: REINIT_CONTENT_STATES };
+}
+
 export function requestCoursesInformations() {
   return { type: REQUEST_COURSES_INFORMATIONS };
 }
