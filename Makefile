@@ -72,7 +72,7 @@ install/back:
 	cd back && make install
 
 install/front:
-	cd front && make install
+	cd front && make install@prod
 
 ##########
 # Build #
@@ -106,11 +106,6 @@ init-db: init-db/back
 
 init-db/back:
 	cd back && make init-db
-
-##########
-# Deploy #
-##########
-
 
 ##########
 # Deploy #
