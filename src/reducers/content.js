@@ -7,6 +7,7 @@ import {
   RECEIVE_SESSION_CONTENT,
   RECEIVE_VALIDATE_SESSION_INTERNET,
   RECEIVE_VALIDATE_SESSION_SMS,
+  REINIT_CONTENT_STATES,
   REQUEST_COURSES_INFORMATIONS,
   REQUEST_VALIDATE_SESSION_INTERNET,
   SPOOL_TERMINATED
@@ -170,6 +171,17 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
         isSessionValidated: false,
         isSessionValidating: false,
         isSessionFailValidating: false
+      };
+    }
+
+    case REINIT_CONTENT_STATES: {
+      return {
+        ...state,
+        isFetching: false,
+        isErrorFetching: false,
+        isSessionValidating: false,
+        isSessionFailValidating: false,
+        isSessionValidated: false
       };
     }
 
