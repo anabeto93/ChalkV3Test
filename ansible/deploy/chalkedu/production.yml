@@ -28,5 +28,5 @@ manala_deploy_strategy_git_version: master
 manala_deploy_shared_dirs: []
 
 manala_deploy_tasks:
-  - make: install@prod
-  - make: build@prod
+  - make: install@production
+  - make: build@production

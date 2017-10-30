@@ -40,7 +40,7 @@ install@test:
 	bin/console doctrine:database:create --if-not-exists
 	bin/console doctrine:schema:update --force
 
-install@staging: export SYMFONY_ENV = staging
+install@staging: export SYMFONY_ENV = prod
 install@staging:
 	# Composer
 	composer install --verbose --no-progress --no-interaction --prefer-dist --optimize-autoloader
@@ -49,8 +49,8 @@ install@staging:
 	# Symfony cache
 	bin/console cache:warmup --no-debug
 
-install@prod: export SYMFONY_ENV = prod
-install@prod:
+install@production: export SYMFONY_ENV = prod
+install@production:
 	# Composer
 	composer install --verbose --no-progress --no-interaction --prefer-dist --optimize-autoloader --no-dev
 	# Yarn
@@ -68,7 +68,7 @@ watch:
 	./node_modules/.bin/encore dev --watch
 build@staging:
 	./node_modules/.bin/encore dev
-build@prod:
+build@production:
 	./node_modules/.bin/encore production
 
 ##########

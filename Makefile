@@ -71,14 +71,14 @@ install: install/back install/front
 install/back:
 	cd back && make install
 
-install/back@prod:
-	cd back && make install@prod
+install/back@production:
+	cd back && make install@production
 
 install/front:
-	cd front && make install@prod
+	cd front && make install@production
 
-install/front@prod:
-	cd front && make install@prod
+install/front@production:
+	cd front && make install@production
 
 ##########
 # Build #
@@ -94,8 +94,8 @@ build/back:
 build/back@staging:
 	cd back && make build@staging
 
-build/back@prod:
-	cd back && make build@prod
+build/back@production:
+	cd back && make build@production
 
 ## Build front
 build/front:
@@ -129,15 +129,15 @@ deploy/front@staging:
 	ansible-playbook ansible/deploy.yml --inventory-file=ansible/hosts --limit=deploy_staging
 
 ## Deploy applications (Production)
-deploy@prod: deploy/back@prod deploy/front@prod
+deploy@production: deploy/back@production deploy/front@production
 
 ## Deploy back application (Production)
-deploy/back@prod:
+deploy/back@production:
 	ansible-playbook --inventory-file=ansible/hosts.yml ansible/deploy.yml \
 		--limit=deploy_production_back_chalkboard
 
 ## Deploy front application (Production)
-deploy/front@prod:
+deploy/front@production:
 	ansible-playbook --inventory-file=ansible/hosts.yml ansible/deploy.yml \
 		--limit=deploy_production_front_chalkboard
 
