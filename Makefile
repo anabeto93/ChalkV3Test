@@ -71,7 +71,13 @@ install: install/back install/front
 install/back:
 	cd back && make install
 
+install/back@prod:
+	cd back && make install@prod
+
 install/front:
+	cd front && make install@prod
+
+install/front@prod:
 	cd front && make install@prod
 
 ##########
