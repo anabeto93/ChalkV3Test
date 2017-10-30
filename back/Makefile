@@ -40,7 +40,7 @@ install@test:
 	bin/console doctrine:database:create --if-not-exists
 	bin/console doctrine:schema:update --force
 
-install@staging: export SYMFONY_ENV = prod
+install@staging: export SYMFONY_ENV = staging
 install@staging:
 	# Composer
 	composer install --verbose --no-progress --no-interaction --prefer-dist --optimize-autoloader
