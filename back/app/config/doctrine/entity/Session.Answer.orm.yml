@@ -1,0 +1,23 @@
+App\Domain\Model\Session\Answer:
+    type: entity
+    table: session_answer
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: string
+        correct:
+            type: boolean
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+    manyToOne:
+        question:
+            targetEntity: App\Domain\Model\Session\Question
+            joinColumn:
+                onDelete: CASCADE
+                nullable: false
