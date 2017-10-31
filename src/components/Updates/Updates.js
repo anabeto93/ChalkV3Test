@@ -4,11 +4,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 import React, { Component } from 'react';
 import Snackbar from 'material-ui/Snackbar';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import {
   getCoursesInformations,
   getUpdates
 } from '../../actions/actionCreators';
+import RouteResolver from '../../services/RouteResolver';
+import { LOGIN } from '../../config/routes';
 
 const DEFAULT_STATE = {
   isAlreadyUpToDate: false,
@@ -94,7 +97,12 @@ class Updates extends Component {
   };
 
   render() {
-    const { content, locale, network, updates } = this.props;
+    const { content, locale, network, updates, isLoginScreen } = this.props;
+
+    if (isLoginScreen) {
+      return <div />;
+    }
+
     const spoolTotal = content.spool.total;
     const spoolUncompleted =
       content.spool.sessionText.length + content.spool.sessionFiles.length;
@@ -202,8 +210,12 @@ class Updates extends Component {
   }
 }
 
-function mapStateToProps({ content, network, settings: { locale }, updates }) {
-  return { content, locale, network, updates };
+function mapStateToProps(
+  { content, network, settings: { locale }, updates },
+  props
+) {
+  const isLoginScreen = LOGIN === RouteResolver.resolve(props.location).path;
+  return { content, locale, network, updates, isLoginScreen };
 }
 
-export default connect(mapStateToProps)(Updates);
+export default withRouter(connect(mapStateToProps)(Updates));
