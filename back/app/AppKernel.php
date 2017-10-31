@@ -33,6 +33,9 @@ class AppKernel extends Kernel
             // Sentry
             new Sentry\SentryBundle\SentryBundle(),
 
+            // Doctrine
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+
             // App
             new App\Infrastructure\InfrastructureBundle\InfrastructureBundle(),
         ];
