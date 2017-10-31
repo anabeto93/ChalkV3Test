@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import I18n from 'i18n-js';
 import { QUESTION_DETAIL, SESSION_LIST } from '../config/routes';
@@ -43,7 +43,7 @@ class QuestionDetailScreen extends Component {
   };
 
   render() {
-    const { question, locale } = this.props;
+    const { session, question, locale } = this.props;
 
     if (question !== undefined) {
       return (
@@ -73,7 +73,14 @@ class QuestionDetailScreen extends Component {
       );
     }
 
-    return <div />;
+    return (
+      <Redirect
+        to={generateUrl(SESSION_LIST, {
+          ':courseUuid': session.courseUuid,
+          ':folderUuid': session.folderUuid
+        })}
+      />
+    );
   }
 }
 
