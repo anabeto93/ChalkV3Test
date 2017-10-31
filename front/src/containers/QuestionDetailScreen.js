@@ -5,21 +5,19 @@ import I18n from 'i18n-js';
 import { QUESTION_DETAIL, SESSION_LIST } from '../config/routes';
 import CourseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
-import {
-  RaisedButton,
-  RadioButtonGroup,
-  RadioButton,
-  Checkbox
-} from 'material-ui';
+import { RaisedButton } from 'material-ui';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import QuestionAnswers from './../components/Quiz/QuestionAnswers';
 
 class QuestionDetailScreen extends Component {
   handleRadioChange = answer => {
     //Do something with the answer
+    console.log(answer);
   };
 
   handleCheckChange = answer => {
     //Do something with multiple answers
+    console.log(answer);
   };
 
   handleNext = () => {
@@ -31,7 +29,7 @@ class QuestionDetailScreen extends Component {
         generateUrl(QUESTION_DETAIL, {
           ':courseUuid': session.courseUuid,
           ':sessionUuid': session.uuid,
-          ':questionUuid': questionUuid
+          ':questionUuid': nextQuestion.uuid
         })
       );
     }
@@ -47,12 +45,6 @@ class QuestionDetailScreen extends Component {
   render() {
     const { question, locale } = this.props;
 
-    const styles = {
-      option: {
-        marginBottom: 16
-      }
-    };
-
     if (question !== undefined) {
       return (
         <div>
@@ -61,44 +53,11 @@ class QuestionDetailScreen extends Component {
               {question.title}
             </h1>
 
-            {/* Single Answer [RadioButton] in [RadioButtonGroup] */}
-            {!question.isMultiple &&
-              <RadioButtonGroup
-                name={question.title}
-                onChange={(e, value) => {
-                  this.handleRadioChange(value);
-                }}
-              >
-                {question.answers.map((key, index) => {
-                  const answer = question.answers[key];
-
-                  return (
-                    <RadioButton
-                      key={index}
-                      label={answer.title}
-                      value={answer.uuid}
-                      style={styles.option}
-                    />
-                  );
-                })}
-              </RadioButtonGroup>}
-
-            {/* Multiple Answers [Checkbox] */}
-            {question.isMultiple &&
-              question.answers.map((key, index) => {
-                const answer = question.answers[key];
-
-                return (
-                  <Checkbox
-                    key={index}
-                    label={answer.title}
-                    onCheck={(e, value) => {
-                      this.handleCheckChange(answer.uuid);
-                    }}
-                    style={styles.option}
-                  />
-                );
-              })}
+            <QuestionAnswers
+              question={question}
+              handleRadioChange={this.handleRadioChange}
+              handleCheckChange={this.handleCheckChange}
+            />
           </div>
 
           <footer className="next-session-footer background-grey">
@@ -144,6 +103,7 @@ function mapStateToProps(state, props) {
 
   return {
     sessionUuid,
+    questionUuid,
     session,
     question,
     locale: state.settings.locale

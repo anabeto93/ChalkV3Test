@@ -57,16 +57,16 @@ export class CourseManager {
 
   static getNextQuestion(session, questionUuid) {
     //Get all the keys in session
-    let keys = Object.keys(session.questions);
+    const keys = Object.keys(session.questions);
 
-    //Get the length of the session questions indexes
-    const questionIndexes = keys.length - 1;
+    //Get the maximum number of indexes
+    const maxIndex = keys.length - 1;
 
     //Get the current question index
     const questionIndex = keys.indexOf(questionUuid);
 
-    //Not the last question and not the first question
-    if (questionIndex < questionIndexes && questionIndex > 0) {
+    //Not the last question
+    if (questionIndex < maxIndex) {
       return session.questions[keys[questionIndex + 1]];
     }
 
