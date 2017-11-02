@@ -159,14 +159,35 @@ class Course
     {
         $sessions = $this->sessions->toArray();
 
+        $this->sortSessionByRank($sessions);
+
+        return $sessions;
+    }
+
+    /**
+     * @return Session[]
+     */
+    public function getEnableSessions(): array
+    {
+        $sessions = $this->sessions->toArray();
+
+        $enableSessions = array_filter($sessions, function (Session $session) {
+            return $session->isEnable();
+        });
+
+        $this->sortSessionByRank($enableSessions);
+
+        return $enableSessions;
+    }
+
+    private function sortSessionByRank(array &$sessions)
+    {
         usort(
             $sessions,
             function (Session $one, Session $other) {
                 return $one->getRank() > $other->getRank();
             }
         );
-
-        return $sessions;
     }
 
     /**

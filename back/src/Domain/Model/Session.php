@@ -57,6 +57,9 @@ class Session
     /** @var bool */
     private $needValidation;
 
+    /** @var bool */
+    private $enabled;
+
     /**
      * @param string             $uuid
      * @param int                $rank
@@ -65,6 +68,7 @@ class Session
      * @param Course             $course
      * @param Folder|null        $folder
      * @param bool               $needValidation
+     * @param bool               $enabled
      * @param \DateTimeInterface $createdAt
      * @param int                $size
      * @param int                $contentSize
@@ -77,6 +81,7 @@ class Session
         Course $course,
         Folder $folder = null,
         bool $needValidation,
+        bool $enabled,
         \DateTimeInterface $createdAt,
         int $size = 0,
         int $contentSize = 0
@@ -88,6 +93,7 @@ class Session
         $this->course = $course;
         $this->folder = $folder;
         $this->needValidation = $needValidation;
+        $this->enabled = $enabled;
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
         $this->contentUpdatedAt = $createdAt;
@@ -245,6 +251,7 @@ class Session
      * @param int                $rank
      * @param Folder|null        $folder
      * @param bool               $needValidation
+     * @param bool               $enabled
      * @param int                $size
      * @param \DateTimeInterface $updatedAt
      */
@@ -253,6 +260,7 @@ class Session
         int $rank,
         Folder $folder = null,
         bool $needValidation,
+        bool $enabled,
         int $size,
         \DateTimeInterface $updatedAt
     ) {
@@ -261,6 +269,7 @@ class Session
         $this->folder = $folder;
         $this->size = $size;
         $this->needValidation = $needValidation;
+        $this->enabled = $enabled;
         $this->updatedAt = $updatedAt;
     }
 
@@ -270,5 +279,13 @@ class Session
     public function updateContent(string $content)
     {
         $this->content = $content;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEnable(): bool
+    {
+        return $this->enabled;
     }
 }

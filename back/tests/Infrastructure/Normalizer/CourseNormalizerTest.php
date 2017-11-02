@@ -46,8 +46,8 @@ class CourseNormalizerTest extends TestCase
         $user = $this->prophesize(User::class);
         $course = new Course("1234-azerty", "title", "teacherName", 'University', true, $dateTime, "description");
         $folder = new Folder('123456789', 'folder title', $course, $dateTime);
-        $session1 = new Session('098765432', 1, 'session 1', 'content 1', $course, $folder, true, $dateTime);
-        $session2 = new Session('ZERTYUIOIUYTRE', 2, 'session 2', 'content 2', $course, $folder, true, $dateTime);
+        $session1 = new Session('098765432', 1, 'session 1', 'content 1', $course, $folder, true, true, $dateTime);
+        $session2 = new Session('ZERTYUIOIUYTRE', 2, 'session 2', 'content 2', $course, $folder, true, true, $dateTime);
         $course->setSessions([$session1, $session2]);
 
         $this->setFolderId($folder, 2);
@@ -106,8 +106,8 @@ class CourseNormalizerTest extends TestCase
         $dateTime = new \DateTime();
         $user = $this->prophesize(User::class);
         $course = new Course("1234-azerty", "title", "teacherName", 'University', true, $dateTime, "description");
-        $session1 = new Session('098765432', 2, 'session 1', 'content 1', $course, null, false, $dateTime);
-        $session2 = new Session('ZERTYUIOIUYTRE', 3, 'session 2', 'content 2', $course, null, true, $dateTime);
+        $session1 = new Session('098765432', 2, 'session 1', 'content 1', $course, null, false, true, $dateTime);
+        $session2 = new Session('ZERTYUIOIUYTRE', 3, 'session 2', 'content 2', $course, null, true, true, $dateTime);
         $course->setSessions([$session1, $session2]);
 
         $progression = $this->prophesize(Progression::class);

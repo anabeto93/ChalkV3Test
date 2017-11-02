@@ -45,6 +45,9 @@ abstract class AbstractSessionType extends AbstractType
             ->add('needValidation', CheckboxType::class, [
                 'required' => false,
             ])
+            ->add('enable', CheckboxType::class, [
+                'required' => false,
+            ])
         ;
     }
 

@@ -33,12 +33,16 @@ class SessionView
     /** @var int */
     public $usersAssignedToCourse;
 
+    /** @var bool */
+    public $isEnable;
+
     /**
      * @param int         $id
      * @param string      $title
      * @param int         $rank
      * @param string|null $folderTitle
      * @param bool        $needValidation
+     * @param bool        $isEnable
      * @param int|null    $usersValidated
      * @param int         $usersAssignedToCourse
      */
@@ -48,6 +52,7 @@ class SessionView
         int $rank,
         string $folderTitle = null,
         bool $needValidation,
+        bool $isEnable,
         int $usersValidated = null,
         int $usersAssignedToCourse
     ) {
@@ -58,5 +63,6 @@ class SessionView
         $this->needValidation = $needValidation;
         $this->usersValidated = $usersValidated;
         $this->usersAssignedToCourse = $usersAssignedToCourse;
+        $this->isEnable = $isEnable;
     }
 }

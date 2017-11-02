@@ -29,4 +29,7 @@ abstract class AbstractSession
 
     /** @var bool */
     public $needValidation;
+
+    /** @var bool */
+    public $enable;
 }

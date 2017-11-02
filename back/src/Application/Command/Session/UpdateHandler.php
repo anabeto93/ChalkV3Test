@@ -57,6 +57,7 @@ class UpdateHandler
             $command->rank,
             $command->folder,
             $command->needValidation,
+            $command->enable,
             $this->calculator->calculateSize(
                 sprintf('%s%s%s', $command->session->getUuid(), $command->rank, $command->title)
             ),

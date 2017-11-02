@@ -28,5 +28,6 @@ class Update extends AbstractSession implements Command
         $this->rank = $session->getRank();
         $this->needValidation = $session->needValidation();
         $this->folder = $session->getFolder();
+        $this->enable = $session->isEnable();
     }
 }

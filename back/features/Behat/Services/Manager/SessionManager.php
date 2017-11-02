@@ -46,7 +46,17 @@ class SessionManager
         Course $course,
         Folder $folder = null
     ): Session {
-        $session = new Session($uuid, $rank, $sessionTitle, $content, $course, $folder, true, new \DateTime());
+        $session = new Session(
+            $uuid,
+            $rank,
+            $sessionTitle,
+            $content,
+            $course,
+            $folder,
+            true,
+            true,
+            new \DateTime()
+        );
 
         $this->sessionRepository->add($session);
 

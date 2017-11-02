@@ -74,6 +74,7 @@ class UpdateActionTest extends TestCase
         $session->needValidation()->willReturn(true);
         $session->getFolder()->willReturn(null);
         $session->getCourse()->willReturn($course->reveal());
+        $session->isEnable()->willReturn(true);
         $request = new Request();
         $response = new Response();
         $update = new Update($session->reveal());
@@ -122,6 +123,7 @@ class UpdateActionTest extends TestCase
         $session->needValidation()->willReturn(true);
         $session->getFolder()->willReturn(null);
         $session->getCourse()->willReturn($course->reveal());
+        $session->isEnable()->willReturn(true);
         $request = new Request();
         $response = new Response();
         $update = new Update($session->reveal());
@@ -181,6 +183,7 @@ class UpdateActionTest extends TestCase
         $session->needValidation()->willReturn(true);
         $session->getFolder()->willReturn(null);
         $session->getCourse()->willReturn($course->reveal());
+        $session->isEnable()->willReturn(true);
         $request = new Request();
         $response = new Response();
         $update = new Update($session->reveal());
@@ -241,6 +244,7 @@ class UpdateActionTest extends TestCase
         $session->getRank()->willReturn(12);
         $session->needValidation()->willReturn(true);
         $session->getFolder()->willReturn(null);
+        $session->isEnable()->willReturn(true);
         $session->getCourse()->willReturn($course->reveal());
         $course->getId()->shouldBeCalled()->willReturn(12);
         $request = new Request();

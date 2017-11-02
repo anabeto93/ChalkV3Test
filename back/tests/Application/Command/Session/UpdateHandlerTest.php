@@ -52,12 +52,14 @@ class UpdateHandlerTest extends TestCase
         $session->getRank()->willReturn(1);
         $session->needValidation()->willReturn(false);
         $session->getFolder()->willReturn(null);
+        $session->isEnable()->willReturn(false);
 
         $this->calculator->calculateSize('123-123-1235newTitle')->shouldBeCalled()->willReturn(1234);
         $session->update(
             'newTitle',
             5,
             $folder->reveal(),
+            true,
             true,
             1234,
             $this->dateTime
@@ -70,6 +72,7 @@ class UpdateHandlerTest extends TestCase
         $command->rank = 5;
         $command->folder = $folder->reveal();
         $command->needValidation = true;
+        $command->enable = true;
         $handler = new UpdateHandler(
             $this->sessionRepository->reveal(),
             $this->calculator->reveal(),
@@ -87,6 +90,7 @@ class UpdateHandlerTest extends TestCase
         $session->getTitle()->willReturn('oldTitle');
         $session->getRank()->willReturn(1);
         $session->needValidation()->willReturn(false);
+        $session->isEnable()->willReturn(false);
         $session->getFolder()->willReturn(null);
         $file = new UploadedFile(__DIR__ . '/UpdateHandlerTest.php', 'application/text');
 
@@ -95,6 +99,7 @@ class UpdateHandlerTest extends TestCase
             'newTitle',
             5,
             $folder->reveal(),
+            true,
             true,
             1234,
             $this->dateTime
@@ -114,6 +119,7 @@ class UpdateHandlerTest extends TestCase
         $command->folder = $folder->reveal();
         $command->needValidation = true;
         $command->content = $file;
+        $command->enable = true;
         $handler = new UpdateHandler(
             $this->sessionRepository->reveal(),
             $this->calculator->reveal(),

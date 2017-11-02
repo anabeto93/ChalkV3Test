@@ -51,7 +51,7 @@ class CourseNormalizer
      */
     public function normalize(Course $course, User $user): array
     {
-        $sessions = $course->getSessions();
+        $sessions = $course->getEnableSessions();
 
         $sessionsByFolder = [];
         $foldersNormalized = [];

@@ -62,7 +62,7 @@ class SessionResolver
         $apiUser = $this->tokenStorage->getToken()->getUser();
         $session = $this->sessionRepository->getByUuid($arguments['uuid']);
 
-        if (!$session instanceof Session) {
+        if (!$session instanceof Session || !$session->isEnable()) {
             throw new UserError('Session not found');
         }
 

@@ -21,9 +21,10 @@
             <thead>
             <tr>
                 <th class="col-md-1">{{ 'admin.session.column.rank'|trans }}</th>
-                <th class="col-md-4">{{ 'admin.session.column.title'|trans }}</th>
+                <th class="col-md-3">{{ 'admin.session.column.title'|trans }}</th>
                 <th class="col-md-3">{{ 'admin.session.column.folder'|trans }}</th>
                 <th class="col-md-1 text-center">{{ 'admin.session.column.needValidation'|trans }}</th>
+                <th class="col-md-1 text-center">{{ 'admin.session.column.isEnable'|trans }}</th>
                 <th class="col-md-1 text-center">{{ 'admin.session.column.progression'|trans }}</th>
                 <th class="col-md-2"></th>
             </tr>
@@ -35,6 +36,7 @@
                     <td>{{ session.title }}</td>
                     <td>{{ session.folderTitle }}</td>
                     <td class="text-center">{{ session.needValidation ? '✔︎' : '' }}</td>
+                    <td class="text-center">{{ session.isEnable ? '✔︎' : '' }}</td>
                     <td class="text-center">
                         {% if session.needValidation %}
                             <a href="{{ path('admin_session_progression', {'course': course.id, 'session': session.id}) }}" title="admin.session.viewProgression">
