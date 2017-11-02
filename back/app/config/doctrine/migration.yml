@@ -1,0 +1,6 @@
+# Doctrine migrations configuration
+doctrine_migrations:
+    dir_name: "%kernel.project_dir%/src/Infrastructure/Migrations"
+    namespace: Proximum\Vimeet\Infrastructure\Migrations
+    table_name: migration_versions
+    name: Application Migrations

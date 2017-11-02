@@ -16,6 +16,7 @@
     "require": {
         "php": ">=7.1",
         "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/doctrine-migrations-bundle": "1.2.1",
         "doctrine/orm": "^2.5",
         "elao/form-bundle": "^2.1",
         "elao/form-translation-bundle": "^2.0",
