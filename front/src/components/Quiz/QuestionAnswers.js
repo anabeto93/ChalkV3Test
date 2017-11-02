@@ -26,29 +26,29 @@ const QuestionAnswers = props => {
         })}
       </div>
     );
-  } else {
-    return (
-      <RadioButtonGroup
-        name={question.title}
-        onChange={(e, value) => {
-          props.handleRadioChange(value);
-        }}
-      >
-        {Object.keys(question.answers).map((key, index) => {
-          const answer = question.answers[key];
-
-          return (
-            <RadioButton
-              key={index}
-              label={answer.title}
-              value={answer.uuid}
-              style={optionStyle}
-            />
-          );
-        })}
-      </RadioButtonGroup>
-    );
   }
+
+  return (
+    <RadioButtonGroup
+      name={question.title}
+      onChange={(e, value) => {
+        props.handleRadioChange(value);
+      }}
+    >
+      {Object.keys(question.answers).map((key, index) => {
+        const answer = question.answers[key];
+
+        return (
+          <RadioButton
+            key={index}
+            label={answer.title}
+            value={answer.uuid}
+            style={optionStyle}
+          />
+        );
+      })}
+    </RadioButtonGroup>
+  );
 };
 
 export default QuestionAnswers;
