@@ -1,0 +1,11 @@
+Question:
+    type: object
+    config:
+        description: "Question"
+        fields:
+            title:
+                type: "String!"
+                description: "The title of the question"
+            answers:
+                type: "[Answer]"
+                description: "Possible answer for the question"
