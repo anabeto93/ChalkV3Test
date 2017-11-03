@@ -111,6 +111,7 @@ class QuestionAction
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle($quiz);
+            $this->flashBag->add('success', 'flash.admin.session.quiz.save.success');
 
             return new RedirectResponse($this->router->generate(self::ROUTE_REDIRECT_AFTER_SUCCESS, [
                 'course' => $course->getId(),
