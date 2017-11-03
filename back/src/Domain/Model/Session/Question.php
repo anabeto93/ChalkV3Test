@@ -94,4 +94,12 @@ class Question
     {
         return $this->answers->toArray();
     }
+
+    /**
+     * @param Answer $answer
+     */
+    public function addAnswer(Answer $answer)
+    {
+        $this->answers->add($answer);
+    }
 }

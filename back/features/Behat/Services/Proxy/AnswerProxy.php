@@ -10,30 +10,30 @@
 
 namespace Features\Behat\Services\Proxy;
 
-use Features\Behat\Domain\Proxy\CourseProxyInterface;
+use Features\Behat\Domain\Proxy\AnswerProxyInterface;
 use Features\Behat\Domain\Storage\StorageInterface;
-use Features\Behat\Services\Manager\CourseManager;
+use Features\Behat\Services\Manager\AnswerManager;
 
-class CourseProxy implements CourseProxyInterface
+class AnswerProxy implements AnswerProxyInterface
 {
     /** @var StorageInterface */
     private $storage;
 
-    /** @var CourseManager */
-    private $courseManager;
+    /** @var AnswerManager */
+    private $answerManager;
 
     /**
      * @param StorageInterface $storage
-     * @param CourseManager    $courseManager
+     * @param AnswerManager    $answerManager
      */
-    public function __construct(StorageInterface $storage, CourseManager $courseManager)
+    public function __construct(StorageInterface $storage, AnswerManager $answerManager)
     {
         $this->storage = $storage;
-        $this->courseManager = $courseManager;
+        $this->answerManager = $answerManager;
     }
 
     /**
-     * @return StorageInterface
+     * {@inheritdoc}
      */
     public function getStorage(): StorageInterface
     {
@@ -41,10 +41,10 @@ class CourseProxy implements CourseProxyInterface
     }
 
     /**
-     * @return CourseManager
+     * {@inheritdoc}
      */
-    public function getCourseManager(): CourseManager
+    public function getAnswerManager(): AnswerManager
     {
-        return $this->courseManager;
+        return $this->answerManager;
     }
 }

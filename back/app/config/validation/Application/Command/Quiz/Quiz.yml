@@ -12,6 +12,6 @@ App\Application\Command\Quiz\Quiz:
                                 - Collection:
                                     fields:
                                         title:
-                                            - Required:
-                                                - NotBlank: ~
+                                            - Required: ~
+                                            - NotBlank: ~
                                         correct: ~
