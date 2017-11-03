@@ -54,7 +54,10 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                     <a href="{{ path('admin_session_update', {'course': course.id, 'session': session.id}) }}">{{ 'admin.session.action.update'|trans }}</a>
+                                     <a href="{{ path('admin_session_update', {'course': course.id, 'session': session.id}) }}" class="btn-sm">{{ 'admin.session.action.update'|trans }}</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('admin_session_quiz', {'course': course.id, 'session': session.id}) }}" class="btn-sm">{{ 'admin.session.action.quiz'|trans }}</a>
                                 </li>
                                 <li>
                                     {{ macro.delete_button(

@@ -33,3 +33,11 @@ services:
     App\Infrastructure\Repository\UserCourseRepository:
         autowire: true
     App\Domain\Repository\UserCourseRepositoryInterface: '@App\Infrastructure\Repository\UserCourseRepository'
+
+    App\Infrastructure\Repository\Session\AnswerRepository:
+        autowire: true
+    App\Domain\Repository\Session\AnswerRepositoryInterface: '@App\Infrastructure\Repository\Session\AnswerRepository'
+
+    App\Infrastructure\Repository\Session\QuestionRepository:
+        autowire: true
+    App\Domain\Repository\Session\QuestionRepositoryInterface: '@App\Infrastructure\Repository\Session\QuestionRepository'

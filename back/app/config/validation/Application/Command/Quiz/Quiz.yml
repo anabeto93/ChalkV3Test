@@ -1,0 +1,17 @@
+App\Application\Command\Quiz\Quiz:
+    properties:
+        questions:
+            - All:
+                - Collection:
+                    fields:
+                        title:
+                            - NotBlank: ~
+                        answers:
+                            - NotBlank: ~
+                            - All:
+                                - Collection:
+                                    fields:
+                                        title:
+                                            - Required:
+                                                - NotBlank: ~
+                                        correct: ~

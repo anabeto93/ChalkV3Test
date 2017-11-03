@@ -8,7 +8,7 @@ App\Domain\Model\Session\Question:
                 strategy: AUTO
     fields:
         title:
-            type: string
+            type: text
         createdAt:
             type: datetime
         updatedAt:
