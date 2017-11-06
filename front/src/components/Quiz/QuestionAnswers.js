@@ -18,7 +18,7 @@ const QuestionAnswers = props => {
               key={index}
               label={answer.title}
               onCheck={() => {
-                props.handleCheckChange(answer.uuid);
+                props.handleCheckChange(key);
               }}
               style={optionStyle}
             />
@@ -42,7 +42,7 @@ const QuestionAnswers = props => {
           <RadioButton
             key={index}
             label={answer.title}
-            value={answer.uuid}
+            value={key}
             style={optionStyle}
           />
         );
