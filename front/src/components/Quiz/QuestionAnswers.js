@@ -37,7 +37,7 @@ const QuestionAnswers = props => {
     >
       {Object.keys(question.answers).map((key, index) => {
         const answer = question.answers[key];
-        console.log(answer);
+
         return (
           <RadioButton
             key={index}

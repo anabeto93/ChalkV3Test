@@ -29,7 +29,7 @@ class QuestionDetailScreen extends Component {
         generateUrl(QUESTION_DETAIL, {
           ':courseUuid': session.courseUuid,
           ':sessionUuid': session.uuid,
-          ':questionIndex': nextQuestion.uuid
+          ':questionIndex': parseInt(questionIndex, 10) + 1
         })
       );
     }

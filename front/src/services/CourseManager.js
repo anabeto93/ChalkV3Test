@@ -11,8 +11,8 @@ export class CourseManager {
     return sessionsItems[sessionUuid];
   }
 
-  static getQuestion(session, questionUuid) {
-    return session.questions[questionUuid];
+  static getQuestion(session, questionIndex) {
+    return session.questions[questionIndex];
   }
 
   static getFoldersFromCourse(foldersItems, courseUuid) {
@@ -55,19 +55,9 @@ export class CourseManager {
     return null;
   }
 
-  static getNextQuestion(session, questionUuid) {
-    //Get all the keys in session
-    const keys = Object.keys(session.questions);
-
-    //Get the maximum number of indexes
-    const maxIndex = keys.length - 1;
-
-    //Get the current question index
-    const questionIndex = keys.indexOf(questionUuid);
-
-    //Not the last question
-    if (questionIndex < maxIndex) {
-      return session.questions[keys[questionIndex + 1]];
+  static getNextQuestion(session, questionIndex) {
+    if (questionIndex < session.questions.length - 1) {
+      return session.questions[parseInt(questionIndex, 10) + 1];
     }
 
     return null;
