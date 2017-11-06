@@ -21,15 +21,15 @@ class QuestionDetailScreen extends Component {
   };
 
   handleNext = () => {
-    const { session, questionUuid } = this.props;
-    const nextQuestion = CourseManager.getNextQuestion(session, questionUuid);
+    const { session, questionIndex } = this.props;
+    const nextQuestion = CourseManager.getNextQuestion(session, questionIndex);
 
     if (nextQuestion !== null) {
       return this.props.history.push(
         generateUrl(QUESTION_DETAIL, {
           ':courseUuid': session.courseUuid,
           ':sessionUuid': session.uuid,
-          ':questionUuid': nextQuestion.uuid
+          ':questionIndex': nextQuestion.uuid
         })
       );
     }
@@ -86,13 +86,13 @@ class QuestionDetailScreen extends Component {
 
 function mapStateToProps(state, props) {
   let sessionUuid = props.match.params.sessionUuid;
-  let questionUuid = props.match.params.questionUuid;
+  let questionIndex = props.match.params.questionIndex;
 
   if (sessionUuid === undefined) {
     return {};
   }
 
-  if (questionUuid === undefined) {
+  if (questionIndex === undefined) {
     return {};
   }
 
@@ -106,11 +106,11 @@ function mapStateToProps(state, props) {
     return {};
   }
 
-  const question = CourseManager.getQuestion(session, questionUuid);
+  const question = CourseManager.getQuestion(session, questionIndex);
 
   return {
     sessionUuid,
-    questionUuid,
+    questionIndex,
     session,
     question,
     locale: state.settings.locale
