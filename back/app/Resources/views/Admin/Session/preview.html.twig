@@ -3,11 +3,35 @@
 {% block title 'admin.session.preview.title'|trans({'%sessionTitle%': session.title}) %}
 
 {% block content %}
+    <style>
+        .preview {
+            background: grey;
+            padding: 20px;
+        }
+
+        .preview .content {
+            width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+        }
+
+        .preview .content img {
+            width: 100%;
+        }
+    </style>
+
     <h1>
-        <a href="{{ path('admin_session_list', {'course': course.id}) }}">{{ course.title }}</a>: {{ session.title }}
+        <a href="{{ path('admin_session_list', {'course': course.id}) }}">{{ course.title }}</a>
     </h1>
+
     <hr>
-    <div>
+
+    <div class="preview">
+        <div class="content">
+        <h1 style="margin-top: 0">{{ session.title }}</h1>
+
         {{ session.content|raw }}
+        </div>
     </div>
 {% endblock %}
