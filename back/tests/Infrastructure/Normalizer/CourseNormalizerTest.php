@@ -116,7 +116,7 @@ class CourseNormalizerTest extends TestCase
         $this->setSessionId($session2, 5);
 
         // Mock
-        $this->folderNormalizer->normalizeDefaultFolder()->shouldBeCalled()->willReturn(['uuid' => 'default']);
+        $this->folderNormalizer->normalize(null)->shouldBeCalled()->willReturn(['uuid' => 'default']);
         $this->sessionNormalizer->normalize($session1, true)->shouldBeCalled()->willReturn(['uuid' => '098765432']);
         $this->sessionNormalizer->normalize($session2, false)->shouldBeCalled()->willReturn(['uuid' => 'ZERTYUIOIUYTRE']);
         $this->progressionRepository
