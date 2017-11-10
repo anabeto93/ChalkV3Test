@@ -69,7 +69,7 @@ class QuestionActionTest extends TestCase
         $session = $this->prophesize(Session::class);
         $course = $this->prophesize(Course::class);
 
-        $session->isEnable()->willReturn(true);
+        $session->isEnabled()->willReturn(true);
         $session->getCourse()->willReturn($course->reveal());
 
         $this->engine
@@ -105,7 +105,7 @@ class QuestionActionTest extends TestCase
         $course = $this->prophesize(Course::class);
         $quiz = new Quiz($session->reveal(), []);
 
-        $session->isEnable()->willReturn(false);
+        $session->isEnabled()->willReturn(false);
         $session->getCourse()->willReturn($course->reveal());
 
         $form = $this->prophesize(Form::class);
@@ -153,7 +153,7 @@ class QuestionActionTest extends TestCase
         $course->getId()->willReturn(1);
         $quiz = new Quiz($session->reveal(), []);
 
-        $session->isEnable()->willReturn(false);
+        $session->isEnabled()->willReturn(false);
         $session->getCourse()->willReturn($course->reveal());
 
         $form = $this->prophesize(Form::class);

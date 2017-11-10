@@ -31,5 +31,5 @@ abstract class AbstractSession
     public $needValidation;
 
     /** @var bool */
-    public $enable;
+    public $enabled;
 }

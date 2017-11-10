@@ -70,7 +70,7 @@ class SessionResolverTest extends TestCase
     public function testResolve()
     {
         $session = $this->prophesize(Session::class);
-        $session->isEnable()->willReturn(true);
+        $session->isEnabled()->willReturn(true);
         $user = $this->prophesize(User::class);
 
         $expected = [

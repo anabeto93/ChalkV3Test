@@ -167,12 +167,12 @@ class Course
     /**
      * @return Session[]
      */
-    public function getEnableSessions(): array
+    public function getEnabledSessions(): array
     {
         $sessions = $this->sessions->toArray();
 
         $enableSessions = array_filter($sessions, function (Session $session) {
-            return $session->isEnable();
+            return $session->isEnabled();
         });
 
         $this->sortSessionByRank($enableSessions);

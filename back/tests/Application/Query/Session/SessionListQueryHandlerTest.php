@@ -55,7 +55,7 @@ class SessionListQueryHandlerTest extends TestCase
         $session1->getRank()->shouldBeCalled()->willReturn(1);
         $session1->hasFolder()->shouldBeCalled()->willReturn(false);
         $session1->needValidation()->shouldBeCalled()->willReturn(true);
-        $session1->isEnable()->shouldBeCalled()->willReturn(true);
+        $session1->isEnabled()->shouldBeCalled()->willReturn(true);
 
         $session2->getId()->shouldBeCalled()->willReturn(2);
         $session2->getTitle()->shouldBeCalled()->willReturn('title 2');
@@ -63,7 +63,7 @@ class SessionListQueryHandlerTest extends TestCase
         $session2->hasFolder()->shouldBeCalled()->willReturn(true);
         $session2->getFolder()->shouldBeCalled()->willReturn($folder->reveal());
         $session2->needValidation()->shouldBeCalled()->willReturn(false);
-        $session2->isEnable()->shouldBeCalled()->willReturn(true);
+        $session2->isEnabled()->shouldBeCalled()->willReturn(true);
 
         $session3->getId()->shouldBeCalled()->willReturn(3);
         $session3->getTitle()->shouldBeCalled()->willReturn('title 3');
@@ -71,7 +71,7 @@ class SessionListQueryHandlerTest extends TestCase
         $session3->hasFolder()->shouldBeCalled()->willReturn(true);
         $session3->getFolder()->shouldBeCalled()->willReturn($folder->reveal());
         $session3->needValidation()->shouldBeCalled()->willReturn(true);
-        $session3->isEnable()->shouldBeCalled()->willReturn(false);
+        $session3->isEnabled()->shouldBeCalled()->willReturn(false);
 
         // Handler
         $query = new SessionListQuery($course->reveal());

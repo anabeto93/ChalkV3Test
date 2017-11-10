@@ -284,7 +284,7 @@ class Session
     /**
      * @return bool
      */
-    public function isEnable(): bool
+    public function isEnabled(): bool
     {
         return $this->enabled;
     }

@@ -96,7 +96,7 @@ class QuestionAction
         $questions = $this->questionRepository->getQuestionsOfSession($session);
 
         // if the session is enable, display the preview of the questions but no edit allowed
-        if ($session->isEnable()) {
+        if ($session->isEnabled()) {
             return $this->engine->renderResponse(self::TEMPLATE_PREVIEW, [
                 'course'    => $course,
                 'questions' => $questions,

@@ -56,7 +56,7 @@ class CreateHandlerTest extends TestCase
         $create->folder = $folder->reveal();
         $create->content = $uploadedFile;
         $create->needValidation = true;
-        $create->enable = true;
+        $create->enabled = true;
         $handler = new CreateHandler($generator->reveal(), $contentImporter->reveal(), $dateTime);
         $handler->handle($create);
     }
