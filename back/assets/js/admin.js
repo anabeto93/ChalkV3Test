@@ -10,7 +10,7 @@ function init(target) {
         .on('collection:deleted', function (event, item) {
             // Refresh shared choices collection in sub collections
             $('[data-shared-choices-collection]').each(function (key, element) {
-                let o = $(element).data('shared-choices-collection-object');
+                const o = $(element).data('shared-choices-collection-object');
                 if (o !== undefined) {
                     o.refresh();
                 }
