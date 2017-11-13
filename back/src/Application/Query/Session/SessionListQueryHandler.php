@@ -50,13 +50,13 @@ class SessionListQueryHandler
     {
         $sessionViews = [];
         $sessions = $this->sessionRepository->findByCourse($query->course);
-        $numberOfStudentAssignToCourse = $this->userCourseRepository->countUserForCourse($query->course);
+        $numberOfStudentAssignedToCourse = $this->userCourseRepository->countUserForCourse($query->course);
 
         foreach ($sessions as $session) {
-            $progression = null;
+            $usersValidated = null;
 
             if ($session->needValidation()) {
-                $progression = $this->progressionRepository->countUserForSession($session);
+                $usersValidated = $this->progressionRepository->countUserForSession($session);
             }
 
             $sessionViews[] = new SessionView(
@@ -66,8 +66,8 @@ class SessionListQueryHandler
                 $session->hasFolder() ? $session->getFolder()->getTitle() : null,
                 $session->needValidation(),
                 $session->isEnabled(),
-                $progression,
-                $numberOfStudentAssignToCourse
+                $usersValidated,
+                $numberOfStudentAssignedToCourse
             );
         }
 
