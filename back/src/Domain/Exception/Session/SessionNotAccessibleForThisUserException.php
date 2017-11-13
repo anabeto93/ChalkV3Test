@@ -8,9 +8,7 @@
  * @author Elao <contact@elao.com>
  */
 
-namespace App\Domain\Exception\Session\ValidateSession;
-
-use App\Domain\Exception\Session\SessionException;
+namespace App\Domain\Exception\Session;
 
 class SessionNotAccessibleForThisUserException extends SessionException
 {

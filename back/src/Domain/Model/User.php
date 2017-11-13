@@ -224,6 +224,14 @@ class User
     }
 
     /**
+     * @param UserCourse $userCourse
+     */
+    public function addUserCourse(UserCourse $userCourse)
+    {
+        $this->userCourses->add($userCourse);
+    }
+
+    /**
      * @param string             $firstName
      * @param string             $lastName
      * @param string             $country

@@ -11,6 +11,9 @@
 namespace App\Infrastructure\GraphQL\Mutator;
 
 use App\Application\Adapter\CommandBusInterface;
+use App\Application\Command\User\Quiz\AnswerSessionQuiz;
+use App\Domain\Exception\Session\SessionNotAccessibleForThisUserException;
+use App\Domain\Exception\Session\SessionNotFoundException;
 use App\Infrastructure\Security\Api\ApiUserAdapter;
 use GraphQL\Error\UserError;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -41,13 +44,18 @@ class AnswerSessionQuizMutator
      */
     public function handle(string $uuid, string $answers): bool
     {
-        dump($uuid, $answers);
         $apiUser = $this->tokenStorage->getToken()->getUser();
 
         if (!$apiUser instanceof ApiUserAdapter) {
             throw new UserError('apiUser must be instance of ApiUserAdapter');
         }
 
-        return true;
+        try {
+            return $this->commandBus->handle(new AnswerSessionQuiz($apiUser->getUser(), $uuid, $answers));
+        } catch (SessionNotFoundException $exception) {
+            throw new UserError($exception->getMessage());
+        } catch (SessionNotAccessibleForThisUserException $exception) {
+            throw new UserError($exception->getMessage());
+        }
     }
 }

@@ -45,6 +45,11 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\User\Progression\ValidateSession }
 
+    App\Application\Command\User\Quiz\AnswerSessionQuizHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\Quiz\AnswerSessionQuiz }
+
     App\Application\Command\User\SendLoginAccessHandler:
         autowire: true
         arguments:

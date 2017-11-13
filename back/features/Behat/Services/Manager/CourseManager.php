@@ -87,7 +87,9 @@ class CourseManager
      */
     public function addCourseToUser(User $user, Course $course, ?\DateTimeInterface $dateTime = null)
     {
-        $course->addUserCourse(new UserCourse($user, $course, $dateTime ?? $this->dateTime));
+        $userCourse = new UserCourse($user, $course, $dateTime ?? $this->dateTime);
+        $course->addUserCourse($userCourse);
+        $user->addUserCourse($userCourse);
         $this->courseRepository->set($course);
     }
 }
