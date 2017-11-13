@@ -3,8 +3,23 @@ Mutation:
     config:
         fields:
             validateSessionMutation:
-                type: "Boolean"
+                type: "Boolean!"
                 resolve: "@=mutation('validateSessionMutation', [args['uuid']])"
                 args:
                     uuid:
                         type: "String!"
+            answerSessionQuiz:
+                type: "Boolean!"
+                resolve: "@=mutation('answerSessionQuiz', [args['input']['uuid'], args['input']['answers']])"
+                args:
+                    input:
+                        type: answerSessionQuizInput!
+
+answerSessionQuizInput:
+    type: input-object
+    config:
+        fields:
+            uuid:
+                type: "String!"
+            answers:
+                type: "String!"
