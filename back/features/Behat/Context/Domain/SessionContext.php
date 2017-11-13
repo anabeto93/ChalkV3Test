@@ -46,7 +46,6 @@ class SessionContext implements Context
         $this->sessionProxy->getStorage()->set('session', $session);
     }
 
-
     /**
      * @Given /^there is a session with the uuid "(?P<uuid>[^"]+)" and the title "(?P<title>[^"]+)" for this course and folder$/
      *
