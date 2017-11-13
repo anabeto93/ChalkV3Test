@@ -24,15 +24,15 @@ class AnswerSessionQuizHandler
     private $dateTime;
 
     /**
-     * @param SessionRepositoryInterface     $sessionRepository
-     * @param \DateTimeInterface             $dateTime
+     * @param SessionRepositoryInterface $sessionRepository
+     * @param \DateTimeInterface         $dateTime
      */
     public function __construct(
         SessionRepositoryInterface $sessionRepository,
         \DateTimeInterface $dateTime
     ) {
         $this->sessionRepository = $sessionRepository;
-        $this->dateTime = $dateTime;
+        $this->dateTime          = $dateTime;
     }
 
     /**
