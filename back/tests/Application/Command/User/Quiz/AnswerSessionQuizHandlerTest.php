@@ -12,12 +12,15 @@ namespace Tests\Application\Command\User\Progression;
 
 use App\Application\Command\User\Quiz\AnswerSessionQuiz;
 use App\Application\Command\User\Quiz\AnswerSessionQuizHandler;
+use App\Domain\Exception\User\Quiz\SessionQuizAnswerAlreadyExistsException;
 use App\Domain\Model\Course;
 use App\Domain\Model\Session;
 use App\Domain\Model\User;
+use App\Domain\Model\User\SessionQuizResult;
 use App\Domain\Repository\SessionRepositoryInterface;
 use App\Domain\Exception\Session\SessionNotAccessibleForThisUserException;
 use App\Domain\Exception\Session\SessionNotFoundException;
+use App\Domain\Repository\User\SessionQuizResultRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Prophecy\ObjectProphecy;
 
@@ -26,13 +29,17 @@ class AnswerSessionQuizHandlerTest extends TestCase
     /** @var ObjectProphecy */
     private $sessionRepository;
 
+    /** @var ObjectProphecy */
+    private $sessionQuizResultRepository;
+
     /** @var \DateTime */
     private $dateTime;
 
     public function setUp()
     {
-        $this->sessionRepository = $this->prophesize(SessionRepositoryInterface::class);
-        $this->dateTime          = new \DateTime();
+        $this->sessionRepository           = $this->prophesize(SessionRepositoryInterface::class);
+        $this->sessionQuizResultRepository = $this->prophesize(SessionQuizResultRepositoryInterface::class);
+        $this->dateTime                    = new \DateTime();
     }
 
     public function testHandleNotFound()
@@ -45,9 +52,10 @@ class AnswerSessionQuizHandlerTest extends TestCase
 
         $handler = new AnswerSessionQuizHandler(
             $this->sessionRepository->reveal(),
+            $this->sessionQuizResultRepository->reveal(),
             $this->dateTime
         );
-        $handler->handle(new AnswerSessionQuiz($user->reveal(), 'not-found', '1;2,3'));
+        $handler->handle(new AnswerSessionQuiz($user->reveal(), 'not-found', '1;2,3', 'web'));
     }
 
     public function testHandleNotAccessible()
@@ -64,9 +72,45 @@ class AnswerSessionQuizHandlerTest extends TestCase
 
         $handler = new AnswerSessionQuizHandler(
             $this->sessionRepository->reveal(),
+            $this->sessionQuizResultRepository->reveal(),
             $this->dateTime
         );
-        $handler->handle(new AnswerSessionQuiz($user->reveal(), '123-123', '1;2,3'));
+        $handler->handle(new AnswerSessionQuiz($user->reveal(), '123-123', '1;2,3', 'web'));
+    }
+
+    public function testSessionQuizAnswerAlreadyExistsException()
+    {
+        $this->setExpectedException(SessionQuizAnswerAlreadyExistsException::class);
+
+        $sessionQuizResult = $this->prophesize(SessionQuizResult::class);
+        $user              = $this->prophesize(User::class);
+        $session           = $this->prophesize(Session::class);
+        $course            = $this->prophesize(Course::class);
+        $session->getCourse()->willReturn($course->reveal());
+        $user->hasCourse($course->reveal())->shouldBeCalled()->willReturn(true);
+
+        $this->sessionRepository->getByUuid('123-123')->shouldBeCalled()->willReturn($session);
+
+        $handler = new AnswerSessionQuizHandler(
+            $this->sessionRepository->reveal(),
+            $this->sessionQuizResultRepository->reveal(),
+            $this->dateTime
+        );
+
+        $this
+            ->sessionQuizResultRepository
+            ->findByUserAndSession($user->reveal(), $session->reveal())
+            ->shouldBeCalled()
+            ->willReturn($sessionQuizResult->reveal())
+        ;
+
+        $this
+            ->sessionQuizResultRepository
+            ->add()
+            ->shouldNotBeCalled()
+        ;
+
+        $this->assertTrue($handler->handle(new AnswerSessionQuiz($user->reveal(), '123-123', '1;2,3', 'web')));
     }
 
     public function testHandle()
@@ -81,9 +125,23 @@ class AnswerSessionQuizHandlerTest extends TestCase
 
         $handler = new AnswerSessionQuizHandler(
             $this->sessionRepository->reveal(),
+            $this->sessionQuizResultRepository->reveal(),
             $this->dateTime
         );
 
-        $this->assertTrue($handler->handle(new AnswerSessionQuiz($user->reveal(), '123-123', '1;2,3')));
+        $this
+            ->sessionQuizResultRepository
+            ->findByUserAndSession($user->reveal(), $session->reveal())
+            ->shouldBeCalled()
+            ->willReturn(null)
+        ;
+
+        $this
+            ->sessionQuizResultRepository
+            ->add(new SessionQuizResult($user->reveal(), $session->reveal(), 'web', 0, 0, $this->dateTime))
+            ->shouldBeCalled()
+        ;
+
+        $this->assertTrue($handler->handle(new AnswerSessionQuiz($user->reveal(), '123-123', '1;2,3', 'web')));
     }
 }

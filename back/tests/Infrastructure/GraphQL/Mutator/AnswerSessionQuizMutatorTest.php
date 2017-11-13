@@ -48,7 +48,7 @@ class AnswerSessionQuizMutatorTest extends TestCase
         $token->getUser()->shouldBeCalled()->willReturn($apiUser);
 
         $this->commandBus
-            ->handle(new AnswerSessionQuiz($user->reveal(), 'not-found', '1;2,3'))
+            ->handle(new AnswerSessionQuiz($user->reveal(), 'not-found', '1;2,3', 'web'))
             ->shouldBeCalled()
             ->willThrow(SessionNotFoundException::class)
         ;
@@ -71,7 +71,7 @@ class AnswerSessionQuizMutatorTest extends TestCase
         $token->getUser()->shouldBeCalled()->willReturn($apiUser);
 
         $this->commandBus
-            ->handle(new AnswerSessionQuiz($user->reveal(), '123-123', '1;2,3'))
+            ->handle(new AnswerSessionQuiz($user->reveal(), '123-123', '1;2,3', 'web'))
             ->shouldBeCalled()
             ->willThrow(SessionNotAccessibleForThisUserException::class)
         ;
@@ -92,7 +92,7 @@ class AnswerSessionQuizMutatorTest extends TestCase
         $token->getUser()->shouldBeCalled()->willReturn($apiUser);
 
         $this->commandBus
-            ->handle(new AnswerSessionQuiz($user->reveal(), '123-123', '1;2,3'))
+            ->handle(new AnswerSessionQuiz($user->reveal(), '123-123', '1;2,3', 'web'))
             ->shouldBeCalled()
             ->willReturn(true)
         ;

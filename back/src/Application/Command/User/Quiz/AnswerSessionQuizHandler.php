@@ -12,27 +12,36 @@ namespace App\Application\Command\User\Quiz;
 
 use App\Domain\Exception\Session\SessionNotAccessibleForThisUserException;
 use App\Domain\Exception\Session\SessionNotFoundException;
+use App\Domain\Exception\User\Quiz\SessionQuizAnswerAlreadyExistsException;
 use App\Domain\Model\Session;
+use App\Domain\Model\User\SessionQuizResult;
 use App\Domain\Repository\SessionRepositoryInterface;
+use App\Domain\Repository\User\SessionQuizResultRepositoryInterface;
 
 class AnswerSessionQuizHandler
 {
     /** @var SessionRepositoryInterface */
     private $sessionRepository;
 
+    /** @var SessionQuizResultRepositoryInterface */
+    private $sessionQuizResultRepository;
+
     /** @var \DateTimeInterface */
     private $dateTime;
 
     /**
-     * @param SessionRepositoryInterface $sessionRepository
-     * @param \DateTimeInterface         $dateTime
+     * @param SessionRepositoryInterface           $sessionRepository
+     * @param SessionQuizResultRepositoryInterface $sessionQuizResultRepository
+     * @param \DateTimeInterface                   $dateTime
      */
     public function __construct(
         SessionRepositoryInterface $sessionRepository,
+        SessionQuizResultRepositoryInterface $sessionQuizResultRepository,
         \DateTimeInterface $dateTime
     ) {
-        $this->sessionRepository = $sessionRepository;
-        $this->dateTime          = $dateTime;
+        $this->sessionRepository           = $sessionRepository;
+        $this->sessionQuizResultRepository = $sessionQuizResultRepository;
+        $this->dateTime                    = $dateTime;
     }
 
     /**
@@ -41,6 +50,7 @@ class AnswerSessionQuizHandler
      * @return bool
      * @throws SessionNotFoundException
      * @throws SessionNotAccessibleForThisUserException
+     * @throws SessionQuizAnswerAlreadyExistsException
      */
     public function handle(AnswerSessionQuiz $answerSessionQuiz): bool
     {
@@ -57,6 +67,28 @@ class AnswerSessionQuizHandler
                 sprintf('The session "%s" not accessible for this user', $answerSessionQuiz->sessionUuid)
             );
         }
+
+        $sessionQuizResult = $this->sessionQuizResultRepository->findByUserAndSession(
+            $answerSessionQuiz->user,
+            $session
+        );
+
+        if ($sessionQuizResult instanceof SessionQuizResult) {
+            throw new SessionQuizAnswerAlreadyExistsException(
+                sprintf('A quiz answer for session "%s" already exists for this user', $answerSessionQuiz->sessionUuid)
+            );
+        }
+
+        $sessionQuizResult = new SessionQuizResult(
+            $answerSessionQuiz->user,
+            $session,
+            $answerSessionQuiz->medium,
+            0,
+            0,
+            $this->dateTime
+        );
+
+        $this->sessionQuizResultRepository->add($sessionQuizResult);
 
         return true;
     }

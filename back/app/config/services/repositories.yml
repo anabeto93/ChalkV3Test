@@ -26,6 +26,10 @@ services:
         autowire: true
     App\Domain\Repository\User\ProgressionRepositoryInterface: '@App\Infrastructure\Repository\User\ProgressionRepository'
 
+    App\Infrastructure\Repository\User\SessionQuizResultRepository:
+        autowire: true
+    App\Domain\Repository\User\SessionQuizResultRepositoryInterface: '@App\Infrastructure\Repository\User\SessionQuizResultRepository'
+
     App\Infrastructure\Repository\Upload\FileRepository:
         autowire: true
     App\Domain\Repository\Upload\FileRepositoryInterface: '@App\Infrastructure\Repository\Upload\FileRepository'

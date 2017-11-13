@@ -14,6 +14,8 @@ use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\User\Quiz\AnswerSessionQuiz;
 use App\Domain\Exception\Session\SessionNotAccessibleForThisUserException;
 use App\Domain\Exception\Session\SessionNotFoundException;
+use App\Domain\Exception\Session\SessionQuizAnswerAlreadyExistsException;
+use App\Domain\User\Progression\Medium;
 use App\Infrastructure\Security\Api\ApiUserAdapter;
 use GraphQL\Error\UserError;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -51,11 +53,13 @@ class AnswerSessionQuizMutator
         }
 
         try {
-            return $this->commandBus->handle(new AnswerSessionQuiz($apiUser->getUser(), $uuid, $answers));
-        } catch (SessionNotFoundException $exception) {
-            throw new UserError($exception->getMessage());
-        } catch (SessionNotAccessibleForThisUserException $exception) {
-            throw new UserError($exception->getMessage());
+            return $this->commandBus->handle(new AnswerSessionQuiz($apiUser->getUser(), $uuid, $answers, Medium::WEB));
+        } catch (SessionNotFoundException $sessionNotFoundException) {
+            throw new UserError($sessionNotFoundException->getMessage());
+        } catch (SessionNotAccessibleForThisUserException $sessionNotAccessibleForThisUserException) {
+            throw new UserError($sessionNotAccessibleForThisUserException->getMessage());
+        } catch (SessionQuizAnswerAlreadyExistsException $sessionQuizAnswerAlreadyExistsException) {
+            throw new UserError($sessionQuizAnswerAlreadyExistsException->getMessage());
         }
     }
 }

@@ -24,15 +24,20 @@ class AnswerSessionQuiz implements Command
     /** @var string */
     public $answers;
 
+    /** @var string */
+    public $medium;
+
     /**
      * @param User   $user
      * @param string $sessionUuid
      * @param string $answers
+     * @param string $medium
      */
-    public function __construct(User $user, string $sessionUuid, string $answers)
+    public function __construct(User $user, string $sessionUuid, string $answers, string $medium)
     {
         $this->user = $user;
         $this->sessionUuid = $sessionUuid;
         $this->answers = $answers;
+        $this->medium = $medium;
     }
 }
