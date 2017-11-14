@@ -24,10 +24,6 @@ class QuestionView
      */
     public function __construct(array $answerIndexes)
     {
-        if (empty($answerIndexes)) {
-            throw new AnswerIndexMustBeIntegerException();
-        }
-
         $answerIndexes = array_map(function ($answerIndex) {
             if (!is_numeric($answerIndex)) {
                 throw new AnswerIndexMustBeIntegerException();

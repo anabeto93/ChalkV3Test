@@ -28,12 +28,14 @@ class QuizAnswersTransformer
         $questionViews = [];
         $questions = explode(self::QUESTION_SEPARATOR, $answers);
 
-        foreach ($questions as $question) {
-            if ('' === trim($question)) {
-                continue;
+        foreach ($questions as $questionAnswers) {
+            if ('' === trim($questionAnswers)) {
+                $answerIndexes = [];
+            } else {
+                $answerIndexes = explode(self::ANSWER_SEPARATOR, $questionAnswers);
             }
 
-            $questionViews[] = new QuestionView(explode(self::ANSWER_SEPARATOR, $question));
+            $questionViews[] = new QuestionView($answerIndexes);
         }
 
         return new QuizAnswerView($questionViews);

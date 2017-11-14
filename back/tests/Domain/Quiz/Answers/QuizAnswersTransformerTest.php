@@ -37,11 +37,14 @@ class QuizAnswersTransformerTest extends TestCase
     public function testEmptyAnswer()
     {
         $quizAnswersTransformer = new QuizAnswersTransformer();
-        $quizAnswerView = $quizAnswersTransformer->transform(';;2,4;;;');
+        $quizAnswerView = $quizAnswersTransformer->transform(';2,4;;');
 
         $expectedQuizAnswerView = new QuizAnswerView(
             [
+                new QuestionView([]),
                 new QuestionView([2, 4]),
+                new QuestionView([]),
+                new QuestionView([]),
             ]
         );
 
