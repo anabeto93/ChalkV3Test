@@ -10,6 +10,7 @@
 
 namespace Tests\Domain\Quiz\Answers;
 
+use App\Domain\Quiz\Answers\Exception\AnswerIndexMustBeIntegerException;
 use App\Domain\Quiz\Answers\QuizAnswersTransformer;
 use App\Domain\Quiz\Answers\Views\QuestionView;
 use App\Domain\Quiz\Answers\Views\QuizAnswerView;
@@ -31,5 +32,27 @@ class QuizAnswersTransformerTest extends TestCase
         );
 
         $this->assertEquals($expectedQuizAnswerView, $quizAnswerView);
+    }
+
+    public function testEmptyAnswer()
+    {
+        $quizAnswersTransformer = new QuizAnswersTransformer();
+        $quizAnswerView = $quizAnswersTransformer->transform(';;2,4;;;');
+
+        $expectedQuizAnswerView = new QuizAnswerView(
+            [
+                new QuestionView([2, 4]),
+            ]
+        );
+
+        $this->assertEquals($expectedQuizAnswerView, $quizAnswerView);
+    }
+
+    public function testNotNumericAnswer()
+    {
+        $this->setExpectedException(AnswerIndexMustBeIntegerException::class);
+
+        $quizAnswersTransformer = new QuizAnswersTransformer();
+        $quizAnswersTransformer->transform('0;A');
     }
 }

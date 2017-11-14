@@ -29,6 +29,10 @@ class QuizAnswersTransformer
         $questions = explode(self::QUESTION_SEPARATOR, $answers);
 
         foreach ($questions as $question) {
+            if ('' === trim($question)) {
+                continue;
+            }
+
             $questionViews[] = new QuestionView(explode(self::ANSWER_SEPARATOR, $question));
         }
 
