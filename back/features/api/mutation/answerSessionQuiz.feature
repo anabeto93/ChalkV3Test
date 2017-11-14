@@ -17,6 +17,11 @@ Feature: Answer session quiz api
     And there is an incorrect answer with the title "Angular" for this question
     And there is an incorrect answer with the title "Laravel" for this question
     And there is a correct answer with the title "Symfony" for this question
+    And there is a question with the title "What movies are Disney movies?" for this session
+    And there is an incorrect answer with the title "Chihiro" for this question
+    And there is a correct answer with the title "Frozen" for this question
+    And there is an incorrect answer with the title "My Neighbor Totoro" for this question
+    And there is a correct answer with the title "Mulan" for this question
     And there is following users
       | uuid     | firstName | lastName | phoneNumber  | locale | token     |
       | 123-user | jean      | paul     | +33123213123 | en     | tokenUser |
@@ -27,7 +32,7 @@ Feature: Answer session quiz api
       """
       {
         "query": "mutation answerSessionQuiz($answerSessionQuizInput: answerSessionQuizInput!) {answerSessionQuiz(input: $answerSessionQuizInput)}",
-        "variables": {"answerSessionQuizInput": {"uuid": "abcdef12345-ab123-ab123", "answers": "djhsjkhjkds"}},
+        "variables": {"answerSessionQuizInput": {"uuid": "abcdef12345-ab123-ab123", "answers": "0;2;0,1,2,3,4,5;1,3"}},
         "operationName": "answerSessionQuiz"
       }
       """
