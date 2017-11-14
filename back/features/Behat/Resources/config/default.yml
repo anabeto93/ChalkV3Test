@@ -27,5 +27,7 @@ default:
                     - '@Features\Behat\Services\Proxy\QuestionProxy'
                 - Features\Behat\Context\Domain\AnswerContext:
                     - '@Features\Behat\Services\Proxy\AnswerProxy'
+                - Features\Behat\Context\Domain\SessionQuizResultContext:
+                    - '@Features\Behat\Services\Proxy\SessionQuizResultProxy'
                 - behatch:json
                 - behatch:rest

@@ -45,3 +45,4 @@ Feature: Answer session quiz api
           }
       }
     """
+    And the session quiz result for this user is 2 / 4
