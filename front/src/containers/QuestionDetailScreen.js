@@ -85,8 +85,8 @@ class QuestionDetailScreen extends Component {
 }
 
 function mapStateToProps(state, props) {
-  let sessionUuid = props.match.params.sessionUuid;
-  let questionIndex = props.match.params.questionIndex;
+  const sessionUuid = props.match.params.sessionUuid;
+  const questionIndex = props.match.params.questionIndex;
 
   if (sessionUuid === undefined) {
     return {};
