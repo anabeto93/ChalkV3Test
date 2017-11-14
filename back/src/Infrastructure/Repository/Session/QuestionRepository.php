@@ -62,9 +62,9 @@ class QuestionRepository implements QuestionRepositoryInterface
     {
         $queryBuilder = $this->entityManager
             ->createQueryBuilder()
-            ->select('question')
+            ->select('question, answer')
             ->from(Question::class, 'question')
-            ->where('question.session = :session')
+            ->join('question.answers', 'answer', 'WITH', 'question.session = :session')
             ->setParameter('session', $session)
         ;
 
