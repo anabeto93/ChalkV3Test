@@ -15,6 +15,8 @@ use App\Domain\Exception\Session\SessionNotFoundException;
 use App\Domain\Exception\User\Quiz\SessionQuizAnswerAlreadyExistsException;
 use App\Domain\Model\Session;
 use App\Domain\Model\User\SessionQuizResult;
+use App\Domain\Quiz\Answers\QuizAnswersTransformer;
+use App\Domain\Quiz\Result\QuizResultCalculator;
 use App\Domain\Repository\SessionRepositoryInterface;
 use App\Domain\Repository\User\SessionQuizResultRepositoryInterface;
 
@@ -26,21 +28,33 @@ class AnswerSessionQuizHandler
     /** @var SessionQuizResultRepositoryInterface */
     private $sessionQuizResultRepository;
 
+    /** @var QuizResultCalculator */
+    private $quizResultCalculator;
+
+    /** @var QuizAnswersTransformer */
+    private $quizAnswersTransformer;
+
     /** @var \DateTimeInterface */
     private $dateTime;
 
     /**
      * @param SessionRepositoryInterface           $sessionRepository
      * @param SessionQuizResultRepositoryInterface $sessionQuizResultRepository
+     * @param QuizResultCalculator                 $quizResultCalculator
+     * @param QuizAnswersTransformer               $quizAnswersTransformer
      * @param \DateTimeInterface                   $dateTime
      */
     public function __construct(
         SessionRepositoryInterface $sessionRepository,
         SessionQuizResultRepositoryInterface $sessionQuizResultRepository,
+        QuizResultCalculator $quizResultCalculator,
+        QuizAnswersTransformer $quizAnswersTransformer,
         \DateTimeInterface $dateTime
     ) {
         $this->sessionRepository           = $sessionRepository;
         $this->sessionQuizResultRepository = $sessionQuizResultRepository;
+        $this->quizResultCalculator        = $quizResultCalculator;
+        $this->quizAnswersTransformer      = $quizAnswersTransformer;
         $this->dateTime                    = $dateTime;
     }
 
@@ -79,12 +93,15 @@ class AnswerSessionQuizHandler
             );
         }
 
+        $quizAnswerView = $this->quizAnswersTransformer->transform($answerSessionQuiz->answers);
+        $quizResultView = $this->quizResultCalculator->getQuizResultView($session, $quizAnswerView);
+
         $sessionQuizResult = new SessionQuizResult(
             $answerSessionQuiz->user,
             $session,
             $answerSessionQuiz->medium,
-            0,
-            0,
+            $quizResultView->correctAnswersNumber,
+            $quizResultView->questionsNumber,
             $this->dateTime
         );
 

@@ -31,3 +31,6 @@ services:
 
     App\Domain\Quiz\Answers\QuizAnswersTransformer:
         autowire: true
+
+    App\Domain\Quiz\Result\QuizResultCalculator:
+        autowire: true
