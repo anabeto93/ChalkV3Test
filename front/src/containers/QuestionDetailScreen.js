@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import I18n from 'i18n-js';
-import { QUESTION_DETAIL, SESSION_LIST } from '../config/routes';
+import { QUESTION_DETAIL, SESSION_LIST, SESSION_SEND } from '../config/routes';
 import CourseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
 import { RaisedButton } from 'material-ui';
@@ -35,9 +35,9 @@ class QuestionDetailScreen extends Component {
     }
 
     return this.props.history.push(
-      generateUrl(SESSION_LIST, {
+      generateUrl(SESSION_SEND, {
         ':courseUuid': session.courseUuid,
-        ':folderUuid': session.folderUuid
+        ':sessionUuid': session.uuid
       })
     );
   };
