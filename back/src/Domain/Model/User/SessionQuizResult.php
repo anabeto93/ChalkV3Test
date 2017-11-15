@@ -27,6 +27,9 @@ class SessionQuizResult
     /** @var int */
     private $questionsNumber;
 
+    /** @var array */
+    private $questionsResult;
+
     /** @var string */
     private $medium;
 
@@ -39,6 +42,7 @@ class SessionQuizResult
      * @param string             $medium
      * @param int                $correctAnswersNumber
      * @param int                $questionsNumber
+     * @param array              $questionsResult
      * @param \DateTimeInterface $createdAt
      */
     public function __construct(
@@ -47,6 +51,7 @@ class SessionQuizResult
         string $medium,
         int $correctAnswersNumber,
         int $questionsNumber,
+        array $questionsResult,
         \DateTimeInterface $createdAt
     ) {
         $this->user                 = $user;
@@ -54,6 +59,7 @@ class SessionQuizResult
         $this->medium               = $medium;
         $this->correctAnswersNumber = $correctAnswersNumber;
         $this->questionsNumber      = $questionsNumber;
+        $this->questionsResult      = $questionsResult;
         $this->createdAt            = $createdAt;
     }
 
@@ -103,5 +109,13 @@ class SessionQuizResult
     public function getQuestionsNumber(): int
     {
         return $this->questionsNumber;
+    }
+
+    /**
+     * @return array
+     */
+    public function getQuestionsResult(): array
+    {
+        return $this->questionsResult;
     }
 }

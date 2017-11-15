@@ -18,13 +18,18 @@ class QuizResultView
     /** @var int */
     public $questionsNumber;
 
+    /** @var bool[] */
+    public $questionsResult;
+
     /**
-     * @param int $correctAnswersNumber
-     * @param int $questionsNumber
+     * @param int    $correctAnswersNumber
+     * @param int    $questionsNumber
+     * @param bool[] $questionsResult
      */
-    public function __construct(int $correctAnswersNumber, int $questionsNumber)
+    public function __construct(int $correctAnswersNumber, int $questionsNumber, array $questionsResult)
     {
         $this->correctAnswersNumber = $correctAnswersNumber;
         $this->questionsNumber      = $questionsNumber;
+        $this->questionsResult      = $questionsResult;
     }
 }

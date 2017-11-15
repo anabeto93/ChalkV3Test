@@ -131,7 +131,7 @@ class QuizResultCalculatorTest extends TestCase
         $quizResultCalculator = new QuizResultCalculator($questionRepository->reveal());
         $quizResultView = $quizResultCalculator->getQuizResultView($session->reveal(), $quizAnswerView);
 
-        $expectedQuizResultView = new QuizResultView(2, 4);
+        $expectedQuizResultView = new QuizResultView(2, 4, [false, true, true, false]);
         $this->assertEquals($expectedQuizResultView, $quizResultView);
     }
 }

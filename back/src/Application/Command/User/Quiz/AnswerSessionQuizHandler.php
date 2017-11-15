@@ -102,6 +102,7 @@ class AnswerSessionQuizHandler
             $answerSessionQuiz->medium,
             $quizResultView->correctAnswersNumber,
             $quizResultView->questionsNumber,
+            $quizResultView->questionsResult,
             $this->dateTime
         );
 

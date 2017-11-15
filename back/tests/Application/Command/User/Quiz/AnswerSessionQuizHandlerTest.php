@@ -170,12 +170,22 @@ class AnswerSessionQuizHandlerTest extends TestCase
             ->quizResultCalculator
             ->getQuizResultView($session->reveal(), $quizAnswerView->reveal())
             ->shouldBeCalled()
-            ->willReturn(new QuizResultView(1, 2))
+            ->willReturn(new QuizResultView(1, 2, [true, false]))
         ;
 
         $this
             ->sessionQuizResultRepository
-            ->add(new SessionQuizResult($user->reveal(), $session->reveal(), 'web', 1, 2, $this->dateTime))
+            ->add(
+                new SessionQuizResult(
+                    $user->reveal(),
+                    $session->reveal(),
+                    'web',
+                    1,
+                    2,
+                    [true, false],
+                    $this->dateTime
+                )
+            )
             ->shouldBeCalled()
         ;
 

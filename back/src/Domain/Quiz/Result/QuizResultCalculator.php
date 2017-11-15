@@ -39,16 +39,27 @@ class QuizResultCalculator
     {
         $correctQuizAnswerView = $this->getCorrectQuizAnswerView($session);
         $correctAnswersNumber = 0;
+        $questionsResult= [];
 
-        foreach ($quizAnswerView->questionViews as $questionIndex => $questionView) {
-            if (isset($correctQuizAnswerView->questionViews[$questionIndex])
-                && $correctQuizAnswerView->questionViews[$questionIndex]->answerIndexes === $questionView->answerIndexes
+        foreach ($correctQuizAnswerView->questionViews as $questionIndex => $questionView) {
+            if (isset($quizAnswerView->questionViews[$questionIndex])
+                && $quizAnswerView->questionViews[$questionIndex] instanceof QuestionView
+                && $quizAnswerView->questionViews[$questionIndex]->answerIndexes == $questionView->answerIndexes
             ) {
+                $questionsResult[$questionIndex] = true;
                 $correctAnswersNumber++;
+
+                continue;
             }
+
+            $questionsResult[$questionIndex] = false;
         }
 
-        return new QuizResultView($correctAnswersNumber, count($correctQuizAnswerView->questionViews));
+        return new QuizResultView(
+            $correctAnswersNumber,
+            count($correctQuizAnswerView->questionViews),
+            $questionsResult
+        );
     }
 
     /**
