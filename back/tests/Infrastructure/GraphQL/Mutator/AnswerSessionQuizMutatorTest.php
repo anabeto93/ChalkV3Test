@@ -11,6 +11,7 @@
 namespace Tests\Infrastructure\GraphQL\Mutator;
 
 use App\Application\Adapter\CommandBusInterface;
+use App\Application\Command\User\Progression\ValidateSession;
 use App\Application\Command\User\Quiz\AnswerSessionQuiz;
 use App\Domain\Model\User;
 use App\Domain\Exception\Session\SessionNotAccessibleForThisUserException;
@@ -47,8 +48,9 @@ class AnswerSessionQuizMutatorTest extends TestCase
         $this->tokenStorage->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($apiUser);
 
-        $this->commandBus
-            ->handle(new AnswerSessionQuiz($user->reveal(), 'not-found', '1;2,3', 'web'))
+        $this
+            ->commandBus
+            ->handle(new ValidateSession($user->reveal(), 'not-found', 'web'))
             ->shouldBeCalled()
             ->willThrow(SessionNotFoundException::class)
         ;
@@ -70,7 +72,14 @@ class AnswerSessionQuizMutatorTest extends TestCase
         $this->tokenStorage->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($apiUser);
 
-        $this->commandBus
+        $this
+            ->commandBus
+            ->handle(new ValidateSession($user->reveal(), '123-123', 'web'))
+            ->shouldBeCalled()
+        ;
+
+        $this
+            ->commandBus
             ->handle(new AnswerSessionQuiz($user->reveal(), '123-123', '1;2,3', 'web'))
             ->shouldBeCalled()
             ->willThrow(SessionNotAccessibleForThisUserException::class)
@@ -91,7 +100,14 @@ class AnswerSessionQuizMutatorTest extends TestCase
         $this->tokenStorage->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($apiUser);
 
-        $this->commandBus
+        $this
+            ->commandBus
+            ->handle(new ValidateSession($user->reveal(), '123-123', 'web'))
+            ->shouldBeCalled()
+        ;
+
+        $this
+            ->commandBus
             ->handle(new AnswerSessionQuiz($user->reveal(), '123-123', '1;2,3', 'web'))
             ->shouldBeCalled()
             ->willReturn(true)

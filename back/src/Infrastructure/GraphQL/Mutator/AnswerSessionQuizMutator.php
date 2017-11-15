@@ -11,10 +11,11 @@
 namespace App\Infrastructure\GraphQL\Mutator;
 
 use App\Application\Adapter\CommandBusInterface;
+use App\Application\Command\User\Progression\ValidateSession;
 use App\Application\Command\User\Quiz\AnswerSessionQuiz;
 use App\Domain\Exception\Session\SessionNotAccessibleForThisUserException;
 use App\Domain\Exception\Session\SessionNotFoundException;
-use App\Domain\Exception\Session\SessionQuizAnswerAlreadyExistsException;
+use App\Domain\Exception\User\Quiz\SessionQuizAnswerAlreadyExistsException;
 use App\Domain\User\Progression\Medium;
 use App\Infrastructure\Security\Api\ApiUserAdapter;
 use GraphQL\Error\UserError;
@@ -53,6 +54,8 @@ class AnswerSessionQuizMutator
         }
 
         try {
+            $this->commandBus->handle(new ValidateSession($apiUser->getUser(), $uuid, Medium::WEB));
+
             return $this->commandBus->handle(new AnswerSessionQuiz($apiUser->getUser(), $uuid, $answers, Medium::WEB));
         } catch (SessionNotFoundException $sessionNotFoundException) {
             throw new UserError($sessionNotFoundException->getMessage());
