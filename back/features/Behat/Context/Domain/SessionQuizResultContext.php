@@ -37,6 +37,43 @@ class SessionQuizResultContext implements Context
      */
     public function theSessionQuizResultForThisUserIs(int $correctAnswers, int $questionsNumber)
     {
+        $sessionQuizResult = $this->getSessionQuizResult();
+
+        if ($sessionQuizResult->getCorrectAnswersNumber() !== $correctAnswers
+            || $sessionQuizResult->getQuestionsNumber() !== $questionsNumber
+        ) {
+            throw new \DomainException(
+                'Values of SessionQuizResult for this user and this session are not as expected'
+            );
+        }
+    }
+
+    /**
+     * @Then the session quiz result by question is: :result
+     *
+     * :result expected is correct|incorrect by question separated by a comma: "correct, incorrect, correct"
+     *
+     * @param string $result
+     */
+    public function theSessionQuizResultByQuestionIs(string $result)
+    {
+        $sessionQuizResult = $this->getSessionQuizResult();
+
+        $results = explode(',', $result);
+
+        $expectedResults = array_map(function (string $result) {
+            return trim($result) === 'correct';
+        }, $results);
+
+        if ($sessionQuizResult->getQuestionsResult() !== $expectedResults) {
+            throw new \DomainException(
+                'Questions result for this user and this session are not as expected'
+            );
+        }
+    }
+
+    private function getSessionQuizResult(): SessionQuizResult
+    {
         $user = $this->sessionQuizResultProxy->getStorage()->get('user');
 
         if (!$user instanceof User) {
@@ -49,6 +86,15 @@ class SessionQuizResultContext implements Context
             throw new \InvalidArgumentException('Session not found');
         }
 
+        $storedSessionQuizResult = $this->sessionQuizResultProxy->getStorage()->get('sessionQuizResult');
+
+        if ($storedSessionQuizResult instanceof SessionQuizResult
+            && $storedSessionQuizResult->getUser()->getId() === $user->getId()
+            && $storedSessionQuizResult->getSession()->getId() === $session->getId()
+        ) {
+            return $storedSessionQuizResult;
+        }
+
         $sessionQuizResult = $this->sessionQuizResultProxy->getSessionQuizResultManager()->findByUserAndSession(
             $user,
             $session
@@ -58,12 +104,8 @@ class SessionQuizResultContext implements Context
             throw new \DomainException('SessionQuizResult not found for this user and this session');
         }
 
-        if ($sessionQuizResult->getCorrectAnswersNumber() !== $correctAnswers
-            || $sessionQuizResult->getQuestionsNumber() !== $questionsNumber
-        ) {
-            throw new \DomainException(
-                'Values of SessionQuizResult for this user and this session are not as expected'
-            );
-        }
+        $this->sessionQuizResultProxy->getStorage()->set('sessionQuizResult', $sessionQuizResult);
+
+        return $sessionQuizResult;
     }
 }
