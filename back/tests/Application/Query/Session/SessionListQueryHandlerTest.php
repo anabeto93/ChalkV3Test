@@ -16,8 +16,10 @@ use App\Application\View\Session\SessionView;
 use App\Domain\Model\Course;
 use App\Domain\Model\Folder;
 use App\Domain\Model\Session;
+use App\Domain\Repository\Session\QuestionRepositoryInterface;
 use App\Domain\Repository\SessionRepositoryInterface;
 use App\Domain\Repository\User\ProgressionRepositoryInterface;
+use App\Domain\Repository\User\SessionQuizResultRepositoryInterface;
 use App\Domain\Repository\UserCourseRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -45,6 +47,8 @@ class SessionListQueryHandlerTest extends TestCase
         ;
         $userCourseRepository = $this->prophesize(UserCourseRepositoryInterface::class);
         $progressionRepository = $this->prophesize(ProgressionRepositoryInterface::class);
+        $questionRepository = $this->prophesize(QuestionRepositoryInterface::class);
+        $sessionQuizResultRepository = $this->prophesize(SessionQuizResultRepositoryInterface::class);
 
         $userCourseRepository->countUserForCourse($course->reveal())->shouldBeCalled()->willReturn(120);
         $progressionRepository->countUserForSession($session1->reveal())->shouldBeCalled()->willReturn(120);
@@ -73,19 +77,29 @@ class SessionListQueryHandlerTest extends TestCase
         $session3->needValidation()->shouldBeCalled()->willReturn(true);
         $session3->isEnabled()->shouldBeCalled()->willReturn(false);
 
+        $questionRepository->sessionHasQuiz($session1->reveal())->shouldBeCalled()->willReturn(true);
+        $questionRepository->sessionHasQuiz($session2->reveal())->shouldBeCalled()->willReturn(false);
+        $questionRepository->sessionHasQuiz($session3->reveal())->shouldBeCalled()->willReturn(false);
+
+        $sessionQuizResultRepository->countBySession($session1->reveal())->shouldBeCalled()->willReturn(30);
+        $sessionQuizResultRepository->countBySession($session2->reveal())->shouldNotBeCalled();
+        $sessionQuizResultRepository->countBySession($session3->reveal())->shouldNotBeCalled();
+
         // Handler
         $query = new SessionListQuery($course->reveal());
         $queryHandler = new SessionListQueryHandler(
             $sessionRepository->reveal(),
             $progressionRepository->reveal(),
-            $userCourseRepository->reveal()
+            $userCourseRepository->reveal(),
+            $questionRepository->reveal(),
+            $sessionQuizResultRepository->reveal()
         );
         $result = $queryHandler->handle($query);
 
         $expected = [
-            new SessionView(1, 'title 1', 1, null, true, true, 120, 120),
-            new SessionView(2, 'title 2', 2, 'Folder title', false, true, null, 120),
-            new SessionView(3, 'title 3', 12, 'Folder title', true, false, 19, 120),
+            new SessionView(1, 'title 1', 1, null, true, true, 120, 120, true, 30),
+            new SessionView(2, 'title 2', 2, 'Folder title', false, true, null, 120, false),
+            new SessionView(3, 'title 3', 12, 'Folder title', true, false, 19, 120, false),
         ];
 
         $this->assertEquals($expected, $result);

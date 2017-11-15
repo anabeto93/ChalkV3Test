@@ -28,4 +28,11 @@ interface SessionQuizResultRepositoryInterface
      * @param SessionQuizResult $sessionQuizResult
      */
     public function add(SessionQuizResult $sessionQuizResult);
+
+    /**
+     * @param Session $session
+     *
+     * @return int
+     */
+    public function countBySession(Session $session): int;
 }

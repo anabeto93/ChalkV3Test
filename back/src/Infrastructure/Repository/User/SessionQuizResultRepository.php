@@ -59,4 +59,21 @@ class SessionQuizResultRepository implements SessionQuizResultRepositoryInterfac
         $this->entityManager->persist($sessionQuizResult);
         $this->entityManager->flush($sessionQuizResult);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function countBySession(Session $session): int
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('COUNT(IDENTITY(sessionQuizResult))')
+            ->from(SessionQuizResult::class, 'sessionQuizResult')
+            ->where('sessionQuizResult.session = :session')
+            ->setParameter('session', $session)
+        ;
+
+        return (int) $queryBuilder->getQuery()->getSingleScalarResult();
+    }
 }

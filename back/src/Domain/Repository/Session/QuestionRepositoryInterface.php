@@ -31,4 +31,11 @@ interface QuestionRepositoryInterface
      * @return Question[]
      */
     public function getQuestionsOfSession(Session $session): array;
+
+    /**
+     * @param Session $session
+     *
+     * @return bool
+     */
+    public function sessionHasQuiz(Session $session): bool;
 }
