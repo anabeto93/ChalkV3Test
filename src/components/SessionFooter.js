@@ -58,7 +58,10 @@ const footer = props => {
   return (
     <footer className="next-session-footer background-grey">
       <RaisedButton
-        label={I18n.t('session.quizButton', { locale })}
+        label={I18n.t(
+          session.questions ? 'session.quizButton' : 'session.nextButton',
+          { locale }
+        )}
         labelPosition="before"
         primary={true}
         onClick={handleNext}
