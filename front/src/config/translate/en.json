@@ -3,7 +3,8 @@
     "noContentAvailable": "No content available"
   },
   "session": {
-    "nextButton": "Next"
+    "nextButton": "Next",
+    "quizButton": "Proceed to Quiz"
   },
   "question": {
     "nextButton": "Save & Next"
