@@ -63,3 +63,6 @@ services:
 
     App\Ui\Admin\Action\Session\ProgressionAction:
         autowire: true
+
+    App\Ui\Admin\Action\Session\Quiz\QuestionAction:
+        autowire: true

@@ -12,6 +12,8 @@ namespace App\Domain\Model;
 
 class Folder
 {
+    const DEFAULT_FOLDER = 'default';
+
     /** @var int */
     private $id;
 

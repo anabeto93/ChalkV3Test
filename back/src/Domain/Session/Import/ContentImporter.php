@@ -80,6 +80,7 @@ class ContentImporter
      * @param \DateTimeInterface $dateTime
      * @param Folder|null        $folder
      * @param bool               $needValidation
+     * @param bool               $enabled
      */
     public function importNewSession(
         Course $course,
@@ -89,7 +90,8 @@ class ContentImporter
         UploadedFile $uploadedFile,
         \DateTimeInterface $dateTime,
         Folder $folder = null,
-        bool $needValidation
+        bool $needValidation,
+        bool $enabled
     ) {
         $imagePath = $this->getImagePath($course->getUuid(), $uuid);
         $pathToUpload = $this->getPathToUpload($uuid);
@@ -104,6 +106,7 @@ class ContentImporter
             $course,
             $folder,
             $needValidation,
+            $enabled,
             $dateTime,
             $this->calculator->calculateSize(sprintf('%s%s%s', $uuid, $rank, $title))
         );

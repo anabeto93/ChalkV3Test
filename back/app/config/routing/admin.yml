@@ -23,7 +23,6 @@ admin_course_update:
         course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Course\UpdateAction }
 
-
 admin_course_assign_user:
     path: /course/{course}/student
     methods: [GET, POST]
@@ -147,3 +146,14 @@ admin_session_progression:
         course: \d+
         session: \d+
     defaults: { _controller: App\Ui\Admin\Action\Session\ProgressionAction }
+
+#
+# Quiz
+#
+admin_session_quiz:
+    path: /course/{course}/session/{session}/quiz
+    methods: [GET, POST]
+    requirements:
+        course: \d+
+        session: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Session\Quiz\QuestionAction }

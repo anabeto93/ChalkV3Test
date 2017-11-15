@@ -94,7 +94,7 @@ class ContentImporterTest extends TestCase
             $this->sessionRepository->reveal(),
             '/tmp'
         );
-        $contentImporter->importNewSession($course->reveal(), $uuid, $rank, $title, $uploadedFile, $dateTime, $folder, false);
+        $contentImporter->importNewSession($course->reveal(), $uuid, $rank, $title, $uploadedFile, $dateTime, $folder, false, true);
 
         $this->cleanAfterTest();
     }
@@ -165,7 +165,7 @@ class ContentImporterTest extends TestCase
             $this->sessionRepository->reveal(),
             '/tmp'
         );
-        $contentImporter->importNewSession($course->reveal(), $uuid, $rank, $title, $uploadedFile, $dateTime, $folder, true);
+        $contentImporter->importNewSession($course->reveal(), $uuid, $rank, $title, $uploadedFile, $dateTime, $folder, true, true);
 
         $this->cleanAfterTest();
     }

@@ -35,17 +35,17 @@
                     <td>{{ course.teacherName }}</td>
                     <td>{{ course.university }}</td>
                     <td>
-                        <a href="{{ path('admin_folder_list', {'course': course.id}) }}" title="admin.course.viewFolders">
+                        <a href="{{ path('admin_folder_list', {'course': course.id}) }}" title="{{ 'admin.course.viewFolders'|trans }}">
                             {{ course.numberOfFolders }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ path('admin_session_list', {'course': course.id}) }}" title="admin.course.viewSessions">
+                        <a href="{{ path('admin_session_list', {'course': course.id}) }}" title="{{ 'admin.course.viewSessions'|trans }}">
                             {{ course.numberOfSessions }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ path('admin_course_assign_user', {'course': course.id}) }}" title="admin.course.viewStudents">
+                        <a href="{{ path('admin_course_assign_user', {'course': course.id}) }}" title="{{ 'admin.course.viewStudents'|trans }}">
                             {{ course.numberOfStudents }}
                         </a>
                     </td>

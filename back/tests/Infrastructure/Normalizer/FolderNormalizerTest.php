@@ -44,7 +44,7 @@ class FolderNormalizerTest extends TestCase
 
         // Normalizer
         $folderNormalier = new FolderNormalizer($dateTime);
-        $result = $folderNormalier->normalizeDefaultFolder();
+        $result = $folderNormalier->normalize(null);
 
         $expected = [
             'uuid' => 'default',

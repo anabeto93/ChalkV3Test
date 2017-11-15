@@ -23,5 +23,9 @@ default:
                     - '@Features\Behat\Services\Proxy\FolderProxy'
                 - Features\Behat\Context\Domain\UserContext:
                     - '@Features\Behat\Services\Proxy\UserProxy'
+                - Features\Behat\Context\Domain\QuestionContext:
+                    - '@Features\Behat\Services\Proxy\QuestionProxy'
+                - Features\Behat\Context\Domain\AnswerContext:
+                    - '@Features\Behat\Services\Proxy\AnswerProxy'
                 - behatch:json
                 - behatch:rest

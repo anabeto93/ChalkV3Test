@@ -31,6 +31,7 @@ class CourseProxy implements CourseProxyInterface
         $this->storage = $storage;
         $this->courseManager = $courseManager;
     }
+
     /**
      * @return StorageInterface
      */

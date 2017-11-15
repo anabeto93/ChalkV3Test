@@ -22,6 +22,12 @@ services:
     Features\Behat\Services\Manager\UserManager:
         autowire: true
 
+    Features\Behat\Services\Manager\QuestionManager:
+        autowire: true
+
+    Features\Behat\Services\Manager\AnswerManager:
+        autowire: true
+
 
     #
     # Proxy
@@ -41,3 +47,11 @@ services:
     Features\Behat\Services\Proxy\UserProxy:
         autowire: true
     Features\Behat\Domain\Proxy\UserProxyInterface: '@Features\Behat\Services\Proxy\FolderProxy'
+
+    Features\Behat\Services\Proxy\AnswerProxy:
+        autowire: true
+    Features\Behat\Domain\Proxy\AnswerProxyInterface: '@Features\Behat\Services\Proxy\AnswerProxy'
+
+    Features\Behat\Services\Proxy\QuestionProxy:
+        autowire: true
+    Features\Behat\Domain\Proxy\QuestionProxyInterface: '@Features\Behat\Services\Proxy\QuestionProxy'

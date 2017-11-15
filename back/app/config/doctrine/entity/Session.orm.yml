@@ -29,6 +29,10 @@ App\Domain\Model\Session:
             type: integer
         contentSize:
             type: integer
+        enabled:
+            type: boolean
+            options:
+                default: false
     manyToOne:
         folder:
             targetEntity: App\Domain\Model\Folder

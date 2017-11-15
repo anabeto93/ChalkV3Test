@@ -12,7 +12,10 @@ Feature: Session api
     And I add "Content-Type" header equal to "application/json"
     When I send a POST request to "/api/graphql/" with body:
       """
-      {"query": "query { session(uuid: \"not-found\") { title }}", "variables": null}
+      {
+          "query": "query test($uuid: String!) { session(uuid: $uuid) { title } }",
+          "variables":{"uuid":"not-found"}
+      }
       """
     Then the response status code should be 200
     And the JSON should be equal to:
@@ -27,7 +30,7 @@ Feature: Session api
                   "locations": [
                       {
                           "line": 1,
-                          "column": 9
+                          "column": 30
                       }
                   ],
                   "path": [
@@ -41,7 +44,7 @@ Feature: Session api
     And I add "Content-Type" header equal to "application/json"
     When I send a POST request to "/api/graphql/" with body:
       """
-      {"query": "query { session(uuid: \"1231-123-123\") { title }}", "variables": null}
+      {"query": "query session($uuid: String!) { session (uuid: $uuid) {title}}","variables":{"uuid":"1231-123-123"}}
       """
     Then the response status code should be 200
     And the JSON should be equal to:
