@@ -18,6 +18,8 @@ function init(target) {
         });
 
     [].forEach.call(target.querySelectorAll('[data-confirm]'), function (element) { new Confirm(element); });
+
+    $('[data-toggle="popover"]').popover();
 }
 
 init(document);

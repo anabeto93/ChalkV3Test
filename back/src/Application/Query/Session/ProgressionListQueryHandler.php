@@ -87,19 +87,13 @@ class ProgressionListQueryHandler
                     : null;
             }
 
-            $userHasSessionQuizResult = null !== $userSessionQuizResult;
-            $userPercentageQuizResult = true === $userHasSessionQuizResult
-                ? $sessionQuizResultsIndexedByUserId[$user->getId()]->getCorrectAnswersPercentage()
-                : null;
-
             $userValidatedView = new UserValidatedView(
                 $user->getLastName(),
                 $user->getFirstName(),
                 $user->getPhoneNumber(),
                 $progression->getMedium(),
                 $progression->getCreatedAt(),
-                $userHasSessionQuizResult,
-                $userPercentageQuizResult
+                $userSessionQuizResult
             );
 
             $progressionListView->addUserValidated($userValidatedView);

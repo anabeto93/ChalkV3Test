@@ -41,8 +41,17 @@
 
                         {% if progressionList.sessionHasQuiz %}
                             <td class="text-center">
-                                {% if user.hasQuizAnswer %}
-                                    {{ user.percentageQuizResult }} %
+                                {% if user.sessionQuizResult %}
+                                    <a href="#"
+                                       data-container="body"
+                                       data-toggle="popover"
+                                       data-placement="top"
+                                       data-trigger="focus"
+                                       data-content="{% for index, result in user.sessionQuizResult.questionsResult %}
+                                           {{ 'admin.session.quiz.result.questionPrefix'|trans ~ (index+1) }}:
+                                           {{ ('admin.session.quiz.result.' ~ (result ? 'correct' : 'incorrect'))|trans ~ (loop.last ? '' : ';') }}
+                                       {% endfor %}"
+                                    >{{ user.sessionQuizResult.correctAnswersPercentage }} %</a>
                                 {% endif %}
                             </td>
                         {% endif %}

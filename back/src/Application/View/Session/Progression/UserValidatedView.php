@@ -10,6 +10,8 @@
 
 namespace App\Application\View\Session\Progression;
 
+use App\Domain\Model\User\SessionQuizResult;
+
 class UserValidatedView extends UserView
 {
     /** @var \DateTimeInterface */
@@ -18,20 +20,16 @@ class UserValidatedView extends UserView
     /** @var string */
     public $medium;
 
-    /** @var bool */
-    public $hasQuizAnswer;
-
-    /** @var null|float */
-    public $percentageQuizResult;
+    /** @var SessionQuizResult|null */
+    public $sessionQuizResult;
 
     /**
-     * @param string             $lastName
-     * @param string             $firstName
-     * @param string             $phoneNumber
-     * @param string             $medium
-     * @param \DateTimeInterface $validatedAt
-     * @param bool               $hasQuizAnswer
-     * @param null|float         $percentageQuizResult
+     * @param string                 $lastName
+     * @param string                 $firstName
+     * @param string                 $phoneNumber
+     * @param string                 $medium
+     * @param \DateTimeInterface     $validatedAt
+     * @param SessionQuizResult|null $sessionQuizResult
      */
     public function __construct(
         string $lastName,
@@ -39,14 +37,12 @@ class UserValidatedView extends UserView
         string $phoneNumber,
         string $medium,
         \DateTimeInterface $validatedAt,
-        bool $hasQuizAnswer = false,
-        ?float $percentageQuizResult = null
+        ?SessionQuizResult $sessionQuizResult = null
     ) {
         parent::__construct($lastName, $firstName, $phoneNumber);
 
         $this->validatedAt = $validatedAt;
         $this->medium = $medium;
-        $this->hasQuizAnswer = $hasQuizAnswer;
-        $this->percentageQuizResult = $percentageQuizResult;
+        $this->sessionQuizResult = $sessionQuizResult;
     }
 }
