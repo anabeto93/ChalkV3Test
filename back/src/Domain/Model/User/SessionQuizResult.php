@@ -112,6 +112,18 @@ class SessionQuizResult
     }
 
     /**
+     * @return float
+     */
+    public function getCorrectAnswersPercentage(): float
+    {
+        if ($this->questionsNumber > 0) {
+            return 100 * $this->correctAnswersNumber / $this->questionsNumber;
+        }
+
+        throw new \LogicException('questionsNumber must be > 0');
+    }
+
+    /**
      * @return array
      */
     public function getQuestionsResult(): array

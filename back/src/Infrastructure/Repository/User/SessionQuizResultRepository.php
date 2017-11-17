@@ -76,4 +76,29 @@ class SessionQuizResultRepository implements SessionQuizResultRepositoryInterfac
 
         return (int) $queryBuilder->getQuery()->getSingleScalarResult();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findForSession(Session $session): array
+    {
+        $queryBuilder = $this
+            ->entityManager
+            ->createQueryBuilder()
+            ->select('sessionQuizResult')
+            ->from(SessionQuizResult::class, 'sessionQuizResult')
+            ->where('sessionQuizResult.session = :session')
+            ->setParameter('session', $session)
+        ;
+
+        $sessionQuizResults = $queryBuilder->getQuery()->getResult();
+        $sessionQuizResultsIndexedByUserId = [];
+
+        /** @var SessionQuizResult[] $sessionQuizResults */
+        foreach ($sessionQuizResults as $sessionQuizResult) {
+            $sessionQuizResultsIndexedByUserId[$sessionQuizResult->getUser()->getId()] = $sessionQuizResult;
+        }
+
+        return $sessionQuizResultsIndexedByUserId;
+    }
 }

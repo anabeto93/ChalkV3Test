@@ -21,10 +21,17 @@ class ProgressionListView
     /** @var UserView[] */
     public $usersNotValidated;
 
-    public function __construct()
+    /** @var bool */
+    public $sessionHasQuiz;
+
+    /**
+     * @param bool $sessionHasQuiz
+     */
+    public function __construct(bool $sessionHasQuiz)
     {
         $this->usersValidated = [];
         $this->usersNotValidated = [];
+        $this->sessionHasQuiz = $sessionHasQuiz;
     }
 
     /**

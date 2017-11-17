@@ -15,7 +15,9 @@ use App\Application\View\Session\Progression\UserView;
 use App\Application\View\Session\ProgressionListView;
 use App\Domain\Model\User;
 use App\Domain\Model\UserCourse;
+use App\Domain\Repository\Session\QuestionRepositoryInterface;
 use App\Domain\Repository\User\ProgressionRepositoryInterface;
+use App\Domain\Repository\User\SessionQuizResultRepositoryInterface;
 use App\Domain\Repository\UserCourseRepositoryInterface;
 
 class ProgressionListQueryHandler
@@ -26,16 +28,28 @@ class ProgressionListQueryHandler
     /** @var ProgressionRepositoryInterface */
     private $progressionRepository;
 
+    /** @var QuestionRepositoryInterface */
+    private $questionRepository;
+
+    /** @var SessionQuizResultRepositoryInterface */
+    private $sessionQuizResultRepository;
+
     /**
-     * @param UserCourseRepositoryInterface  $userCourseRepository
-     * @param ProgressionRepositoryInterface $progressionRepository
+     * @param UserCourseRepositoryInterface        $userCourseRepository
+     * @param ProgressionRepositoryInterface       $progressionRepository
+     * @param QuestionRepositoryInterface          $questionRepository
+     * @param SessionQuizResultRepositoryInterface $sessionQuizResultRepository
      */
     public function __construct(
         UserCourseRepositoryInterface $userCourseRepository,
-        ProgressionRepositoryInterface $progressionRepository
+        ProgressionRepositoryInterface $progressionRepository,
+        QuestionRepositoryInterface $questionRepository,
+        SessionQuizResultRepositoryInterface $sessionQuizResultRepository
     ) {
         $this->userCourseRepository = $userCourseRepository;
         $this->progressionRepository = $progressionRepository;
+        $this->questionRepository = $questionRepository;
+        $this->sessionQuizResultRepository = $sessionQuizResultRepository;
     }
 
     /**
@@ -51,19 +65,41 @@ class ProgressionListQueryHandler
 
         $userWithProgression = $this->progressionRepository->findForSession($query->session);
 
-        $progressionListView = new ProgressionListView();
+        $sessionHasQuiz = $this->questionRepository->sessionHasQuiz($query->session);
+        $sessionQuizResultsIndexedByUserId = [];
+
+        if ($sessionHasQuiz) {
+            $sessionQuizResultsIndexedByUserId = $this->sessionQuizResultRepository->findForSession($query->session);
+        }
+
+        $progressionListView = new ProgressionListView($sessionHasQuiz);
 
         foreach ($userWithProgression as $progression) {
             $user = $progression->getUser();
 
             $this->removeFromUserList($user, $users);
 
+            $userSessionQuizResult = null;
+
+            if ($sessionHasQuiz) {
+                $userSessionQuizResult = isset($sessionQuizResultsIndexedByUserId[$user->getId()])
+                    ? $sessionQuizResultsIndexedByUserId[$user->getId()]
+                    : null;
+            }
+
+            $userHasSessionQuizResult = null !== $userSessionQuizResult;
+            $userPercentageQuizResult = true === $userHasSessionQuizResult
+                ? $sessionQuizResultsIndexedByUserId[$user->getId()]->getCorrectAnswersPercentage()
+                : null;
+
             $userValidatedView = new UserValidatedView(
                 $user->getLastName(),
                 $user->getFirstName(),
                 $user->getPhoneNumber(),
                 $progression->getMedium(),
-                $progression->getCreatedAt()
+                $progression->getCreatedAt(),
+                $userHasSessionQuizResult,
+                $userPercentageQuizResult
             );
 
             $progressionListView->addUserValidated($userValidatedView);

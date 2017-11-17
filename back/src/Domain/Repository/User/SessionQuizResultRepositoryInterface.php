@@ -35,4 +35,11 @@ interface SessionQuizResultRepositoryInterface
      * @return int
      */
     public function countBySession(Session $session): int;
+
+    /**
+     * @param Session $session
+     *
+     * @return SessionQuizResult[] indexed by UserId
+     */
+    public function findForSession(Session $session): array;
 }

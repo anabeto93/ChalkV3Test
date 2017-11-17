@@ -19,7 +19,9 @@ use App\Domain\Model\Course;
 use App\Domain\Model\Session;
 use App\Domain\Model\User;
 use App\Domain\Model\UserCourse;
+use App\Domain\Repository\Session\QuestionRepositoryInterface;
 use App\Domain\Repository\User\ProgressionRepositoryInterface;
+use App\Domain\Repository\User\SessionQuizResultRepositoryInterface;
 use App\Domain\Repository\UserCourseRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -58,8 +60,10 @@ class ProgressionListQueryHandlerTest extends TestCase
         $user3->getLastName()->willReturn('Aaaaa');
         $user3->getPhoneNumber()->willReturn('+335678912345');
 
-        $userCourseRepository  = $this->prophesize(UserCourseRepositoryInterface::class);
-        $progressionRepository = $this->prophesize(ProgressionRepositoryInterface::class);
+        $userCourseRepository        = $this->prophesize(UserCourseRepositoryInterface::class);
+        $progressionRepository       = $this->prophesize(ProgressionRepositoryInterface::class);
+        $questionRepository          = $this->prophesize(QuestionRepositoryInterface::class);
+        $sessionQuizResultRepository = $this->prophesize(SessionQuizResultRepositoryInterface::class);
 
         $userCourseRepository
             ->findByCourse($course->reveal())
@@ -77,14 +81,19 @@ class ProgressionListQueryHandlerTest extends TestCase
             ->willReturn([$progression1->reveal()])
         ;
 
+        $questionRepository->sessionHasQuiz($session->reveal())->shouldBeCalled()->willReturn(false);
+        $sessionQuizResultRepository->findForSession($session->reveal())->shouldNotBeCalled();
+
         $query   = new ProgressionListQuery($session->reveal());
         $handler = new ProgressionListQueryHandler(
             $userCourseRepository->reveal(),
-            $progressionRepository->reveal()
+            $progressionRepository->reveal(),
+            $questionRepository->reveal(),
+            $sessionQuizResultRepository->reveal()
         );
         $result = $handler->handle($query);
 
-        $expected = new ProgressionListView();
+        $expected = new ProgressionListView(false);
         $expected->addUserValidated(new UserValidatedView('last name 1', 'first name 1', '33123123123', 'sms', $date));
         $expected->addUserNotValidated(new UserView('Aaaaa', 'Titi', '+335678912345'));
         $expected->addUserNotValidated(new UserView('Tata', 'Toto', '+33987654321'));
