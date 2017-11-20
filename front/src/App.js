@@ -20,6 +20,7 @@ import ScrollToTop from './components/Utils/ScrollToTop';
 import SendScreen from './containers/SendScreen';
 import SessionDetailScreen from './containers/SessionDetailScreen';
 import SessionScreen from './containers/SessionScreen';
+import QuestionDetailScreen from './containers/QuestionDetailScreen';
 import SendSMSScreen from './containers/SendSMSScreen';
 import ValidateSessionByCodeScreen from './containers/ValidateSessionByCodeScreen';
 
@@ -101,6 +102,11 @@ class App extends Component {
                         exact
                         path={routes.SESSION_DETAIL}
                         component={SessionDetailScreen}
+                      />
+                      <PrivateRoute
+                        exact
+                        path={routes.QUESTION_DETAIL}
+                        component={QuestionDetailScreen}
                       />
                       <PrivateRoute
                         exact

@@ -3,7 +3,11 @@
     "noContentAvailable": "No content available"
   },
   "session": {
-    "nextButton": "Next"
+    "nextButton": "Next",
+    "quizButton": "Respond to quiz"
+  },
+  "question": {
+    "nextButton": "Save & Next"
   },
   "tokenError": "Your link has a problem - please contact Chalkboard Education for support.",
   "update": {

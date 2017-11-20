@@ -1,4 +1,5 @@
 import getConfig from '../../config/index';
+import { QUESTIONS_MOCK } from '../../services/quiz/QuestionsMock';
 
 export default function receiveCourseInformationHandler(state, action) {
   const { courses: items, currentDate } = action.payload;
@@ -50,6 +51,7 @@ export default function receiveCourseInformationHandler(state, action) {
           ...session,
           content: previousSessionContent,
           courseUuid: course.uuid,
+          questions: QUESTIONS_MOCK, // will be removed later
           folderUuid,
           position
         };
