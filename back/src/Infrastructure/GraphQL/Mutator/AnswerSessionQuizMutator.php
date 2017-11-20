@@ -55,8 +55,9 @@ class AnswerSessionQuizMutator
 
         try {
             $this->commandBus->handle(new ValidateSession($apiUser->getUser(), $uuid, Medium::WEB));
+            $this->commandBus->handle(new AnswerSessionQuiz($apiUser->getUser(), $uuid, $answers, Medium::WEB));
 
-            return $this->commandBus->handle(new AnswerSessionQuiz($apiUser->getUser(), $uuid, $answers, Medium::WEB));
+            return true;
         } catch (SessionNotFoundException $sessionNotFoundException) {
             throw new UserError($sessionNotFoundException->getMessage());
         } catch (SessionNotAccessibleForThisUserException $sessionNotAccessibleForThisUserException) {

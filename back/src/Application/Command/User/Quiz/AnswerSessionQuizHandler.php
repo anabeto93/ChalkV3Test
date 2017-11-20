@@ -68,13 +68,12 @@ class AnswerSessionQuizHandler
     /**
      * @param AnswerSessionQuiz $answerSessionQuiz
      *
-     * @return bool
      * @throws SessionHasNotQuizException
      * @throws SessionNotFoundException
      * @throws SessionNotAccessibleForThisUserException
      * @throws SessionQuizAnswerAlreadyExistsException
      */
-    public function handle(AnswerSessionQuiz $answerSessionQuiz): bool
+    public function handle(AnswerSessionQuiz $answerSessionQuiz)
     {
         $session = $this->sessionRepository->getByUuid($answerSessionQuiz->sessionUuid);
 
@@ -121,7 +120,5 @@ class AnswerSessionQuizHandler
         );
 
         $this->sessionQuizResultRepository->add($sessionQuizResult);
-
-        return true;
     }
 }

@@ -228,6 +228,6 @@ class AnswerSessionQuizHandlerTest extends TestCase
             $this->dateTime
         );
 
-        $this->assertTrue($handler->handle(new AnswerSessionQuiz($user->reveal(), '123-123', '1;2,3', 'web')));
+        $handler->handle(new AnswerSessionQuiz($user->reveal(), '123-123', '1;2,3', 'web'));
     }
 }
