@@ -12,7 +12,7 @@ export class CourseScreen extends Component {
 
     return (
       <div>
-        <CoursesList courses={courses} />
+        <CoursesList courses={courses} locale={locale} />
         {isSessionFailValidating &&
           <Error
             show={true}

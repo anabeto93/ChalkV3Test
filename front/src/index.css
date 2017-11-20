@@ -93,5 +93,7 @@ body {
   text-align: center;
   transform: translate(0, -50%);
   width: 90%;
-  padding: 5%;
+  padding: 0 5%;
+  background: #eeeeee;
+  z-index: 1;
 }

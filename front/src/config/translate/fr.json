@@ -11,7 +11,7 @@
     "needUpdate": "L'application doit être mise à jour",
     "updating": "Mise à jour de l'app...",
     "checking": "Verification des mises à jours...",
-    "download": "L'application doit être mise à jour, {{amount}} ko à télécharger",
+    "download": "{{amount}} ko à télécharger",
     "upToDate": "L'application est déjà à jour !",
     "errorWhileCheckingUpdates": "Problème réseau pendant la verification de la mise à jour.",
     "errorWhileUpdating": "Il y a eu un problème pendant la mise à jour.",

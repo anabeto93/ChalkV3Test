@@ -105,7 +105,7 @@ class Header extends Component {
  */
 function mapStateToProps(state, props) {
   let title = '';
-  let route = RouteResolver.resolve(props.location);
+  const route = RouteResolver.resolve(props.location);
 
   if (route !== undefined) {
     title = RouteResolver.resolveTitle(route);
