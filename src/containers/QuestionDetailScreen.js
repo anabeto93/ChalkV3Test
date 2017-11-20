@@ -71,16 +71,18 @@ class QuestionDetailScreen extends Component {
           </footer>
         </div>
       );
+    } else if (session !== undefined) {
+      return (
+        <Redirect
+          to={generateUrl(SESSION_LIST, {
+            ':courseUuid': session.courseUuid,
+            ':folderUuid': session.folderUuid
+          })}
+        />
+      );
     }
 
-    return (
-      <Redirect
-        to={generateUrl(SESSION_LIST, {
-          ':courseUuid': session.courseUuid,
-          ':folderUuid': session.folderUuid
-        })}
-      />
-    );
+    return <div />;
   }
 }
 
@@ -98,7 +100,7 @@ function mapStateToProps(state, props) {
 
   const session = CourseManager.getSession(state.content.sessions, sessionUuid);
 
-  if (session === null) {
+  if (session === undefined) {
     return {};
   }
 
