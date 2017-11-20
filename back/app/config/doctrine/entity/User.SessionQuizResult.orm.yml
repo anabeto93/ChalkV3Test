@@ -1,0 +1,30 @@
+App\Domain\Model\User\SessionQuizResult:
+    type: entity
+    table: user_session_quiz_result
+    id:
+        user:
+            associationKey: true
+        session:
+            associationKey: true
+    fields:
+        correctAnswersNumber:
+            type: integer
+        questionsNumber:
+            type: integer
+        questionsResult:
+            type: array
+        medium:
+            type: string
+        createdAt:
+            type: datetime
+    manyToOne:
+        user:
+            targetEntity: App\Domain\Model\User
+            joinColumn:
+                onDelete: CASCADE
+                nullable: false
+        session:
+            targetEntity: App\Domain\Model\Session
+            joinColumn:
+                onDelete: CASCADE
+                nullable: false

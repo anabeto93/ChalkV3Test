@@ -30,7 +30,7 @@ class ProgressionActionTest extends TestCase
 
         $session->getCourse()->shouldBeCalled()->willReturn($course->reveal());
         $session->needValidation()->shouldBeCalled()->willReturn(true);
-        $progressionList = new ProgressionListView();
+        $progressionList = new ProgressionListView(false);
 
         // Mock
         $engine = $this->prophesize(EngineInterface::class);

@@ -28,3 +28,9 @@ services:
 
     App\Domain\Session\Import\FilesImportRemover:
         autowire: true
+
+    App\Domain\Quiz\Answers\QuizAnswersTransformer:
+        autowire: true
+
+    App\Domain\Quiz\Result\QuizResultCalculator:
+        autowire: true

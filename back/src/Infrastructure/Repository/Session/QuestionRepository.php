@@ -62,12 +62,29 @@ class QuestionRepository implements QuestionRepositoryInterface
     {
         $queryBuilder = $this->entityManager
             ->createQueryBuilder()
-            ->select('question')
+            ->select('question, answer')
             ->from(Question::class, 'question')
-            ->where('question.session = :session')
+            ->join('question.answers', 'answer', 'WITH', 'question.session = :session')
             ->setParameter('session', $session)
         ;
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function sessionHasQuiz(Session $session): bool
+    {
+        $queryBuilder = $this->entityManager
+            ->createQueryBuilder()
+            ->select('question.id')
+            ->from(Question::class, 'question')
+            ->where('question.session = :session')
+            ->setParameter('session', $session)
+            ->setMaxResults(1)
+        ;
+
+        return null !== $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }

@@ -34,7 +34,13 @@ class SessionView
     public $usersAssignedToCourse;
 
     /** @var bool */
-    public $isEnable;
+    public $isEnabled;
+
+    /** @var bool */
+    public $hasQuiz;
+
+    /** @var int|null */
+    public $usersAnsweredQuizNumber;
 
     /**
      * @param int         $id
@@ -42,9 +48,11 @@ class SessionView
      * @param int         $rank
      * @param string|null $folderTitle
      * @param bool        $needValidation
-     * @param bool        $isEnable
+     * @param bool        $isEnabled
      * @param int|null    $usersValidated
      * @param int         $usersAssignedToCourse
+     * @param bool        $hasQuiz
+     * @param int|null    $usersAnsweredQuizNumber
      */
     public function __construct(
         int $id,
@@ -52,9 +60,11 @@ class SessionView
         int $rank,
         string $folderTitle = null,
         bool $needValidation,
-        bool $isEnable,
+        bool $isEnabled,
         int $usersValidated = null,
-        int $usersAssignedToCourse
+        int $usersAssignedToCourse,
+        bool $hasQuiz = false,
+        int $usersAnsweredQuizNumber = null
     ) {
         $this->id = $id;
         $this->title = $title;
@@ -63,6 +73,8 @@ class SessionView
         $this->needValidation = $needValidation;
         $this->usersValidated = $usersValidated;
         $this->usersAssignedToCourse = $usersAssignedToCourse;
-        $this->isEnable = $isEnable;
+        $this->isEnabled = $isEnabled;
+        $this->hasQuiz = $hasQuiz;
+        $this->usersAnsweredQuizNumber = $usersAnsweredQuizNumber;
     }
 }

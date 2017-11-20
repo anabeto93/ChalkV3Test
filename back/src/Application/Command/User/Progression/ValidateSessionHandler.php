@@ -13,8 +13,8 @@ namespace App\Application\Command\User\Progression;
 use App\Domain\Model\User\Progression;
 use App\Domain\Repository\SessionRepositoryInterface;
 use App\Domain\Repository\User\ProgressionRepositoryInterface;
-use App\Domain\Exception\Session\ValidateSession\SessionNotAccessibleForThisUserException;
-use App\Domain\Exception\Session\ValidateSession\SessionNotFoundException;
+use App\Domain\Exception\Session\SessionNotAccessibleForThisUserException;
+use App\Domain\Exception\Session\SessionNotFoundException;
 
 class ValidateSessionHandler
 {

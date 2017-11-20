@@ -8,63 +8,90 @@
     <h1>
         {{ 'admin.session.progression.title'|trans({'%sessionTitle%': session.title}) }}
     </h1>
-    <hr>
-    <div class="col-md-7">
-        <h2>{{ 'admin.session.progression.usersValidated.title'|trans }}</h2>
-        <table class="table table-striped table-condensed">
-            <thead>
-            <tr>
-                <th>{{ 'admin.session.progression.validated.column.lastName'|trans }}</th>
-                <th>{{ 'admin.session.progression.validated.column.firstName'|trans }}</th>
-                <th>{{ 'admin.session.progression.validated.column.phoneNumber'|trans }}</th>
-                <th>{{ 'admin.session.progression.validated.column.medium'|trans }}</th>
-                <th>{{ 'admin.session.progression.validated.column.validatedAt'|trans }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for user in progressionList.usersValidated %}
+
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#usersValidated" aria-controls="usersValidated" role="tab" data-toggle="tab">{{ 'admin.session.progression.usersValidated.title'|trans }}</a></li>
+        <li role="presentation"><a href="#usersNotValidated" aria-controls="usersNotValidated" role="tab" data-toggle="tab">{{ 'admin.session.progression.usersNotValidated.title'|trans }}</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="usersValidated">
+            <table class="table table-striped">
+                <thead>
                 <tr>
-                    <td>{{ user.lastName }}</td>
-                    <td>{{ user.firstName }}</td>
-                    <td>{{ user.phoneNumber }}</td>
-                    <td>{{ ('admin.session.progression.medium.' ~ user.medium)|trans }}</td>
-                    <td>{{ user.validatedAt|localizeddate('medium', 'short') }}</td>
+                    <th>{{ 'admin.session.progression.validated.column.lastName'|trans }}</th>
+                    <th>{{ 'admin.session.progression.validated.column.firstName'|trans }}</th>
+                    <th>{{ 'admin.session.progression.validated.column.phoneNumber'|trans }}</th>
+                    <th>{{ 'admin.session.progression.validated.column.medium'|trans }}</th>
+                    <th>{{ 'admin.session.progression.validated.column.validatedAt'|trans }}</th>
+
+                    {% if progressionList.sessionHasQuiz %}
+                        <th class="text-center">{{ 'admin.session.progression.validated.column.quizResult'|trans }}</th>
+                    {% endif %}
                 </tr>
-            {% else %}
+                </thead>
+                <tbody>
+                {% for user in progressionList.usersValidated %}
+                    <tr>
+                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.phoneNumber }}</td>
+                        <td>{{ ('admin.session.progression.medium.' ~ user.medium)|trans }}</td>
+                        <td>{{ user.validatedAt|localizeddate('medium', 'short') }}</td>
+
+                        {% if progressionList.sessionHasQuiz %}
+                            <td class="text-center">
+                                {% if user.sessionQuizResult %}
+                                    <a href="#"
+                                       data-container="body"
+                                       data-toggle="popover"
+                                       data-placement="top"
+                                       data-trigger="focus"
+                                       data-content="{% for index, result in user.sessionQuizResult.questionsResult %}
+                                           {{ 'admin.session.quiz.result.questionPrefix'|trans ~ (index+1) }}:
+                                           {{ ('admin.session.quiz.result.' ~ (result ? 'correct' : 'incorrect'))|trans ~ (loop.last ? '' : ';') }}
+                                       {% endfor %}"
+                                    >{{ user.sessionQuizResult.correctAnswersPercentage }} %</a>
+                                {% endif %}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            {{ 'admin.session.progression.no-result'|trans }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="usersNotValidated">
+            <table class="table table-striped">
+                <thead>
                 <tr>
-                    <td colspan="5" class="text-center">
-                        {{ 'admin.session.progression.no-result'|trans }}
-                    </td>
+                    <th>{{ 'admin.session.progression.notValidated.column.lastName'|trans }}</th>
+                    <th>{{ 'admin.session.progression.notValidated.column.firstName'|trans }}</th>
+                    <th>{{ 'admin.session.progression.notValidated.column.phoneNumber'|trans }}</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    <div class="col-md-5">
-        <h2>{{ 'admin.session.progression.usersNotValidated.title'|trans }}</h2>
-        <table class="table table-striped table-condensed">
-            <thead>
-            <tr>
-                <th>{{ 'admin.session.progression.notValidated.column.lastName'|trans }}</th>
-                <th>{{ 'admin.session.progression.notValidated.column.firstName'|trans }}</th>
-                <th>{{ 'admin.session.progression.notValidated.column.phoneNumber'|trans }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for user in progressionList.usersNotValidated %}
-                <tr>
-                    <td>{{ user.lastName }}</td>
-                    <td>{{ user.firstName }}</td>
-                    <td>{{ user.phoneNumber }}</td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="4" class="text-center">
-                        {{ 'admin.session.progression.no-result'|trans }}
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for user in progressionList.usersNotValidated %}
+                    <tr>
+                        <td>{{ user.lastName }}</td>
+                        <td>{{ user.firstName }}</td>
+                        <td>{{ user.phoneNumber }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="text-center">
+                            {{ 'admin.session.progression.no-result'|trans }}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}

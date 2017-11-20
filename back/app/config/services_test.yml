@@ -28,6 +28,8 @@ services:
     Features\Behat\Services\Manager\AnswerManager:
         autowire: true
 
+    Features\Behat\Services\Manager\SessionQuizResultManager:
+        autowire: true
 
     #
     # Proxy
@@ -55,3 +57,7 @@ services:
     Features\Behat\Services\Proxy\QuestionProxy:
         autowire: true
     Features\Behat\Domain\Proxy\QuestionProxyInterface: '@Features\Behat\Services\Proxy\QuestionProxy'
+
+    Features\Behat\Services\Proxy\SessionQuizResultProxy:
+        autowire: true
+    Features\Behat\Domain\Proxy\SessionQuizResultProxyInterface: '@Features\Behat\Services\Proxy\SessionQuizResultProxy'

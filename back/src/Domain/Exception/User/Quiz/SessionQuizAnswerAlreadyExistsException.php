@@ -8,10 +8,10 @@
  * @author Elao <contact@elao.com>
  */
 
-namespace App\Domain\Exception\Session\ValidateSession;
+namespace App\Domain\Exception\User\Quiz;
 
-use App\Domain\Exception\Session\SessionException;
+use App\Domain\Exception\User\UserException;
 
-class SessionNotFoundException extends SessionException
+class SessionQuizAnswerAlreadyExistsException extends UserException
 {
 }

@@ -3,3 +3,8 @@ services:
         autowire: true
         tags:
             - { name: overblog_graphql.mutation, alias: "validateSessionMutation", method: "mutateValidateSession" }
+
+    App\Infrastructure\GraphQL\Mutator\AnswerSessionQuizMutator:
+        autowire: true
+        tags:
+            - { name: overblog_graphql.mutation, alias: "answerSessionQuiz", method: "handle" }

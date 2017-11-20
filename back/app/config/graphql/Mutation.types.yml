@@ -3,8 +3,25 @@ Mutation:
     config:
         fields:
             validateSessionMutation:
-                type: "Boolean"
+                type: "Boolean!"
                 resolve: "@=mutation('validateSessionMutation', [args['uuid']])"
                 args:
                     uuid:
                         type: "String!"
+            answerSessionQuiz:
+                type: "Boolean!"
+                resolve: "@=mutation('answerSessionQuiz', [args['input']['uuid'], args['input']['answers']])"
+                args:
+                    input:
+                        type: answerSessionQuizInput!
+
+answerSessionQuizInput:
+    type: input-object
+    config:
+        fields:
+            uuid:
+                type: "String!"
+                description: "Uuid of the session concerned by the quiz"
+            answers:
+                type: "String!"
+                description: "Questions answers separated by a semicolon Answers separated by a comma. Example: 0;0,2;4"

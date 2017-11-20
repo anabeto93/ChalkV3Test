@@ -12,8 +12,8 @@ namespace App\Infrastructure\GraphQL\Mutator;
 
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\User\Progression\ValidateSession;
-use App\Domain\Exception\Session\ValidateSession\SessionNotAccessibleForThisUserException;
-use App\Domain\Exception\Session\ValidateSession\SessionNotFoundException;
+use App\Domain\Exception\Session\SessionNotAccessibleForThisUserException;
+use App\Domain\Exception\Session\SessionNotFoundException;
 use App\Domain\User\Progression\Medium;
 use App\Infrastructure\Security\Api\ApiUserAdapter;
 use GraphQL\Error\UserError;
