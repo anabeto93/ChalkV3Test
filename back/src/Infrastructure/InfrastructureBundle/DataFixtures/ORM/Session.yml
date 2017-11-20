@@ -8,6 +8,7 @@ App\Domain\Model\Session:
             - '@course_1'
             - '@folder_1'
             - false
+            - true
             - <dateTime()>
             - 771
             - 123123
@@ -21,6 +22,7 @@ App\Domain\Model\Session:
             - "This is the content"
             - '@course_1'
             - '@folder_1'
+            - true
             - true
             - <dateTime()>
             - 771
@@ -36,6 +38,7 @@ App\Domain\Model\Session:
             - '@course_2'
             - null
             - false
+            - true
             - <dateTime()>
             - 771
             - 123123
@@ -49,6 +52,7 @@ App\Domain\Model\Session:
             - "This is the content"
             - '@course_1'
             - '@folder_1'
+            - true
             - true
             - <dateTime()>
             - 771
@@ -64,6 +68,7 @@ App\Domain\Model\Session:
             - '@course_1'
             - '@folder_1'
             - false
+            - true
             - <dateTime()>
             - 771
             - 123123
@@ -77,6 +82,7 @@ App\Domain\Model\Session:
             - "This is the content"
             - '@course_1'
             - '@folder_1'
+            - true
             - true
             - <dateTime()>
             - 771
