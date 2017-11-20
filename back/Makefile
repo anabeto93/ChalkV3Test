@@ -30,6 +30,8 @@ install:
 	composer install --verbose
 	bin/console doctrine:database:create --if-not-exists
 	yarn install
+	# Doctrine migrations
+	bin/console doctrine:migrations:migrate --no-interaction
 
 install@test: export SYMFONY_ENV = test
 install@test:
@@ -48,6 +50,8 @@ install@staging:
 	yarn install
 	# Symfony cache
 	bin/console cache:warmup --no-debug
+	# Doctrine migrations
+	bin/console doctrine:migrations:migrate --no-interaction
 
 install@production: export SYMFONY_ENV = prod
 install@production:
@@ -57,6 +61,8 @@ install@production:
 	yarn install
 	# Symfony cache
 	bin/console cache:warmup --no-debug
+	# Doctrine migrations
+	bin/console doctrine:migrations:migrate --no-interaction
 
 ##########
 # Build #
