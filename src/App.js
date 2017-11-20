@@ -102,6 +102,11 @@ class App extends Component {
                       />
                       <PrivateRoute
                         exact
+                        path={routes.QUESTION_DETAIL}
+                        component={QuestionDetailScreen}
+                      />
+                      <PrivateRoute
+                        exact
                         path={routes.SESSION_SEND}
                         component={SendScreen}
                       />
