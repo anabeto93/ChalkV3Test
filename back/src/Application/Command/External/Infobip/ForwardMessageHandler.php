@@ -14,7 +14,10 @@ use App\Application\Adapter\SMSSenderInterface;
 use App\Application\Adapter\TranslatorInterface;
 use App\Application\Command\User\Progression\ValidateSession;
 use App\Application\Command\User\Progression\ValidateSessionHandler;
+use App\Application\Command\User\Quiz\AnswerSessionQuiz;
+use App\Application\Command\User\Quiz\AnswerSessionQuizHandler;
 use App\Application\View\SMS\SMSView;
+use App\Domain\Exception\Session\SessionHasNotQuizException;
 use App\Domain\Exception\Session\SessionNotAccessibleForThisUserException;
 use App\Domain\Exception\Session\SessionNotFoundException;
 use App\Domain\Repository\UserRepositoryInterface;
@@ -46,6 +49,9 @@ class ForwardMessageHandler
     /** @var ValidateSessionHandler */
     private $validateSessionHandler;
 
+    /** @var AnswerSessionQuizHandler */
+    private $answerSessionQuizHandler;
+
     /** @var SMSSenderInterface */
     private $SMSSender;
 
@@ -62,22 +68,24 @@ class ForwardMessageHandler
     private $frontValidationSessionUrl;
 
     /**
-     * @param TranslatorInterface     $translator
-     * @param UserRepositoryInterface $userRepository
-     * @param ValidateSessionHandler  $validateSessionHandler
-     * @param SMSSenderInterface      $SMSSender
-     * @param string                  $phoneNumberSender
-     * @param Decoder                 $decoder
-     * @param Encoder                 $encoder
-     * @param string                  $sessionValidationDecodeKey
-     * @param string                  $sessionValidationEncodeKey
-     * @param string                  $frontUrl
-     * @param string                  $frontValidationSessionUrl
+     * @param TranslatorInterface      $translator
+     * @param UserRepositoryInterface  $userRepository
+     * @param AnswerSessionQuizHandler $answerSessionQuizHandler
+     * @param ValidateSessionHandler   $validateSessionHandler
+     * @param SMSSenderInterface       $SMSSender
+     * @param string                   $phoneNumberSender
+     * @param Decoder                  $decoder
+     * @param Encoder                  $encoder
+     * @param string                   $sessionValidationDecodeKey
+     * @param string                   $sessionValidationEncodeKey
+     * @param string                   $frontUrl
+     * @param string                   $frontValidationSessionUrl
      */
     public function __construct(
         TranslatorInterface $translator,
         UserRepositoryInterface $userRepository,
         ValidateSessionHandler $validateSessionHandler,
+        AnswerSessionQuizHandler $answerSessionQuizHandler,
         SMSSenderInterface $SMSSender,
         string $phoneNumberSender,
         Decoder $decoder,
@@ -89,6 +97,7 @@ class ForwardMessageHandler
     ) {
         $this->userRepository             = $userRepository;
         $this->validateSessionHandler     = $validateSessionHandler;
+        $this->answerSessionQuizHandler = $answerSessionQuizHandler;
         $this->SMSSender                  = $SMSSender;
         $this->phoneNumberSender          = $phoneNumberSender;
         $this->decoder                    = $decoder;
@@ -130,9 +139,19 @@ class ForwardMessageHandler
 
             try {
                 $this->validateSessionHandler->handle(new ValidateSession($user, $sessionUuid, Medium::SMS));
+
+                $answers = trim(str_replace($code, '', $body));
+
+                if (!empty($answers)) {
+                    $this->answerSessionQuizHandler->handle(
+                        new AnswerSessionQuiz($user, $sessionUuid, $answers, Medium::SMS)
+                    );
+                }
             } catch (SessionNotAccessibleForThisUserException $exception) {
                 continue;
             } catch (SessionNotFoundException $exception) {
+                continue;
+            } catch (SessionHasNotQuizException $exception) {
                 continue;
             }
 

@@ -16,6 +16,8 @@ use App\Application\Command\External\Infobip\ForwardMessage;
 use App\Application\Command\External\Infobip\ForwardMessageHandler;
 use App\Application\Command\User\Progression\ValidateSession;
 use App\Application\Command\User\Progression\ValidateSessionHandler;
+use App\Application\Command\User\Quiz\AnswerSessionQuiz;
+use App\Application\Command\User\Quiz\AnswerSessionQuizHandler;
 use App\Application\View\SMS\SMSView;
 use App\Domain\Exception\Session\SessionNotFoundException;
 use App\Domain\Model\User;
@@ -37,6 +39,9 @@ class ForwardMessageHandlerTest extends TestCase
 
     /** @var ObjectProphecy */
     private $validateSessionHandler;
+
+    /** @var ObjectProphecy */
+    private $answerSessionQuizHandler;
 
     /** @var ObjectProphecy */
     private $SMSSender;
@@ -67,6 +72,7 @@ class ForwardMessageHandlerTest extends TestCase
         $this->translator = $this->prophesize(TranslatorInterface::class);
         $this->userRepository = $this->prophesize(UserRepositoryInterface::class);
         $this->validateSessionHandler = $this->prophesize(ValidateSessionHandler::class);
+        $this->answerSessionQuizHandler = $this->prophesize(AnswerSessionQuizHandler::class);
         $this->SMSSender = $this->prophesize(SMSSenderInterface::class);
         $this->phoneNumberSender = '+33123123123';
         $this->decoder = $this->prophesize(Decoder::class);
@@ -86,6 +92,7 @@ class ForwardMessageHandlerTest extends TestCase
             $this->translator->reveal(),
             $this->userRepository->reveal(),
             $this->validateSessionHandler->reveal(),
+            $this->answerSessionQuizHandler->reveal(),
             $this->SMSSender->reveal(),
             $this->phoneNumberSender,
             $this->decoder->reveal(),
@@ -125,6 +132,7 @@ class ForwardMessageHandlerTest extends TestCase
             $this->translator->reveal(),
             $this->userRepository->reveal(),
             $this->validateSessionHandler->reveal(),
+            $this->answerSessionQuizHandler->reveal(),
             $this->SMSSender->reveal(),
             $this->phoneNumberSender,
             $this->decoder->reveal(),
@@ -174,6 +182,7 @@ class ForwardMessageHandlerTest extends TestCase
             $this->translator->reveal(),
             $this->userRepository->reveal(),
             $this->validateSessionHandler->reveal(),
+            $this->answerSessionQuizHandler->reveal(),
             $this->SMSSender->reveal(),
             $this->phoneNumberSender,
             $this->decoder->reveal(),
@@ -234,6 +243,7 @@ class ForwardMessageHandlerTest extends TestCase
             $this->translator->reveal(),
             $this->userRepository->reveal(),
             $this->validateSessionHandler->reveal(),
+            $this->answerSessionQuizHandler->reveal(),
             $this->SMSSender->reveal(),
             $this->phoneNumberSender,
             $this->decoder->reveal(),
@@ -244,36 +254,47 @@ class ForwardMessageHandlerTest extends TestCase
             $this->frontValidationSessionUrl
         );
 
-        $this->decoder
+        $this
+            ->decoder
             ->getUserUuidFromCode($this->sessionValidationDecodeKey, 'vUDH7cyFwzy7UEwccyayENc7ayxSXHSEcxccLzcyFF')
             ->shouldBeCalled()
             ->willReturn('abcdef')
         ;
-        $this->userRepository
+        $this
+            ->userRepository
             ->findByUuid('abcdef')
             ->shouldBeCalled()
             ->willReturn($user->reveal())
         ;
-        $this->decoder
+        $this
+            ->decoder
             ->getSessionUuidFromCode($this->sessionValidationDecodeKey, 'vUDH7cyFwzy7UEwccyayENc7ayxSXHSEcxccLzcyFF')
             ->shouldBeCalled()
             ->willReturn('a6342f0bf7-a2aae-5a488')
         ;
 
-        $this->validateSessionHandler
+        $this
+            ->validateSessionHandler
             ->handle(new ValidateSession($user->reveal(), 'a6342f0bf7-a2aae-5a488', Medium::SMS))
             ->shouldBeCalled()
         ;
-        $this->encoder
+
+        $this
+            ->answerSessionQuizHandler
+            ->handle(new AnswerSessionQuiz($user->reveal(), 'a6342f0bf7-a2aae-5a488', 'Hello world', Medium::SMS))
+            ->shouldBeCalled()
+        ;
+
+        $this
+            ->encoder
             ->getUnlockCodeForSession($this->sessionValidationEncodeKey, 'abcdef', 'a6342f0bf7-a2aae-5a488')
             ->shouldBeCalled()
-            ->willReturn(
-                'abcdef1234567890abcdef1234567890'
-            )
+            ->willReturn('abcdef1234567890abcdef1234567890')
         ;
 
         $message = 'Response message';
-        $this->translator
+        $this
+            ->translator
             ->trans(
                 ForwardMessageHandler::TRANSLATION_VALIDATION_CODE_RESPONSE,
                 ['%url%' => 'https://front.url/#/toto/abcdef1234567890abcdef1234567890'],
@@ -283,7 +304,6 @@ class ForwardMessageHandlerTest extends TestCase
             ->shouldBeCalled()
             ->willReturn($message)
         ;
-
 
         $this->SMSSender->send(new SMSView($this->phoneNumberSender, ['33123456789'], $message))->shouldBeCalled();
 

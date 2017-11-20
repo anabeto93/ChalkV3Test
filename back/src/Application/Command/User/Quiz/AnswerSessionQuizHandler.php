@@ -10,6 +10,7 @@
 
 namespace App\Application\Command\User\Quiz;
 
+use App\Domain\Exception\Session\SessionHasNotQuizException;
 use App\Domain\Exception\Session\SessionNotAccessibleForThisUserException;
 use App\Domain\Exception\Session\SessionNotFoundException;
 use App\Domain\Exception\User\Quiz\SessionQuizAnswerAlreadyExistsException;
@@ -17,6 +18,7 @@ use App\Domain\Model\Session;
 use App\Domain\Model\User\SessionQuizResult;
 use App\Domain\Quiz\Answers\QuizAnswersTransformer;
 use App\Domain\Quiz\Result\QuizResultCalculator;
+use App\Domain\Repository\Session\QuestionRepositoryInterface;
 use App\Domain\Repository\SessionRepositoryInterface;
 use App\Domain\Repository\User\SessionQuizResultRepositoryInterface;
 
@@ -36,10 +38,13 @@ class AnswerSessionQuizHandler
 
     /** @var \DateTimeInterface */
     private $dateTime;
+    /** @var QuestionRepositoryInterface */
+    private $questionRepository;
 
     /**
      * @param SessionRepositoryInterface           $sessionRepository
      * @param SessionQuizResultRepositoryInterface $sessionQuizResultRepository
+     * @param QuestionRepositoryInterface          $questionRepository
      * @param QuizResultCalculator                 $quizResultCalculator
      * @param QuizAnswersTransformer               $quizAnswersTransformer
      * @param \DateTimeInterface                   $dateTime
@@ -47,12 +52,14 @@ class AnswerSessionQuizHandler
     public function __construct(
         SessionRepositoryInterface $sessionRepository,
         SessionQuizResultRepositoryInterface $sessionQuizResultRepository,
+        QuestionRepositoryInterface $questionRepository,
         QuizResultCalculator $quizResultCalculator,
         QuizAnswersTransformer $quizAnswersTransformer,
         \DateTimeInterface $dateTime
     ) {
         $this->sessionRepository           = $sessionRepository;
         $this->sessionQuizResultRepository = $sessionQuizResultRepository;
+        $this->questionRepository          = $questionRepository;
         $this->quizResultCalculator        = $quizResultCalculator;
         $this->quizAnswersTransformer      = $quizAnswersTransformer;
         $this->dateTime                    = $dateTime;
@@ -62,6 +69,7 @@ class AnswerSessionQuizHandler
      * @param AnswerSessionQuiz $answerSessionQuiz
      *
      * @return bool
+     * @throws SessionHasNotQuizException
      * @throws SessionNotFoundException
      * @throws SessionNotAccessibleForThisUserException
      * @throws SessionQuizAnswerAlreadyExistsException
@@ -79,6 +87,12 @@ class AnswerSessionQuizHandler
         if (!$answerSessionQuiz->user->hasCourse($session->getCourse())) {
             throw new SessionNotAccessibleForThisUserException(
                 sprintf('The session "%s" not accessible for this user', $answerSessionQuiz->sessionUuid)
+            );
+        }
+
+        if (!$this->questionRepository->sessionHasQuiz($session)) {
+            throw new SessionHasNotQuizException(
+                sprintf('The session "%s" has not quiz', $answerSessionQuiz->sessionUuid)
             );
         }
 
