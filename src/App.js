@@ -27,6 +27,7 @@ import ValidateSessionByCodeScreen from './containers/ValidateSessionByCodeScree
 import networkStatusEventListener from './services/network/networkStatusEventListener';
 import clock from './services/updates/clock';
 import store from './store/store';
+import { reInitContentStates, reinitUpdates } from './actions/actionCreators';
 
 const PRIMARY_COLOR = '#d8497d';
 
@@ -39,6 +40,8 @@ class App extends Component {
   componentWillMount() {
     persistStore(store, {}, () => {
       this.setState({ rehydrated: true });
+      store.dispatch(reinitUpdates());
+      store.dispatch(reInitContentStates());
       networkStatusEventListener();
       clock();
     });
