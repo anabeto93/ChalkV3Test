@@ -11,6 +11,10 @@ export class CourseManager {
     return sessionsItems[sessionUuid];
   }
 
+  static getQuestion(session, questionIndex) {
+    return session.questions[questionIndex];
+  }
+
   static getFoldersFromCourse(foldersItems, courseUuid) {
     let folders = {};
     for (let key in foldersItems) {
@@ -39,12 +43,21 @@ export class CourseManager {
     const currentPosition = session.position;
 
     for (let key in sessionsItems) {
-      if (sessionsItems[key].courseUuid === courseUuid
-        && sessionsItems[key].folderUuid === folderUuid
-        && sessionsItems[key].position === currentPosition + 1
+      if (
+        sessionsItems[key].courseUuid === courseUuid &&
+        sessionsItems[key].folderUuid === folderUuid &&
+        sessionsItems[key].position === currentPosition + 1
       ) {
         return sessionsItems[key];
       }
+    }
+
+    return null;
+  }
+
+  static getNextQuestion(session, questionIndex) {
+    if (questionIndex < session.questions.length - 1) {
+      return session.questions[parseInt(questionIndex, 10) + 1];
     }
 
     return null;
