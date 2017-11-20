@@ -26,7 +26,7 @@ help:
 ###########
 
 ## Install application
-install@prod:
+install@production:
 	yarn install
 
 ##########
@@ -34,6 +34,6 @@ install@prod:
 ##########
 
 ## Build application
-build@prod:
+build@production:
 	yarn build
 	rsync -arzv build/* public/
