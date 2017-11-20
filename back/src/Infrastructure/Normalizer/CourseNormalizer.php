@@ -11,14 +11,13 @@
 namespace App\Infrastructure\Normalizer;
 
 use App\Domain\Model\Course;
+use App\Domain\Model\Folder;
 use App\Domain\Model\Session;
 use App\Domain\Model\User;
 use App\Domain\Repository\User\ProgressionRepositoryInterface;
 
 class CourseNormalizer
 {
-    const DEFAULT_FOLDER = 'default';
-
     /** @var FolderNormalizer */
     private $folderNormalizer;
 
@@ -51,38 +50,30 @@ class CourseNormalizer
      */
     public function normalize(Course $course, User $user): array
     {
-        $sessions = $course->getSessions();
+        $sessions = $course->getEnabledSessions();
 
         $sessionsByFolder = [];
         $foldersNormalized = [];
 
-        $progressions = $this->progressionRepository->findForUserAndCourse($user, $course);
-
-        $progressions = $this->indexBySessionId($progressions);
+        $progressions = $this->indexBySessionId($this->progressionRepository->findForUserAndCourse($user, $course));
 
         /** @var Session $session */
         foreach ($sessions as $session) {
-            if ($session->hasFolder()) {
-                $folder = $session->getFolder();
+            $folderId = Folder::DEFAULT_FOLDER;
+            $folder = $session->getFolder();
 
-                if (!isset($foldersNormalized[$folder->getId()])) {
-                    $foldersNormalized[$folder->getId()] = $this->folderNormalizer->normalize($folder);
-                }
-
-                $sessionsByFolder[$folder->getId()][] = $this->sessionNormalizer->normalize(
-                    $session,
-                    isset($progressions[$session->getId()])
-                );
-            } else {
-                if (!isset($foldersNormalized[self::DEFAULT_FOLDER])) {
-                    $foldersNormalized[self::DEFAULT_FOLDER] = $this->folderNormalizer->normalizeDefaultFolder();
-                }
-
-                $sessionsByFolder[self::DEFAULT_FOLDER][] = $this->sessionNormalizer->normalize(
-                    $session,
-                    isset($progressions[$session->getId()])
-                );
+            if (null !== $folder) {
+                $folderId = $session->getFolder()->getId();
             }
+
+            if (!isset($foldersNormalized[$folderId])) {
+                $foldersNormalized[$folderId] = $this->folderNormalizer->normalize($folder);
+            }
+
+            $sessionsByFolder[$folderId][] = $this->sessionNormalizer->normalize(
+                $session,
+                isset($progressions[$session->getId()])
+            );
         }
 
         foreach ($foldersNormalized as $key => &$folder) {
@@ -106,7 +97,7 @@ class CourseNormalizer
      *
      * @return User\Progression[]
      */
-    private function indexBySessionId(array &$progressions): array
+    private function indexBySessionId(array $progressions): array
     {
         $progressionIndexed = [];
 

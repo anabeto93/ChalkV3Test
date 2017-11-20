@@ -16,6 +16,7 @@ import FolderScreen from './containers/FolderScreen';
 import HomeScreen from './containers/HomeScreen';
 import LoginScreen from './containers/LoginScreen';
 import PrivateRoute from './containers/PrivateRoute';
+import ScrollToTop from './components/Utils/ScrollToTop';
 import SendScreen from './containers/SendScreen';
 import SessionDetailScreen from './containers/SessionDetailScreen';
 import SessionScreen from './containers/SessionScreen';
@@ -61,68 +62,69 @@ class App extends Component {
           })}
         >
           <HashRouter>
-            <div>
-              <Header />
-              <div className="container-layout">
-                <Updates />
-                <div className="content-layout">
-                  <Switch>
-                    <Route exact path={routes.HOME} component={HomeScreen} />
-                    <Route exact path={routes.LOGIN} component={LoginScreen} />
-                    <PrivateRoute
-                      exact
-                      path={routes.COURSES}
-                      component={CourseScreen}
-                    />
-                    <PrivateRoute
-                      exact
-                      path={routes.FOLDER_LIST}
-                      component={FolderScreen}
-                    />
-                    <PrivateRoute
-                      exact
-                      path={routes.SESSION_LIST}
-                      component={SessionScreen}
-                    />
-                    <PrivateRoute
-                      exact
-                      path={routes.SESSION_LIST_WITHOUT_FOLDER}
-                      component={SessionScreen}
-                    />
-                    <PrivateRoute
-                      exact
-                      path={routes.SESSION_DETAIL}
-                      component={SessionDetailScreen}
-                    />
-                    <PrivateRoute
-                      exact
-                      path={routes.SESSION_SEND}
-                      component={SendScreen}
-                    />
-                    <PrivateRoute
-                      exact
-                      path={routes.SESSION_SEND_SMS}
-                      component={SendSMSScreen}
-                    />
-					<PrivateRoute
-                      exact
-                      path={routes.QUESTION_DETAIL}
-                      component={QuestionDetailScreen}
-                    />
-                    <PrivateRoute
-                      path={routes.ACCOUNT}
-                      component={AccountScreen}
-                    />
-                    <PrivateRoute
-                      exact
-                      path={routes.SESSION_VALIDATE_SMS}
-                      component={ValidateSessionByCodeScreen}
-                    />
-                    <Route component={NotFound} />
-                  </Switch>
+            <ScrollToTop>
+              <div>
+                <Header />
+                <div className="container-layout">
+                  <Updates />
+                  <div className="content-layout">
+                    <Switch>
+                      <Route exact path={routes.HOME} component={HomeScreen} />
+                      <Route
+                        exact
+                        path={routes.LOGIN}
+                        component={LoginScreen}
+                      />
+                      <PrivateRoute
+                        exact
+                        path={routes.COURSES}
+                        component={CourseScreen}
+                      />
+                      <PrivateRoute
+                        exact
+                        path={routes.FOLDER_LIST}
+                        component={FolderScreen}
+                      />
+                      <PrivateRoute
+                        exact
+                        path={routes.SESSION_LIST}
+                        component={SessionScreen}
+                      />
+                      <PrivateRoute
+                        exact
+                        path={routes.SESSION_LIST_WITHOUT_FOLDER}
+                        component={SessionScreen}
+                      />
+                      <PrivateRoute
+                        exact
+                        path={routes.SESSION_DETAIL}
+                        component={SessionDetailScreen}
+                      />
+                      <PrivateRoute
+                        exact
+                        path={routes.SESSION_SEND}
+                        component={SendScreen}
+                      />
+                      <PrivateRoute
+                        exact
+                        path={routes.SESSION_SEND_SMS}
+                        component={SendSMSScreen}
+                      />
+                      <PrivateRoute
+                        path={routes.ACCOUNT}
+                        component={AccountScreen}
+                      />
+                      <PrivateRoute
+                        exact
+                        path={routes.SESSION_VALIDATE_SMS}
+                        component={ValidateSessionByCodeScreen}
+                      />
+                      <Route component={NotFound} />
+                    </Switch>
+                  </div>
                 </div>
               </div>
-            </div>
+            </ScrollToTop>
           </HashRouter>
         </MuiThemeProvider>
       </Provider>

@@ -65,6 +65,7 @@ class SessionListQueryHandler
                 $session->getRank(),
                 $session->hasFolder() ? $session->getFolder()->getTitle() : null,
                 $session->needValidation(),
+                $session->isEnabled(),
                 $progression,
                 $numberOfStudentAssignToCourse
             );

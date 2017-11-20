@@ -27,3 +27,6 @@ Session:
             files:
                 type: "[SessionFile]"
                 description: "Images of the session"
+            questions:
+                type: "[Question]"
+                description: "Question of the quiz"

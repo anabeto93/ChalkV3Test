@@ -30,6 +30,8 @@ install:
 	composer install --verbose
 	bin/console doctrine:database:create --if-not-exists
 	yarn install
+	# Doctrine migrations
+	bin/console doctrine:migrations:migrate --no-interaction
 
 install@test: export SYMFONY_ENV = test
 install@test:
@@ -48,15 +50,19 @@ install@staging:
 	yarn install
 	# Symfony cache
 	bin/console cache:warmup --no-debug
+	# Doctrine migrations
+	bin/console doctrine:migrations:migrate --no-interaction
 
-install@prod: export SYMFONY_ENV = prod
-install@prod:
+install@production: export SYMFONY_ENV = prod
+install@production:
 	# Composer
 	composer install --verbose --no-progress --no-interaction --prefer-dist --optimize-autoloader --no-dev
 	# Yarn
 	yarn install
 	# Symfony cache
 	bin/console cache:warmup --no-debug
+	# Doctrine migrations
+	bin/console doctrine:migrations:migrate --no-interaction
 
 ##########
 # Build #
@@ -68,7 +74,7 @@ watch:
 	./node_modules/.bin/encore dev --watch
 build@staging:
 	./node_modules/.bin/encore dev
-build@prod:
+build@production:
 	./node_modules/.bin/encore production
 
 ##########

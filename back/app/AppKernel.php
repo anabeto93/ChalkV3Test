@@ -1,7 +1,7 @@
 <?php
 
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
 {
@@ -29,6 +29,12 @@ class AppKernel extends Kernel
             new Elao\Bundle\FormBundle\ElaoFormBundle(),
             new Elao\Bundle\FormTranslationBundle\ElaoFormTranslationBundle(),
             new Elao\Bundle\Theme\TwitterBootstrap3Bundle\ElaoThemeTwitterBootstrap3Bundle(),
+
+            // Sentry
+            new Sentry\SentryBundle\SentryBundle(),
+
+            // Doctrine
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 
             // App
             new App\Infrastructure\InfrastructureBundle\InfrastructureBundle(),

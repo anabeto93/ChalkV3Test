@@ -1,0 +1,25 @@
+App\Domain\Model\Session\Question:
+    type: entity
+    table: session_question
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        title:
+            type: text
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+    manyToOne:
+        session:
+            targetEntity: App\Domain\Model\Session
+            joinColumn:
+                onDelete: CASCADE
+                nullable: false
+    oneToMany:
+        answers:
+            targetEntity: App\Domain\Model\Session\Answer
+            mappedBy: question

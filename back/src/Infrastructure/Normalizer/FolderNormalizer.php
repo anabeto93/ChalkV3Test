@@ -30,8 +30,12 @@ class FolderNormalizer
      *
      * @return array
      */
-    public function normalize(Folder $folder): array
+    public function normalize(?Folder $folder = null): array
     {
+        if (null === $folder) {
+            return $this->normalizeDefaultFolder();
+        }
+
         return [
             'uuid' => $folder->getUuid(),
             'title' => $folder->getTitle(),
@@ -42,11 +46,11 @@ class FolderNormalizer
     /**
      * @return array
      */
-    public function normalizeDefaultFolder(): array
+    private function normalizeDefaultFolder(): array
     {
         return [
-            'uuid' => 'default',
-            'title' => 'default',
+            'uuid' => Folder::DEFAULT_FOLDER,
+            'title' => Folder::DEFAULT_FOLDER,
             'updatedAt' => $this->dateTime,
         ];
     }

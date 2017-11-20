@@ -13,3 +13,9 @@ services:
 
     App\Infrastructure\Normalizer\UserNormalizer:
         autowire: true
+
+    App\Infrastructure\Normalizer\Session\QuestionNormalizer:
+        autowire: true
+
+    App\Infrastructure\Normalizer\Session\AnswerNormalizer:
+        autowire: true
