@@ -16,6 +16,8 @@ Encore
     .autoProvidejQuery()
     // allow legacy applications to use $/jQuery as a global variable
     .enableSourceMaps(!Encore.isProduction())
+    // add hash to the build files
+    .enableVersioning()
 ;
 
 // export the final configuration
