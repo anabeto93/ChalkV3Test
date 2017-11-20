@@ -21,5 +21,7 @@ answerSessionQuizInput:
         fields:
             uuid:
                 type: "String!"
+                description: "Uuid of the session concerned by the quiz"
             answers:
                 type: "String!"
+                description: "Questions answers separated by a semicolon Answers separated by a comma. Example: 0;0,2;4"
