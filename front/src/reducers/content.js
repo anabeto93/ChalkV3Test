@@ -10,7 +10,8 @@ import {
   REINIT_CONTENT_STATES,
   REQUEST_COURSES_INFORMATIONS,
   REQUEST_VALIDATE_SESSION_INTERNET,
-  SPOOL_TERMINATED
+  SPOOL_TERMINATED,
+  SET_USER_ANSWER
 } from '../actions/actionCreators';
 import receiveCourseInformationHandler from './handler/receiveCourseInformationHandler';
 
@@ -182,6 +183,31 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
         isSessionValidating: false,
         isSessionFailValidating: false,
         isSessionValidated: false
+      };
+    }
+
+    case SET_USER_ANSWER: {
+      const userAnsweredQuestion = {
+        ...state.sessions[action.payload.sessionUuid].questions[
+          action.payload.questionIndex
+        ],
+        userAnswer: action.payload.answerIndex
+      };
+
+      const currentQuestions = {
+        ...state.sessions[action.payload.sessionUuid].questions
+      };
+      currentQuestions[action.payload.questionIndex] = userAnsweredQuestion;
+
+      const currentSession = { ...state.sessions[action.payload.sessionUuid] };
+      currentSession[action.payload.sessionUuid].questions = currentQuestions;
+
+      const currentSessions = { ...state.sessions };
+      currentSessions[action.payload.sessionUuid] = currentSession;
+
+      return {
+        ...state,
+        sessions: { ...currentSessions }
       };
     }
 
