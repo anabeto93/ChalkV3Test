@@ -191,14 +191,25 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
       let userAnsweredQuestion;
 
       if (state.sessions[sessionUuid].questions[questionIndex].isMultiple) {
-        userAnsweredQuestion = {
-          ...state.sessions[sessionUuid].questions[questionIndex],
-          userAnswer: answerIndex
-        };
+        if (!state.sessions[sessionUuid].questions[questionIndex].userAnswer) {
+          userAnsweredQuestion = {
+            ...state.sessions[sessionUuid].questions[questionIndex],
+            userAnswer: [answerIndex]
+          };
+        } else {
+          userAnsweredQuestion = {
+            ...state.sessions[sessionUuid].questions[questionIndex],
+            userAnswer: [
+              ...state.sessions[sessionUuid].questions[questionIndex]
+                .userAnswer,
+              answerIndex
+            ]
+          };
+        }
       } else {
         userAnsweredQuestion = {
           ...state.sessions[sessionUuid].questions[questionIndex],
-          userAnswer: answerIndex
+          userAnswer: [answerIndex]
         };
       }
 

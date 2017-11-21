@@ -30,6 +30,15 @@ class QuestionDetailScreen extends Component {
   handleCheckChange = answer => {
     //Do something with multiple answers
     console.log(answer);
+
+    const { sessionUuid, questionIndex } = this.props;
+    store.dispatch(
+      setUserAnswer({
+        sessionUuid,
+        questionIndex,
+        answerIndex: parseInt(answer, 10)
+      })
+    );
   };
 
   handleNext = () => {
