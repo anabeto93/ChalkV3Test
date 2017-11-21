@@ -202,9 +202,7 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
         };
       }
 
-      const currentQuestions = {
-        ...state.sessions[sessionUuid].questions
-      };
+      const currentQuestions = [...state.sessions[sessionUuid].questions];
       currentQuestions[questionIndex] = userAnsweredQuestion;
 
       const currentSession = { ...state.sessions[sessionUuid] };
