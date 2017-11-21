@@ -265,3 +265,13 @@ export function getSessionContent(sessionUuid) {
       });
   };
 }
+
+// QUIZ
+export const SET_USER_ANSWER = '@@CHALKBOARDEDUCATION/SET_USER_ANSWER';
+
+export function setUserAnswer({ sessionUuid, questionIndex, answerIndex }) {
+  return {
+    type: SET_USER_ANSWER,
+    payload: { sessionUuid, questionIndex, answerIndex }
+  };
+}
