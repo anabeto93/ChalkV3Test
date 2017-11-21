@@ -196,6 +196,21 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
             ...state.sessions[sessionUuid].questions[questionIndex],
             userAnswer: [answerIndex]
           };
+        } else if (
+          state.sessions[sessionUuid].questions[
+            questionIndex
+          ].userAnswer.indexOf(answerIndex) > -1
+        ) {
+          userAnsweredQuestion = {
+            ...state.sessions[sessionUuid].questions[questionIndex],
+            userAnswer: [
+              ...state.sessions[sessionUuid].questions[
+                questionIndex
+              ].userAnswer.filter(answer => {
+                return answer !== answerIndex;
+              })
+            ]
+          };
         } else {
           userAnsweredQuestion = {
             ...state.sessions[sessionUuid].questions[questionIndex],
