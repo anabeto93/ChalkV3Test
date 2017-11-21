@@ -187,23 +187,31 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
     }
 
     case SET_USER_ANSWER: {
-      const userAnsweredQuestion = {
-        ...state.sessions[action.payload.sessionUuid].questions[
-          action.payload.questionIndex
-        ],
-        userAnswer: action.payload.answerIndex
-      };
+      const { sessionUuid, questionIndex, answerIndex } = action.payload;
+      let userAnsweredQuestion;
+
+      if (state.sessions[sessionUuid].questions[questionIndex].isMultiple) {
+        userAnsweredQuestion = {
+          ...state.sessions[sessionUuid].questions[questionIndex],
+          userAnswer: answerIndex
+        };
+      } else {
+        userAnsweredQuestion = {
+          ...state.sessions[sessionUuid].questions[questionIndex],
+          userAnswer: answerIndex
+        };
+      }
 
       const currentQuestions = {
-        ...state.sessions[action.payload.sessionUuid].questions
+        ...state.sessions[sessionUuid].questions
       };
-      currentQuestions[action.payload.questionIndex] = userAnsweredQuestion;
+      currentQuestions[questionIndex] = userAnsweredQuestion;
 
-      const currentSession = { ...state.sessions[action.payload.sessionUuid] };
-      currentSession[action.payload.sessionUuid].questions = currentQuestions;
+      const currentSession = { ...state.sessions[sessionUuid] };
+      currentSession.questions = currentQuestions;
 
       const currentSessions = { ...state.sessions };
-      currentSessions[action.payload.sessionUuid] = currentSession;
+      currentSessions[sessionUuid] = currentSession;
 
       return {
         ...state,

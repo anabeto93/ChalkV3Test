@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import I18n from 'i18n-js';
+
 import { QUESTION_DETAIL, SESSION_LIST, SESSION_SEND } from '../config/routes';
 import CourseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
+import { setUserAnswer } from '../actions/actionCreators';
+import store from '../store/store';
 import { RaisedButton } from 'material-ui';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import QuestionAnswers from './../components/Quiz/QuestionAnswers';
@@ -13,6 +16,15 @@ class QuestionDetailScreen extends Component {
   handleRadioChange = answer => {
     //Do something with the answer
     console.log(answer);
+
+    const { sessionUuid, questionIndex } = this.props;
+    store.dispatch(
+      setUserAnswer({
+        sessionUuid,
+        questionIndex,
+        answerIndex: parseInt(answer, 10)
+      })
+    );
   };
 
   handleCheckChange = answer => {
@@ -88,7 +100,7 @@ class QuestionDetailScreen extends Component {
 
 function mapStateToProps(state, props) {
   const sessionUuid = props.match.params.sessionUuid;
-  const questionIndex = props.match.params.questionIndex;
+  const questionIndex = parseInt(props.match.params.questionIndex, 10);
 
   if (sessionUuid === undefined) {
     return {};
