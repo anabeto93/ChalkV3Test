@@ -18,7 +18,7 @@ const QuestionAnswers = props => {
               key={index}
               label={answer.title}
               onCheck={() => {
-                props.handleCheckChange(key);
+                props.handleAnswerChange(key);
               }}
               style={optionStyle}
             />
@@ -32,7 +32,7 @@ const QuestionAnswers = props => {
     <RadioButtonGroup
       name={question.title}
       onChange={(e, value) => {
-        props.handleRadioChange(value);
+        props.handleAnswerChange(value);
       }}
     >
       {Object.keys(question.answers).map((key, index) => {
