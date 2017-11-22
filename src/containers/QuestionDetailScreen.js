@@ -6,7 +6,7 @@ import I18n from 'i18n-js';
 import { QUESTION_DETAIL, SESSION_LIST, SESSION_SEND } from '../config/routes';
 import CourseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
-import { setUserAnswer } from '../actions/actionCreators';
+import { setUserAnswers } from '../actions/actionCreators';
 import store from '../store/store';
 import { RaisedButton } from 'material-ui';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
@@ -16,7 +16,7 @@ class QuestionDetailScreen extends Component {
   handleAnswerChange = answer => {
     const { sessionUuid, questionIndex } = this.props;
     store.dispatch(
-      setUserAnswer({
+      setUserAnswers({
         sessionUuid,
         questionIndex,
         answerIndex: parseInt(answer, 10)

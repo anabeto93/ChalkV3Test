@@ -267,11 +267,11 @@ export function getSessionContent(sessionUuid) {
 }
 
 // QUIZ
-export const SET_USER_ANSWER = '@@CHALKBOARDEDUCATION/SET_USER_ANSWER';
+export const SET_USER_ANSWERS = '@@CHALKBOARDEDUCATION/SET_USER_ANSWERS';
 
-export function setUserAnswer({ sessionUuid, questionIndex, answerIndex }) {
+export function setUserAnswers({ sessionUuid, questionIndex, answerIndex }) {
   return {
-    type: SET_USER_ANSWER,
+    type: SET_USER_ANSWERS,
     payload: { sessionUuid, questionIndex, answerIndex }
   };
 }
