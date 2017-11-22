@@ -13,24 +13,7 @@ import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import QuestionAnswers from './../components/Quiz/QuestionAnswers';
 
 class QuestionDetailScreen extends Component {
-  handleRadioChange = answer => {
-    //Do something with the answer
-    console.log(answer);
-
-    const { sessionUuid, questionIndex } = this.props;
-    store.dispatch(
-      setUserAnswer({
-        sessionUuid,
-        questionIndex,
-        answerIndex: parseInt(answer, 10)
-      })
-    );
-  };
-
-  handleCheckChange = answer => {
-    //Do something with multiple answers
-    console.log(answer);
-
+  handleAnswerChange = answer => {
     const { sessionUuid, questionIndex } = this.props;
     store.dispatch(
       setUserAnswer({
@@ -76,8 +59,7 @@ class QuestionDetailScreen extends Component {
 
             <QuestionAnswers
               question={question}
-              handleRadioChange={this.handleRadioChange}
-              handleCheckChange={this.handleCheckChange}
+              handleAnswerChange={this.handleAnswerChange}
             />
           </div>
 
