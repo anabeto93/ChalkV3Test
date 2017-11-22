@@ -11,7 +11,7 @@ import {
   REQUEST_COURSES_INFORMATIONS,
   REQUEST_VALIDATE_SESSION_INTERNET,
   SPOOL_TERMINATED,
-  SET_USER_ANSWER
+  SET_USER_ANSWERS
 } from '../actions/actionCreators';
 import receiveCourseInformationHandler from './handler/receiveCourseInformationHandler';
 
@@ -186,27 +186,27 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
       };
     }
 
-    case SET_USER_ANSWER: {
+    case SET_USER_ANSWERS: {
       const { sessionUuid, questionIndex, answerIndex } = action.payload;
       let userAnsweredQuestion;
 
       if (state.sessions[sessionUuid].questions[questionIndex].isMultiple) {
-        if (!state.sessions[sessionUuid].questions[questionIndex].userAnswer) {
+        if (!state.sessions[sessionUuid].questions[questionIndex].userAnswers) {
           userAnsweredQuestion = {
             ...state.sessions[sessionUuid].questions[questionIndex],
-            userAnswer: [answerIndex]
+            userAnswers: [answerIndex]
           };
         } else if (
           state.sessions[sessionUuid].questions[
             questionIndex
-          ].userAnswer.indexOf(answerIndex) > -1
+          ].userAnswers.indexOf(answerIndex) > -1
         ) {
           userAnsweredQuestion = {
             ...state.sessions[sessionUuid].questions[questionIndex],
-            userAnswer: [
+            userAnswers: [
               ...state.sessions[sessionUuid].questions[
                 questionIndex
-              ].userAnswer.filter(answer => {
+              ].userAnswers.filter(answer => {
                 return answer !== answerIndex;
               })
             ]
@@ -214,9 +214,9 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
         } else {
           userAnsweredQuestion = {
             ...state.sessions[sessionUuid].questions[questionIndex],
-            userAnswer: [
+            userAnswers: [
               ...state.sessions[sessionUuid].questions[questionIndex]
-                .userAnswer,
+                .userAnswers,
               answerIndex
             ]
           };
@@ -224,7 +224,7 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
       } else {
         userAnsweredQuestion = {
           ...state.sessions[sessionUuid].questions[questionIndex],
-          userAnswer: [answerIndex]
+          userAnswers: [answerIndex]
         };
       }
 
