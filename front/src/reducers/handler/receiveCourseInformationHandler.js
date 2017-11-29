@@ -51,7 +51,7 @@ export default function receiveCourseInformationHandler(state, action) {
           ...session,
           content: previousSessionContent,
           courseUuid: course.uuid,
-          questions: NEW_QUESTIONS_MOCK, // will be removed later
+          // questions: NEW_QUESTIONS_MOCK, // will be removed later
           folderUuid,
           position
         };
