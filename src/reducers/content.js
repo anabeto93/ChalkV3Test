@@ -191,44 +191,35 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
 
       const currentQuestion =
         state.sessions[sessionUuid].questions[questionIndex];
-      let userAnsweredQuestion;
+      let userAnsweredQuestion = {
+        ...state.sessions[sessionUuid].questions[questionIndex],
+        userAnswers: [answerIndex]
+      };
 
-      switch (currentQuestion.isMultiple) {
-        case true:
-          if (currentQuestion.userAnswers === undefined) {
-            userAnsweredQuestion = {
-              ...state.sessions[sessionUuid].questions[questionIndex],
-              userAnswers: [answerIndex]
-            };
-          } else if (currentQuestion.userAnswers.indexOf(answerIndex) > -1) {
-            userAnsweredQuestion = {
-              ...state.sessions[sessionUuid].questions[questionIndex],
-              userAnswers: [
-                ...state.sessions[sessionUuid].questions[
-                  questionIndex
-                ].userAnswers.filter(answer => {
-                  return answer !== answerIndex;
-                })
-              ]
-            };
-          } else {
-            userAnsweredQuestion = {
-              ...state.sessions[sessionUuid].questions[questionIndex],
-              userAnswers: [
-                ...state.sessions[sessionUuid].questions[questionIndex]
-                  .userAnswers,
-                answerIndex
-              ]
-            };
-          }
-          break;
-
-        default:
-          userAnsweredQuestion = {
-            ...state.sessions[sessionUuid].questions[questionIndex],
-            userAnswers: [answerIndex]
-          };
-          break;
+      if (
+        currentQuestion.isMultiple &&
+        currentQuestion.userAnswers !== undefined
+      ) {
+        userAnsweredQuestion =
+          currentQuestion.userAnswers.indexOf(answerIndex) > -1
+            ? {
+                ...state.sessions[sessionUuid].questions[questionIndex],
+                userAnswers: [
+                  ...state.sessions[sessionUuid].questions[
+                    questionIndex
+                  ].userAnswers.filter(answer => {
+                    return answer !== answerIndex;
+                  })
+                ]
+              }
+            : {
+                ...state.sessions[sessionUuid].questions[questionIndex],
+                userAnswers: [
+                  ...state.sessions[sessionUuid].questions[questionIndex]
+                    .userAnswers,
+                  answerIndex
+                ]
+              };
       }
 
       const currentQuestions = [...state.sessions[sessionUuid].questions];
