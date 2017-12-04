@@ -200,26 +200,20 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
         currentQuestion.isMultiple &&
         currentQuestion.userAnswers !== undefined
       ) {
-        userAnsweredQuestion =
+        userAnsweredQuestion.userAnswers =
           currentQuestion.userAnswers.indexOf(answerIndex) > -1
-            ? {
-                ...state.sessions[sessionUuid].questions[questionIndex],
-                userAnswers: [
-                  ...state.sessions[sessionUuid].questions[
-                    questionIndex
-                  ].userAnswers.filter(answer => {
-                    return answer !== answerIndex;
-                  })
-                ]
-              }
-            : {
-                ...state.sessions[sessionUuid].questions[questionIndex],
-                userAnswers: [
-                  ...state.sessions[sessionUuid].questions[questionIndex]
-                    .userAnswers,
-                  answerIndex
-                ]
-              };
+            ? [
+                ...state.sessions[sessionUuid].questions[
+                  questionIndex
+                ].userAnswers.filter(answer => {
+                  return answer !== answerIndex;
+                })
+              ]
+            : [
+                ...state.sessions[sessionUuid].questions[questionIndex]
+                  .userAnswers,
+                answerIndex
+              ];
       }
 
       const currentQuestions = [...state.sessions[sessionUuid].questions];
