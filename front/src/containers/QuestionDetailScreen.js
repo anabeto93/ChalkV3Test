@@ -13,13 +13,13 @@ import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import QuestionAnswers from './../components/Quiz/QuestionAnswers';
 
 class QuestionDetailScreen extends Component {
-  handleAnswerChange = answer => {
+  handleAnswerChange = answerIndex => {
     const { sessionUuid, questionIndex } = this.props;
     store.dispatch(
       setUserAnswers({
         sessionUuid,
         questionIndex,
-        answerIndex: parseInt(answer, 10)
+        answerIndex: answerIndex
       })
     );
   };
