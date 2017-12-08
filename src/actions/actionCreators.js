@@ -3,6 +3,7 @@ import GraphqlClient from '../graphql/client/GraphqlClient';
 import HasUpdatesQuery from '../graphql/query/HasUpdatesQuery';
 import SessionContentQuery from '../graphql/query/SessionContentQuery';
 import validateSessionMutation from '../graphql/query/mutations/validateSessionMutation';
+import answerSessionQuizMutation from '../graphql/query/mutations/answerSessionQuizMutation';
 import UserQuery from '../graphql/query/UserQuery';
 
 // NETWORK STATUS
@@ -273,5 +274,29 @@ export function setUserAnswers({ sessionUuid, questionIndex, answerIndex }) {
   return {
     type: SET_USER_ANSWERS,
     payload: { sessionUuid, questionIndex, answerIndex }
+  };
+}
+
+export function answerSessionQuiz({ sessionUuid, answers }) {
+  return dispatch => {
+    dispatch(requestValidateSessionInternet(sessionUuid));
+
+    GraphqlClient.mutate({
+      mutation: answerSessionQuizMutation,
+      variables: {
+        answerSessionQuizInput: {
+          uuid: sessionUuid,
+          answers: answers
+        }
+      }
+    })
+      .then(data => {
+        dispatch(
+          receiveValidateSessionInternet({ sessionUuid, response: data })
+        );
+      })
+      .catch(() => {
+        dispatch(failValidateSessionInternet());
+      });
   };
 }
