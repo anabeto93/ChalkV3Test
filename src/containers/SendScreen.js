@@ -8,6 +8,7 @@ import Error from '../components/Error';
 import ValidatedSession from '../components/ValidatedSession';
 import CourseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
+import stringifyUserAnswers from '../services/quiz/stringifyUserAnswers';
 import { SESSION_SEND_SMS } from '../config/routes';
 import store from '../store/store';
 
@@ -39,13 +40,12 @@ class SendScreen extends Component {
     const { session } = this.props;
 
     if (session.questions) {
-      const answers = session.questions
-        .map((key, index) => {
-          return session.questions[index].userAnswers.join();
+      store.dispatch(
+        answerSessionQuiz({
+          sessionUuid: session.uuid,
+          answers: stringifyUserAnswers(session.questions)
         })
-        .join(';');
-
-      store.dispatch(answerSessionQuiz({ sessionUuid: session.uuid, answers }));
+      );
     } else {
       store.dispatch(validateSession(session.uuid));
     }
