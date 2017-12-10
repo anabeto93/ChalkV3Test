@@ -52,14 +52,16 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
       const {
         uuid: sessionUuid,
         contentUpdatedAt: sessionContentUpdatedAt,
-        content: sessionContent
+        content: sessionContent,
+        questions: sessionQuestions
       } = action.payload.sessionContent;
 
       // Set loaded session content
       const loadedSession = {
         ...state.sessions[sessionUuid],
         content: sessionContent,
-        contentUpdatedAt: sessionContentUpdatedAt
+        contentUpdatedAt: sessionContentUpdatedAt,
+        questions: sessionQuestions
       };
       const currentSessions = { ...state.sessions };
       currentSessions[sessionUuid] = loadedSession;

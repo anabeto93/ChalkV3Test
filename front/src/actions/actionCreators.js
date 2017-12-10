@@ -257,7 +257,8 @@ export function getSessionContent(sessionUuid) {
           receiveSessionContent({
             uuid: sessionUuid,
             content: response.data.session.content,
-            contentUpdatedAt: response.data.session.contentUpdatedAt
+            contentUpdatedAt: response.data.session.contentUpdatedAt,
+            questions: response.data.session.questions
           })
         );
       })
