@@ -39,7 +39,7 @@ class SendScreen extends Component {
 
     const { session } = this.props;
 
-    if (session.questions) {
+    if (session && session.questions) {
       store.dispatch(
         answerSessionQuiz({
           sessionUuid: session.uuid,
