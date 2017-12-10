@@ -5,7 +5,12 @@ export default gql`
     session(uuid: $uuid) {
       content
       contentUpdatedAt
-      questions
+      questions {
+        title
+        answers {
+          title
+        }
+      }
     }
   }
 `;
