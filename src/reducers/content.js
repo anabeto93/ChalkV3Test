@@ -61,7 +61,7 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
         ...state.sessions[sessionUuid],
         content: sessionContent,
         contentUpdatedAt: sessionContentUpdatedAt,
-        questions: sessionQuestions
+        questions: sessionQuestions.length > 0 ? sessionQuestions : null
       };
       const currentSessions = { ...state.sessions };
       currentSessions[sessionUuid] = loadedSession;
