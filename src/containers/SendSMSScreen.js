@@ -58,7 +58,7 @@ class SendSMSScreen extends Component {
     );
 
     if (sessionQuestions) {
-      validationCode += '-' + stringifyUserAnswers(sessionQuestions);
+      validationCode += ' ' + stringifyUserAnswers(sessionQuestions);
     }
 
     new Clipboard('#phone-number');
