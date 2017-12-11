@@ -7,6 +7,7 @@ export default gql`
       contentUpdatedAt
       questions {
         title
+        isMultiple
         answers {
           title
         }
