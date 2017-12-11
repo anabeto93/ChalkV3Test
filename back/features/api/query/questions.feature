@@ -12,6 +12,11 @@ Feature: Question api
     And there is a correct answer with the title "Reykjavik" for this question
     And there is an incorrect answer with the title "Accra" for this question
     And there is an incorrect answer with the title "Berlin" for this question
+    And there is a question with the title "What movies are Disney movies?" for this session
+    And there is an incorrect answer with the title "Chihiro" for this question
+    And there is a correct answer with the title "Frozen" for this question
+    And there is an incorrect answer with the title "My Neighbor Totoro" for this question
+    And there is a correct answer with the title "Mulan" for this question
     And there is following users
       | uuid       | firstName | lastName | phoneNumber    | locale  |
       | "123-user" | "jean"    | "paul"   | "+33123213123" | "en"    |
@@ -22,7 +27,7 @@ Feature: Question api
     When I send a POST request to "/api/graphql/" with body:
       """
       {
-        "query":"query test($sessionUuid: String!) {session(uuid: $sessionUuid) {title, questions { title, answers { title }} }}",
+        "query":"query test($sessionUuid: String!) {session(uuid: $sessionUuid) {title, questions { title, isMultiple, answers { title }} }}",
         "variables":{"sessionUuid":"1231-123-123"}
       }
       """
@@ -35,6 +40,7 @@ Feature: Question api
                     "title": "Session title",
                     "questions": [{
                             "title": "What is the color of Henri IV white horse?",
+                            "isMultiple": false,
                             "answers": [{
                                     "title": "white"
                                 },
@@ -48,6 +54,7 @@ Feature: Question api
                         },
                         {
                             "title": "What is the capital city of Iceland?",
+                            "isMultiple": false,
                             "answers": [{
                                     "title": "Paris"
                                 },
@@ -59,6 +66,23 @@ Feature: Question api
                                 },
                                 {
                                     "title": "Berlin"
+                                }
+                            ]
+                        },
+                        {
+                            "title": "What movies are Disney movies?",
+                            "isMultiple": true,
+                            "answers": [{
+                                    "title": "Chihiro"
+                                },
+                                {
+                                    "title": "Frozen"
+                                },
+                                {
+                                    "title": "My Neighbor Totoro"
+                                },
+                                {
+                                    "title": "Mulan"
                                 }
                             ]
                         }

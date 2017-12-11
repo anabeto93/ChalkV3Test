@@ -102,4 +102,20 @@ class Question
     {
         $this->answers->add($answer);
     }
+
+    /**
+     * @return bool
+     */
+    public function isMultiple(): bool
+    {
+        $correctAnswersCount = 0;
+
+        foreach ($this->getAnswers() as $answer) {
+            if ($answer->isCorrect()) {
+                $correctAnswersCount++;
+            }
+        }
+
+        return $correctAnswersCount > 1;
+    }
 }
