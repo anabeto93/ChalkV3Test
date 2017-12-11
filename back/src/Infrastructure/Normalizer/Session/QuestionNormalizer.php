@@ -35,6 +35,7 @@ class QuestionNormalizer
     {
         return [
             'title' => $question->getTitle(),
+            'isMultiple' => $question->isMultiple(),
             'answers' => array_map(function (Answer $answer) {
                 return $this->answerNormalizer->normalize($answer);
             }, $question->getAnswers()),

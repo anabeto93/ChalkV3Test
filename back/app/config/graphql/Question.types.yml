@@ -6,6 +6,9 @@ Question:
             title:
                 type: "String!"
                 description: "The title of the question"
+            isMultiple:
+                type: "Boolean!"
+                description: "Is a multiple choice question"
             answers:
                 type: "[Answer]"
                 description: "Possible answer for the question"

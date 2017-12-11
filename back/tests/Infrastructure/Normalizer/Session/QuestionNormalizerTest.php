@@ -26,6 +26,7 @@ class QuestionNormalizerTest extends TestCase
 
         $question->getTitle()->willReturn('question title');
         $question->getAnswers()->willReturn([$answer1->reveal(), $answer2->reveal()]);
+        $question->isMultiple()->willReturn(false);
 
         $answerNormalizer = $this->prophesize(AnswerNormalizer::class);
         $answerNormalizer->normalize($answer1->reveal())->shouldBeCalled()->willReturn(['title' => 'title1']);
@@ -36,6 +37,7 @@ class QuestionNormalizerTest extends TestCase
 
         $expected = [
             'title' => 'question title',
+            'isMultiple' => false,
             'answers' => [
                 ['title' => 'title1'],
                 ['title' => 'title2'],
