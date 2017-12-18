@@ -26,13 +26,13 @@ class FileNormalizerTest extends TestCase
         $file = new File($session->reveal(), '/path/to/file.jpg', 12345, $dateTime);
         // Mock
         $urlGenerator = $this->prophesize(UrlGenerator::class);
-        $urlGenerator->getBaseUrl()->shouldBeCalled()->willReturn('https://api.chalkboardeducation.dev');
+        $urlGenerator->getBaseUrl()->shouldBeCalled()->willReturn('https://api.chalkboardeducation.vm');
 
         $fileNormalizer = new FileNormalizer($urlGenerator->reveal());
         $result = $fileNormalizer->normalize($file);
 
         $expected = [
-            'url' => 'https://api.chalkboardeducation.dev/path/to/file.jpg',
+            'url' => 'https://api.chalkboardeducation.vm/path/to/file.jpg',
             'size' => 12345,
             'createdAt' => $dateTime,
             'updatedAt' => $dateTime

@@ -34,7 +34,7 @@ class ContentParserTest extends TestCase
 
     public function testParse()
     {
-        $this->urlGenerator->getBaseUrl()->shouldBeCalled()->willReturn('http://api.chalkboardedu.dev');
+        $this->urlGenerator->getBaseUrl()->shouldBeCalled()->willReturn('http://api.chalkboardedu.vm');
         $this->uniqIdGenerator->getRandomUniqId()->shouldBeCalled()->willReturn('random_string');
         $contentParser = new ContentParser($this->urlGenerator->reveal(), $this->uniqIdGenerator->reveal());
         $result = $contentParser->parse(__DIR__ . '/index.html', '/image/location');
@@ -42,17 +42,17 @@ class ContentParserTest extends TestCase
         $expectedContent = '
     <h1>Hello world</h1>
     <div>
-        <img src="http://api.chalkboardedu.dev/image/location/random_string_test.jpg" style="width:100%" />
+        <img src="http://api.chalkboardedu.vm/image/location/random_string_test.jpg" style="width:100%" />
     </div>
     <p>Lorem ipsum</p>
     <sidebar>
-        <img style="width:100%" src="http://api.chalkboardedu.dev/image/location/random_string_sidebar.jpg"/>
+        <img style="width:100%" src="http://api.chalkboardedu.vm/image/location/random_string_sidebar.jpg"/>
     </sidebar>
     <footer>
         <h4>Good bye</h4>
         <div class="footer">
             <div class="footer-bis">
-                <img src="http://api.chalkboardedu.dev/image/location/random_string_footer.jpg"/>
+                <img src="http://api.chalkboardedu.vm/image/location/random_string_footer.jpg"/>
             </div>
         </div>
     </footer>

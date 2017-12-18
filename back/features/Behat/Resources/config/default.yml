@@ -4,7 +4,7 @@ default:
             kernel:
                env: test
         Behat\MinkExtension:
-            base_url:  'http://api.chalkboardeducation.dev/app_test.php'
+            base_url:  'http://api.chalkboardeducation.vm/app_test.php'
             sessions:
                 default:
                     symfony2: ~
@@ -29,5 +29,5 @@ default:
                     - '@Features\Behat\Services\Proxy\AnswerProxy'
                 - Features\Behat\Context\Domain\SessionQuizResultContext:
                     - '@Features\Behat\Services\Proxy\SessionQuizResultProxy'
-                - behatch:json
-                - behatch:rest
+                - behatch:context:json
+                - behatch:context:rest
