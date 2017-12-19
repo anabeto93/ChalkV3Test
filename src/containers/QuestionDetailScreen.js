@@ -49,7 +49,16 @@ class QuestionDetailScreen extends Component {
   render() {
     const { session, question, locale } = this.props;
 
-    if (question !== undefined) {
+    if (session !== undefined && session.validated) {
+      return (
+        <Redirect
+          to={generateUrl(SESSION_LIST, {
+            ':courseUuid': session.courseUuid,
+            ':folderUuid': session.folderUuid
+          })}
+        />
+      );
+    } else if (question !== undefined) {
       return (
         <div>
           <div className="content">
@@ -73,15 +82,6 @@ class QuestionDetailScreen extends Component {
             />
           </footer>
         </div>
-      );
-    } else if (session !== undefined) {
-      return (
-        <Redirect
-          to={generateUrl(SESSION_LIST, {
-            ':courseUuid': session.courseUuid,
-            ':folderUuid': session.folderUuid
-          })}
-        />
       );
     }
 
