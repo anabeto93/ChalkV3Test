@@ -17,7 +17,7 @@ const footer = props => {
   const { courseUuid, session, sessions, history, locale } = props;
 
   const handleNext = () => {
-    if (session.questions) {
+    if (session.questions && !session.validated) {
       return history.push(
         generateUrl(QUESTION_DETAIL, {
           ':courseUuid': courseUuid,
@@ -59,7 +59,9 @@ const footer = props => {
     <footer className="next-session-footer background-grey">
       <RaisedButton
         label={I18n.t(
-          session.questions ? 'session.quizButton' : 'session.nextButton',
+          session.questions && !session.validated
+            ? 'session.quizButton'
+            : 'session.nextButton',
           { locale }
         )}
         labelPosition="before"
