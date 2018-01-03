@@ -44,7 +44,7 @@ Enable/Disable php xdebug
 
         ⇒ elao_php_xdebug [on|off]
 
-* [MailHog](http://api.chalkboardeducation.dev:8025)
-* [RTail](http://api.chalkboardeducation.dev:8888)
-* [OPcache Dashboard](http://api.chalkboardeducation.dev:2013)
-* [PhpMyAdmin](http://api.chalkboardeducation.dev:1979)
+* [MailHog](http://api.chalkboardeducation.vm:8025)
+* [RTail](http://api.chalkboardeducation.vm:8888)
+* [OPcache Dashboard](http://api.chalkboardeducation.vm:2013)
+* [PhpMyAdmin](http://api.chalkboardeducation.vm:1979)

@@ -36,11 +36,11 @@ class UrlGeneratorTest extends TestCase
     public static function provideUrls(): array
     {
         return [
-            ['http', 'api.dev', 'http://api.dev'],
-            ['https', 'api.dev', 'https://api.dev'],
-            ['https', 'api.chalkboardeducation.dev', 'https://api.chalkboardeducation.dev'],
-            ['http', 'api.chalkboardeducation.dev', 'http://api.chalkboardeducation.dev'],
-            ['https', 'api.chalkboard-education.dev', 'https://api.chalkboard-education.dev'],
+            ['http', 'api.vm', 'http://api.vm'],
+            ['https', 'api.vm', 'https://api.vm'],
+            ['https', 'api.chalkboardeducation.vm', 'https://api.chalkboardeducation.vm'],
+            ['http', 'api.chalkboardeducation.vm', 'http://api.chalkboardeducation.vm'],
+            ['https', 'api.chalkboard-education.vm', 'https://api.chalkboard-education.vm'],
             ['https', 'api.chalkboardeducation.org', 'https://api.chalkboardeducation.org'],
         ];
     }
