@@ -4,6 +4,8 @@ import { FlatButton, RaisedButton, TextField } from 'material-ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { UnBlockSession } from '../services/session/UnBlockSession';
+import stringifyUserAnswers from '../services/quiz/stringifyUserAnswers';
+import CourseManager from '../services/CourseManager';
 import getConfig from '../config/index';
 
 const DEFAULT_STATE = {
@@ -48,12 +50,16 @@ class SendSMSScreen extends Component {
   }
 
   componentDidMount() {
-    const { sessionUuid, userUuid } = this.props;
-    const validationCode = UnBlockSession.getUnlockCodeForSession(
+    const { sessionUuid, userUuid, sessionQuestions } = this.props;
+    let validationCode = UnBlockSession.getUnlockCodeForSession(
       userUuid,
       sessionUuid,
       getConfig().appPrivateKey
     );
+
+    if (sessionQuestions) {
+      validationCode += ' ' + stringifyUserAnswers(sessionQuestions);
+    }
 
     new Clipboard('#phone-number');
     new Clipboard('#validation-code');
@@ -115,7 +121,14 @@ const mapStateToProps = (state, props) => {
   const { match: { params: { sessionUuid } } } = props;
   const { currentUser: { uuid } } = state;
 
-  return { locale, sessionUuid, userUuid: uuid };
+  const session = CourseManager.getSession(state.content.sessions, sessionUuid);
+  let sessionQuestions;
+
+  if (session !== undefined) {
+    sessionQuestions = session.questions;
+  }
+
+  return { locale, sessionUuid, userUuid: uuid, sessionQuestions };
 };
 
 export default connect(mapStateToProps)(SendSMSScreen);

@@ -57,7 +57,7 @@ export class CourseManager {
 
   static getNextQuestion(session, questionIndex) {
     if (questionIndex < session.questions.length - 1) {
-      return session.questions[parseInt(questionIndex, 10) + 1];
+      return session.questions[questionIndex + 1];
     }
 
     return null;

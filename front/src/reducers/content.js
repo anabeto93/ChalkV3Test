@@ -10,7 +10,8 @@ import {
   REINIT_CONTENT_STATES,
   REQUEST_COURSES_INFORMATIONS,
   REQUEST_VALIDATE_SESSION_INTERNET,
-  SPOOL_TERMINATED
+  SPOOL_TERMINATED,
+  SET_USER_ANSWERS
 } from '../actions/actionCreators';
 import receiveCourseInformationHandler from './handler/receiveCourseInformationHandler';
 
@@ -51,14 +52,16 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
       const {
         uuid: sessionUuid,
         contentUpdatedAt: sessionContentUpdatedAt,
-        content: sessionContent
+        content: sessionContent,
+        questions: sessionQuestions
       } = action.payload.sessionContent;
 
       // Set loaded session content
       const loadedSession = {
         ...state.sessions[sessionUuid],
         content: sessionContent,
-        contentUpdatedAt: sessionContentUpdatedAt
+        contentUpdatedAt: sessionContentUpdatedAt,
+        questions: sessionQuestions.length > 0 ? sessionQuestions : null
       };
       const currentSessions = { ...state.sessions };
       currentSessions[sessionUuid] = loadedSession;
@@ -182,6 +185,51 @@ export default function content(state = DEFAULT_CONTENT_STATE, action) {
         isSessionValidating: false,
         isSessionFailValidating: false,
         isSessionValidated: false
+      };
+    }
+
+    case SET_USER_ANSWERS: {
+      const { sessionUuid, questionIndex, answerIndex } = action.payload;
+
+      const currentQuestion =
+        state.sessions[sessionUuid].questions[questionIndex];
+      let userAnsweredQuestion = {
+        ...state.sessions[sessionUuid].questions[questionIndex],
+        userAnswers: [answerIndex]
+      };
+
+      if (
+        currentQuestion.isMultiple &&
+        currentQuestion.userAnswers !== undefined
+      ) {
+        userAnsweredQuestion.userAnswers =
+          currentQuestion.userAnswers.indexOf(answerIndex) > -1
+            ? [
+                ...state.sessions[sessionUuid].questions[
+                  questionIndex
+                ].userAnswers.filter(answer => {
+                  return answer !== answerIndex;
+                })
+              ]
+            : [
+                ...state.sessions[sessionUuid].questions[questionIndex]
+                  .userAnswers,
+                answerIndex
+              ];
+      }
+
+      const currentQuestions = [...state.sessions[sessionUuid].questions];
+      currentQuestions[questionIndex] = userAnsweredQuestion;
+
+      const currentSession = { ...state.sessions[sessionUuid] };
+      currentSession.questions = currentQuestions;
+
+      const currentSessions = { ...state.sessions };
+      currentSessions[sessionUuid] = currentSession;
+
+      return {
+        ...state,
+        sessions: { ...currentSessions }
       };
     }
 

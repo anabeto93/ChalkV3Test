@@ -2,22 +2,26 @@ import React, { Component } from 'react';
 import { withRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import I18n from 'i18n-js';
+
 import { QUESTION_DETAIL, SESSION_LIST, SESSION_SEND } from '../config/routes';
 import CourseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
+import { setUserAnswers } from '../actions/actionCreators';
+import store from '../store/store';
 import { RaisedButton } from 'material-ui';
 import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
 import QuestionAnswers from './../components/Quiz/QuestionAnswers';
 
 class QuestionDetailScreen extends Component {
-  handleRadioChange = answer => {
-    //Do something with the answer
-    console.log(answer);
-  };
-
-  handleCheckChange = answer => {
-    //Do something with multiple answers
-    console.log(answer);
+  handleAnswerChange = answerIndex => {
+    const { sessionUuid, questionIndex } = this.props;
+    store.dispatch(
+      setUserAnswers({
+        sessionUuid,
+        questionIndex,
+        answerIndex: answerIndex
+      })
+    );
   };
 
   handleNext = () => {
@@ -45,7 +49,16 @@ class QuestionDetailScreen extends Component {
   render() {
     const { session, question, locale } = this.props;
 
-    if (question !== undefined) {
+    if (session !== undefined && session.validated) {
+      return (
+        <Redirect
+          to={generateUrl(SESSION_LIST, {
+            ':courseUuid': session.courseUuid,
+            ':folderUuid': session.folderUuid
+          })}
+        />
+      );
+    } else if (question !== undefined) {
       return (
         <div>
           <div className="content">
@@ -55,8 +68,7 @@ class QuestionDetailScreen extends Component {
 
             <QuestionAnswers
               question={question}
-              handleRadioChange={this.handleRadioChange}
-              handleCheckChange={this.handleCheckChange}
+              handleAnswerChange={this.handleAnswerChange}
             />
           </div>
 
@@ -71,15 +83,6 @@ class QuestionDetailScreen extends Component {
           </footer>
         </div>
       );
-    } else if (session !== undefined) {
-      return (
-        <Redirect
-          to={generateUrl(SESSION_LIST, {
-            ':courseUuid': session.courseUuid,
-            ':folderUuid': session.folderUuid
-          })}
-        />
-      );
     }
 
     return <div />;
@@ -88,7 +91,7 @@ class QuestionDetailScreen extends Component {
 
 function mapStateToProps(state, props) {
   const sessionUuid = props.match.params.sessionUuid;
-  const questionIndex = props.match.params.questionIndex;
+  const questionIndex = parseInt(props.match.params.questionIndex, 10);
 
   if (sessionUuid === undefined) {
     return {};

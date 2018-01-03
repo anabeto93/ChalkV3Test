@@ -3,11 +3,12 @@ import { RaisedButton } from 'material-ui';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { validateSession } from '../actions/actionCreators';
+import { validateSession, answerSessionQuiz } from '../actions/actionCreators';
 import Error from '../components/Error';
 import ValidatedSession from '../components/ValidatedSession';
 import CourseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
+import stringifyUserAnswers from '../services/quiz/stringifyUserAnswers';
 import { SESSION_SEND_SMS } from '../config/routes';
 import store from '../store/store';
 
@@ -35,7 +36,19 @@ class SendScreen extends Component {
 
   handleSendByInternet = () => {
     this.setState({ ...this.state });
-    store.dispatch(validateSession(this.props.session.uuid));
+
+    const { session } = this.props;
+
+    if (session && session.questions) {
+      store.dispatch(
+        answerSessionQuiz({
+          sessionUuid: session.uuid,
+          answers: stringifyUserAnswers(session.questions)
+        })
+      );
+    } else {
+      store.dispatch(validateSession(session.uuid));
+    }
   };
 
   handleSendBySms = () => {
