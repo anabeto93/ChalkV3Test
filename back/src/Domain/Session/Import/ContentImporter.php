@@ -133,7 +133,7 @@ class ContentImporter
 
         $contentParsedView = $this->extractArchive($uploadedFile, $imagePath, $pathToUpload);
 
-        $session->updateContent($contentParsedView->content);
+        $session->updateContent($contentParsedView->content, $dateTime);
 
         // The set is done in the moveImages method
         $this->moveImages($session, $contentParsedView, $pathToUpload, $imagePath, $dateTime);
