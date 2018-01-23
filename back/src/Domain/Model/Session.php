@@ -11,6 +11,7 @@
 namespace App\Domain\Model;
 
 use App\Domain\Model\Session\File;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 
 class Session
@@ -36,13 +37,13 @@ class Session
     /** @var Folder|null */
     private $folder;
 
-    /** @var \DateTimeInterface */
+    /** @var DateTimeInterface */
     private $createdAt;
 
-    /** @var \DateTimeInterface */
+    /** @var DateTimeInterface */
     private $updatedAt;
 
-    /** @var \DateTimeInterface */
+    /** @var DateTimeInterface */
     private $contentUpdatedAt;
 
     /** @var int */
@@ -61,17 +62,17 @@ class Session
     private $enabled;
 
     /**
-     * @param string             $uuid
-     * @param int                $rank
-     * @param string             $title
-     * @param string|null        $content
-     * @param Course             $course
-     * @param Folder|null        $folder
-     * @param bool               $needValidation
-     * @param bool               $enabled
-     * @param \DateTimeInterface $createdAt
-     * @param int                $size
-     * @param int                $contentSize
+     * @param string            $uuid
+     * @param int               $rank
+     * @param string            $title
+     * @param string|null       $content
+     * @param Course            $course
+     * @param Folder|null       $folder
+     * @param bool              $needValidation
+     * @param bool              $enabled
+     * @param DateTimeInterface $createdAt
+     * @param int               $size
+     * @param int               $contentSize
      */
     public function __construct(
         string $uuid,
@@ -82,7 +83,7 @@ class Session
         Folder $folder = null,
         bool $needValidation,
         bool $enabled,
-        \DateTimeInterface $createdAt,
+        DateTimeInterface $createdAt,
         int $size = 0,
         int $contentSize = 0
     ) {
@@ -175,25 +176,25 @@ class Session
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return DateTimeInterface
      */
-    public function getCreatedAt(): \DateTimeInterface
+    public function getCreatedAt(): DateTimeInterface
     {
         return $this->createdAt;
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return DateTimeInterface
      */
-    public function getUpdatedAt(): \DateTimeInterface
+    public function getUpdatedAt(): DateTimeInterface
     {
         return $this->updatedAt;
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return DateTimeInterface
      */
-    public function getContentUpdatedAt(): \DateTimeInterface
+    public function getContentUpdatedAt(): DateTimeInterface
     {
         return $this->contentUpdatedAt;
     }
@@ -247,13 +248,13 @@ class Session
     }
 
     /**
-     * @param string             $title
-     * @param int                $rank
-     * @param Folder|null        $folder
-     * @param bool               $needValidation
-     * @param bool               $enabled
-     * @param int                $size
-     * @param \DateTimeInterface $updatedAt
+     * @param string            $title
+     * @param int               $rank
+     * @param Folder|null       $folder
+     * @param bool              $needValidation
+     * @param bool              $enabled
+     * @param int               $size
+     * @param DateTimeInterface $updatedAt
      */
     public function update(
         string $title,
@@ -262,7 +263,7 @@ class Session
         bool $needValidation,
         bool $enabled,
         int $size,
-        \DateTimeInterface $updatedAt
+        DateTimeInterface $updatedAt
     ) {
         $this->title = $title;
         $this->rank = $rank;
@@ -274,11 +275,13 @@ class Session
     }
 
     /**
-     * @param string $content
+     * @param string            $content
+     * @param DateTimeInterface $updatedAt
      */
-    public function updateContent(string $content)
+    public function updateContent(string $content, DateTimeInterface $updatedAt)
     {
         $this->content = $content;
+        $this->contentUpdatedAt = $updatedAt;
     }
 
     /**

@@ -173,16 +173,16 @@ class ContentImporterTest extends TestCase
     public function testImportExistingSession()
     {
         // Context
+        $dateTime = new \Datetime();
         $course = $this->prophesize(Course::class);
         $course->getUuid()->willReturn('321-321-321');
         $session = $this->prophesize(Session::class);
         $session->getUuid()->willReturn('123-123-123');
         $session->getCourse()->willReturn($course->reveal());
         $session->setContentSize(10023)->shouldBeCalled();
-        $session->updateContent('<h1>Hello World</h1>')->shouldBeCalled();
+        $session->updateContent('<h1>Hello World</h1>', $dateTime)->shouldBeCalled();
         $imagePath = '/content/course/321-321-321/session/123-123-123';
         $uploadLocation = '/tmp/chalkboard_session_123-123-123';
-        $dateTime = new \Datetime();
         $uploadedFile = new UploadedFile(__DIR__ . '/content.zip', 'application/zip');
 
         $this->fileStorage->exists($uploadLocation . '/index.html')->shouldBeCalled()->willReturn(true);
