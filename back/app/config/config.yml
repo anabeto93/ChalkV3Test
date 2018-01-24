@@ -56,7 +56,7 @@ twig:
         timezone: '%timezone%'
 
 infrastructure:
-    user_import_dir: '%import_dir%/import/users/'
+    user_import_dir: '%kernel.project_dir%/var/import/users/'
 
 # Doctrine Configuration
 doctrine:
