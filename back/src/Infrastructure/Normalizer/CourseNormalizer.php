@@ -80,6 +80,8 @@ class CourseNormalizer
             $folder['sessions'] = $sessionsByFolder[$key];
         }
 
+        $this->sortFoldersByTitle($foldersNormalized);
+
         return [
             'uuid' => $course->getUuid(),
             'title' => $course->getTitle(),
@@ -107,4 +109,17 @@ class CourseNormalizer
 
         return $progressionIndexed;
     }
+
+    /**
+     * @param array $folders
+     */
+    private function sortFoldersByTitle(array &$folders) {
+        usort(
+            $folders,
+            function ($one, $other) {
+                return strcasecmp($one["title"], $other["title"]);
+            }
+        );
+    }
 }
+
