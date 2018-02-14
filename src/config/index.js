@@ -23,7 +23,7 @@ const config = {
   },
   default: {
     api: {
-      endpoint: 'http://api.chalkboardeducation.dev/app_dev.php/api/graphql/'
+      endpoint: 'http://api.chalkboardeducation.vm/app_dev.php/api/graphql/'
     },
     appName: 'Chalkboard Development',
     appPrivateKey: 'i5Rj10bMdZGeK9fWg6qhQkmACn8YrPpBstuv2DwNXVxayz7EFUcH3JLS4T',
