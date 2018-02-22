@@ -18,10 +18,10 @@ const APP_NAME = getConfig().appName;
 class Header extends Component {
   handleRedirectToList = () => {
     const { location: { pathname }, history } = this.props;
-    const regEx = /session\/([-\w]+)/;
+    const sessionRegEx = /session\/([-\w]+)/;
 
-    if(regEx.test(pathname)) {
-      const sessionUuid = regEx.exec(pathname)[1];
+    if(sessionRegEx.test(pathname)) {
+      const sessionUuid = sessionRegEx.exec(pathname)[1];
 
       const { sessions } = this.props;
 
