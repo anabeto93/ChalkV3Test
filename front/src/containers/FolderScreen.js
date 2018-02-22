@@ -25,7 +25,7 @@ class FolderScreen extends Component {
 
     return (
       <div>
-        {totalFolders > 0 &&
+        {totalFolders === 1 &&
           firstFolder.isDefault &&
           <Redirect
             to={generateUrl(SESSION_LIST_WITHOUT_FOLDER, {
