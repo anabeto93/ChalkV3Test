@@ -8,14 +8,39 @@ import { withRouter } from 'react-router-dom';
 
 import logoImage from '../assets/logo.png';
 import getConfig from '../config/index';
-import { ACCOUNT, COURSES, HOME, LOGIN } from '../config/routes';
+import { ACCOUNT, COURSES, HOME, LOGIN, SESSION_LIST } from '../config/routes';
 import RouteResolver from '../services/RouteResolver';
+import CourseManager from '../services/CourseManager';
+import generateUrl from '../services/generateUrl';
 
 const APP_NAME = getConfig().appName;
 
 class Header extends Component {
-  handleRedirectCourseList = () => {
-    this.props.history.push(COURSES);
+  handleRedirectToList = () => {
+    const { location: { pathname }, history } = this.props;
+    const regEx = /session\/([-\w]+)/;
+
+    if(regEx.test(pathname)) {
+      const sessionUuid = regEx.exec(pathname)[1];
+
+      const { sessions } = this.props;
+
+      const session = CourseManager.getSession(
+        sessions,
+        sessionUuid
+      );
+
+      if(session) {
+        return history.push(
+          generateUrl(SESSION_LIST, {
+            ':courseUuid': session.courseUuid,
+            ':folderUuid': session.folderUuid
+          })
+        );
+      }
+    }
+
+    return history.push(COURSES);
   };
 
   handleRedirectAccount = () => {
@@ -89,7 +114,7 @@ class Header extends Component {
       <AppBar
         className="navbar-header"
         title={this.logo()}
-        onTitleTouchTap={this.handleRedirectCourseList}
+        onTitleTouchTap={this.handleRedirectToList}
         iconElementLeft={this.leftIcon()}
         iconElementRight={this.rightIcon()}
         showMenuIconButton={this.showMenuIconButton()}
@@ -111,7 +136,10 @@ function mapStateToProps(state, props) {
     title = RouteResolver.resolveTitle(route);
   }
 
-  return { title };
+  return {
+    title,
+    sessions: state.content.sessions
+  };
 }
 
 export default withRouter(connect(mapStateToProps)(Header));
