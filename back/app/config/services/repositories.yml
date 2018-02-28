@@ -45,3 +45,7 @@ services:
     App\Infrastructure\Repository\Session\QuestionRepository:
         autowire: true
     App\Domain\Repository\Session\QuestionRepositoryInterface: '@App\Infrastructure\Repository\Session\QuestionRepository'
+
+    App\Infrastructure\Repository\InstitutionRepository:
+        autowire: true
+    App\Domain\Repository\InstitutionRepositoryInterface: '@App\Infrastructure\Repository\InstitutionRepository'

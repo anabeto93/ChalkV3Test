@@ -157,3 +157,11 @@ admin_session_quiz:
         course: \d+
         session: \d+
     defaults: { _controller: App\Ui\Admin\Action\Session\Quiz\QuestionAction }
+
+#
+# Institution
+#
+admin_institution_list:
+    path: /institution
+    methods: [GET]
+    defaults: { _controller: App\Ui\Admin\Action\Institution\ListAction }
