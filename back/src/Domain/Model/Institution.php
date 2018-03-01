@@ -35,19 +35,17 @@ class Institution {
 
     /**
      * Institution constructor.
-     * @param int $id
      * @param string $uuid
      * @param string $name
      * @param \DateTimeInterface $createdAt
-     * @param \DateTimeInterface $updatedAt
      * @param int $size
      */
-    public function __construct(int $id, string $uuid, string $name, \DateTimeInterface $createdAt, \DateTimeInterface $updatedAt, int $size) {
-        $this->id = $id;
+    public function __construct(string $uuid, string $name, \DateTimeInterface $createdAt, int
+    $size = 0) {
         $this->uuid = $uuid;
         $this->name = $name;
         $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = $createdAt;
         $this->size = $size;
 
         $this->userInstitutions = new ArrayCollection();
