@@ -11,13 +11,13 @@ namespace App\Application\View\Institution;
 
 class InstitutionView {
     /** @var int */
-    private $id;
+    public $id;
 
     /** @var string */
-    private $name;
+    public $name;
 
     /** @var int */
-    private $numberOfStudents;
+    public $numberOfStudents;
 
     /**
      * InstitutionView constructor.
@@ -30,6 +30,4 @@ class InstitutionView {
         $this->name = $name;
         $this->numberOfStudents = $numberOfStudents;
     }
-
-
 }
