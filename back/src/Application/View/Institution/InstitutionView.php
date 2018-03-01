@@ -25,7 +25,7 @@ class InstitutionView {
      * @param string $name
      * @param int $numberOfStudents
      */
-    public function __construct(int $id, string $name, int $numberOfStudents = 0) {
+    public function __construct(int $id, string $name, int $numberOfStudents) {
         $this->id = $id;
         $this->name = $name;
         $this->numberOfStudents = $numberOfStudents;

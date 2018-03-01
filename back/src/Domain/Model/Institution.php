@@ -9,6 +9,8 @@
 namespace App\Domain\Model;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Institution {
     /** @var int */
     private $id;
@@ -28,20 +30,27 @@ class Institution {
     /** @var int */
     private $size;
 
+    /** @var ArrayCollection of UserInstitution */
+    private $userInstitutions;
+
     /**
      * Institution constructor.
+     * @param int $id
      * @param string $uuid
      * @param string $name
      * @param \DateTimeInterface $createdAt
+     * @param \DateTimeInterface $updatedAt
      * @param int $size
      */
-    public function __construct(string $uuid, string $name, \DateTimeInterface $createdAt, int
-    $size = 0) {
+    public function __construct(int $id, string $uuid, string $name, \DateTimeInterface $createdAt, \DateTimeInterface $updatedAt, int $size) {
+        $this->id = $id;
         $this->uuid = $uuid;
         $this->name = $name;
         $this->createdAt = $createdAt;
-        $this->updatedAt = $createdAt;
+        $this->updatedAt = $updatedAt;
         $this->size = $size;
+
+        $this->userInstitutions = new ArrayCollection();
     }
 
     /**
@@ -99,5 +108,23 @@ class Institution {
      */
     public function getSize(): int {
         return $this->size;
+    }
+
+    /**
+     * @return UserInstitution[]
+     */
+    public function getUserInstitutions(): array {
+        return $this->userInstitutions->toArray();
+    }
+
+    /**
+     * @return User[]
+     */
+    public function getUsers(): array {
+        return array_map(
+          function(UserInstitution $userInstitution) {
+              return $userInstitution->getUser();
+          }, $this->userInstitutions->toArray()
+        );
     }
 }

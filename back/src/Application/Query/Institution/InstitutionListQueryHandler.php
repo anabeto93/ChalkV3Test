@@ -36,7 +36,8 @@ class InstitutionListQueryHandler {
         foreach($institutions as $institution) {
             $institutionViews[] = new InstitutionView(
               $institution->getId(),
-              $institution->getName()
+              $institution->getName(),
+              count($institution->getUsers())
             );
         }
 

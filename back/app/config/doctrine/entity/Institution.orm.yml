@@ -18,3 +18,9 @@ App\Domain\Model\Institution:
             type: datetime
         size:
             type: integer
+    oneToMany:
+        userInstitutions:
+            targetEntity: App\Domain\Model\UserInstitution
+            cascade: ['persist', 'remove']
+            mappedBy: institution
+            orphanRemoval: true
