@@ -40,6 +40,7 @@ class Institution {
         $this->uuid = $uuid;
         $this->name = $name;
         $this->createdAt = $createdAt;
+        $this->updatedAt = $createdAt;
         $this->size = $size;
     }
 

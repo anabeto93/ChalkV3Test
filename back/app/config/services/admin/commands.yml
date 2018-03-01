@@ -154,3 +154,21 @@ services:
         autowire: true
         tags:
             - { name: tactician.handler, command: App\Application\Command\Quiz\Quiz }
+
+    #
+    # Institution
+    #
+    App\Application\Command\Institution\CreateHandler:
+            autowire: true
+            tags:
+                - { name: tactician.handler, command: App\Application\Command\Institution\Create }
+
+    App\Application\Command\Institution\UpdateHandler:
+            autowire: true
+            tags:
+                - { name: tactician.handler, command: App\Application\Command\Institution\Update }
+
+#    App\Application\Command\Institution\DeleteHandler:
+#            autowire: true
+#            tags:
+#                - { name: tactitian.handler, command: App\Application\Command\Institution\Delete }

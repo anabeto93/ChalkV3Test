@@ -165,3 +165,8 @@ admin_institution_list:
     path: /institution
     methods: [GET]
     defaults: { _controller: App\Ui\Admin\Action\Institution\ListAction }
+
+admin_institution_create:
+    path: /institution/create
+    methods: [GET, POST]
+    defaults: { _controller: App\Ui\Admin\Action\Institution\CreateAction }
