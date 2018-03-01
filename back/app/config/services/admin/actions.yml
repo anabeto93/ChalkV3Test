@@ -75,3 +75,6 @@ services:
 
     App\Ui\Admin\Action\Institution\UpdateAction:
         autowire: true
+
+    App\Ui\Admin\Action\Institution\DeleteAction:
+        autowire: true

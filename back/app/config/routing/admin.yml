@@ -177,3 +177,10 @@ admin_institution_update:
     requirements:
         institution: \d+
     defaults: { _controller: App\Ui\Admin\Action\Institution\UpdateAction }
+
+admin_institution_delete:
+    path: /institution/delete/{institution}
+    methods: [DELETE]
+    requirements:
+        institution: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Institution\DeleteAction }

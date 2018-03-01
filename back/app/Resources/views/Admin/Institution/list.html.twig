@@ -2,6 +2,8 @@
 
 {% block title 'admin.institution.title'|trans %}
 
+{% import ':Admin/Common:macro.html.twig' as macro %}
+
 {% block content %}
     <h1>
         {{ 'admin.institution.title'|trans }}
@@ -27,9 +29,26 @@
                 <tr>
                     <td>{{ institution.name }}</td>
                     <td class="text-right">
-                        <a href="{{ path('admin_institution_update', {'institution': institution.id}) }}" class="btn btn-sm btn-default">
-                            {{ 'admin.institution.action.update'|trans }}
-                        </a>
+                        {#<a href="{{ path('admin_institution_update', {'institution': institution.id}) }}" class="btn btn-sm btn-default">#}
+                            {#{{ 'admin.institution.action.update'|trans }}#}
+                        {#</a>#}
+                        <div class="btn-group">
+                            <a href="{{ path('admin_institution_update', {'institution': institution.id}) }}" class="btn btn-default btn-sm">
+                                {{ 'admin.institution.action.update'|trans }}
+                            </a>
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    {{ macro.delete_button(
+                                        path('admin_institution_delete', { 'institution': institution.id }),
+                                        'admin.institution.action.delete'|trans,
+                                        { 'class': 'btn btn-default btn-sm', 'data-confirm': 'admin.institution.action.confirmDelete'|trans })
+                                    }}
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
