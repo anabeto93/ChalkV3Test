@@ -72,3 +72,6 @@ services:
 
     App\Ui\Admin\Action\Institution\CreateAction:
         autowire: true
+
+    App\Ui\Admin\Action\Institution\UpdateAction:
+        autowire: true

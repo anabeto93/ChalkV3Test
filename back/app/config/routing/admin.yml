@@ -170,3 +170,10 @@ admin_institution_create:
     path: /institution/create
     methods: [GET, POST]
     defaults: { _controller: App\Ui\Admin\Action\Institution\CreateAction }
+
+admin_institution_update:
+    path: /institution/update/{institution}
+    methods: [GET, POST]
+    requirements:
+        institution: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Institution\UpdateAction }

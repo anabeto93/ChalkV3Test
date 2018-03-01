@@ -21,5 +21,6 @@ class Update extends AbstractInstitutionCommand {
      */
     public function __construct(Institution $institution) {
         $this->institution = $institution;
+        $this->name = $institution->getName();
     }
 }
