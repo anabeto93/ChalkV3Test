@@ -68,7 +68,8 @@ class AssignUserAction {
             $this->commandBus->handle($assign);
             $this->flashBag->add('success', 'flash.admin.institution.assign_user.success');
 
-            return new RedirectResponse($this->router->generate('admin_institution_list'));
+            return new RedirectResponse($this->router->generate('admin_institution_list_users',
+                ['institution' => $institution->getId()]));
         }
 
         return $this->engine->renderResponse('Admin/Institution/assign_users.html.twig', [

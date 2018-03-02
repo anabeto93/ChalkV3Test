@@ -30,7 +30,10 @@
                 <tr>
                     <td>{{ institution.name }}</td>
                     <td>
-                        <a href="{{ path('admin_institution_assign_users', {'institution': institution.id}) }}" title="{{ 'admin.institution.viewStudents'|trans }}">
+                        {#<a href="{{ path('admin_institution_assign_users', {'institution': institution.id}) }}" title="{{ 'admin.institution.viewStudents'|trans }}">#}
+                            {#{{ institution.numberOfStudents }}#}
+                        {#</a>#}
+                        <a href="{{ path('admin_institution_list_users', {'institution': institution.id}) }}" title="{{ 'admin.institution.listStudents'|trans }}">
                             {{ institution.numberOfStudents }}
                         </a>
                     </td>

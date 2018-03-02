@@ -50,3 +50,8 @@ services:
             autowire: true
             tags:
                 - { name: tactician.handler, command: App\Application\Query\Institution\InstitutionListQuery }
+
+        App\Application\Query\Institution\UserInstitution\UserInstitutionListQueryHandler:
+            autowire: true
+            tags:
+                - { name: tactician.handler, command: App\Application\Query\Institution\UserInstitution\UserInstitutionListQuery }
