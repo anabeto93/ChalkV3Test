@@ -162,31 +162,31 @@ admin_session_quiz:
 # Institution
 #
 admin_institution_list:
-    path: /institution
+    path: /institutions
     methods: [GET]
     defaults: { _controller: App\Ui\Admin\Action\Institution\ListAction }
 
 admin_institution_create:
-    path: /institution/create
+    path: /institutions/create
     methods: [GET, POST]
     defaults: { _controller: App\Ui\Admin\Action\Institution\CreateAction }
 
 admin_institution_update:
-    path: /institution/update/{institution}
+    path: /institutions/update/{institution}
     methods: [GET, POST]
     requirements:
         institution: \d+
     defaults: { _controller: App\Ui\Admin\Action\Institution\UpdateAction }
 
 admin_institution_delete:
-    path: /institution/delete/{institution}
+    path: /institutions/delete/{institution}
     methods: [DELETE]
     requirements:
         institution: \d+
     defaults: { _controller: App\Ui\Admin\Action\Institution\DeleteAction }
 
 admin_institution_assign_users:
-    path: /institution/{institution}/users
+    path: /institutions/{institution}/users
     methods: [GET, POST]
     requirements:
         institution: \d+
