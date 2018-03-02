@@ -125,4 +125,39 @@ class Institution {
           }, $this->userInstitutions->toArray()
         );
     }
+
+    /**
+     * @param UserInstitution $userInstitution
+     */
+    public function addUserInstitution(UserInstitution $userInstitution) {
+        $this->userInstitutions->add($userInstitution);
+    }
+
+    /**
+     * @param User $user
+     * @param Institution $institution
+     * @return UserInstitution|null
+     */
+    public function getUserInstitution(User $user, Institution $institution): ?UserInstitution {
+        /** @var UserInstitution $userInstitution */
+        foreach($this->userInstitutions as $userInstitution) {
+            if($user->getId() === $userInstitution->getUser()->getId()
+            && $institution->getId() === $userInstitution->getInstitution()->getId()) {
+                return $userInstitution;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param User $user
+     * @param Institution $institution
+     */
+    public function removeUserInstitution(User $user, Institution $institution) {
+        $userInstitution = $this->getUserInstitution($user, $institution);
+        if($userInstitution) {
+            $this->userInstitutions->removeElement($userInstitution);
+        }
+    }
 }
