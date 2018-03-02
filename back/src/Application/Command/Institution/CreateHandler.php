@@ -9,6 +9,7 @@
 namespace App\Application\Command\Institution;
 
 
+use App\Domain\Exception\Institution\NameAlreadyUsedException;
 use App\Domain\Model\Institution;
 use App\Domain\Repository\InstitutionRepositoryInterface;
 use App\Domain\Uuid\Generator;
@@ -37,8 +38,15 @@ class CreateHandler {
 
     /**
      * @param Create $command
+     * @throws NameAlreadyUsedException
      */
     public function handle(Create $command) {
+        $institutionWithSameName = $this->institutionRepository->findByName($command->name);
+
+        if($institutionWithSameName) {
+            throw new NameAlreadyUsedException();
+        }
+
         $uuid = $this->generator->generateUuid();
 
         $institution = new Institution(

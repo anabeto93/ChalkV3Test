@@ -12,6 +12,7 @@ App\Domain\Model\Institution:
             unique: true
         name:
             type: string
+            unique: true
         createdAt:
             type: datetime
         updatedAt:

@@ -68,4 +68,22 @@ class InstitutionRepository implements InstitutionRepositoryInterface {
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function findByName(string $name = null): ?Institution {
+        if($name === null) {
+            return null;
+        }
+
+        $queryBuilder = $this->entityManager
+                        ->createQueryBuilder()
+                        ->select('institution')
+                        ->from(Institution::class, 'institution')
+                        ->where('institution.name = :name')
+                        ->setParameter('name', $name);
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
 }

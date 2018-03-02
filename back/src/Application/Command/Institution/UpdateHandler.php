@@ -9,6 +9,7 @@
 namespace App\Application\Command\Institution;
 
 
+use App\Domain\Exception\Institution\NameAlreadyUsedException;
 use App\Domain\Repository\InstitutionRepositoryInterface;
 
 class UpdateHandler {
@@ -28,7 +29,19 @@ class UpdateHandler {
         $this->dateTime = $dateTime;
     }
 
+    /**
+     * @param Update $command
+     * @throws NameAlreadyUsedException
+     */
     public function handle(Update $command) {
+        if($command->institution->getName() !== $command->name) {
+            $institutionWithSameName = $this->institutionRepository->findByName($command->name);
+
+            if ($institutionWithSameName) {
+                throw new NameAlreadyUsedException();
+            }
+        }
+
         $command->institution->update(
             $command->institution->getUuid(),
             $command->name,

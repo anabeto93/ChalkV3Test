@@ -37,4 +37,11 @@ interface InstitutionRepositoryInterface {
      * @return Institution|null
      */
     public function getByUuid(string $uuid): ?Institution;
+
+
+    /**
+     * @param string|null $name
+     * @return Institution|null
+     */
+    public function findByName(string $name = null): ?Institution;
 }
