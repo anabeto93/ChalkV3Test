@@ -37,7 +37,7 @@ const config = {
         dsn: null
       }
     },
-    apiPhoneNumber: '+233200659986'
+    apiPhoneNumber: '+233206703877'
   }
 };
 
