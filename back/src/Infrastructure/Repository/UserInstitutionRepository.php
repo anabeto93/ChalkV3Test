@@ -53,4 +53,12 @@ class UserInstitutionRepository implements UserInstitutionRepositoryInterface {
 
         return $queryBuilder->getQuery()->getResult();
     }
+
+    /**
+     * @param UserInstitution $userInstitution
+     */
+    public function remove(UserInstitution $userInstitution) {
+        $this->entityManager->remove($userInstitution);
+        $this->entityManager->flush();
+    }
 }

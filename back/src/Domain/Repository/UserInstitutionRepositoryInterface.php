@@ -24,4 +24,9 @@ interface UserInstitutionRepositoryInterface {
      * @return UserInstitution[]
      */
     public function findByInstitution(Institution $institution): array;
+
+    /**
+     * @param UserInstitution $userInstitution
+     */
+    public function remove(UserInstitution $userInstitution);
 }

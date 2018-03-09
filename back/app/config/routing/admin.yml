@@ -192,9 +192,20 @@ admin_institution_assign_users:
         institution: \d+
     defaults: { _controller: App\Ui\Admin\Action\Institution\AssignUserAction }
 
-admin_institution_list_users:
+admin_institution_user_list:
     path: /institutions/{institution}/users
     methods: [GET, POST]
     requirements:
         institution: \d+
     defaults: { _controller: App\Ui\Admin\Action\Institution\UserInstitution\ListAction }
+
+#
+# UserInstitution
+#
+admin_user_institution_delete:
+    path: /institutions/{institution}/users/{user}/delete
+    methods: [GET]
+    requirements:
+        institution: \d+
+        user: \d+
+    defaults: { _controller: App\Ui\Admin\Action\UserInstitution\DeleteAction }

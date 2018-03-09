@@ -83,4 +83,7 @@ services:
         autowire: true
 
     App\Ui\Admin\Action\Institution\UserInstitution\ListAction:
-            autowire: true
+        autowire: true
+
+    App\Ui\Admin\Action\UserInstitution\DeleteAction:
+        autowire: true
