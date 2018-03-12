@@ -1,0 +1,27 @@
+App\Domain\Model\Institution:
+    type: entity
+    table: institution
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        uuid:
+            type: string
+            unique: true
+        name:
+            type: string
+            unique: true
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+        size:
+            type: integer
+    oneToMany:
+        userInstitutions:
+            targetEntity: App\Domain\Model\UserInstitution
+            cascade: ['persist', 'remove']
+            mappedBy: institution
+            orphanRemoval: true

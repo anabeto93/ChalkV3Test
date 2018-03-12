@@ -42,3 +42,16 @@ services:
             autowire: true
             tags:
                 - { name: tactician.handler, command: App\Application\Query\Session\ProgressionListQuery }
+
+        #
+        # Institution
+        #
+        App\Application\Query\Institution\InstitutionListQueryHandler:
+            autowire: true
+            tags:
+                - { name: tactician.handler, command: App\Application\Query\Institution\InstitutionListQuery }
+
+        App\Application\Query\Institution\UserInstitution\UserInstitutionListQueryHandler:
+            autowire: true
+            tags:
+                - { name: tactician.handler, command: App\Application\Query\Institution\UserInstitution\UserInstitutionListQuery }

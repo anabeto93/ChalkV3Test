@@ -66,3 +66,24 @@ services:
 
     App\Ui\Admin\Action\Session\Quiz\QuestionAction:
         autowire: true
+
+    App\Ui\Admin\Action\Institution\ListAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Institution\CreateAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Institution\UpdateAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Institution\DeleteAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Institution\AssignUserAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Institution\UserInstitution\ListAction:
+        autowire: true
+
+    App\Ui\Admin\Action\UserInstitution\DeleteAction:
+        autowire: true

@@ -13,3 +13,10 @@ flash.admin.user.update.success: 'Student updated with success'
 flash.admin.user.batch.sendLoginAccessAction.success: '{0} No login access was sent|{1} Login access is sent to one user|]1,Inf[ Login access are sent to %countUsersNotified% users!'
 flash.admin.user.import.errorHeader: 'The file is not correct and can not be read'
 flash.admin.user.import.success: 'Users imported with success'
+
+flash.admin.institution.create.success: 'Institution created successfully'
+flash.admin.institution.update.success: 'Institution updated successfully'
+flash.admin.institution.delete.success: 'Institution deleted successfully'
+flash.admin.institution.assign_user.success: 'Student(s) assigned successfully'
+
+flash.admin.userInstitution.delete.success: 'User/Institution relationship deleted successfully'

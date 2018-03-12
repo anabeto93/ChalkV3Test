@@ -6,3 +6,5 @@ validator.session.import.zipFile: 'Please upload a valid ZIP file'
 validator.user_batch.userViews.minMessage: 'At least one user must be selected'
 validator.user.localeNotAuthorize: 'The locale must be ''fr'' or ''en'''
 validator.user.countryNotValid: 'The country is not a valid ISO 3166-1 alpha-2 country code'
+
+validator.name.alreadyUsed: 'The name is already in use'

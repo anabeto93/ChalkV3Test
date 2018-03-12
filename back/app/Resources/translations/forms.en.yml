@@ -68,3 +68,8 @@ form.user_import.children.charset.choice.Windows-1252: 'Windows-1252'
 form.user_import.children.charset.choice.UTF-8: 'UTF-8'
 form.user_import.children.charset.choice.ISO-8859-1: 'ISO-8859-1'
 form.user_import.children.charset.label: 'Encoding'
+
+form.institution_create.children.name.label: 'Name'
+form.institution_create.children.submit.label: 'Save'
+form.institution_update.children.name.label: 'Name'
+form.institution_update.children.submit.label: 'Update'

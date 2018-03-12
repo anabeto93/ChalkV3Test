@@ -1,0 +1,62 @@
+{% extends '::base.html.twig' %}
+
+{% block title 'admin.institution.title'|trans %}
+
+{% import ':Admin/Common:macro.html.twig' as macro %}
+
+{% block content %}
+    <h1>
+        {{ 'admin.institution.title'|trans }}
+        <span class="pull-right">
+            <a class="btn btn-primary" href="{{ path('admin_institution_create') }}">
+                {{ 'admin.institution.create.title'|trans }}
+            </a>
+        </span>
+    </h1>
+    <hr>
+    {% if institutions is empty %}
+        <div class="alert alert-info">{{ 'admin.institution.no-result'|trans }}</div>
+    {% else %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="col-md-2">{{ 'admin.institution.column.name'|trans }}</th>
+                    <th class="col-md-1">{{ 'admin.institution.column.students'|trans }}</th>
+                    <th class="col-md-1"></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for institution in institutions %}
+                <tr>
+                    <td>{{ institution.name }}</td>
+                    <td>
+                        <a href="{{ path('admin_institution_user_list', {'institution': institution.id}) }}" title="{{ 'admin.institution.listStudents'|trans }}">
+                            {{ institution.numberOfStudents }}
+                        </a>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <a href="{{ path('admin_institution_update', {'institution': institution.id}) }}" class="btn btn-default btn-sm">
+                                {{ 'admin.institution.action.update'|trans }}
+                            </a>
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    {{ macro.delete_button(
+                                        path('admin_institution_delete', { 'institution': institution.id }),
+                                        'admin.institution.action.delete'|trans,
+                                        { 'class': 'btn btn-default btn-sm', 'data-confirm': 'admin.institution.action.confirmDelete'|trans })
+                                    }}
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
+
