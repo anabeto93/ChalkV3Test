@@ -43,4 +43,4 @@ parameters:
     infobip_hook_key: '8T5dari7Ri'
 
     # Sentry
-    sentry_dsn: https://8a9f37b455334d5f9602868749b2aa82:adcc8d35480c4f37a226d3286fab6ae2@sentry.io/236454
+    sentry_dsn: https://c5f21bb1fb994d469dd773d94bef1c56:26bda1c60161453fb7185f2d8de4c72c@sentry.io/302241
