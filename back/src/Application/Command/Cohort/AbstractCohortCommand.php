@@ -11,7 +11,7 @@ namespace App\Application\Command\Cohort;
 
 use App\Application\Command\Command;
 
-class AbstractCohortCommand implements Command {
+abstract class AbstractCohortCommand implements Command {
     /** @var string */
     public $title;
 }
