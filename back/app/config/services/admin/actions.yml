@@ -96,3 +96,6 @@ services:
 
     App\Ui\Admin\Action\Cohort\UpdateAction:
         autowire: true
+
+    App\Ui\Admin\Action\Cohort\DeleteAction:
+        autowire: true

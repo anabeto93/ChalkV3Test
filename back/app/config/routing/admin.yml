@@ -234,3 +234,11 @@ admin_cohort_update:
         institution: \d+
         cohort: \d+
     defaults: { _controller: App\Ui\Admin\Action\Cohort\UpdateAction }
+
+admin_cohort_delete:
+    path: /instistutions/{institution}/cohorts/delete/{cohort}
+    methods: [DELETE]
+    requirements:
+        institution: \d+
+        cohort: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Cohort\DeleteAction }

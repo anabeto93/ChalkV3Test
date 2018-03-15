@@ -23,3 +23,4 @@ flash.admin.userInstitution.delete.success: 'User/Institution relationship delet
 
 flash.admin.cohort.create.success: 'Cohort created successfully'
 flash.admin.cohort.update.success: 'Cohort updated successfully'
+flash.admin.cohort.delete.success: 'Cohort deleted successfully'
