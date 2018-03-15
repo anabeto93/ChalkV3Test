@@ -198,3 +198,8 @@ services:
         autowire: true
         tags:
             - { name: tactician.handler, command: App\Application\Command\Cohort\Update }
+
+    App\Application\Command\Cohort\DeleteHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Cohort\Delete }
