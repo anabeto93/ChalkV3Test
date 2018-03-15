@@ -9,9 +9,10 @@
 namespace App\Application\Query\Cohort;
 
 
+use App\Application\Query\Query;
 use App\Domain\Model\Institution;
 
-class CohortListQuery {
+class CohortListQuery implements Query {
     /** @var Institution */
     public $institution;
 
