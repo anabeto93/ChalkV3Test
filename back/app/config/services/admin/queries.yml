@@ -55,3 +55,11 @@ services:
             autowire: true
             tags:
                 - { name: tactician.handler, command: App\Application\Query\Institution\UserInstitution\UserInstitutionListQuery }
+
+        #
+        # Cohort
+        #
+        App\Application\Query\Cohort\CohortListQueryHandler:
+            autowire: true
+            tags:
+                - { name: tactician.handler, command: App\Application\Query\Cohort\CohortListQuery }
