@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
 
@@ -52,7 +53,12 @@ class CreateAction {
         $this->router = $router;
     }
 
-    public function __invoke(Request $request, Institution $institution) {
+    /**
+     * @param Request $request
+     * @param Institution $institution
+     * @return Response|RedirectResponse
+     */
+    public function __invoke(Request $request, Institution $institution): Response {
         $create = new Create($institution);
 
         $form = $this->formFactory->create(CreateType::class, $create, [
