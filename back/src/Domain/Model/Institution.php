@@ -33,6 +33,9 @@ class Institution {
     /** @var ArrayCollection of UserInstitution */
     private $userInstitutions;
 
+    /** @var ArrayCollection of Cohort */
+    private $cohorts;
+
     /**
      * Institution constructor.
      * @param string $uuid
@@ -49,6 +52,7 @@ class Institution {
         $this->size = $size;
 
         $this->userInstitutions = new ArrayCollection();
+        $this->cohorts = new ArrayCollection();
     }
 
     /**
@@ -159,5 +163,12 @@ class Institution {
         if($userInstitution) {
             $this->userInstitutions->removeElement($userInstitution);
         }
+    }
+
+    /**
+     * @return Cohort[]
+     */
+    public function getCohorts(): array {
+        return $this->cohorts->toArray();
     }
 }

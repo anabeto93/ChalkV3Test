@@ -25,3 +25,6 @@ App\Domain\Model\Institution:
             cascade: ['persist', 'remove']
             mappedBy: institution
             orphanRemoval: true
+        cohorts:
+            targetEntity: App\Domain\Model\Cohort
+            mappedBy: institution
