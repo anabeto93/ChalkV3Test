@@ -209,3 +209,13 @@ admin_user_institution_delete:
         institution: \d+
         user: \d+
     defaults: { _controller: App\Ui\Admin\Action\UserInstitution\DeleteAction }
+
+#
+# Cohort
+#
+admin_cohort_create:
+    path: /instistutions/{institution}/cohorts/create
+    methods: [GET, POST]
+    requirements:
+        institution: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Cohort\CreateAction }

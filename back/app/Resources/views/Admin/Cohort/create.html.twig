@@ -1,0 +1,7 @@
+{% extends ':Admin/Form:base_form_layout.html.twig' %}
+
+{% block title 'admin.cohort.create.title'|trans({'%institutionName%': institution.name }) %}
+
+{% block form_title 'admin.cohort.create.title'|trans({'%institutionName%': institution.name }) %}
+
+{% block goback_link path('admin_institution_list', {'institution': institution.id}) %}

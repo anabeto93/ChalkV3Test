@@ -20,3 +20,5 @@ flash.admin.institution.delete.success: 'Institution deleted successfully'
 flash.admin.institution.assign_user.success: 'Student(s) assigned successfully'
 
 flash.admin.userInstitution.delete.success: 'User/Institution relationship deleted successfully'
+
+flash.admin.cohort.create.success: 'Cohort created successfully'
