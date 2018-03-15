@@ -1,12 +1,12 @@
 {% extends '::base.html.twig' %}
 
-{% block title institution.name ~ ': ' ~ 'admin.cohort.title'|trans %}
+{% block title institution.name ~ ' | ' ~ 'admin.cohort.title'|trans %}
 
 {% import ':Admin/Common:macro.html.twig' as macro %}
 
 {% block content %}
     <h1>
-        <a href="{{ path('admin_institution_list') }}">{{ institution.name }}</a>: {{ 'admin.cohort.title'|trans }}
+        <a href="{{ path('admin_institution_list') }}">{{ institution.name }}</a> | {{ 'admin.cohort.title'|trans }}
         <span class="pull-right">
             <a class="btn btn-primary" href="{{ path('admin_cohort_create', {'institution': institution.id}) }}">
                 {{ 'admin.cohort.create.link'|trans }}
