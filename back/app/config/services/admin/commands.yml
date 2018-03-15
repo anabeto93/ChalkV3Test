@@ -193,3 +193,8 @@ services:
         autowire: true
         tags:
             - { name: tactician.handler, command: App\Application\Command\Cohort\Create }
+
+    App\Application\Command\Cohort\UpdateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Cohort\Update }

@@ -226,3 +226,11 @@ admin_cohort_create:
     requirements:
         institution: \d+
     defaults: { _controller: App\Ui\Admin\Action\Cohort\CreateAction }
+
+admin_cohort_update:
+    path: /instistutions/{institution}/cohorts/update/{cohort}
+    methods: [GET, POST]
+    requirements:
+        institution: \d+
+        cohort: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Cohort\UpdateAction }

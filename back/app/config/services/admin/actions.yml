@@ -93,3 +93,6 @@ services:
 
     App\Ui\Admin\Action\Cohort\CreateAction:
         autowire: true
+
+    App\Ui\Admin\Action\Cohort\UpdateAction:
+        autowire: true
