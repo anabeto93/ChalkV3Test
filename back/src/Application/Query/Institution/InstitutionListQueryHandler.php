@@ -43,7 +43,8 @@ class InstitutionListQueryHandler {
             $institutionViews[] = new InstitutionView(
               $institution->getId(),
               $institution->getName(),
-              $this->userInstitutionRepository->countUserForInstitution($institution)
+              $this->userInstitutionRepository->countUserForInstitution($institution),
+              count($institution->getCohorts())
             );
         }
 
