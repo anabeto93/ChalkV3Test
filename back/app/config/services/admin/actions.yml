@@ -88,5 +88,8 @@ services:
     App\Ui\Admin\Action\UserInstitution\DeleteAction:
         autowire: true
 
+    App\Ui\Admin\Action\Cohort\ListAction:
+            autowire: true
+
     App\Ui\Admin\Action\Cohort\CreateAction:
         autowire: true
