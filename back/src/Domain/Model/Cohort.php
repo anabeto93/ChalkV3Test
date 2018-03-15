@@ -30,14 +30,13 @@ class Cohort {
 
     /**
      * Cohort constructor.
-     * @param int $id
      * @param string $uuid
      * @param Institution $institution
      * @param string $title
      * @param \DateTimeInterface $createdAt
      */
-    public function __construct(int $id, string $uuid, Institution $institution, string $title, \DateTimeInterface $createdAt) {
-        $this->id = $id;
+    public function __construct(string $uuid, Institution $institution, string $title,
+                                \DateTimeInterface $createdAt) {
         $this->uuid = $uuid;
         $this->institution = $institution;
         $this->title = $title;
