@@ -15,6 +15,7 @@ use App\Application\Command\User\Batch;
 use App\Application\Query\Cohort\CohortUser\CohortUserListQuery;
 use App\Application\View\User\UserListView;
 use App\Domain\Model\Cohort;
+use App\Domain\Model\Institution;
 use App\Ui\Admin\Form\Type\User\BatchType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -71,10 +72,11 @@ class ListAction {
 
     /**
      * @param Request $request
+     * @param Institution $institution
      * @param Cohort $cohort
      * @return Response|RedirectResponse
      */
-    public function __invoke(Request $request, Cohort $cohort): Response {
+    public function __invoke(Request $request, Institution $institution, Cohort $cohort): Response {
         /** @var UserListView $userList */
         $userList = $this->queryBus->handle(new CohortUserListQuery($cohort));
 
@@ -111,6 +113,7 @@ class ListAction {
 
         return $this->engine->renderResponse('Admin/Cohort/CohortUser/list.html.twig', [
             'userList' => $userList,
+            'institution' => $institution,
             'cohort' => $cohort,
             'batchForm' => $batchForm->createView()
         ]);

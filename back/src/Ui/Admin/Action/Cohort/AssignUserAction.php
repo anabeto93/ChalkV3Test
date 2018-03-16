@@ -12,6 +12,7 @@ namespace App\Ui\Admin\Action\Cohort;
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\Cohort\AssignUser;
 use App\Domain\Model\Cohort;
+use App\Domain\Model\Institution;
 use App\Ui\Admin\Form\Type\Cohort\AssignUserType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -55,10 +56,11 @@ class AssignUserAction {
 
     /**
      * @param Request $request
+     * @param Institution $institution
      * @param Cohort $cohort
      * @return Response|RedirectResponse
      */
-    public function __invoke(Request $request, Cohort $cohort): Response {
+    public function __invoke(Request $request, Institution $institution, Cohort $cohort): Response {
         $assign = new AssignUser($cohort);
 
         $form = $this->formFactory->create(AssignUserType::class, $assign, []);
@@ -71,10 +73,11 @@ class AssignUserAction {
             $this->flashBag->add('success', 'flash.admin.cohort.assign_user.success');
 
             return new RedirectResponse($this->router->generate('admin_cohort_user_list',
-                ['cohort' => $cohort->getId()]));
+                ['institution' => $institution->getId(), 'cohort' => $cohort->getId()]));
         }
 
         return $this->engine->renderResponse('Admin/Cohort/assign_users.html.twig', [
+            'institution' => $institution,
             'cohort' => $cohort,
             'form' => $form->createView()
         ]);

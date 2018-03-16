@@ -5,17 +5,17 @@
 {% import ':Admin/Common:macro.html.twig' as macro %}
 
 {% block content %}
-    <h1>
-        {{ 'admin.cohort.cohortUser.list.title'|trans({'%cohortTitle%': cohort.title}) }}
+    <h2>
+        <a href="{{ path('admin_institution_list') }}">{{ institution.name }}</a> | <a href="{{ path('admin_cohort_list', { 'institution': institution.id }) }}">{{ cohort.title }}</a> | {{ 'admin.cohort.cohortUser.list.title'|trans }}
         <span class="pull-right">
             <a class="btn btn-primary" href="{{ path('admin_user_create') }}">
                 {{ 'admin.user.create.title'|trans }}
             </a>
-            <a class="btn btn-primary" href="{{ path('admin_cohort_assign_users', {'cohort': cohort.id}) }}">
+            <a class="btn btn-primary" href="{{ path('admin_cohort_assign_users', {'institution': institution.id, 'cohort': cohort.id}) }}">
                 {{ 'admin.cohort.cohortUser.assign.title'|trans }}
             </a>
         </span>
-    </h1>
+    </h2>
     <hr>
     {% if userList.users is empty %}
         <div class="alert alert-info">{{ 'admin.user.no-result'|trans }}</div>
@@ -60,7 +60,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
                                 <li>
-                                    <a href="{{ path('admin_cohort_user_delete', { 'cohort': cohort.id, 'user': user.id }) }}">
+                                    <a href="{{ path('admin_cohort_user_delete', { 'institution': institution.id, 'cohort': cohort.id, 'user': user.id }) }}">
                                         {{ 'admin.cohortUser.action.delete'|trans }}
                                     </a>
                                 </li>

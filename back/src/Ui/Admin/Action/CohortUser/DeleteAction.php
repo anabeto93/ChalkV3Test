@@ -12,6 +12,7 @@ namespace App\Ui\Admin\Action\CohortUser;
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\CohortUser\Delete;
 use App\Domain\Model\Cohort;
+use App\Domain\Model\Institution;
 use App\Domain\Model\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -41,11 +42,13 @@ class DeleteAction {
     }
 
     /**
+     * @param Institution $institution
      * @param Cohort $cohort
      * @param User $user
      * @return RedirectResponse
      */
-    public function __invoke(Cohort $cohort, User $user): RedirectResponse {
+    public function __invoke(Institution $institution, Cohort $cohort, User $user):
+    RedirectResponse {
         $cohortUser = $cohort->getCohortUser($cohort, $user);
 
         if(!$cohortUser) {
@@ -57,7 +60,10 @@ class DeleteAction {
         $this->flashBag->add('success', 'flash.admin.cohortUser.delete.success');
 
         return new RedirectResponse(
-            $this->router->generate('admin_cohort_user_list', ['cohort' => $cohort->getId()])
+            $this->router->generate('admin_cohort_user_list', [
+                'institution' => $institution->getId(),
+                'cohort' => $cohort->getId()
+            ])
         );
     }
 }

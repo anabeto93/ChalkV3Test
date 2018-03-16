@@ -2,6 +2,6 @@
 
 {% block title 'admin.cohort.assign_users.title'|trans({'%cohortTitle%': cohort.title}) %}
 
-{% block form_title 'admin.cohort.assign_users.title'|trans({'%cohortTitle%': cohort.title}) %}
+{% block form_title 'admin.cohort.assign_users.title'|trans({'%cohortTitle%': cohort.title, '%institutionName%': institution.name}) %}
 
-{% block goback_link path('admin_cohort_user_list', { 'cohort': cohort.id }) %}
+{% block goback_link path('admin_cohort_user_list', { 'institution': institution.id, 'cohort': cohort.id }) %}
