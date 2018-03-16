@@ -10,6 +10,7 @@ namespace App\Infrastructure\Repository;
 
 
 use App\Domain\Model\Cohort;
+use App\Domain\Model\Institution;
 use App\Domain\Repository\CohortRepositoryInterface;
 use Doctrine\ORM\EntityManager;
 
@@ -56,7 +57,7 @@ class CohortRepository implements CohortRepositoryInterface {
     /**
      * {@inheritdoc}
      */
-    public function findByInstitution($institution): array
+    public function findByInstitution(Institution $institution): array
     {
         $queryBuilder = $this->entityManager
             ->createQueryBuilder()
@@ -68,5 +69,24 @@ class CohortRepository implements CohortRepositoryInterface {
         ;
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function findByInstitutionAndTitle(Institution $institution, string $title = null):
+    ?Cohort {
+        if($title === null) {
+            return null;
+        }
+
+        $queryBuilder = $this->entityManager
+            ->createQueryBuilder()
+            ->from(Cohort::class, 'cohort')
+            ->where('cohort.institution = :institution')
+            ->where('cohort.title = :title')
+            ->setParameters(['institution' => $institution, 'title' => $title]);
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }

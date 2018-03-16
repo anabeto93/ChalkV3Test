@@ -9,6 +9,5 @@
 namespace App\Domain\Exception\Cohort;
 
 
-class NameAlreadyUsedException extends CohortException {
-
+class TitleAlreadyUsedException extends CohortException {
 }

@@ -10,6 +10,7 @@ namespace App\Domain\Repository;
 
 
 use App\Domain\Model\Cohort;
+use App\Domain\Model\Institution;
 
 interface CohortRepositoryInterface {
     /**
@@ -28,9 +29,16 @@ interface CohortRepositoryInterface {
     public function remove(Cohort $cohort);
 
     /**
-     * @param $institution
+     * @param Institution $institution
      *
      * @return Cohort[]
      */
-    public function findByInstitution($institution): array;
+    public function findByInstitution(Institution $institution): array;
+
+    /**
+     * @param Institution $institution
+     * @param string $title
+     * @return Cohort|null
+     */
+    public function findByInstitutionAndTitle(Institution $institution, string $title): ?Cohort;
 }
