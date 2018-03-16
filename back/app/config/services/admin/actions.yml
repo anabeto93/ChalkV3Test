@@ -99,3 +99,6 @@ services:
 
     App\Ui\Admin\Action\Cohort\DeleteAction:
         autowire: true
+
+    App\Ui\Admin\Action\Cohort\AssignUserAction:
+        autowire: true
