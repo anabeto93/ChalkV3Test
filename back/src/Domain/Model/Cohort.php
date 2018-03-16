@@ -113,4 +113,40 @@ class Cohort {
             $this->cohortUsers->toArray()
         );
     }
+
+    /**
+     * @param CohortUser $cohortUser
+     */
+    public function addCohortUser(CohortUser $cohortUser) {
+        $this->cohortUsers->add($cohortUser);
+    }
+
+    /**
+     * @param Cohort $cohort
+     * @param User $user
+     * @return CohortUser|null
+     */
+    public function getCohortUser(Cohort $cohort, User $user): ?CohortUser {
+        /** @var CohortUser $cohortUser */
+        foreach ($this->cohortUsers as $cohortUser) {
+            if($cohort->getId() === $cohortUser->getCohort()->getId()
+            && $user->getId() === $cohortUser->getUser()->getId()) {
+                return $cohortUser;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param Cohort $cohort
+     * @param User $user
+     */
+    public function removeCohortUser(Cohort $cohort, User $user) {
+        $cohortUser = $this->getCohortUser($cohort, $user);
+
+        if($cohortUser) {
+            $this->cohortUsers->removeElement($cohortUser);
+        }
+    }
 }
