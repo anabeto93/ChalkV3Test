@@ -63,3 +63,8 @@ services:
             autowire: true
             tags:
                 - { name: tactician.handler, command: App\Application\Query\Cohort\CohortListQuery }
+
+        App\Application\Query\Cohort\CohortUser\CohortUserListQueryHandler:
+            autowire: true
+            tags:
+                - { name: tactician.handler, command: App\Application\Query\Cohort\CohortUser\CohortUserListQuery }
