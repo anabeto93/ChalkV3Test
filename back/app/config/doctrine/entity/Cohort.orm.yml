@@ -12,6 +12,7 @@ App\Domain\Model\Cohort:
             unique: true
         title:
             type: string
+            unique: true
         createdAt:
             type: datetime
         updatedAt:
