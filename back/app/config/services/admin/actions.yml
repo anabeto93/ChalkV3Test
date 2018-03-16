@@ -102,3 +102,6 @@ services:
 
     App\Ui\Admin\Action\Cohort\AssignUserAction:
         autowire: true
+
+    App\Ui\Admin\Action\Cohort\CohortUser\ListAction:
+        autowire: true

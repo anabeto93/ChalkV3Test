@@ -243,9 +243,16 @@ admin_cohort_delete:
         cohort: \d+
     defaults: { _controller: App\Ui\Admin\Action\Cohort\DeleteAction }
 
+admin_cohort_user_list:
+    path: /cohorts/{cohort}/users
+    methods: [GET, POST]
+    requirements:
+        cohort: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Cohort\CohortUser\ListAction }
+
 admin_cohort_assign_users:
     path: /cohorts/{cohort}/users/assign
     methods: [GET, POST]
     requirements:
-        institution: \d+
+        cohort: \d+
     defaults: { _controller: App\Ui\Admin\Action\Cohort\AssignUserAction }
