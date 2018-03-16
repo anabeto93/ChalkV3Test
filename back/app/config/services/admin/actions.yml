@@ -105,3 +105,6 @@ services:
 
     App\Ui\Admin\Action\Cohort\CohortUser\ListAction:
         autowire: true
+
+    App\Ui\Admin\Action\CohortUser\DeleteAction:
+        autowire: true

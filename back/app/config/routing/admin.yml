@@ -256,3 +256,14 @@ admin_cohort_assign_users:
     requirements:
         cohort: \d+
     defaults: { _controller: App\Ui\Admin\Action\Cohort\AssignUserAction }
+
+#
+# CohortUser
+#
+admin_cohort_user_delete:
+    path: /cohorts/{cohort}/users/{user}/delete
+    methods: [GET]
+    requirements:
+        cohort: \d+
+        user: \d+
+    defaults: { _controller: App\Ui\Admin\Action\CohortUser\DeleteAction }

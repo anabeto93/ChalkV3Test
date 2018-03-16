@@ -59,11 +59,11 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right">
-                                {#<li>#}
-                                    {#<a href="{{ path('admin_user_cohort_delete', { 'cohort': cohort.id, 'user': user.id }) }}">#}
-                                        {#{{ 'admin.cohortUser.action.delete'|trans }}#}
-                                    {#</a>#}
-                                {#</li>#}
+                                <li>
+                                    <a href="{{ path('admin_cohort_user_delete', { 'cohort': cohort.id, 'user': user.id }) }}">
+                                        {{ 'admin.cohortUser.action.delete'|trans }}
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </td>
