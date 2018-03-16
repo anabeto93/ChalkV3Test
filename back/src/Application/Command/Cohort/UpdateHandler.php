@@ -9,6 +9,7 @@
 namespace App\Application\Command\Cohort;
 
 
+use App\Domain\Exception\Cohort\TitleAlreadyUsedException;
 use App\Domain\Repository\CohortRepositoryInterface;
 
 class UpdateHandler {
@@ -32,6 +33,13 @@ class UpdateHandler {
      * @param Update $command
      */
     public function handle(Update $command) {
+        $sameTitleCohort = $this->cohortRepository->findByInstitutionAndTitle
+        ($command->institution, $command->title);
+
+        if($sameTitleCohort !== null) {
+            throw new TitleAlreadyUsedException();
+        }
+
         $command->cohort->update(
           $command->title,
           $this->datetime
