@@ -9,6 +9,7 @@
 namespace App\Application\Command\Cohort;
 
 
+use App\Domain\Exception\Cohort\TitleAlreadyUsedException;
 use App\Domain\Model\Cohort;
 use App\Domain\Repository\CohortRepositoryInterface;
 use App\Domain\Uuid\Generator;
@@ -36,6 +37,13 @@ class CreateHandler {
     }
 
     public function handle(Create $command) {
+        $sameTitleCohort = $this->cohortRepository->findByInstitutionAndTitle
+        ($command->institution, $command->title);
+
+        if($sameTitleCohort !== null) {
+            throw new TitleAlreadyUsedException();
+        }
+
         $uuid = $this->uuidGenerator->generateUuid();
 
         $cohort = new Cohort(

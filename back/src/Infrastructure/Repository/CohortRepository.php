@@ -82,10 +82,12 @@ class CohortRepository implements CohortRepositoryInterface {
 
         $queryBuilder = $this->entityManager
             ->createQueryBuilder()
+            ->select('cohort')
             ->from(Cohort::class, 'cohort')
             ->where('cohort.institution = :institution')
-            ->where('cohort.title = :title')
-            ->setParameters(['institution' => $institution, 'title' => $title]);
+            ->andWhere('cohort.title = :title')
+            ->setParameter('institution', $institution)
+            ->setParameter('title', $title);
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
