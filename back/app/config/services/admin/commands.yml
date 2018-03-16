@@ -208,3 +208,11 @@ services:
         autowire: true
         tags:
             - { name: tactician.handler, command: App\Application\Command\Cohort\AssignUser }
+
+    #
+    # CohortUser
+    #
+    App\Application\Command\CohortUser\DeleteHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\CohortUser\Delete }
