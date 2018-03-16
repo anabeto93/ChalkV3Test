@@ -21,7 +21,7 @@ interface CohortUserRepositoryInterface {
 
     /**
      * @param Cohort $cohort
-     * @return array
+     * @return CohortUser[]
      */
     public function findByCohort(Cohort $cohort): array;
 
