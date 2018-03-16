@@ -72,7 +72,7 @@ class ListAction {
     /**
      * @param Request $request
      * @param Cohort $cohort
-     * @return Response
+     * @return Response|RedirectResponse
      */
     public function __invoke(Request $request, Cohort $cohort): Response {
         /** @var UserListView $userList */
@@ -107,12 +107,12 @@ class ListAction {
                 return new RedirectResponse($this->router->generate('admin_cohort_list_users',
                     ['cohort' => $cohort->getId()]));
             }
-
-            return $this->engine->renderResponse('Admin/Cohort/CohortUser/list.html.twig', [
-                'userList' => $userList,
-                'cohort' => $cohort,
-                'batchForm' => $batchForm->createView()
-            ]);
         }
+
+        return $this->engine->renderResponse('Admin/Cohort/CohortUser/list.html.twig', [
+            'userList' => $userList,
+            'cohort' => $cohort,
+            'batchForm' => $batchForm->createView()
+        ]);
     }
 }
