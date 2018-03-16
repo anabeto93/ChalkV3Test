@@ -9,6 +9,8 @@
 namespace App\Domain\Model;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Cohort {
     /** @var int */
     private $id;
@@ -28,6 +30,9 @@ class Cohort {
     /** @var \DateTimeInterface */
     private $updatedAt;
 
+    /** @var ArrayCollection */
+    private $cohortUsers;
+
     /**
      * Cohort constructor.
      * @param string $uuid
@@ -42,6 +47,8 @@ class Cohort {
         $this->title = $title;
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
+
+        $this->cohortUsers = new ArrayCollection();
     }
 
     /**
@@ -93,5 +100,17 @@ class Cohort {
      */
     public function getUpdatedAt(): \DateTimeInterface {
         return $this->updatedAt;
+    }
+
+    /**
+     * @return User[]
+     */
+    public function getUsers(): array {
+        return array_map(
+            function (CohortUser $cohortUser) {
+                return $cohortUser->getUser();
+            },
+            $this->cohortUsers->toArray()
+        );
     }
 }

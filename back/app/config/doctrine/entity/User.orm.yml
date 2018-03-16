@@ -43,3 +43,6 @@ App\Domain\Model\User:
         userInstitutions:
             targetEntity: App\Domain\Model\UserInstitution
             mappedBy: user
+        cohortUsers:
+            targetEntity: App\Domain\Model\CohortUser
+            mappedBy: user

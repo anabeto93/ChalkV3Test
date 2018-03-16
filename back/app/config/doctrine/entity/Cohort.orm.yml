@@ -24,3 +24,9 @@ App\Domain\Model\Cohort:
             joinColumn:
                 onDelete: CASCADE
                 nullable: false
+    oneToMany:
+        cohortUsers:
+            targetEntity: App\Domain\Model\CohortUser
+            cascade: ['persist', 'remove']
+            mappedBy: cohort
+            orphanRemoval: true

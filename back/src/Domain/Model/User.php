@@ -53,6 +53,9 @@ class User
     /** @var ArrayCollection */
     private $userInstitutions;
 
+    /** @var ArrayCollection */
+    private $cohortUsers;
+
     /** @var string */
     private $locale;
 
@@ -94,6 +97,7 @@ class User
 
         $this->userCourses = new ArrayCollection();
         $this->userInstitutions = new ArrayCollection();
+        $this->cohortUsers = new ArrayCollection();
         $this->forceUpdate = false;
     }
 
@@ -251,6 +255,18 @@ class User
                 return $userInstitution->getInstitution();
             },
             $this->userInstitutions->toArray()
+        );
+    }
+
+    /**
+     * @return Cohort[]
+     */
+    public function getCohorts(): array {
+        return array_map(
+            function (CohortUser $cohortUser) {
+                return $cohortUser->getCohort();
+            },
+            $this->cohortUsers->toArray()
         );
     }
 
