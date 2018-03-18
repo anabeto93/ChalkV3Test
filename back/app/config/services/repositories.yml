@@ -61,3 +61,7 @@ services:
     App\Infrastructure\Repository\CohortUserRepository:
         autowire: true
     App\Domain\Repository\CohortUserRepositoryInterface: '@App\Infrastructure\Repository\CohortUserRepository'
+
+    App\Infrastructure\Repository\CohortCourseRepository:
+        autowire: true
+    App\Domain\Repository\CohortCourseRepositoryInterface: '@App\Infrastructure\Repository\CohortCourseRepository'
