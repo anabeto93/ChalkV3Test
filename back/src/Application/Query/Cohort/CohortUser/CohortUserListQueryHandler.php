@@ -28,6 +28,10 @@ class CohortUserListQueryHandler {
         $this->cohortUserRepository = $cohortUserRepository;
     }
 
+    /**
+     * @param CohortUserListQuery $query
+     * @return UserListView
+     */
     public function handle(CohortUserListQuery $query): UserListView {
         $cohortUsers = $this->cohortUserRepository->findByCohort($query->cohort);
 
