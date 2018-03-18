@@ -19,15 +19,21 @@ class CohortView {
     /** @var int */
     public $numberOfStudents;
 
+    /** @var int */
+    public $numberOfCourses;
+
     /**
      * CohortView constructor.
      * @param int $id
      * @param string $title
      * @param int $numberOfStudents
+     * @param int $numberOfCourses
      */
-    public function __construct(int $id, string $title, int $numberOfStudents) {
+    public function __construct(int $id, string $title, int $numberOfStudents, int
+    $numberOfCourses) {
         $this->id = $id;
         $this->title = $title;
         $this->numberOfStudents = $numberOfStudents;
+        $this->numberOfCourses = $numberOfCourses;
     }
 }
