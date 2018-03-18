@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block title institution.name ~ ' | ' ~ 'admin.cohort.title'|trans %}
+{% block title institution.name ~ ' | ' ~ 'admin.cohort.list.title'|trans %}
 
 {% import ':Admin/Common:macro.html.twig' as macro %}
 
@@ -36,9 +36,9 @@
                         </a>
                     </td>
                     <td>
-                        {#<a href="{{ path('admin_cohort_course_list', {'institution': institution.id, 'cohort': cohort.id}) }}" title="{{ 'admin.cohort.listCourses'|trans }}">#}
+                        <a href="{{ path('admin_cohort_course_list', {'institution': institution.id, 'cohort': cohort.id}) }}" title="{{ 'admin.cohort.listCourses'|trans }}">
                             {{ cohort.numberOfCourses }}
-                        {#</a>#}
+                        </a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group">

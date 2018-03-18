@@ -46,6 +46,8 @@ class ListAction {
         $courses = $this->queryBus->handle(new CohortCourseListQuery($cohort));
 
         return $this->engine->renderResponse('Admin/Cohort/CohortCourse/list.html.twig', [
+            'institution' => $institution,
+            'cohort' => $cohort,
             'courses' => $courses
         ]);
     }
