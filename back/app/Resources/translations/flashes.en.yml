@@ -25,5 +25,6 @@ flash.admin.cohort.create.success: 'Cohort created successfully'
 flash.admin.cohort.update.success: 'Cohort updated successfully'
 flash.admin.cohort.delete.success: 'Cohort deleted successfully'
 flash.admin.cohort.assign_user.success: 'Student(s) assigned successfully to Cohort'
+flash.admin.cohort.assign_course.success: 'Course(s) assigned successfully to Cohort'
 
 flash.admin.cohortUser.delete.success: 'Cohort/User relationship deleted successfully'
