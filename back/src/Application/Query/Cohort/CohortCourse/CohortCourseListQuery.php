@@ -9,9 +9,10 @@
 namespace App\Application\Query\Cohort\CohortCourse;
 
 
+use App\Application\Query\Query;
 use App\Domain\Model\Cohort;
 
-class CohortCourseListQuery {
+class CohortCourseListQuery implements Query {
     /** @var Cohort */
     public $cohort;
 
