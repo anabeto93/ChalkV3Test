@@ -71,10 +71,10 @@ class AssignCourseAction {
         if($form->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle($assign);
 
-            $this->flashBag->add('success', 'flash.admin.cohort.assign_course_success');
+            $this->flashBag->add('success', 'flash.admin.cohort.assign_course.success');
 
-            return new RedirectResponse($this->router->generate('admin_cohort_course_list'),
-                ['institution' => $institution->getId(), 'cohort' => $cohort->getId()]);
+            return new RedirectResponse($this->router->generate('admin_cohort_course_list',
+                ['institution' => $institution->getId(), 'cohort' => $cohort->getId()]));
         }
 
         return $this->engine->renderResponse('Admin/Cohort/assign_courses.html.twig', [
