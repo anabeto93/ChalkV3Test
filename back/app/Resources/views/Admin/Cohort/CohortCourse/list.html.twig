@@ -6,8 +6,8 @@
     <h2>
         <a href="{{ path('admin_institution_list') }}">{{ institution.name }}</a> | <a href="{{ path('admin_cohort_list', { 'institution': institution.id }) }}">{{ 'admin.cohort.cohortCourse.list.title'|trans({'%cohortTitle%': cohort.title}) }}</a> | {{ 'admin.cohort.listCourses'|trans }}
         <span class="pull-right">
-            <a class="btn btn-primary" href="{{ path('admin_course_create') }}">
-                {{ 'admin.course.create.title'|trans }}
+            <a class="btn btn-primary" href="#">
+                {{ 'admin.cohort.cohortCourse.assign.title'|trans }}
             </a>
         </span>
     </h2>
@@ -20,10 +20,8 @@
             <tr>
                 <th class="col-md-2">{{ 'admin.course.column.title'|trans }}</th>
                 <th class="col-md-2">{{ 'admin.course.column.teacherName'|trans }}</th>
-                <th class="col-md-2">{{ 'admin.course.column.university'|trans }}</th>
                 <th class="col-md-1">{{ 'admin.course.column.folders'|trans }}</th>
                 <th class="col-md-1">{{ 'admin.course.column.sessions'|trans }}</th>
-                <th class="col-md-1">{{ 'admin.course.column.students'|trans }}</th>
                 <th class="col-md-1">{{ 'admin.course.column.enabled'|trans }}</th>
                 <th class="col-md-1"></th>
             </tr>
@@ -33,7 +31,6 @@
                 <tr>
                     <td>{{ course.title }}</td>
                     <td>{{ course.teacherName }}</td>
-                    <td>{{ course.university }}</td>
                     <td>
                         <a href="{{ path('admin_folder_list', {'course': course.id}) }}" title="{{ 'admin.course.viewFolders'|trans }}">
                             {{ course.numberOfFolders }}
@@ -42,11 +39,6 @@
                     <td>
                         <a href="{{ path('admin_session_list', {'course': course.id}) }}" title="{{ 'admin.course.viewSessions'|trans }}">
                             {{ course.numberOfSessions }}
-                        </a>
-                    </td>
-                    <td>
-                        <a href="{{ path('admin_course_assign_user', {'course': course.id}) }}" title="{{ 'admin.course.viewStudents'|trans }}">
-                            {{ course.numberOfStudents }}
                         </a>
                     </td>
                     <td>{{ course.enabled ? '✔︎' : '' }}</td>
