@@ -17,3 +17,8 @@ services:
         autowire: true
         tags:
             - { name: form.type, alias: Symfony\Component\Form\Extension\Core\Type\FormType }
+
+    App\Ui\Admin\Form\Type\Course\CourseChoiceType:
+        autowire: true
+        tags:
+            - { name: form.type, alias: App\Ui\Admin\Form\Type\Course\CourseChoiceType }

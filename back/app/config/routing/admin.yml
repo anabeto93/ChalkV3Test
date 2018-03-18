@@ -267,6 +267,14 @@ admin_cohort_course_list:
         cohort: \d+
     defaults: { _controller: App\Ui\Admin\Action\Cohort\CohortCourse\ListAction }
 
+admin_cohort_assign_courses:
+    path: /institutions/{institution}/cohorts/{cohort}/courses/assign
+    methods: [GET, POST]
+    requirements:
+        institution: \d+
+        cohort: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Cohort\AssignCourseAction }
+
 #
 # CohortUser
 #
