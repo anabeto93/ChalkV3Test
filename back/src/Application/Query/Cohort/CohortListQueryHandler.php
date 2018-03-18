@@ -48,7 +48,7 @@ class CohortListQueryHandler {
             $cohortViews[] = new CohortView(
                 $cohort->getId(),
                 $cohort->getTitle(),
-                $this->cohortUserRepository->counterUserForCohort($cohort),
+                $this->cohortUserRepository->countUserForCohort($cohort),
                 $this->cohortCourseRepository->countCourseForCohort($cohort)
             );
         }

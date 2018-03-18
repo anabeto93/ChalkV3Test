@@ -29,7 +29,7 @@ class CohortUserRepository implements CohortUserRepositoryInterface {
     /**
      * @inheritdoc
      */
-    public function counterUserForCohort(Cohort $cohort): int {
+    public function countUserForCohort(Cohort $cohort): int {
         $queryBuilder = $this->entityManager
                         ->createQueryBuilder()
                         ->select('COUNT(IDENTITY(cohort_user))')

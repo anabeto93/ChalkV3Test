@@ -17,7 +17,7 @@ interface CohortUserRepositoryInterface {
      * @param Cohort $cohort
      * @return int
      */
-    public function counterUserForCohort(Cohort $cohort): int;
+    public function countUserForCohort(Cohort $cohort): int;
 
     /**
      * @param Cohort $cohort
