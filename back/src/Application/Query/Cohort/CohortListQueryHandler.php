@@ -10,6 +10,7 @@ namespace App\Application\Query\Cohort;
 
 
 use App\Application\View\Cohort\CohortView;
+use App\Domain\Repository\CohortCourseRepositoryInterface;
 use App\Domain\Repository\CohortRepositoryInterface;
 use App\Domain\Repository\CohortUserRepositoryInterface;
 
@@ -20,14 +21,19 @@ class CohortListQueryHandler {
     /** @var CohortUserRepositoryInterface */
     public $cohortUserRepository;
 
+    /** @var CohortCourseRepositoryInterface */
+    public $cohortCourseRepository;
+
     /**
      * CohortListQueryHandler constructor.
      * @param CohortRepositoryInterface $cohortRepository
      * @param CohortUserRepositoryInterface $cohortUserRepository
+     * @param CohortCourseRepositoryInterface $cohortCourseRepository
      */
-    public function __construct(CohortRepositoryInterface $cohortRepository, CohortUserRepositoryInterface $cohortUserRepository) {
+    public function __construct(CohortRepositoryInterface $cohortRepository, CohortUserRepositoryInterface $cohortUserRepository, CohortCourseRepositoryInterface $cohortCourseRepository) {
         $this->cohortRepository = $cohortRepository;
         $this->cohortUserRepository = $cohortUserRepository;
+        $this->cohortCourseRepository = $cohortCourseRepository;
     }
 
     /**
@@ -42,7 +48,8 @@ class CohortListQueryHandler {
             $cohortViews[] = new CohortView(
                 $cohort->getId(),
                 $cohort->getTitle(),
-                $this->cohortUserRepository->counterUserForCohort($cohort)
+                $this->cohortUserRepository->counterUserForCohort($cohort),
+                $this->cohortCourseRepository->countCourseForCohort($cohort)
             );
         }
 
