@@ -128,7 +128,7 @@ admin.cohort.column.courses: 'Number of Courses'
 admin.cohort.listStudents: 'List of Students'
 admin.cohort.listCourses: 'List of Courses'
 admin.cohort.assign_users.title: 'Assign Users to Cohort "%cohortTitle%" of "%institutionName%"'
-admin.cohort.assign_courses.title: 'Assign Courses to Cohort "cohortTitle" of "%institutionName%"'
+admin.cohort.assign_courses.title: 'Assign Courses to Cohort "%cohortTitle%" of "%institutionName%"'
 
 admin.cohort.cohortUser.list.title: 'Cohort %cohortTitle%'
 admin.cohort.cohortUser.assign.title: 'Assign Students'
