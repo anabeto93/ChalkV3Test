@@ -1,0 +1,24 @@
+App\Domain\Model\CohortCourse:
+    type: entity
+    table: cohort_course
+    id:
+        cohort:
+            associationKey: true
+        course:
+            associationKey: true
+    fields:
+        assignedAt:
+            type: datetime
+    manyToOne:
+        cohort:
+            targetEntity: App\Domain\Model\Cohort
+            inversedBy: cohortCourses
+            joinColumn:
+                onDelete: CASCADE
+                nullable: false
+        course:
+            targetEntity: App\Domain\Model\Course
+            inversedBy: cohortCourses
+            joinColumn:
+                onDelete: CASCADE
+                nullable: false
