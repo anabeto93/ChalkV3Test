@@ -78,3 +78,6 @@ form.cohort_create.children.title.label: 'Title'
 form.cohort_create.children.submit.label: 'Save'
 form.cohort_update.children.title.label: 'Title'
 form.cohort_update.children.submit.label: 'Update'
+
+form.assign_course.children.courses.label: 'Courses'
+form.assign_course.children.submit.label: 'Assign'
