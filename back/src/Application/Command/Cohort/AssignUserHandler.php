@@ -30,6 +30,9 @@ class AssignUserHandler {
     }
 
 
+    /**
+     * @param AssignUser $command
+     */
     public function handle(AssignUser $command) {
         $alreadyAssignedUsers = $command->cohort->getUsers();
 
