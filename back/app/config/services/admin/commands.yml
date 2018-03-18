@@ -209,6 +209,11 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\Cohort\AssignUser }
 
+    App\Application\Command\Cohort\AssignCourseHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Cohort\AssignCourse }
+
     #
     # CohortUser
     #
