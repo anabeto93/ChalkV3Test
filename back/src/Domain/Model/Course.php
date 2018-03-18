@@ -47,6 +47,9 @@ class Course
     /** @var ArrayCollection of UserCourse */
     private $userCourses;
 
+    /** @var ArrayCollection of CohortCourse */
+    private $cohortCourses;
+
     /** @var \DateTimeInterface */
     private $updatedAt;
 
@@ -86,6 +89,7 @@ class Course
         $this->sessions = new ArrayCollection();
         $this->folders = new ArrayCollection();
         $this->userCourses = new ArrayCollection();
+        $this->cohortCourses = new ArrayCollection();
     }
 
     /**
@@ -266,6 +270,19 @@ class Course
     public function getFolders(): array
     {
         return $this->folders->toArray();
+    }
+
+
+    /**
+     * @return Cohort[]
+     */
+    public function getCohorts(): array {
+        return array_map(
+            function (CohortCourse $cohortCourse) {
+                return $cohortCourse->getCourse();
+            },
+            $this->cohortCourses->toArray()
+        );
     }
 
     /**

@@ -30,3 +30,8 @@ App\Domain\Model\Cohort:
             cascade: ['persist', 'remove']
             mappedBy: cohort
             orphanRemoval: true
+        cohortCourses:
+            targetEntity: App\Domain\Model\CohortCourse
+            cascade: ['persist', 'remove']
+            mappedBy: cohort
+            orphanRemoval: true

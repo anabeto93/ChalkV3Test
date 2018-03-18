@@ -33,6 +33,9 @@ class Cohort {
     /** @var ArrayCollection */
     private $cohortUsers;
 
+    /** @var ArrayCollection */
+    private $cohortCourses;
+
     /**
      * Cohort constructor.
      * @param string $uuid
@@ -49,6 +52,7 @@ class Cohort {
         $this->updatedAt = $createdAt;
 
         $this->cohortUsers = new ArrayCollection();
+        $this->cohortCourses = new ArrayCollection();
     }
 
     /**
@@ -147,6 +151,54 @@ class Cohort {
 
         if($cohortUser) {
             $this->cohortUsers->removeElement($cohortUser);
+        }
+    }
+
+    /**
+     * @return Course[]
+     */
+    public function getCourses(): array {
+        return array_map(
+            function (CohortCourse $cohortCourse) {
+                return $cohortCourse->getCourse();
+            },
+            $this->cohortCourses->toArray()
+        );
+    }
+
+    /**
+     * @param CohortCourse $cohortCourse
+     */
+    public function addCohortCourse(CohortCourse $cohortCourse) {
+        $this->cohortCourses->add($cohortCourse);
+    }
+
+    /**
+     * @param Cohort $cohort
+     * @param Course $course
+     * @return CohortCourse|null
+     */
+    public function getCohortCourse(Cohort $cohort, Course $course): ?CohortCourse {
+        /** @var CohortCourse $cohortCourse */
+        foreach ($this->cohortCourses as $cohortCourse) {
+            if($cohort->getId() === $cohortCourse->getCohort()->getId()
+                && $course->getId() === $cohortCourse->getCourse()->getId()) {
+                return $cohortCourse;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param Cohort $cohort
+     * @param Course $course
+     */
+    public function removeCohortCourse(Cohort $cohort, Course $course) {
+        $cohortCourse = $this->getCohortCourse($cohort, $course);
+
+        if($cohortCourse) {
+            $this->cohortCourses->removeElement($cohortCourse);
         }
     }
 }
