@@ -221,3 +221,11 @@ services:
         autowire: true
         tags:
             - { name: tactician.handler, command: App\Application\Command\CohortUser\Delete }
+
+    #
+    # CohortCourse
+    #
+    App\Application\Command\CohortCourse\DeleteHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\CohortCourse\Delete }
