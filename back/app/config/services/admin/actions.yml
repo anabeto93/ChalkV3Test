@@ -114,3 +114,6 @@ services:
 
     App\Ui\Admin\Action\CohortUser\DeleteAction:
         autowire: true
+
+    App\Ui\Admin\Action\CohortCourse\DeleteAction:
+        autowire: true

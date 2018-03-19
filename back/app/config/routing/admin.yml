@@ -286,3 +286,15 @@ admin_cohort_user_delete:
         cohort: \d+
         user: \d+
     defaults: { _controller: App\Ui\Admin\Action\CohortUser\DeleteAction }
+
+#
+# CohortCourse
+#
+admin_cohort_course_delete:
+    path: /institutions/{institution}/cohorts/{cohort}/courses/delete/{course}
+    methods: [DELETE]
+    requirements:
+        institution: \d+
+        cohort: \d+
+        course: \d+
+    defaults: { _controller: App\Ui\Admin\Action\CohortCourse\DeleteAction }

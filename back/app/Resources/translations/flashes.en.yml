@@ -28,3 +28,4 @@ flash.admin.cohort.assign_user.success: 'Student(s) assigned successfully to Coh
 flash.admin.cohort.assign_course.success: 'Course(s) assigned successfully to Cohort'
 
 flash.admin.cohortUser.delete.success: 'Cohort/User relationship deleted successfully'
+flash.admin.cohortCourse.delete.success: 'Cohort/Course relationship deleted successfully'

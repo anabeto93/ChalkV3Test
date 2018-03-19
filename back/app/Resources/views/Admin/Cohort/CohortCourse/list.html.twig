@@ -2,6 +2,8 @@
 
 {% block title 'admin.cohort.cohortCourse.list.title'|trans({'%cohortTitle%': cohort.title}) ~ ' | ' ~ 'admin.cohort.listCourses'|trans %}
 
+{% import ':Admin/Common:macro.html.twig' as macro %}
+
 {% block content %}
     <h2>
         <a href="{{ path('admin_institution_list') }}">{{ institution.name }}</a> | <a href="{{ path('admin_cohort_list', { 'institution': institution.id }) }}">{{ 'admin.cohort.cohortCourse.list.title'|trans({'%cohortTitle%': cohort.title}) }}</a> | {{ 'admin.cohort.listCourses'|trans }}
@@ -43,9 +45,23 @@
                     </td>
                     <td>{{ course.enabled ? '✔︎' : '' }}</td>
                     <td class="text-right">
-                        <a href="{{ path('admin_course_update', {'course': course.id}) }}" class="btn btn-sm btn-default">
-                            {{ 'admin.course.action.update'|trans }}
-                        </a>
+                        <div class="btn-group">
+                            <a href="{{ path('admin_course_update', {'course': course.id}) }}" class="btn btn-sm btn-default">
+                                {{ 'admin.course.action.update'|trans }}
+                            </a>
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li>
+                                    {{ macro.delete_button(
+                                        path('admin_cohort_course_delete', { 'institution': institution.id, 'cohort': cohort.id, 'course': course.id }),
+                                        'admin.cohortCourse.action.delete'|trans,
+                                        { 'class': 'btn btn-default btn-sm', 'data-confirm': 'admin.cohort.cohortCourse.action.confirmDelete'|trans })
+                                    }}
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
