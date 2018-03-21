@@ -10,7 +10,10 @@ namespace App\Application\Command\Cohort;
 
 
 use App\Domain\Model\CohortCourse;
+use App\Domain\Model\UserCourse;
 use App\Domain\Repository\CohortRepositoryInterface;
+use App\Domain\Repository\CourseRepositoryInterface;
+use App\Domain\Repository\UserRepositoryInterface;
 
 class AssignCourseHandler {
     /** @var CohortRepositoryInterface */
@@ -34,18 +37,40 @@ class AssignCourseHandler {
      */
     public function handle(AssignCourse $command) {
         $alreadyAssignedCourses = $command->cohort->getCourses();
+        $users = $command->cohort->getUsers();
+
+
 
         foreach ($command->courses as $assignedCourse) {
             if(!in_array($assignedCourse, $alreadyAssignedCourses, true)) {
                 $command->cohort->addCohortCourse(new CohortCourse(
                     $command->cohort, $assignedCourse, $this->dateTime
                 ));
+
+
+                foreach ($users as $user) {
+                    if(!in_array($user, $assignedCourse->getUsers(), true)) {
+                        $assignedCourse->addUserCourse(new UserCourse($user, $assignedCourse,
+                            $this->dateTime));
+
+                        $user->forceUpdate();
+                    }
+                }
             }
         }
 
         foreach ($alreadyAssignedCourses as $alreadyAssignedCourse) {
             if(!in_array($alreadyAssignedCourse, $command->courses, true)) {
                 $command->cohort->removeCohortCourse($command->cohort, $alreadyAssignedCourse);
+
+
+                foreach ($users as $user) {
+                    if (in_array($user, $alreadyAssignedCourse->getUsers(), true)) {
+                        $alreadyAssignedCourse->removeUserCourse($user, $alreadyAssignedCourse);
+
+                        $user->forceUpdate();
+                    }
+                }
             }
         }
 
