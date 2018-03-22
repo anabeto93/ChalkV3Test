@@ -53,6 +53,14 @@ class DeleteAction {
             );
         }
 
+        if($cohort->getCourses() || $cohort->getUsers()) {
+            $this->flashBag->add('error', 'flash.admin.cohort.delete.error');
+
+            return new RedirectResponse($this->router->generate('admin_cohort_list',
+                ['institution' => $institution->getId()])
+            );
+        }
+
         $this->commandBus->handle(new Delete($cohort));
 
         $this->flashBag->add('success', 'flash.admin.cohort.delete.success');
