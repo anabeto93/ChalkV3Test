@@ -27,6 +27,17 @@ class DeleteHandler {
      * @param Delete $command
      */
     public function handle(Delete $command) {
+        $user = $command->cohortUser->getUser();
+        $courses = $command->cohortUser->getCohort()->getCourses();
+
+        foreach ($courses as $course) {
+            if(in_array($user, $course->getUsers())) {
+                $course->removeUserCourse($user, $course);
+            }
+        }
+        
+        $user->forceUpdate();
+
         $this->cohortUserRepository->remove($command->cohortUser);
     }
 }
