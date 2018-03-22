@@ -35,7 +35,7 @@ class DeleteHandler {
                 $course->removeUserCourse($user, $course);
             }
         }
-        
+
         $user->forceUpdate();
 
         $this->cohortUserRepository->remove($command->cohortUser);
