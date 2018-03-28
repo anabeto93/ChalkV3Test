@@ -19,7 +19,7 @@ const config = {
         dsn: 'https://c5f21bb1fb994d469dd773d94bef1c56:26bda1c60161453fb7185f2d8de4c72c@sentry.io/302241'
       }
     },
-    apiPhoneNumber: '+233200659986'
+    apiPhoneNumber: '+233501333517'
   },
   default: {
     api: {
@@ -37,7 +37,7 @@ const config = {
         dsn: null
       }
     },
-    apiPhoneNumber: '+233200659986'
+    apiPhoneNumber: '+233501333517'
   }
 };
 
