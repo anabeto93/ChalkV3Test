@@ -16,7 +16,7 @@ const config = {
     defaultFolder: 'default',
     externalServices: {
       sentry: {
-        dsn: 'https://8a9f37b455334d5f9602868749b2aa82@sentry.io/236454'
+        dsn: 'https://c5f21bb1fb994d469dd773d94bef1c56:26bda1c60161453fb7185f2d8de4c72c@sentry.io/302241'
       }
     },
     apiPhoneNumber: '+233200659986'
