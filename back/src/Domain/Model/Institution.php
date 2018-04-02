@@ -9,8 +9,6 @@
 namespace App\Domain\Model;
 
 
-use Doctrine\Common\Collections\ArrayCollection;
-
 class Institution {
     /** @var int */
     private $id;
@@ -30,9 +28,6 @@ class Institution {
     /** @var int */
     private $size;
 
-    /** @var ArrayCollection of UserInstitution */
-    private $userInstitutions;
-
     /**
      * Institution constructor.
      * @param string $uuid
@@ -47,8 +42,6 @@ class Institution {
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
         $this->size = $size;
-
-        $this->userInstitutions = new ArrayCollection();
     }
 
     /**
@@ -106,58 +99,5 @@ class Institution {
      */
     public function getSize(): int {
         return $this->size;
-    }
-
-    /**
-     * @return UserInstitution[]
-     */
-    public function getUserInstitutions(): array {
-        return $this->userInstitutions->toArray();
-    }
-
-    /**
-     * @return User[]
-     */
-    public function getUsers(): array {
-        return array_map(
-          function(UserInstitution $userInstitution) {
-              return $userInstitution->getUser();
-          }, $this->userInstitutions->toArray()
-        );
-    }
-
-    /**
-     * @param UserInstitution $userInstitution
-     */
-    public function addUserInstitution(UserInstitution $userInstitution) {
-        $this->userInstitutions->add($userInstitution);
-    }
-
-    /**
-     * @param User $user
-     * @param Institution $institution
-     * @return UserInstitution|null
-     */
-    public function getUserInstitution(User $user, Institution $institution): ?UserInstitution {
-        /** @var UserInstitution $userInstitution */
-        foreach($this->userInstitutions as $userInstitution) {
-            if($user->getId() === $userInstitution->getUser()->getId()
-            && $institution->getId() === $userInstitution->getInstitution()->getId()) {
-                return $userInstitution;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * @param User $user
-     * @param Institution $institution
-     */
-    public function removeUserInstitution(User $user, Institution $institution) {
-        $userInstitution = $this->getUserInstitution($user, $institution);
-        if($userInstitution) {
-            $this->userInstitutions->removeElement($userInstitution);
-        }
     }
 }

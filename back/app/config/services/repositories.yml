@@ -49,7 +49,3 @@ services:
     App\Infrastructure\Repository\InstitutionRepository:
         autowire: true
     App\Domain\Repository\InstitutionRepositoryInterface: '@App\Infrastructure\Repository\InstitutionRepository'
-
-    App\Infrastructure\Repository\UserInstitutionRepository:
-        autowire: true
-    App\Domain\Repository\UserIntitutionRepositoryInterface: '@App\Infrastructure\Repository\UserInstitutionRepository'

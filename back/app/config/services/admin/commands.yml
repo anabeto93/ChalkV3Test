@@ -172,16 +172,3 @@ services:
         autowire: true
         tags:
             - { name: tactician.handler, command: App\Application\Command\Institution\Delete }
-
-    App\Application\Command\Institution\AssignUserHandler:
-        autowire: true
-        tags:
-            - { name: tactician.handler, command: App\Application\Command\Institution\AssignUser }
-
-    #
-    # UserInstitution
-    #
-    App\Application\Command\UserInstitution\DeleteHandler:
-        autowire: true
-        tags:
-            - { name: tactician.handler, command: App\Application\Command\UserInstitution\Delete }
