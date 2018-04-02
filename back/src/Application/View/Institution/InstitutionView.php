@@ -16,18 +16,13 @@ class InstitutionView {
     /** @var string */
     public $name;
 
-    /** @var int */
-    public $numberOfStudents;
-
     /**
      * InstitutionView constructor.
      * @param int $id
      * @param string $name
-     * @param int $numberOfStudents
      */
-    public function __construct(int $id, string $name, int $numberOfStudents) {
+    public function __construct(int $id, string $name) {
         $this->id = $id;
         $this->name = $name;
-        $this->numberOfStudents = $numberOfStudents;
     }
 }

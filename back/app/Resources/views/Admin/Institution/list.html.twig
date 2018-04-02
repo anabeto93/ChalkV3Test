@@ -21,7 +21,6 @@
             <thead>
                 <tr>
                     <th class="col-md-2">{{ 'admin.institution.column.name'|trans }}</th>
-                    <th class="col-md-1">{{ 'admin.institution.column.students'|trans }}</th>
                     <th class="col-md-1"></th>
                 </tr>
             </thead>
@@ -29,11 +28,6 @@
             {% for institution in institutions %}
                 <tr>
                     <td>{{ institution.name }}</td>
-                    <td>
-                        <a href="{{ path('admin_institution_user_list', {'institution': institution.id}) }}" title="{{ 'admin.institution.listStudents'|trans }}">
-                            {{ institution.numberOfStudents }}
-                        </a>
-                    </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <a href="{{ path('admin_institution_update', {'institution': institution.id}) }}" class="btn btn-default btn-sm">

@@ -17,6 +17,3 @@ flash.admin.user.import.success: 'Users imported with success'
 flash.admin.institution.create.success: 'Institution created successfully'
 flash.admin.institution.update.success: 'Institution updated successfully'
 flash.admin.institution.delete.success: 'Institution deleted successfully'
-flash.admin.institution.assign_user.success: 'Student(s) assigned successfully'
-
-flash.admin.userInstitution.delete.success: 'User/Institution relationship deleted successfully'

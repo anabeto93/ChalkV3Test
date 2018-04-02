@@ -78,12 +78,3 @@ services:
 
     App\Ui\Admin\Action\Institution\DeleteAction:
         autowire: true
-
-    App\Ui\Admin\Action\Institution\AssignUserAction:
-        autowire: true
-
-    App\Ui\Admin\Action\Institution\UserInstitution\ListAction:
-        autowire: true
-
-    App\Ui\Admin\Action\UserInstitution\DeleteAction:
-        autowire: true

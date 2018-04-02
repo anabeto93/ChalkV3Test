@@ -40,6 +40,3 @@ App\Domain\Model\User:
         userCourses:
             targetEntity: App\Domain\Model\UserCourse
             mappedBy: user
-        userInstitutions:
-            targetEntity: App\Domain\Model\UserInstitution
-            mappedBy: user
