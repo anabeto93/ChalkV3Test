@@ -11,23 +11,17 @@ namespace App\Application\Query\Institution;
 
 use App\Application\View\Institution\InstitutionView;
 use App\Domain\Repository\InstitutionRepositoryInterface;
-use App\Domain\Repository\UserInstitutionRepositoryInterface;
 
 class InstitutionListQueryHandler {
     /** @var InstitutionRepositoryInterface */
     private $institutionRepository;
 
-    /** @var UserInstitutionRepositoryInterface */
-    private $userInstitutionRepository;
-
     /**
      * InstitutionListQueryHandler constructor.
      * @param InstitutionRepositoryInterface $institutionRepository
-     * @param UserInstitutionRepositoryInterface $userInstitutionRepository
      */
-    public function __construct(InstitutionRepositoryInterface $institutionRepository, UserInstitutionRepositoryInterface $userInstitutionRepository) {
+    public function __construct(InstitutionRepositoryInterface $institutionRepository) {
         $this->institutionRepository = $institutionRepository;
-        $this->userInstitutionRepository = $userInstitutionRepository;
     }
 
 
@@ -43,7 +37,6 @@ class InstitutionListQueryHandler {
             $institutionViews[] = new InstitutionView(
               $institution->getId(),
               $institution->getName(),
-              $this->userInstitutionRepository->countUserForInstitution($institution),
               count($institution->getCohorts())
             );
         }

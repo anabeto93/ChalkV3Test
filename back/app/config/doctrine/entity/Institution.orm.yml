@@ -20,11 +20,6 @@ App\Domain\Model\Institution:
         size:
             type: integer
     oneToMany:
-        userInstitutions:
-            targetEntity: App\Domain\Model\UserInstitution
-            cascade: ['persist', 'remove']
-            mappedBy: institution
-            orphanRemoval: true
         cohorts:
             targetEntity: App\Domain\Model\Cohort
             mappedBy: institution

@@ -114,12 +114,14 @@ class CourseNormalizer
      * @param array $folders
      */
     private function sortFoldersByTitle(array &$folders) {
-        usort(
-            $folders,
-            function ($one, $other) {
-                return strcasecmp($one["title"], $other["title"]);
-            }
-        );
+        if(count($folders) > 1) {
+            usort(
+                $folders,
+                function ($one, $other) {
+                    return strcasecmp($one["title"], $other["title"]);
+                }
+            );
+        }
     }
 }
 

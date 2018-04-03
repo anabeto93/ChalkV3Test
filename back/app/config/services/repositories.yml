@@ -50,10 +50,6 @@ services:
         autowire: true
     App\Domain\Repository\InstitutionRepositoryInterface: '@App\Infrastructure\Repository\InstitutionRepository'
 
-    App\Infrastructure\Repository\UserInstitutionRepository:
-        autowire: true
-    App\Domain\Repository\UserIntitutionRepositoryInterface: '@App\Infrastructure\Repository\UserInstitutionRepository'
-
     App\Infrastructure\Repository\CohortRepository:
         autowire: true
     App\Domain\Repository\CohortRepositoryInterface: '@App\Infrastructure\Repository\CohortRepository'
