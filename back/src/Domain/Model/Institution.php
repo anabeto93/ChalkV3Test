@@ -9,6 +9,8 @@
 namespace App\Domain\Model;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Institution {
     /** @var int */
     private $id;
