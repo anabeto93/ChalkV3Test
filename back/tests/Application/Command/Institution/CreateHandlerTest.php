@@ -25,7 +25,7 @@ class CreateHandlerTest extends TestCase {
     /** @var ObjectProphecy */
     private $generator;
 
-    /** @var ObjectProphecy */
+    /** @var \DateTime */
     private $dateTime;
 
     public function setUp() {
