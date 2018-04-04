@@ -43,7 +43,6 @@ class UpdateHandler {
         }
 
         $command->institution->update(
-            $command->institution->getUuid(),
             $command->name,
             $this->dateTime,
             0

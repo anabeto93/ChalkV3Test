@@ -53,14 +53,12 @@ class Institution {
 
     /**
      * Institution constructor.
-     * @param string $uuid
      * @param string $name
      * @param \DateTimeInterface $updatedAt
      * @param int $size
      */
-    public function update(string $uuid, string $name, \DateTimeInterface $updatedAt, int
+    public function update(string $name, \DateTimeInterface $updatedAt, int
     $size) {
-        $this->uuid = $uuid;
         $this->name = $name;
         $this->updatedAt = $updatedAt;
         $this->size = $size;
