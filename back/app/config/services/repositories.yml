@@ -49,3 +49,15 @@ services:
     App\Infrastructure\Repository\InstitutionRepository:
         autowire: true
     App\Domain\Repository\InstitutionRepositoryInterface: '@App\Infrastructure\Repository\InstitutionRepository'
+
+    App\Infrastructure\Repository\CohortRepository:
+        autowire: true
+    App\Domain\Repository\CohortRepositoryInterface: '@App\Infrastructure\Repository\CohortRepository'
+
+    App\Infrastructure\Repository\CohortUserRepository:
+        autowire: true
+    App\Domain\Repository\CohortUserRepositoryInterface: '@App\Infrastructure\Repository\CohortUserRepository'
+
+    App\Infrastructure\Repository\CohortCourseRepository:
+        autowire: true
+    App\Domain\Repository\CohortCourseRepositoryInterface: '@App\Infrastructure\Repository\CohortCourseRepository'

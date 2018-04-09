@@ -9,6 +9,8 @@
 namespace App\Domain\Model;
 
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 class Institution {
     /** @var int */
     private $id;
@@ -28,6 +30,9 @@ class Institution {
     /** @var int */
     private $size;
 
+    /** @var ArrayCollection of Cohort */
+    private $cohorts;
+
     /**
      * Institution constructor.
      * @param string $uuid
@@ -42,18 +47,18 @@ class Institution {
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
         $this->size = $size;
+
+        $this->cohorts = new ArrayCollection();
     }
 
     /**
      * Institution constructor.
-     * @param string $uuid
      * @param string $name
      * @param \DateTimeInterface $updatedAt
      * @param int $size
      */
-    public function update(string $uuid, string $name, \DateTimeInterface $updatedAt, int
+    public function update(string $name, \DateTimeInterface $updatedAt, int
     $size) {
-        $this->uuid = $uuid;
         $this->name = $name;
         $this->updatedAt = $updatedAt;
         $this->size = $size;
@@ -99,5 +104,12 @@ class Institution {
      */
     public function getSize(): int {
         return $this->size;
+    }
+  
+    /**
+     * @return Cohort[]
+     */
+    public function getCohorts(): array {
+        return $this->cohorts->toArray();
     }
 }

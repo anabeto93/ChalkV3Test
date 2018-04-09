@@ -20,14 +20,20 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th class="col-md-2">{{ 'admin.institution.column.name'|trans }}</th>
-                    <th class="col-md-1"></th>
+                    <th class="col-md-6">{{ 'admin.institution.column.name'|trans }}</th>
+                    <th class="col-md-4">{{ 'admin.institution.column.cohorts'|trans }}</th>
+                    <th class="col-md-2"></th>
                 </tr>
             </thead>
             <tbody>
             {% for institution in institutions %}
                 <tr>
                     <td>{{ institution.name }}</td>
+                    <td>
+                        <a href="{{ path('admin_cohort_list', {'institution': institution.id}) }}" title="{{ 'admin.institution.listCohorts'|trans }}">
+                            {{ institution.numberOfCohorts }}
+                        </a>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <a href="{{ path('admin_institution_update', {'institution': institution.id}) }}" class="btn btn-default btn-sm">
@@ -53,4 +59,3 @@
         </table>
     {% endif %}
 {% endblock %}
-

@@ -78,3 +78,33 @@ services:
 
     App\Ui\Admin\Action\Institution\DeleteAction:
         autowire: true
+
+    App\Ui\Admin\Action\Cohort\ListAction:
+            autowire: true
+
+    App\Ui\Admin\Action\Cohort\CreateAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Cohort\UpdateAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Cohort\DeleteAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Cohort\AssignUserAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Cohort\AssignCourseAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Cohort\CohortUser\ListAction:
+        autowire: true
+
+    App\Ui\Admin\Action\Cohort\CohortCourse\ListAction:
+        autowire: true
+
+    App\Ui\Admin\Action\CohortUser\DeleteAction:
+        autowire: true
+
+    App\Ui\Admin\Action\CohortCourse\DeleteAction:
+        autowire: true

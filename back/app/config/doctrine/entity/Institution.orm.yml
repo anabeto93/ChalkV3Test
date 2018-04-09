@@ -19,3 +19,7 @@ App\Domain\Model\Institution:
             type: datetime
         size:
             type: integer
+    oneToMany:
+        cohorts:
+            targetEntity: App\Domain\Model\Cohort
+            mappedBy: institution

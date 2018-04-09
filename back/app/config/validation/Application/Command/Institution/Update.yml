@@ -1,0 +1,4 @@
+App\Application\Command\Institution\Update:
+    properties:
+        name:
+            - NotBlank: ~

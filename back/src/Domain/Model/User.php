@@ -50,6 +50,9 @@ class User
     /** @var ArrayCollection */
     private $userCourses;
 
+    /** @var ArrayCollection */
+    private $cohortUsers;
+
     /** @var string */
     private $locale;
 
@@ -90,6 +93,7 @@ class User
         $this->locale = $locale;
 
         $this->userCourses = new ArrayCollection();
+        $this->cohortUsers = new ArrayCollection();
         $this->forceUpdate = false;
     }
 
@@ -229,6 +233,18 @@ class User
     public function addUserCourse(UserCourse $userCourse)
     {
         $this->userCourses->add($userCourse);
+    }
+
+    /**
+     * @return Cohort[]
+     */
+    public function getCohorts(): array {
+        return array_map(
+            function (CohortUser $cohortUser) {
+                return $cohortUser->getCohort();
+            },
+            $this->cohortUsers->toArray()
+        );
     }
 
     /**

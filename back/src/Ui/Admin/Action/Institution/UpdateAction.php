@@ -11,22 +11,26 @@ namespace App\Ui\Admin\Action\Institution;
 
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\Institution\Update;
+use App\Domain\Exception\Institution\NameAlreadyUsedException;
 use App\Domain\Model\Institution;
 use App\Ui\Admin\Form\Type\Institution\UpdateType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class UpdateAction {
+    const TEMPLATE = 'Admin/Institution/update.html.twig';
+    const ROUTE_REDIRECT_AFTER_SUCCESS = 'admin_institution_list';
+    const TRANS_VALIDATOR_NAME_USED = 'validator.name.alreadyUsed';
+
     /** @var EngineInterface */
     private $engine;
-
-    /** @var RouterInterface */
-    private $router;
 
     /** @var CommandBusInterface */
     private $commandBus;
@@ -37,20 +41,28 @@ class UpdateAction {
     /** @var FlashBagInterface */
     private $flashBag;
 
+    /** @var RouterInterface */
+    private $router;
+
+    /** @var TranslatorInterface */
+    private $translator;
+
     /**
      * UpdateAction constructor.
      * @param EngineInterface $engine
-     * @param RouterInterface $router
      * @param CommandBusInterface $commandBus
      * @param FormFactoryInterface $formFactory
      * @param FlashBagInterface $flashBag
+     * @param RouterInterface $router
+     * @param TranslatorInterface $translator
      */
-    public function __construct(EngineInterface $engine, RouterInterface $router, CommandBusInterface $commandBus, FormFactoryInterface $formFactory, FlashBagInterface $flashBag) {
+    public function __construct(EngineInterface $engine, CommandBusInterface $commandBus, FormFactoryInterface $formFactory, FlashBagInterface $flashBag, RouterInterface $router, TranslatorInterface $translator) {
         $this->engine = $engine;
-        $this->router = $router;
         $this->commandBus = $commandBus;
         $this->formFactory = $formFactory;
         $this->flashBag = $flashBag;
+        $this->router = $router;
+        $this->translator = $translator;
     }
 
     /**
@@ -64,14 +76,22 @@ class UpdateAction {
         $form = $this->formFactory->create(UpdateType::class, $update, ['submit' => true]);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-            $this->commandBus->handle($update);
-            $this->flashBag->add('success', 'flash.admin.institution.update.success');
+        if($form->isValid() && $form->isSubmitted()) {
+            try {
+                $this->commandBus->handle($update);
+                $this->flashBag->add('success', 'flash.admin.institution.update.success');
 
-            return new RedirectResponse($this->router->generate('admin_institution_list'));
+                return new RedirectResponse($this->router->generate(self::ROUTE_REDIRECT_AFTER_SUCCESS));
+            } catch (NameAlreadyUsedException $exception) {
+                $form->get('name')->addError(new FormError(
+                    $this->translator->trans(
+                        self::TRANS_VALIDATOR_NAME_USED, [], 'validators'
+                    )
+                ));
+            }
         }
 
-        return $this->engine->renderResponse('Admin/Institution/update.html.twig',
+        return $this->engine->renderResponse(self::TEMPLATE,
             [
                 'institution' => $institution,
                 'form' => $form->createView()

@@ -1,0 +1,37 @@
+App\Domain\Model\Cohort:
+    type: entity
+    table: cohort
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        uuid:
+            type: string
+            unique: true
+        title:
+            type: string
+            unique: true
+        createdAt:
+            type: datetime
+        updatedAt:
+            type: datetime
+    manyToOne:
+        institution:
+            targetEntity: App\Domain\Model\Institution
+            inversedBy: cohorts
+            joinColumn:
+                onDelete: CASCADE
+                nullable: false
+    oneToMany:
+        cohortUsers:
+            targetEntity: App\Domain\Model\CohortUser
+            cascade: ['persist', 'remove']
+            mappedBy: cohort
+            orphanRemoval: true
+        cohortCourses:
+            targetEntity: App\Domain\Model\CohortCourse
+            cascade: ['persist', 'remove']
+            mappedBy: cohort
+            orphanRemoval: true

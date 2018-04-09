@@ -172,3 +172,47 @@ services:
         autowire: true
         tags:
             - { name: tactician.handler, command: App\Application\Command\Institution\Delete }
+
+    #
+    # Cohort
+    #
+    App\Application\Command\Cohort\CreateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Cohort\Create }
+
+    App\Application\Command\Cohort\UpdateHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Cohort\Update }
+
+    App\Application\Command\Cohort\DeleteHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Cohort\Delete }
+
+    App\Application\Command\Cohort\AssignUserHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Cohort\AssignUser }
+
+    App\Application\Command\Cohort\AssignCourseHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\Cohort\AssignCourse }
+
+    #
+    # CohortUser
+    #
+    App\Application\Command\CohortUser\DeleteHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\CohortUser\Delete }
+
+    #
+    # CohortCourse
+    #
+    App\Application\Command\CohortCourse\DeleteHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\CohortCourse\Delete }

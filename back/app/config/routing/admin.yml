@@ -184,3 +184,92 @@ admin_institution_delete:
     requirements:
         institution: \d+
     defaults: { _controller: App\Ui\Admin\Action\Institution\DeleteAction }
+
+#
+# Cohort
+#
+admin_cohort_list:
+    path: /institutions/{institution}/cohorts
+    methods: [GET]
+    requirements:
+        institution: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Cohort\ListAction }
+
+admin_cohort_create:
+    path: /instistutions/{institution}/cohorts/create
+    methods: [GET, POST]
+    requirements:
+        institution: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Cohort\CreateAction }
+
+admin_cohort_update:
+    path: /institutions/{institution}/cohorts/update/{cohort}
+    methods: [GET, POST]
+    requirements:
+        institution: \d+
+        cohort: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Cohort\UpdateAction }
+
+admin_cohort_delete:
+    path: /institutions/{institution}/cohorts/delete/{cohort}
+    methods: [DELETE]
+    requirements:
+        institution: \d+
+        cohort: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Cohort\DeleteAction }
+
+admin_cohort_user_list:
+    path: /institutions/{institution}/cohorts/{cohort}/users
+    methods: [GET, POST]
+    requirements:
+        institution: \d+
+        cohort: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Cohort\CohortUser\ListAction }
+
+admin_cohort_assign_users:
+    path: /institutions/{institution}/cohorts/{cohort}/users/assign
+    methods: [GET, POST]
+    requirements:
+        institution: \d+
+        cohort: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Cohort\AssignUserAction }
+
+admin_cohort_course_list:
+    path: /institutions/{institution}/cohorts/{cohort}/courses
+    methods: [GET, POST]
+    requirements:
+        institution: \d+
+        cohort: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Cohort\CohortCourse\ListAction }
+
+admin_cohort_assign_courses:
+    path: /institutions/{institution}/cohorts/{cohort}/courses/assign
+    methods: [GET, POST]
+    requirements:
+        institution: \d+
+        cohort: \d+
+    defaults: { _controller: App\Ui\Admin\Action\Cohort\AssignCourseAction }
+
+#
+# CohortUser
+#
+admin_cohort_user_delete:
+    path: /institutions/{institution}/cohorts/{cohort}/users/delete/{user}
+    methods: [GET]
+    requirements:
+        institution: \d+
+        cohort: \d+
+        user: \d+
+    defaults: { _controller: App\Ui\Admin\Action\CohortUser\DeleteAction }
+
+#
+# CohortCourse
+#
+admin_cohort_course_delete:
+    path: /institutions/{institution}/cohorts/{cohort}/courses/delete/{course}
+    methods: [DELETE]
+    requirements:
+        institution: \d+
+        cohort: \d+
+        course: \d+
+    defaults: { _controller: App\Ui\Admin\Action\CohortCourse\DeleteAction }
