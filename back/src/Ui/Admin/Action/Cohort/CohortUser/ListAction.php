@@ -106,8 +106,8 @@ class ListAction {
                     )
                 );
 
-                return new RedirectResponse($this->router->generate('admin_cohort_list_users',
-                    ['cohort' => $cohort->getId()]));
+                return new RedirectResponse($this->router->generate('admin_cohort_user_list',
+                    ['institution' => $institution->getId(), 'cohort' => $cohort->getId()]));
             }
         }
 
