@@ -65,8 +65,8 @@ class DeleteActionTest extends TestCase {
 
         $institution->getCohorts()->shouldBeCalled()
                     ->willReturn([$cohort1->reveal(), $cohort2->reveal()]);
-        $cohort1->getCourses()->shouldBeCalled();
-        $cohort2->getCourses()->shouldBeCalled();
+        $cohort1->getCourses()->shouldBeCalled()->willReturn([]);
+        $cohort2->getCourses()->shouldBeCalled()->willReturn([]);
 
         $this->commandBus->handle(new Delete($institution->reveal()))->shouldBeCalled();
         $this->router->generate('admin_institution_list')->shouldBeCalled()->willReturn('/admin/institutions');
