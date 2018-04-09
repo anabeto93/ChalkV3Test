@@ -19,6 +19,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 
 class DeleteAction {
+    const ROUTE_REDIRECT_AFTER_SUCCESS = 'admin_cohort_list';
+
     /** @var CommandBusInterface */
     private $commandBus;
 
@@ -53,10 +55,10 @@ class DeleteAction {
             );
         }
 
-        if($cohort->getCourses() || $cohort->getUsers()) {
+        if($cohort->getCourses()) {
             $this->flashBag->add('error', 'flash.admin.cohort.delete.error');
 
-            return new RedirectResponse($this->router->generate('admin_cohort_list',
+            return new RedirectResponse($this->router->generate(self::ROUTE_REDIRECT_AFTER_SUCCESS,
                 ['institution' => $institution->getId()])
             );
         }
@@ -65,7 +67,7 @@ class DeleteAction {
 
         $this->flashBag->add('success', 'flash.admin.cohort.delete.success');
 
-        return new RedirectResponse($this->router->generate('admin_cohort_list', ['institution'
+        return new RedirectResponse($this->router->generate(self::ROUTE_REDIRECT_AFTER_SUCCESS, ['institution'
             => $institution->getId()]));
     }
 }
