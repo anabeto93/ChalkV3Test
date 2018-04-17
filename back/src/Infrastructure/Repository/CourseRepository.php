@@ -59,7 +59,7 @@ class CourseRepository implements CourseRepositoryInterface
             ->leftJoin('course.folders', 'folder')
             ->leftJoin('course.sessions', 'session')
             ->leftJoin('course.userCourses', 'userCourses')
-            ->orderBy('course.title')
+            ->orderBy('course.university')
         ;
 
         return $queryBuilder->getQuery()->getResult();
