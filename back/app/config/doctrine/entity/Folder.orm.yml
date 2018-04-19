@@ -10,6 +10,8 @@ App\Domain\Model\Folder:
         uuid:
             type: string
             unique: true
+        rank:
+            type: integer
         title:
             type: string
         createdAt:

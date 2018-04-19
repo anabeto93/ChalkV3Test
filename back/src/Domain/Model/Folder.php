@@ -20,6 +20,9 @@ class Folder
     /** @var string */
     private $uuid;
 
+    /** @var int */
+    private $rank;
+
     /** @var Course */
     private $course;
 
@@ -37,6 +40,7 @@ class Folder
 
     /**
      * @param string             $uuid
+     * @param int                $rank
      * @param string             $title
      * @param Course             $course
      * @param \DateTimeInterface $createdAt
@@ -44,12 +48,14 @@ class Folder
      */
     public function __construct(
         string $uuid,
+        int $rank = 0,
         string $title,
         Course $course,
         \DateTimeInterface $createdAt,
         int $size = 0
     ) {
         $this->uuid = $uuid;
+        $this->rank = $rank;
         $this->title = $title;
         $this->course = $course;
         $this->createdAt = $createdAt;
@@ -71,6 +77,14 @@ class Folder
     public function getUuid(): string
     {
         return $this->uuid;
+    }
+
+    /**
+     * @return int
+     */
+    public function getRank(): int
+    {
+        return $this->rank;
     }
 
     /**
@@ -114,12 +128,14 @@ class Folder
     }
 
     /**
+     * @param int                $rank
      * @param string             $title
      * @param int                $size
      * @param \DateTimeInterface $updatedAt
      */
-    public function update(string $title, int $size, \DateTimeInterface $updatedAt)
+    public function update(int $rank, string $title, int $size, \DateTimeInterface $updatedAt)
     {
+        $this->rank = $rank;
         $this->title = $title;
         $this->size = $size;
         $this->updatedAt = $updatedAt;
