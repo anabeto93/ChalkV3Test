@@ -66,7 +66,7 @@ class FolderRepository implements FolderRepositoryInterface
             ->from(Folder::class, 'folder')
             ->where('folder.course = :course')
             ->setParameter('course', $course)
-            ->orderBy('folder.title', 'ASC')
+            ->orderBy('folder.rank', 'ASC')
         ;
 
         return $queryBuilder->getQuery()->getResult();
