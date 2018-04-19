@@ -45,6 +45,7 @@ class UpdateHandler
     public function handle(Update $command)
     {
         $command->folder->update(
+            $command->rank,
             $command->title,
             $this->calculator->calculateSize(
                 sprintf('%s%s', $command->folder->getUuid(), $command->title)
