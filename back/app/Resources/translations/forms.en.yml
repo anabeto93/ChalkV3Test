@@ -14,8 +14,10 @@ form.course_update.children.title.label: Title
 form.course_update.children.university.label: University
 form.folder_create.children.submit.label: 'Save'
 form.folder_create.children.title.label: 'Title'
+form.folder_create.children.rank.label: 'Order'
 form.folder_update.children.submit.label: 'Save'
 form.folder_update.children.title.label: 'Title'
+form.folder_update.children.rank.label: 'Order'
 form.quiz_questions_type.children.questions.label: 'Questions:'
 form.quiz_questions_type.children.questions.prototype.label: 'Question:'
 form.quiz_questions_type.children.questions.prototype.children.title.label: 'Title:'
