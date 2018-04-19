@@ -12,6 +12,7 @@ Feature: Folder creation
     Then I should be on "/admin/course/1/folder/create"
     And I should see "admin.folder.create.title"
     And I fill in the following:
+      | rank  | 1                         |
       | title | Second part of the course |
     When I press "form.folder_create.children.submit.label"
     Then I should see "flash.admin.folder.create.success"

@@ -29,6 +29,7 @@ class FolderManager
 
     /**
      * @param string $uuid
+     * @param int    $rank
      * @param string $folderTitle
      * @param Course $course
      *
@@ -36,13 +37,14 @@ class FolderManager
      */
     public function create(
         string $uuid,
+        int $rank,
         string $folderTitle,
         Course $course
     ): Folder {
-        $session = new Folder($uuid, $folderTitle, $course, new \DateTime());
+        $folder = new Folder($uuid, $rank, $folderTitle, $course, new \DateTime());
 
-        $this->folderRepository->add($session);
+        $this->folderRepository->add($folder);
 
-        return $session;
+        return $folder;
     }
 }
