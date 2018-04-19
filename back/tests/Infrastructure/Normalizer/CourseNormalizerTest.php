@@ -45,7 +45,7 @@ class CourseNormalizerTest extends TestCase
         $dateTime = new \DateTime();
         $user = $this->prophesize(User::class);
         $course = new Course("1234-azerty", "title", "teacherName", 'University', true, $dateTime, "description");
-        $folder = new Folder('123456789', 'folder title', $course, $dateTime);
+        $folder = new Folder('123456789', 0, 'folder title', $course, $dateTime);
         $session1 = new Session('098765432', 1, 'session 1', 'content 1', $course, $folder, true, true, $dateTime);
         $session2 = new Session('ZERTYUIOIUYTRE', 2, 'session 2', 'content 2', $course, $folder, true, true, $dateTime);
         $course->setSessions([$session1, $session2]);

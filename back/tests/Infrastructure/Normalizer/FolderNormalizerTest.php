@@ -22,7 +22,7 @@ class FolderNormalizerTest extends TestCase
         // Context
         $dateTime = new \DateTime();
         $course = CourseFactory::create();
-        $folder = new Folder('folder-uuid', 'folder title', $course, $dateTime);
+        $folder = new Folder('folder-uuid', 1, 'folder title', $course, $dateTime);
 
         // Normalizer
         $folderNormalier = new FolderNormalizer($dateTime);
@@ -30,6 +30,7 @@ class FolderNormalizerTest extends TestCase
 
         $expected = [
             'uuid' => 'folder-uuid',
+            'rank' => 1,
             'title' => 'folder title',
             'updatedAt' => $dateTime,
         ];
@@ -48,6 +49,7 @@ class FolderNormalizerTest extends TestCase
 
         $expected = [
             'uuid' => 'default',
+            'rank' => 0,
             'title' => 'default',
             'updatedAt' => $dateTime,
         ];

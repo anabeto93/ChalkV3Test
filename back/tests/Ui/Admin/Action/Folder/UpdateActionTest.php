@@ -59,7 +59,7 @@ class UpdateActionTest extends TestCase
     {
         // Context
         $course = $this->prophesize(Course::class);
-        $folder = new Folder('uuid', 'title', $course->reveal(), new \DateTime());
+        $folder = new Folder('uuid', 0, 'title', $course->reveal(), new \DateTime());
         $request = new Request();
         $response = new Response();
         $create = new Update($folder);
@@ -99,7 +99,7 @@ class UpdateActionTest extends TestCase
     {
         // Context
         $course = $this->prophesize(Course::class);
-        $folder = new Folder('uuid', 'title', $course->reveal(), new \DateTime());
+        $folder = new Folder('uuid', 0, 'title', $course->reveal(), new \DateTime());
         $course->getId()->shouldBeCalled()->willReturn(12);
         $request = new Request();
         $response = new RedirectResponse('/admin/course/uuid-course/folder');

@@ -38,6 +38,7 @@ class FolderNormalizer
 
         return [
             'uuid' => $folder->getUuid(),
+            'rank' => $folder->getRank(),
             'title' => $folder->getTitle(),
             'updatedAt' => $folder->getUpdatedAt(),
         ];
@@ -50,6 +51,7 @@ class FolderNormalizer
     {
         return [
             'uuid' => Folder::DEFAULT_FOLDER,
+            'rank' => 0,
             'title' => Folder::DEFAULT_FOLDER,
             'updatedAt' => $this->dateTime,
         ];

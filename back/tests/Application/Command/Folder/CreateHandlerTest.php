@@ -28,7 +28,8 @@ class CreateHandlerTest extends TestCase
         $course = $this->prophesize(Course::class);
 
         // Expected
-        $expectedFolder = new Folder('uuid-test', 'title 1', $course->reveal(), $dateTime, 16);
+        $expectedFolder = new Folder('uuid-test', 0, 'title 1', $course->reveal(), $dateTime,
+            16);
 
         // Mock
         $folderRepository = $this->prophesize(FolderRepositoryInterface::class);

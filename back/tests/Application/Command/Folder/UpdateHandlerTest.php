@@ -25,17 +25,18 @@ class UpdateHandlerTest extends TestCase
         // Context
         $dateTime = new \DateTime();
         $course = $this->prophesize(Course::class);
-        $folder = new Folder('uuid-test', 'title 1', $course->reveal(), new \DateTime('2017-08-01 10:10:10.000'), 16);
+        $folder = new Folder('uuid-test', 0, 'title 1', $course->reveal(), new \DateTime('2017-08-01 10:10:10.000'), 16);
 
         // Expected
         $expectedFolder = new Folder(
             'uuid-test',
+            1,
             'title 1',
             $course->reveal(),
             new \DateTime('2017-08-01 10:10:10.000'),
             16
         );
-        $expectedFolder->update('new title', 18, $dateTime);
+        $expectedFolder->update(1, 'new title', 18, $dateTime);
 
         // Mock
         $folderRepository = $this->prophesize(FolderRepositoryInterface::class);
@@ -45,6 +46,7 @@ class UpdateHandlerTest extends TestCase
 
         // Handler
         $command = new Update($folder);
+        $command->rank = 1;
         $command->title = 'new title';
         $handler = new UpdateHandler(
             $folderRepository->reveal(),
