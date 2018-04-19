@@ -14,6 +14,9 @@ use App\Application\Command\Command;
 
 abstract class AbstractFolderCommand implements Command
 {
+    /** @var int */
+    public $rank;
+
     /** @var string */
     public $title;
 }
