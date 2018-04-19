@@ -27,42 +27,24 @@ class CourseView
     /** @var bool */
     public $enabled;
 
-    /** @var int */
-    public $numberOfFolders;
-
-    /** @var int */
-    public $numberOfSessions;
-
-    /** @var int */
-    public $numberOfStudents;
-
     /**
      * @param int    $id
      * @param string $title
      * @param string $teacherName
      * @param string $university
      * @param bool   $enabled
-     * @param int    $numberOfFolders
-     * @param int    $numberOfSessions
-     * @param int    $numberOfStudents
      */
     public function __construct(
         int $id,
         string $title,
         string $teacherName,
         string $university,
-        bool $enabled,
-        int $numberOfFolders,
-        int $numberOfSessions,
-        int $numberOfStudents
+        bool $enabled
     ) {
         $this->id = $id;
         $this->title = $title;
         $this->teacherName = $teacherName;
         $this->university = $university;
         $this->enabled = $enabled;
-        $this->numberOfFolders = $numberOfFolders;
-        $this->numberOfSessions = $numberOfSessions;
-        $this->numberOfStudents = $numberOfStudents;
     }
 }

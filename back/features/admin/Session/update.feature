@@ -8,7 +8,7 @@ Feature: Session update
     When I go to "/admin/course"
     Then I should see "admin.course.column.sessions"
     And I should see "First course of the year"
-    And I should see "1"
+    And I should see "Sessions"
     When I follow "admin.course.viewSessions"
     Then I should be on "/admin/course/1/session"
     And I should see "Topologie"
