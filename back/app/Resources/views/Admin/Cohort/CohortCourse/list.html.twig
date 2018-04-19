@@ -34,13 +34,13 @@
                     <td>{{ course.title }}</td>
                     <td>{{ course.teacherName }}</td>
                     <td>
-                        <a href="{{ path('admin_folder_list', {'course': course.id}) }}" title="{{ 'admin.course.viewFolders'|trans }}">
-                            {{ course.numberOfFolders }}
+                        <a href="{{ path('admin_folder_list', {'course': course.id}) }}" title="{{ 'admin.course.viewFolders'|trans }}" class="btn btn-sm btn-default">
+                            {{ 'admin.course.column.folders'|trans }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ path('admin_session_list', {'course': course.id}) }}" title="{{ 'admin.course.viewSessions'|trans }}">
-                            {{ course.numberOfSessions }}
+                        <a href="{{ path('admin_session_list', {'course': course.id}) }}" title="{{ 'admin.course.viewSessions'|trans }}" class="btn btn-sm btn-default">
+                            {{ 'admin.course.column.sessions'|trans }}
                         </a>
                     </td>
                     <td>{{ course.enabled ? '✔︎' : '' }}</td>
