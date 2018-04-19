@@ -37,7 +37,8 @@ class FolderListQueryHandler
         $folders = $this->folderRepository->findByCourse($query->course);
 
         foreach ($folders as $folder) {
-            $folderViews[] = new FolderView($folder->getId(), $folder->getTitle());
+            $folderViews[] = new FolderView($folder->getId(), $folder->getRank(),
+                $folder->getTitle());
         }
 
         return $folderViews;

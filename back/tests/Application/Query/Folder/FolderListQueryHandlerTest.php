@@ -28,6 +28,8 @@ class FolderListQueryHandlerTest extends TestCase
         $folder2 = $this->prophesize(Folder::class);
         $folder1->getId()->willReturn(1);
         $folder2->getId()->willReturn(2);
+        $folder1->getRank()->willReturn(1);
+        $folder2->getRank()->willReturn(2);
         $folder1->getTitle()->willReturn('title 1');
         $folder2->getTitle()->willReturn('title 2');
 
@@ -44,8 +46,8 @@ class FolderListQueryHandlerTest extends TestCase
         $result = $queryHandler->handle(new FolderListQuery($course->reveal()));
 
         $expected = [
-            new FolderView(1, 'title 1'),
-            new FolderView(2, 'title 2'),
+            new FolderView(1, 1, 'title 1'),
+            new FolderView(2, 2, 'title 2'),
         ];
 
         $this->assertEquals($expected, $result);

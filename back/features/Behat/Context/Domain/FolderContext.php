@@ -41,7 +41,7 @@ class FolderContext implements Context
             throw new \InvalidArgumentException('Course not found');
         }
 
-        $folder = $this->folderProxy->getFolderManager()->create($uuid, $title, $course);
+        $folder = $this->folderProxy->getFolderManager()->create($uuid, 0, $title, $course);
         $this->folderProxy->getStorage()->set('folder', $folder);
     }
 }

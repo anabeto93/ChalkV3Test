@@ -23,6 +23,7 @@ class Update extends AbstractFolderCommand
     public function __construct(Folder $folder)
     {
         $this->folder = $folder;
+        $this->rank = $folder->getRank();
         $this->title = $folder->getTitle();
     }
 }

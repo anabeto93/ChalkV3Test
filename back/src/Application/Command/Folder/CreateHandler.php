@@ -56,6 +56,7 @@ class CreateHandler
 
         $folder = new Folder(
             $uuid,
+            $command->rank,
             $command->title,
             $command->course,
             $this->dateTime,

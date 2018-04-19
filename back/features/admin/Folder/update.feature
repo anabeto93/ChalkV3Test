@@ -10,6 +10,7 @@ Feature: Folder update
     When I follow "admin.folder.action.update"
     And I should be on "/admin/course/1/folder/update/1"
     And I fill in the following:
+      | rank  | 0           |
       | title | Other title |
     When I press "form.folder_update.children.submit.label"
     Then I should be on "/admin/course/1/folder"
