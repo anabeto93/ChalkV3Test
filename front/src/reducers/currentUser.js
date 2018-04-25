@@ -11,6 +11,7 @@ import {
 export default function currentUser(
   state = {
     token: null,
+    tokenIssuedAt: null,
     loginState: LOGIN_STATE_LOGGED_OUT,
     uuid: null,
     firstName: null,
