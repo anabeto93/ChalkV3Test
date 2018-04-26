@@ -48,7 +48,9 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
 
         $bearer = $token->getCredentials();
         $key = substr($bearer, 0, 6);
-        $issuedAt = substr($bearer, 6) ? date('Y-m-d H:i:s', substr($bearer, 6)): null;
+        $issuedAt = strlen($bearer) > 6 ?
+            date_create_from_format('U', substr($bearer, 6)) :
+            null;
 
         $username = $userProvider->getUsernameForApiToken($key);
 
