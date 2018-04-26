@@ -28,7 +28,7 @@ export default function currentUser(
       return {
         ...state,
         token: action.payload.token,
-        tokenIssuedAt: moment().format('x'),
+        tokenIssuedAt: moment(action.payload.token).format('X'),
         loginState: LOGIN_STATE_LOGGED_OUT
       };
     }

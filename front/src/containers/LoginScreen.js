@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUserInformations, getUpdates } from '../actions/actionCreators';
 import UserPanel from '../components/Course/UserPanel';
+import * as moment from 'moment';
 
 import { COURSES, HOME } from '../config/routes';
 import { LOGIN_STATE_LOGGED_IN } from '../store/defaultState';
@@ -17,6 +18,7 @@ class LoginScreen extends Component {
   componentDidMount() {
     const { currentUser } = this.props;
     const token = this.props.match.params.token;
+    const tokenIssuedAt = moment();
 
     if (null === token) {
       this.props.history.push(HOME);
@@ -27,7 +29,7 @@ class LoginScreen extends Component {
 
     if (isTokenChanged || currentUser.loginState !== LOGIN_STATE_LOGGED_IN) {
       this.setState({ isFetching: true });
-      this.props.dispatch(getUserInformations(token));
+      this.props.dispatch(getUserInformations({ token, tokenIssuedAt }));
 
       return;
     }
