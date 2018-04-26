@@ -58,7 +58,7 @@ class UserResolver
 
         if($args["tokenIssuedAt"]) {
             $tokenIssuedAt = new TokenIssuedAt($user->getUser());
-            $tokenIssuedAt->apiTokenIssuedAt = date_create_from_format("Y-m-d H:i:s", $args["tokenIssuedAt"]);
+            $tokenIssuedAt->apiTokenIssuedAt = date_create_from_format("U", $args["tokenIssuedAt"]);
             $this->tokenIssuedAtHandler->handle($tokenIssuedAt);
         }
 

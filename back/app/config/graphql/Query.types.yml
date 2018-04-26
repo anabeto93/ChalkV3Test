@@ -8,7 +8,7 @@ Query:
                 args:
                     tokenIssuedAt:
                         description: "Time user utilized their token to login"
-                        type: "DateTime"
+                        type: "String"
                 resolve: "@=resolver('user', [args])"
             courses:
                 type: "[Course]"
