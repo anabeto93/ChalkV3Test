@@ -18,7 +18,7 @@ class LoginScreen extends Component {
   componentDidMount() {
     const { currentUser } = this.props;
     const token = this.props.match.params.token;
-    const tokenIssuedAt = moment();
+    const tokenIssuedAt = moment().format('X');
 
     if (null === token) {
       this.props.history.push(HOME);
