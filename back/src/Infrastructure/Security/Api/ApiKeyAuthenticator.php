@@ -48,7 +48,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
 
         $bearer = $token->getCredentials();
         $key = substr($bearer, 0, 6);
-        $issuedAt = date('Y-m-d H:i:s', substr($bearer, 6));
+        $issuedAt = substr($bearer, 6) ? date('Y-m-d H:i:s', substr($bearer, 6)): null;
 
         $username = $userProvider->getUsernameForApiToken($key);
 
@@ -58,7 +58,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
 
         $user = $userProvider->loadUserByUsername($username);
 
-        if ($issuedAt < $user->getUser()->getApiTokenIssuedAt()) {
+        if ($issuedAt !== null && $issuedAt < $user->getUser()->getApiTokenIssuedAt()) {
             throw new CustomUserMessageAuthenticationException('API Token is in use on another device.');
         }
 
