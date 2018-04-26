@@ -35,8 +35,9 @@ networkInterface.use([
       }
 
       const userToken = store.getState().currentUser.token;
+      const userTokenIssuedAt = store.getState().currentUser.tokenIssuedAt;
       req.options.headers.authorization = userToken
-        ? `Bearer ${userToken}`
+        ? `Bearer ${userToken+userTokenIssuedAt}`
         : null;
       next();
     }
