@@ -44,6 +44,9 @@ class User
     /** @var null|\DateTimeInterface */
     private $lastLoginAccessNotificationAt;
 
+    /** @var null|\DateTimeInterface */
+    private $apiTokenIssuedAt;
+
     /** @var int */
     private $size;
 
@@ -322,5 +325,19 @@ class User
     public function setLastLoginAccessNotificationAt(\DateTimeInterface $lastLoginAccessNotificationAt)
     {
         $this->lastLoginAccessNotificationAt = $lastLoginAccessNotificationAt;
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getApiTokenIssuedAt(): ?\DateTimeInterface {
+        return $this->apiTokenIssuedAt;
+    }
+
+    /**
+     * @param \DateTimeInterface|null $apiTokenIssuedAt
+     */
+    public function setApiTokenIssuedAt(?\DateTimeInterface $apiTokenIssuedAt): void {
+        $this->apiTokenIssuedAt = $apiTokenIssuedAt;
     }
 }
