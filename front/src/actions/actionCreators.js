@@ -42,7 +42,7 @@ export function getUserInformations({ token, tokenIssuedAt }) {
     GraphqlClient.query({
         query: UserQuery,
         fetchPolicy: 'network-only',
-        variables: { tokenIssuedAt: tokenIssuedAt }
+        variables: { tokenIssuedAt }
       })
       .then(response => {
         dispatch(receiveUserInformations(response.data.user));

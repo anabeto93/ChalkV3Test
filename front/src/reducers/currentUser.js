@@ -7,7 +7,6 @@ import {
   LOGIN_STATE_LOGGED_IN,
   LOGIN_STATE_LOGGED_OUT
 } from '../store/defaultState';
-import * as moment from 'moment';
 
 export default function currentUser(
   state = {
@@ -28,7 +27,7 @@ export default function currentUser(
       return {
         ...state,
         token: action.payload.token,
-        tokenIssuedAt: moment(action.payload.token).format('X'),
+        tokenIssuedAt: action.payload.tokenIssuedAt,
         loginState: LOGIN_STATE_LOGGED_OUT
       };
     }
