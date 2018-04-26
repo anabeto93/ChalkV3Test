@@ -5,6 +5,7 @@ import SessionContentQuery from '../graphql/query/SessionContentQuery';
 import validateSessionMutation from '../graphql/query/mutations/validateSessionMutation';
 import answerSessionQuizMutation from '../graphql/query/mutations/answerSessionQuizMutation';
 import UserQuery from '../graphql/query/UserQuery';
+import * as moment from 'moment';
 
 // NETWORK STATUS
 export const SET_NETWORK_STATUS = '@@CHALKBOARDEDUCATION/SET_NETWORK_STATUS';
@@ -39,7 +40,10 @@ export function getUserInformations(token) {
   return function(dispatch) {
     dispatch(requestUserInformations(token));
 
-    GraphqlClient.query({ query: UserQuery, fetchPolicy: 'network-only' })
+    GraphqlClient.query({
+        query: UserQuery,
+        fetchPolicy: 'network-only',
+        variables: { tokenIssuedAt: moment().format('YYYY-MM-DD HH:mm:ss') } })
       .then(response => {
         dispatch(receiveUserInformations(response.data.user));
       })
