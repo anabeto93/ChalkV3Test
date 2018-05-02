@@ -55,14 +55,14 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
         $username = $userProvider->getUsernameForApiToken($key);
 
         if (null === $username) {
-            throw new CustomUserMessageAuthenticationException('API key is not valid.');
+            throw new CustomUserMessageAuthenticationException('API key is not valid.', [], 401);
         }
 
         $apiUser = $userProvider->loadUserByUsername($username);
         $user = $apiUser->getUser();
 
         if (!$user->isMultiLogin() && $issuedAt !== null && $issuedAt < $user->getApiTokenIssuedAt()) {
-            throw new CustomUserMessageAuthenticationException('API Token is in use on another device.');
+            throw new CustomUserMessageAuthenticationException('API Token is in use on another device.', [], 402);
         }
 
         return new PreAuthenticatedToken($apiUser, $key, $providerKey, $apiUser->getRoles());
@@ -85,7 +85,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
             'errors' => [
                 ['message' => strtr($exception->getMessageKey(), $exception->getMessageData())],
             ]
-        ], 401);
+        ], $exception->getCode());
     }
 
     private function extractKey(string $header = null): ?string
