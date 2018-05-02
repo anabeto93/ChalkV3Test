@@ -99,11 +99,11 @@ class User
         $this->size = $size;
         $this->apiToken = $apiToken;
         $this->locale = $locale;
+        $this->multiLogin = $multiLogin;
 
         $this->userCourses = new ArrayCollection();
         $this->cohortUsers = new ArrayCollection();
         $this->forceUpdate = false;
-        $this->multiLogin = $multiLogin;
     }
 
     /**

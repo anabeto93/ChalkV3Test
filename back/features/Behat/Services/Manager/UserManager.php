@@ -47,6 +47,7 @@ class UserManager
      * @param string $lastName
      * @param string $phoneNumber
      * @param string $locale
+     * @param bool   $multiLogin
      * @param string $country
      * @param string $token
      * @param bool   $forceUpdate
@@ -59,6 +60,7 @@ class UserManager
         string $lastName,
         string $phoneNumber,
         string $locale,
+        bool $multiLogin = false,
         ?string $country,
         ?string $token,
         bool $forceUpdate = false
@@ -81,8 +83,9 @@ class UserManager
                     $this->localeHelper->country('GH')
                 )
             ),
-            $token ?? 'api-token-user',
-            new \DateTime()
+            $token ?? 'token1',
+            new \DateTime(),
+            $multiLogin
         );
 
         if ($forceUpdate === true) {

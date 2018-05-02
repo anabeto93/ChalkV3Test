@@ -3,8 +3,8 @@ Feature: hasUpdates api
   Scenario: test
     Given the database is purged
     And there is following users
-      | uuid     | firstName | lastName | phoneNumber  | locale | token           |
-      | 123-user | jean      | paul     | +33123213123 | en     | jean-paul-token |
+      | uuid     | firstName | lastName | phoneNumber  | locale | token  | multiLogin |
+      | 123-user | jean      | paul     | +33123213123 | en     | token1 | 0          |
     And there is a course with the following info
       | uuid      | uuid-course-1    |
       | title     | Course 1         |
@@ -17,7 +17,7 @@ Feature: hasUpdates api
       | updatedAt | 2017-01-01 08:00 |
       | size      | 200              |
     And this user is assigned to this course on "2017-07-20 10:00:00"
-    When I add "Authorization" header equal to "Bearer jean-paul-token"
+    When I add "Authorization" header equal to "Bearer token1"
     And I add "Content-Type" header equal to "application/json"
     And I send a POST request to "/api/graphql/" with body:
       """
@@ -38,7 +38,7 @@ Feature: hasUpdates api
         }
       }
     """
-    When I add "Authorization" header equal to "Bearer jean-paul-token"
+    When I add "Authorization" header equal to "Bearer token1"
     And I add "Content-Type" header equal to "application/json"
     And I send a POST request to "/api/graphql/" with body:
       """
@@ -59,7 +59,7 @@ Feature: hasUpdates api
         }
       }
     """
-    When I add "Authorization" header equal to "Bearer jean-paul-token"
+    When I add "Authorization" header equal to "Bearer token1"
     And I add "Content-Type" header equal to "application/json"
     And I send a POST request to "/api/graphql/" with body:
       """
@@ -90,7 +90,7 @@ Feature: hasUpdates api
       | updatedAt | 2017-07-20 10:00 |
       | size      | 889              |
     And this user is assigned to this course on "2017-07-20 10:00:00"
-    When I add "Authorization" header equal to "Bearer john-doh-token"
+    When I add "Authorization" header equal to "Bearer token2"
     And I add "Content-Type" header equal to "application/json"
     And I send a POST request to "/api/graphql/" with body:
     """

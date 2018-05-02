@@ -18,11 +18,11 @@ Feature: Question api
     And there is an incorrect answer with the title "My Neighbor Totoro" for this question
     And there is a correct answer with the title "Mulan" for this question
     And there is following users
-      | uuid       | firstName | lastName | phoneNumber    | locale  |
-      | "123-user" | "jean"    | "paul"   | "+33123213123" | "en"    |
-    And the api token for this user is "api-token-user"
+      | uuid       | firstName | lastName | phoneNumber    | locale  | multiLogin |
+      | "123-user" | "jean"    | "paul"   | "+33123213123" | "en"    | 0          |
+    And the api token for this user is "token1"
     And this user is assigned to this course
-    And I add "Authorization" header equal to "Bearer api-token-user"
+    And I add "Authorization" header equal to "Bearer token1"
     And I add "Content-Type" header equal to "application/json"
     When I send a POST request to "/api/graphql/" with body:
       """
