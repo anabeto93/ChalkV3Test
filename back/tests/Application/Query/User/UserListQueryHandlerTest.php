@@ -46,6 +46,7 @@ class UserListQueryHandlerTest extends TestCase
         $user1->getApiToken()->willReturn('token');
         $user1->getCreatedAt()->willReturn($createdAt1);
         $user1->getLastLoginAccessNotificationAt()->willReturn(null);
+        $user1->isMultiLogin()->willReturn(false);
 
         $user2->getFirstName()->willReturn('FirstName2');
         $user2->getLastName()->willReturn('LastName2');
@@ -54,6 +55,7 @@ class UserListQueryHandlerTest extends TestCase
         $user2->getApiToken()->willReturn('token2');
         $user2->getCreatedAt()->willReturn($createdAt2);
         $user2->getLastLoginAccessNotificationAt()->willReturn($lastLoginAccessNotificationAt);
+        $user2->isMultiLogin()->willReturn(false);
 
         // Mock
         $userRepository = $this->prophesize(UserRepositoryInterface::class);
@@ -64,7 +66,7 @@ class UserListQueryHandlerTest extends TestCase
         $result = $handler->handle(new UserListQuery(2));
 
         $expected = new UserListView(2, 2, 530);
-        $expected->addUser(new UserView(1, 'FirstName1', 'LastName1', '+123123123', 'FR', 'token', $createdAt1));
+        $expected->addUser(new UserView(1, 'FirstName1', 'LastName1', '+123123123', 'FR', 'token', $createdAt1, false));
         $expected->addUser(
             new UserView(
                 2,
@@ -74,7 +76,8 @@ class UserListQueryHandlerTest extends TestCase
                 'GH',
                 'token2',
                 $createdAt2,
-                $lastLoginAccessNotificationAt
+                $lastLoginAccessNotificationAt,
+                false
             )
         );
 

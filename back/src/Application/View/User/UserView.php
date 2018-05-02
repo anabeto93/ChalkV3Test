@@ -36,6 +36,9 @@ class UserView
     /** @var \DateTimeInterface|null */
     public $lastLoginAccessNotificationAt;
 
+    /** @var bool */
+    public $multiLogin;
+
     /**
      * @param int                     $id
      * @param string                  $firstName
@@ -45,6 +48,7 @@ class UserView
      * @param string                  $apiToken
      * @param \DateTimeInterface      $createdAt
      * @param \DateTimeInterface|null $lastLoginAccessNotificationAt
+     * @param bool                    $multiLogin
      */
     public function __construct(
         int $id,
@@ -54,7 +58,8 @@ class UserView
         string $country,
         string $apiToken,
         \DateTimeInterface $createdAt,
-        ?\DateTimeInterface $lastLoginAccessNotificationAt = null
+        ?\DateTimeInterface $lastLoginAccessNotificationAt = null,
+        bool $multiLogin
     ) {
         $this->id = $id;
         $this->firstName = $firstName;
@@ -64,5 +69,6 @@ class UserView
         $this->apiToken = $apiToken;
         $this->createdAt = $createdAt;
         $this->lastLoginAccessNotificationAt = $lastLoginAccessNotificationAt;
+        $this->multiLogin = $multiLogin;
     }
 }

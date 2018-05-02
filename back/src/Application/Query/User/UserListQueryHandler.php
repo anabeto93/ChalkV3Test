@@ -50,7 +50,8 @@ class UserListQueryHandler
                 $user->getCountry(),
                 $user->getApiToken(),
                 $user->getCreatedAt(),
-                $user->getLastLoginAccessNotificationAt()
+                $user->getLastLoginAccessNotificationAt(),
+                $user->isMultiLogin()
             ));
         }
 
