@@ -79,7 +79,8 @@ class UpdateHandler
                     $command->country
                 )
             ),
-            $this->dateTime
+            $this->dateTime,
+            $command->multiLogin
         );
 
         $this->userRepository->set($command->user);

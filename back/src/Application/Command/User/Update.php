@@ -28,5 +28,6 @@ class Update extends AbstractUserCommand
         $this->locale = $user->getLocale();
         $this->firstName = $user->getFirstName();
         $this->lastName = $user->getLastName();
+        $this->multiLogin = $user->isMultiLogin();
     }
 }

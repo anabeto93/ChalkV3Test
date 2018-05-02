@@ -102,7 +102,8 @@ class CreateHandler
                 )
             ),
             $token,
-            $this->dateTime
+            $this->dateTime,
+            $command->multiLogin
         );
 
         $this->userRepository->add($user);

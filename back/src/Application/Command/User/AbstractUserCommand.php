@@ -28,4 +28,7 @@ abstract class AbstractUserCommand implements Command
 
     /** @var string */
     public $locale;
+
+    /** @var bool */
+    public $multiLogin;
 }
