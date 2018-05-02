@@ -62,7 +62,7 @@ class UserResolverTest extends TestCase
 
     public function testResolveUser()
     {
-        $user = new User('uuid-user', 'Jean', 'Paul', '+33123123123', 'FR', 'fr', 34, 'token', new \DateTime());
+        $user = new User('uuid-user', 'Jean', 'Paul', '+33123123123', 'FR', 'fr', 34, 'token', new \DateTime(), false);
         $apiUser = new ApiUserAdapter($user);
 
         $this->tokenStorage->getToken()->shouldBeCalled()->willReturn($this->token->reveal());

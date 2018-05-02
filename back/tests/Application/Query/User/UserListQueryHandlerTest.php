@@ -66,7 +66,7 @@ class UserListQueryHandlerTest extends TestCase
         $result = $handler->handle(new UserListQuery(2));
 
         $expected = new UserListView(2, 2, 530);
-        $expected->addUser(new UserView(1, 'FirstName1', 'LastName1', '+123123123', 'FR', 'token', $createdAt1, false));
+        $expected->addUser(new UserView(1, 'FirstName1', 'LastName1', '+123123123', 'FR', 'token', $createdAt1, null, false));
         $expected->addUser(
             new UserView(
                 2,

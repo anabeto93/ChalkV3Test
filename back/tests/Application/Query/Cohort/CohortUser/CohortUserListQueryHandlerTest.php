@@ -83,6 +83,7 @@ class CohortUserListQueryHandlerTest extends TestCase {
                 'FR',
                 'token',
                 $createdAt1,
+                null,
                 false
             )
         );
