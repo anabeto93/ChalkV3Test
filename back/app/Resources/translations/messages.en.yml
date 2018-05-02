@@ -78,6 +78,7 @@ admin.user.column.lastLoginAccessNotificationAt: 'Last login access notification
 admin.user.column.firstName: 'First name'
 admin.user.column.lastName: 'Last name'
 admin.user.column.phoneNumber: 'Phone number'
+admin.user.column.multiLogin: 'Multi Device Login'
 admin.user.confirmImport.title: 'Preview of the import'
 admin.user.create.title: 'Create a student'
 admin.user.import.title: 'Import students'
