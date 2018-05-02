@@ -58,13 +58,14 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
             throw new CustomUserMessageAuthenticationException('API key is not valid.');
         }
 
-        $user = $userProvider->loadUserByUsername($username);
+        $apiUser = $userProvider->loadUserByUsername($username);
+        $user = $apiUser->getUser();
 
-        if ($issuedAt !== null && $issuedAt < $user->getUser()->getApiTokenIssuedAt()) {
+        if (!$user->isMultiLogin() && $issuedAt !== null && $issuedAt < $user->getApiTokenIssuedAt()) {
             throw new CustomUserMessageAuthenticationException('API Token is in use on another device.');
         }
 
-        return new PreAuthenticatedToken($user, $key, $providerKey, $user->getRoles());
+        return new PreAuthenticatedToken($apiUser, $key, $providerKey, $apiUser->getRoles());
     }
 
     /**
