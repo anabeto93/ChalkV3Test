@@ -75,6 +75,7 @@ class User
      * @param string             $apiToken
      * @param string             $locale
      * @param \DateTimeInterface $createdAt
+     * @param bool               $multiLogin
      */
     public function __construct(
         string $uuid,
@@ -85,7 +86,8 @@ class User
         string $locale,
         int $size,
         string $apiToken,
-        \DateTimeInterface $createdAt
+        \DateTimeInterface $createdAt,
+        bool $multiLogin
     ) {
         $this->uuid = $uuid;
         $this->firstName = $firstName;
@@ -101,7 +103,7 @@ class User
         $this->userCourses = new ArrayCollection();
         $this->cohortUsers = new ArrayCollection();
         $this->forceUpdate = false;
-        $this->multiLogin = false;
+        $this->multiLogin = $multiLogin;
     }
 
     /**
@@ -262,6 +264,7 @@ class User
      * @param string             $phoneNumber
      * @param int                $size
      * @param \DateTimeInterface $updatedAt
+     * @param bool               $multiLogin
      */
     public function update(
         string $firstName,
@@ -270,7 +273,8 @@ class User
         string $locale,
         string $phoneNumber,
         int $size,
-        \DateTimeInterface $updatedAt
+        \DateTimeInterface $updatedAt,
+        bool $multiLogin
     ) {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -279,6 +283,7 @@ class User
         $this->phoneNumber = $phoneNumber;
         $this->size = $size;
         $this->updatedAt = $updatedAt;
+        $this->multiLogin = $multiLogin;
     }
 
     /**
