@@ -39,6 +39,8 @@ App\Domain\Model\User:
             nullable: true
         forceUpdate:
             type: boolean
+        multiLogin:
+            type: boolean
     oneToMany:
         userCourses:
             targetEntity: App\Domain\Model\UserCourse

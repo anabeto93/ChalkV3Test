@@ -62,6 +62,9 @@ class User
     /** @var bool */
     private $forceUpdate;
 
+    /** @var bool */
+    private $multiLogin;
+
     /**
      * @param string             $uuid
      * @param string             $firstName
@@ -98,6 +101,7 @@ class User
         $this->userCourses = new ArrayCollection();
         $this->cohortUsers = new ArrayCollection();
         $this->forceUpdate = false;
+        $this->multiLogin = false;
     }
 
     /**
@@ -339,5 +343,21 @@ class User
      */
     public function setApiTokenIssuedAt(?\DateTimeInterface $apiTokenIssuedAt): void {
         $this->apiTokenIssuedAt = $apiTokenIssuedAt;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultiLogin(): bool
+    {
+        return $this->multiLogin;
+    }
+
+    /**
+     * @param bool $multiLogin
+     */
+    public function setMultiLogin(bool $multiLogin): void
+    {
+        $this->multiLogin = $multiLogin;
     }
 }
