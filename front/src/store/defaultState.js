@@ -45,7 +45,8 @@ const defaultState = {
     locale: defaultLocale
   },
   logout: {
-    loggingOut: false
+    loggingOut: false,
+    isForced: false
   }
 };
 
