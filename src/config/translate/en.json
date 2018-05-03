@@ -9,7 +9,10 @@
   "question": {
     "nextButton": "Save & Next"
   },
-  "tokenError": "Your link has a problem - please contact Chalkboard Education for support.",
+  "tokenError": {
+    "401": "Your link has a problem - please contact Chalkboard Education for support.",
+    "402": "Your token is in use on another device. Kindly contact Chalkboard Education if you believe this is an error."
+  },
   "update": {
     "label": "Update",
     "needUpdate": "Your app must be updated",
