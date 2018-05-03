@@ -10,9 +10,9 @@ import { userLogout } from '../actions/actionCreators';
 import { HOME } from '../config/routes';
 
 class Logout extends Component {
-  constructor(...args) {
-    super(...args);
-    this.state = { open: false };
+  constructor(props) {
+    super(props);
+    this.state = { open: props.logout.isForced };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -22,11 +22,9 @@ class Logout extends Component {
   }
 
   handleLogout = () => {
-    if (!this.props.logout.forcedLogout) {
-      this.props.dispatch(userLogout());
-    }
-
+    this.props.dispatch(userLogout());
     this.handleClose();
+
     return this.props.history.push(HOME);
   };
 

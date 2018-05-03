@@ -8,6 +8,8 @@ import coursesSpoolSubscriber from '../subscriber/CoursesSpoolSubscriber';
 import defaultState from './defaultState';
 import { networkInterface } from '../graphql/client/GraphqlClient';
 
+import { requestForcedUserLogout } from '../actions/actionCreators';
+
 const store = createStore(
   rootReducer,
   defaultState,
@@ -37,8 +39,21 @@ networkInterface.use([
       const userToken = store.getState().currentUser.token;
       const userTokenIssuedAt = store.getState().currentUser.tokenIssuedAt;
       req.options.headers.authorization = userToken
-        ? `Bearer ${userToken+'~'+userTokenIssuedAt}`
+        ? `Bearer ${userToken + '~' + userTokenIssuedAt}`
         : null;
+      next();
+    }
+  }
+]);
+
+//Afterware to handle errors
+networkInterface.useAfter([
+  {
+    applyAfterware({ response }, next) {
+      if (response.status === 402) {
+        store.dispatch(requestForcedUserLogout());
+      }
+
       next();
     }
   }
