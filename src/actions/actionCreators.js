@@ -5,6 +5,7 @@ import SessionContentQuery from '../graphql/query/SessionContentQuery';
 import validateSessionMutation from '../graphql/query/mutations/validateSessionMutation';
 import answerSessionQuizMutation from '../graphql/query/mutations/answerSessionQuizMutation';
 import UserQuery from '../graphql/query/UserQuery';
+import { USER_LOGOUT } from '../reducers/index';
 
 // NETWORK STATUS
 export const SET_NETWORK_STATUS = '@@CHALKBOARDEDUCATION/SET_NETWORK_STATUS';
@@ -318,4 +319,8 @@ export function requestUserLogout() {
 
 export function requestForcedUserLogout() {
   return { type: REQUEST_FORCED_USER_LOGOUT };
+}
+
+export function userLogout() {
+  return { type: USER_LOGOUT };
 }
