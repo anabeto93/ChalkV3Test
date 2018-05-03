@@ -43,6 +43,9 @@ const defaultState = {
   },
   settings: {
     locale: defaultLocale
+  },
+  logout: {
+    loggingOut: false
   }
 };
 
