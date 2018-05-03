@@ -40,10 +40,10 @@ export function getUserInformations({ token, tokenIssuedAt }) {
     dispatch(requestUserInformations({ token, tokenIssuedAt }));
 
     GraphqlClient.query({
-        query: UserQuery,
-        fetchPolicy: 'network-only',
-        variables: { tokenIssuedAt }
-      })
+      query: UserQuery,
+      fetchPolicy: 'network-only',
+      variables: { tokenIssuedAt }
+    })
       .then(response => {
         dispatch(receiveUserInformations(response.data.user));
       })
@@ -304,4 +304,18 @@ export function answerSessionQuiz({ sessionUuid, answers }) {
         dispatch(failValidateSessionInternet());
       });
   };
+}
+
+//LOGOUT
+export const REQUEST_USER_LOGOUT = '@@CHALKBOARDEDUCATION/REQUEST_USER_LOGOUT';
+
+export const REQUEST_FORCED_USER_LOGOUT =
+  '@@CHALKBOARDEDUCATION/REQUEST_FORCED_USER_LOGOUT';
+
+export function requestUserLogout() {
+  return { type: REQUEST_USER_LOGOUT };
+}
+
+export function requestForcedUserLogout() {
+  return { type: REQUEST_FORCED_USER_LOGOUT };
 }
