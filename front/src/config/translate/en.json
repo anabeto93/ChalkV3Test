@@ -62,6 +62,13 @@
     }
   },
   "error": {
-    "dismiss": "Dismiss"
+    "dismiss": "Dismiss",
+    "authenticationError": "Authentication Error"
+  },
+  "logout": {
+    "title": "Confirm Logout",
+    "message": "Are you sure you want to logout?",
+    "button": "Logout",
+    "cancelButton": "Cancel"
   }
 }

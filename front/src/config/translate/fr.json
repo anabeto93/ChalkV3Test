@@ -62,6 +62,13 @@
     }
   },
   "error": {
-    "dismiss": "Cacher"
+    "dismiss": "Cacher",
+    "authenticationError": "Erreur d’authentification"
+  },
+  "logout": {
+    "title": "Confirmer déconnexion",
+    "message": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
+    "button": "Déconnexion",
+    "cancelButton": "Annuler"
   }
 }
