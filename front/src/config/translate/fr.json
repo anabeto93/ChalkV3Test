@@ -9,7 +9,10 @@
   "question": {
     "nextButton": "Enregistrer et passer à la suite"
   },
-  "tokenError": "Un problème est survenu avec votre lien - Merci de contacter Chalkboard Education pour assistance.",
+  "tokenError": {
+    "401": "Un problème est survenu avec votre lien - Merci de contacter Chalkboard Education pour assistance.",
+    "402": "Ce code est utilisé sur un autre appareil. Si vous pensez qu’il s’agit d’ume erreur, veuillez contacter Chalkboard Education."
+  },
   "update": {
     "label": "Mettre à jour",
     "needUpdate": "L'application doit être mise à jour",
