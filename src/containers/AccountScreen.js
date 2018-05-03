@@ -7,7 +7,11 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import RaisedButton from 'material-ui/RaisedButton';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUpdates, setLocale } from '../actions/actionCreators';
+import {
+  getUpdates,
+  setLocale,
+  requestUserLogout
+} from '../actions/actionCreators';
 import UserPanel from '../components/Course/UserPanel';
 import { availableLocales } from '../config/translations';
 
@@ -53,6 +57,10 @@ class AccountScreen extends Component {
     this.props.dispatch(getUpdates(this.props.updatedAt));
   };
 
+  handleLogout = () => {
+    this.props.dispatch(requestUserLogout());
+  };
+
   render() {
     const { settings } = this.props;
 
@@ -62,7 +70,7 @@ class AccountScreen extends Component {
       !this.props.isFetchingUpdates &&
       <div style={{ textAlign: 'center' }}>
         <RaisedButton
-          label={I18n.t('update.label', { locale: settings.locale })}
+          label={I18n.t('update.checkForUpdates', { locale: settings.locale })}
           onClick={this.handleUpdate}
           primary={true}
           style={{ margin: '10px' }}
@@ -85,6 +93,15 @@ class AccountScreen extends Component {
             {availableLocales[settings.locale]}
           </ListItem>
         </List>
+
+        <div style={{ textAlign: 'center' }}>
+          <RaisedButton
+            label={I18n.t('logout.button', { locale: settings.locale })}
+            primary={true}
+            onClick={this.handleLogout}
+            style={{ margin: '10px' }}
+          />
+        </div>
       </div>
     );
   }

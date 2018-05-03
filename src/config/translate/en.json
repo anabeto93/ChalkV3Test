@@ -15,6 +15,7 @@
   },
   "update": {
     "label": "Update",
+    "checkForUpdates": "Check for Updates",
     "needUpdate": "Your app must be updated",
     "updating": "Updating app...",
     "checking": "Checking updates...",
