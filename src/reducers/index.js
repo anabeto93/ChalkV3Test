@@ -8,6 +8,7 @@ import currentUser from './currentUser';
 import network from './network';
 import settings from './settings';
 import updates from './updates';
+import logout from './logout';
 
 //Logout
 export const USER_LOGOUT = '@@CHALKBOARDEDUCATION/LOGOUT';
@@ -18,7 +19,8 @@ const appReducer = combineReducers({
   currentUser,
   network,
   updates,
-  settings
+  settings,
+  logout
 });
 
 const rootReducer = (state, action) => {
