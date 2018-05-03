@@ -15,6 +15,7 @@
   },
   "update": {
     "label": "Mettre à jour",
+    "checkForUpdates": "Vérifier les mises à jour",
     "needUpdate": "L'application doit être mise à jour",
     "updating": "Mise à jour de l'app...",
     "checking": "Verification des mises à jours...",
