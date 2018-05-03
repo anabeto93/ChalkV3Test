@@ -6,19 +6,24 @@ import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { userLogout } from '../actions/actionCreators';
+import { userLogout, cancelUserLogout } from '../actions/actionCreators';
 import { HOME } from '../config/routes';
 
 class Logout extends Component {
   constructor(props) {
     super(props);
-    this.state = { open: props.logout.isForced };
+    this.state = { open: props.logout.loggingOut };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.logout.loggingOut) {
       this.setState({ open: true });
+      return;
     }
+
+    this.setState({
+      open: false
+    });
   }
 
   handleLogout = () => {
@@ -29,7 +34,7 @@ class Logout extends Component {
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.props.dispatch(cancelUserLogout());
   };
 
   render() {
