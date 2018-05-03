@@ -313,6 +313,8 @@ export const REQUEST_USER_LOGOUT = '@@CHALKBOARDEDUCATION/REQUEST_USER_LOGOUT';
 export const REQUEST_FORCED_USER_LOGOUT =
   '@@CHALKBOARDEDUCATION/REQUEST_FORCED_USER_LOGOUT';
 
+export const CANCEL_USER_LOGOUT = '@@CHALKBOARDEDUCATION/CANCEL_USER_LOGOUT';
+
 export function requestUserLogout() {
   return { type: REQUEST_USER_LOGOUT };
 }
@@ -323,4 +325,8 @@ export function requestForcedUserLogout() {
 
 export function userLogout() {
   return { type: USER_LOGOUT };
+}
+
+export function cancelUserLogout() {
+  return { type: CANCEL_USER_LOGOUT };
 }
