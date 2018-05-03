@@ -2,14 +2,14 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import { autoRehydrate } from 'redux-persist';
 import thunkMiddleware from 'redux-thunk';
 
-import appReducer from '../reducers';
+import rootReducer from '../reducers';
 import coursesIsFetchingSubscriber from '../subscriber/CoursesIsFetchingSubscriber';
 import coursesSpoolSubscriber from '../subscriber/CoursesSpoolSubscriber';
 import defaultState from './defaultState';
 import { networkInterface } from '../graphql/client/GraphqlClient';
 
 const store = createStore(
-  appReducer,
+  rootReducer,
   defaultState,
   compose(
     applyMiddleware(thunkMiddleware),
