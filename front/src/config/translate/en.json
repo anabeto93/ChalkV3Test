@@ -56,7 +56,7 @@
     "checking": "Checking ...",
     "start": "Start",
     "title": "Login",
-    "message": "Kindly enter your case-sensitive 6-character token",
+    "message": "Kindly enter your 6-character token",
     "hint": "Your 6-character token can be found appended to the login URL sent to you via SMS. For example: https://chalkedu.co/#/login/token. Alternatively, you may use the login link sent to you via SMS to log back in.",
     "tokenPlaceholder": "6-character token"
   },
