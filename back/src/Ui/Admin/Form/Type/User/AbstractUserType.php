@@ -11,6 +11,7 @@
 namespace App\Ui\Admin\Form\Type\User;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -43,6 +44,9 @@ abstract class AbstractUserType extends AbstractType
                     'form.user_create.children.locale.french.label' => 'fr',
                 ],
                 'choice_translation_domain' => true,
+            ])
+            ->add('multiLogin', CheckboxType::class, [
+                'required' => false
             ])
         ;
     }

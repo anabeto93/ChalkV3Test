@@ -10,6 +10,7 @@ const defaultState = {
   currentUser: {
     loginState: LOGIN_STATE_LOGGED_OUT,
     token: null,
+    tokenIssuedAt: null,
     uuid: null,
     firstName: null,
     lastName: null,
@@ -42,6 +43,10 @@ const defaultState = {
   },
   settings: {
     locale: defaultLocale
+  },
+  logout: {
+    loggingOut: false,
+    isForced: false
   }
 };
 

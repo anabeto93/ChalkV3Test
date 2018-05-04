@@ -44,6 +44,9 @@ class User
     /** @var null|\DateTimeInterface */
     private $lastLoginAccessNotificationAt;
 
+    /** @var null|\DateTimeInterface */
+    private $apiTokenIssuedAt;
+
     /** @var int */
     private $size;
 
@@ -59,6 +62,9 @@ class User
     /** @var bool */
     private $forceUpdate;
 
+    /** @var bool */
+    private $multiLogin;
+
     /**
      * @param string             $uuid
      * @param string             $firstName
@@ -69,6 +75,7 @@ class User
      * @param string             $apiToken
      * @param string             $locale
      * @param \DateTimeInterface $createdAt
+     * @param bool               $multiLogin
      */
     public function __construct(
         string $uuid,
@@ -79,7 +86,8 @@ class User
         string $locale,
         int $size,
         string $apiToken,
-        \DateTimeInterface $createdAt
+        \DateTimeInterface $createdAt,
+        bool $multiLogin
     ) {
         $this->uuid = $uuid;
         $this->firstName = $firstName;
@@ -91,6 +99,7 @@ class User
         $this->size = $size;
         $this->apiToken = $apiToken;
         $this->locale = $locale;
+        $this->multiLogin = $multiLogin;
 
         $this->userCourses = new ArrayCollection();
         $this->cohortUsers = new ArrayCollection();
@@ -255,6 +264,7 @@ class User
      * @param string             $phoneNumber
      * @param int                $size
      * @param \DateTimeInterface $updatedAt
+     * @param bool               $multiLogin
      */
     public function update(
         string $firstName,
@@ -263,7 +273,8 @@ class User
         string $locale,
         string $phoneNumber,
         int $size,
-        \DateTimeInterface $updatedAt
+        \DateTimeInterface $updatedAt,
+        bool $multiLogin
     ) {
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -272,6 +283,7 @@ class User
         $this->phoneNumber = $phoneNumber;
         $this->size = $size;
         $this->updatedAt = $updatedAt;
+        $this->multiLogin = $multiLogin;
     }
 
     /**
@@ -322,5 +334,35 @@ class User
     public function setLastLoginAccessNotificationAt(\DateTimeInterface $lastLoginAccessNotificationAt)
     {
         $this->lastLoginAccessNotificationAt = $lastLoginAccessNotificationAt;
+    }
+
+    /**
+     * @return \DateTimeInterface|null
+     */
+    public function getApiTokenIssuedAt(): ?\DateTimeInterface {
+        return $this->apiTokenIssuedAt;
+    }
+
+    /**
+     * @param \DateTimeInterface|null $apiTokenIssuedAt
+     */
+    public function setApiTokenIssuedAt(?\DateTimeInterface $apiTokenIssuedAt): void {
+        $this->apiTokenIssuedAt = $apiTokenIssuedAt;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultiLogin(): bool
+    {
+        return $this->multiLogin;
+    }
+
+    /**
+     * @param bool $multiLogin
+     */
+    public function setMultiLogin(bool $multiLogin): void
+    {
+        $this->multiLogin = $multiLogin;
     }
 }

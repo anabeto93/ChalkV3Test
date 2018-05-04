@@ -4,8 +4,8 @@ Feature: Session progression
     And there is a course with the uuid "123-course" and the title "First course of the year"
     And there is a session with the uuid "123-folder" and the title "Beginning" for this course
     And there is following users
-      | uuid     | firstName | lastName | phoneNumber  | locale |
-      | 123-user | jean      | paul     | +33123213123 | en     |
+      | uuid     | firstName | lastName | phoneNumber  | locale | multiLogin |
+      | 123-user | jean      | paul     | +33123213123 | en     | 0          |
     And this user is assigned to this course
     And I go to "/admin"
     When I go to "/admin/course"

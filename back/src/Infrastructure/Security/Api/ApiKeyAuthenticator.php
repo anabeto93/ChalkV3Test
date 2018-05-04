@@ -46,16 +46,27 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
             throw new \InvalidArgumentException('Wrong user provider.');
         }
 
-        $key = $token->getCredentials();
+        $bearer = $token->getCredentials();
+        $bearerArray = explode("~", $bearer);
+        $key = $bearerArray[0];
+        $issuedAt = sizeof($bearerArray) > 1 ?
+            date_create_from_format('U', $bearerArray[1]) :
+            null;
+
         $username = $userProvider->getUsernameForApiToken($key);
 
         if (null === $username) {
-            throw new CustomUserMessageAuthenticationException('API key is not valid.');
+            throw new CustomUserMessageAuthenticationException('API key is not valid.', [], 401);
         }
 
-        $user = $userProvider->loadUserByUsername($username);
+        $apiUser = $userProvider->loadUserByUsername($username);
+        $user = $apiUser->getUser();
 
-        return new PreAuthenticatedToken($user, $key, $providerKey, $user->getRoles());
+        if (!$user->isMultiLogin() && $issuedAt !== null && $issuedAt < $user->getApiTokenIssuedAt()) {
+            throw new CustomUserMessageAuthenticationException('API Token is in use on another device.', [], 402);
+        }
+
+        return new PreAuthenticatedToken($apiUser, $key, $providerKey, $apiUser->getRoles());
     }
 
     /**
@@ -75,7 +86,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
             'errors' => [
                 ['message' => strtr($exception->getMessageKey(), $exception->getMessageData())],
             ]
-        ], 401);
+        ], $exception->getCode() ? $exception->getCode() : 401);
     }
 
     private function extractKey(string $header = null): ?string

@@ -11,6 +11,7 @@ import {
 export default function currentUser(
   state = {
     token: null,
+    tokenIssuedAt: null,
     loginState: LOGIN_STATE_LOGGED_OUT,
     uuid: null,
     firstName: null,
@@ -26,6 +27,7 @@ export default function currentUser(
       return {
         ...state,
         token: action.payload.token,
+        tokenIssuedAt: action.payload.tokenIssuedAt,
         loginState: LOGIN_STATE_LOGGED_OUT
       };
     }
@@ -56,6 +58,7 @@ export default function currentUser(
       return {
         ...state,
         token: null,
+        tokenIssuedAt: null,
         loginState: LOGIN_STATE_LOGGED_OUT
       };
     }

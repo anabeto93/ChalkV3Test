@@ -2,14 +2,16 @@ import { applyMiddleware, compose, createStore } from 'redux';
 import { autoRehydrate } from 'redux-persist';
 import thunkMiddleware from 'redux-thunk';
 
-import appReducer from '../reducers';
+import rootReducer from '../reducers';
 import coursesIsFetchingSubscriber from '../subscriber/CoursesIsFetchingSubscriber';
 import coursesSpoolSubscriber from '../subscriber/CoursesSpoolSubscriber';
 import defaultState from './defaultState';
 import { networkInterface } from '../graphql/client/GraphqlClient';
 
+import { requestForcedUserLogout } from '../actions/actionCreators';
+
 const store = createStore(
-  appReducer,
+  rootReducer,
   defaultState,
   compose(
     applyMiddleware(thunkMiddleware),
@@ -35,9 +37,23 @@ networkInterface.use([
       }
 
       const userToken = store.getState().currentUser.token;
+      const userTokenIssuedAt = store.getState().currentUser.tokenIssuedAt;
       req.options.headers.authorization = userToken
-        ? `Bearer ${userToken}`
+        ? `Bearer ${userToken + '~' + userTokenIssuedAt}`
         : null;
+      next();
+    }
+  }
+]);
+
+//Afterware to handle errors
+networkInterface.useAfter([
+  {
+    applyAfterware({ response }, next) {
+      if (response.status === 402) {
+        store.dispatch(requestForcedUserLogout());
+      }
+
       next();
     }
   }

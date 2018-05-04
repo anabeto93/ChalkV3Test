@@ -23,6 +23,7 @@ import SessionScreen from './containers/SessionScreen';
 import QuestionDetailScreen from './containers/QuestionDetailScreen';
 import SendSMSScreen from './containers/SendSMSScreen';
 import ValidateSessionByCodeScreen from './containers/ValidateSessionByCodeScreen';
+import Logout from './components/Logout';
 
 // Check network status
 import networkStatusEventListener from './services/network/networkStatusEventListener';
@@ -70,6 +71,7 @@ class App extends Component {
                 <Header />
                 <div className="container-layout">
                   <Updates />
+                  <Logout />
                   <div className="content-layout">
                     <Switch>
                       <Route exact path={routes.HOME} component={HomeScreen} />

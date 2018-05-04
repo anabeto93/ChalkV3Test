@@ -34,7 +34,12 @@ App\Domain\Model\User:
             nullable: true
         apiToken:
             type: string
+        apiTokenIssuedAt:
+            type: datetime
+            nullable: true
         forceUpdate:
+            type: boolean
+        multiLogin:
             type: boolean
     oneToMany:
         userCourses:

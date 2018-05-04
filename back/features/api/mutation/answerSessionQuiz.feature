@@ -23,10 +23,10 @@ Feature: Answer session quiz api
     And there is an incorrect answer with the title "My Neighbor Totoro" for this question
     And there is a correct answer with the title "Mulan" for this question
     And there is following users
-      | uuid     | firstName | lastName | phoneNumber  | locale | token     |
-      | 123-user | jean      | paul     | +33123213123 | en     | tokenUser |
+      | uuid     | firstName | lastName | phoneNumber  | locale | token     | multiLogin |
+      | 123-user | jean      | paul     | +33123213123 | en     | token1    | 0          |
     And this user is assigned to this course
-    Then I add "Authorization" header equal to "Bearer tokenUser"
+    Then I add "Authorization" header equal to "Bearer token1"
     And I add "Content-Type" header equal to "application/json"
     When I send a POST request to "/api/graphql/" with body:
       """

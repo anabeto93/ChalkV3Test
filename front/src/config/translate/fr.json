@@ -9,9 +9,13 @@
   "question": {
     "nextButton": "Enregistrer et passer à la suite"
   },
-  "tokenError": "Un problème est survenu avec votre lien - Merci de contacter Chalkboard Education pour assistance.",
+  "tokenError": {
+    "401": "Un problème est survenu avec votre lien - Merci de contacter Chalkboard Education pour assistance.",
+    "402": "Ce code est utilisé sur un autre appareil. Si vous pensez qu’il s’agit d’ume erreur, veuillez contacter Chalkboard Education."
+  },
   "update": {
     "label": "Mettre à jour",
+    "checkForUpdates": "Vérifier les mises à jour",
     "needUpdate": "L'application doit être mise à jour",
     "updating": "Mise à jour de l'app...",
     "checking": "Verification des mises à jours...",
@@ -50,7 +54,11 @@
   },
   "login": {
     "checking": "Vérification ...",
-    "start": "Commencer"
+    "start": "Commencer",
+    "title": "Identifiant",
+    "message": "Entrez votre code à 6 caractères",
+    "hint": "Votre code à 6 caractères se trouve à la fin du lien qui vous est envoyé par SMS pour vous connecter. Par exemple: https://chalkedu.co/#/login/code. Vous pouvez également utiliser l'identifiant qui vous a été envoyé par SMS pour vous re-connecter à l'application.",
+    "tokenPlaceholder": "Code à 6 caractères"
   },
   "account": {
     "language": "Langue",
@@ -59,6 +67,13 @@
     }
   },
   "error": {
-    "dismiss": "Cacher"
+    "dismiss": "Cacher",
+    "authenticationError": "Erreur d’authentification"
+  },
+  "logout": {
+    "title": "Confirmer déconnexion",
+    "message": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
+    "button": "Déconnexion",
+    "cancelButton": "Annuler"
   }
 }

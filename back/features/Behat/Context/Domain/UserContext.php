@@ -43,6 +43,7 @@ class UserContext implements Context
                 $userHash['lastName'],
                 $userHash['phoneNumber'],
                 $userHash['locale'],
+                $userHash['multiLogin'],
                 $userHash['country'] ?? null,
                 $userHash['token'] ?? null
             );
@@ -62,8 +63,9 @@ class UserContext implements Context
             'doh',
             '+33123213123',
             'fr',
+            true,
             'fr',
-            'john-doh-token',
+            'token2',
             true
         );
 

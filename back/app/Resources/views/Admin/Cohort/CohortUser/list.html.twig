@@ -36,6 +36,7 @@
                 <th>{{ 'admin.user.column.token'|trans }}</th>
                 <th>{{ 'admin.user.column.createdAt'|trans }}</th>
                 <th>{{ 'admin.user.column.lastLoginAccessNotificationAt'|trans }}</th>
+                <th>{{ 'admin.user.column.multiLogin'|trans }}</th>
                 <th></th>
             </tr>
             </thead>
@@ -50,6 +51,7 @@
                     <td>{{ user.apiToken }}</td>
                     <td>{{ user.createdAt|localizeddate('medium', 'short') }}</td>
                     <td>{{ user.lastLoginAccessNotificationAt ? user.lastLoginAccessNotificationAt|localizeddate('medium', 'short') : '-' }}</td>
+                    <td>{{ user.multiLogin ? '✔︎' : '' }}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <a href="{{ path('admin_user_update', {'user': user.id}) }}" class="btn btn-default btn-sm">

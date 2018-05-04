@@ -75,7 +75,8 @@ class CreateHandlerTest extends TestCase
             $this->tokenGenerator->reveal(),
             $this->sizeCalculator->reveal(),
             $this->localeHelper->reveal(),
-            $this->dateTime
+            $this->dateTime,
+            false
         );
         $handler->handle($command);
     }
@@ -92,7 +93,8 @@ class CreateHandlerTest extends TestCase
             'fr',
             39,
             '2oKenN',
-            $this->dateTime
+            $this->dateTime,
+            false
         );
 
         // Context
@@ -102,6 +104,7 @@ class CreateHandlerTest extends TestCase
         $command->lastName = 'lastName';
         $command->country = 'FR';
         $command->locale = 'fr';
+        $command->multiLogin = false;
 
         // Mock
         $this->userRepository->findByPhoneNumber('+123123123')->shouldBeCalled()->willReturn(null);

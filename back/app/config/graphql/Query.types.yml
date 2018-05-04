@@ -5,7 +5,11 @@ Query:
         fields:
             user:
                 type: "User!"
-                resolve: "@=resolver('user')"
+                args:
+                    tokenIssuedAt:
+                        description: "Time user utilized their token to login"
+                        type: "String"
+                resolve: "@=resolver('user', [args])"
             courses:
                 type: "[Course]"
                 resolve: "@=resolver('courses')"

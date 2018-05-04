@@ -5,6 +5,7 @@ import SessionContentQuery from '../graphql/query/SessionContentQuery';
 import validateSessionMutation from '../graphql/query/mutations/validateSessionMutation';
 import answerSessionQuizMutation from '../graphql/query/mutations/answerSessionQuizMutation';
 import UserQuery from '../graphql/query/UserQuery';
+import { USER_LOGOUT } from '../reducers/index';
 
 // NETWORK STATUS
 export const SET_NETWORK_STATUS = '@@CHALKBOARDEDUCATION/SET_NETWORK_STATUS';
@@ -23,8 +24,8 @@ export const RECEIVE_USER_INFORMATIONS =
 export const FAIL_GET_USER_INFORMATIONS =
   '@@CHALKBOARDEDUCATION/FAIL_GET_USER_INFORMATIONS';
 
-export function requestUserInformations(token) {
-  return { type: REQUEST_USER_INFORMATIONS, payload: { token } };
+export function requestUserInformations({ token, tokenIssuedAt }) {
+  return { type: REQUEST_USER_INFORMATIONS, payload: { token, tokenIssuedAt } };
 }
 
 export function receiveUserInformations(user) {
@@ -35,11 +36,15 @@ export function failGetUserInformations(message) {
   return { type: FAIL_GET_USER_INFORMATIONS, payload: { message } };
 }
 
-export function getUserInformations(token) {
+export function getUserInformations({ token, tokenIssuedAt }) {
   return function(dispatch) {
-    dispatch(requestUserInformations(token));
+    dispatch(requestUserInformations({ token, tokenIssuedAt }));
 
-    GraphqlClient.query({ query: UserQuery, fetchPolicy: 'network-only' })
+    GraphqlClient.query({
+      query: UserQuery,
+      fetchPolicy: 'network-only',
+      variables: { tokenIssuedAt }
+    })
       .then(response => {
         dispatch(receiveUserInformations(response.data.user));
       })
@@ -300,4 +305,28 @@ export function answerSessionQuiz({ sessionUuid, answers }) {
         dispatch(failValidateSessionInternet());
       });
   };
+}
+
+//LOGOUT
+export const REQUEST_USER_LOGOUT = '@@CHALKBOARDEDUCATION/REQUEST_USER_LOGOUT';
+
+export const REQUEST_FORCED_USER_LOGOUT =
+  '@@CHALKBOARDEDUCATION/REQUEST_FORCED_USER_LOGOUT';
+
+export const CANCEL_USER_LOGOUT = '@@CHALKBOARDEDUCATION/CANCEL_USER_LOGOUT';
+
+export function requestUserLogout() {
+  return { type: REQUEST_USER_LOGOUT };
+}
+
+export function requestForcedUserLogout() {
+  return { type: REQUEST_FORCED_USER_LOGOUT };
+}
+
+export function userLogout() {
+  return { type: USER_LOGOUT };
+}
+
+export function cancelUserLogout() {
+  return { type: CANCEL_USER_LOGOUT };
 }

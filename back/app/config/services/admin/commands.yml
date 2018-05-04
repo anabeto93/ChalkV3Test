@@ -77,6 +77,11 @@ services:
         tags:
             - { name: tactician.handler, command: App\Application\Command\User\Import\ConfirmImport }
 
+    App\Application\Command\User\TokenIssuedAtHandler:
+        autowire: true
+        tags:
+            - { name: tactician.handler, command: App\Application\Command\User\TokenIssuedAt }
+
     #
     # Folder
     #

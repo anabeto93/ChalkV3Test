@@ -64,7 +64,8 @@ class UpdateHandlerTest extends TestCase
             'fr',
             39,
             'token',
-            $this->dateTime
+            $this->dateTime,
+            false
         );
         $command = new Update($user);
         $command->phoneNumber = '+33987987987';
@@ -97,7 +98,8 @@ class UpdateHandlerTest extends TestCase
             'fr',
             39,
             'token',
-            new \DateTime('2017-08-01 10:00:00.000')
+            new \DateTime('2017-08-01 10:00:00.000'),
+            false
         );
         $expected->update(
             'other first name',
@@ -106,7 +108,8 @@ class UpdateHandlerTest extends TestCase
             'fr',
             '+33987987987',
             62,
-            $this->dateTime
+            $this->dateTime,
+            true
         );
 
         // Context
@@ -119,7 +122,8 @@ class UpdateHandlerTest extends TestCase
             'fr',
             39,
             'token',
-            new \DateTime('2017-08-01 10:00:00.000')
+            new \DateTime('2017-08-01 10:00:00.000'),
+            false
         );
         $command = new Update($user);
         $command->phoneNumber = '+33987987987';
@@ -127,6 +131,7 @@ class UpdateHandlerTest extends TestCase
         $command->lastName = 'other last name';
         $command->country = 'GB';
         $command->locale = 'fr';
+        $command->multiLogin = true;
 
         // Mock
         $this->userRepository->findByPhoneNumber(Argument::any())->shouldNotBeCalled();

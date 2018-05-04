@@ -9,9 +9,13 @@
   "question": {
     "nextButton": "Save & Next"
   },
-  "tokenError": "Your link has a problem - please contact Chalkboard Education for support.",
+  "tokenError": {
+    "401": "Your link has a problem - please contact Chalkboard Education for support.",
+    "402": "Your token is in use on another device. Kindly contact Chalkboard Education if you believe this is an error."
+  },
   "update": {
     "label": "Update",
+    "checkForUpdates": "Check for Updates",
     "needUpdate": "Your app must be updated",
     "updating": "Updating app...",
     "checking": "Checking updates...",
@@ -50,7 +54,11 @@
   },
   "login": {
     "checking": "Checking ...",
-    "start": "Start"
+    "start": "Start",
+    "title": "Login",
+    "message": "Kindly enter your 6-character token",
+    "hint": "Your 6-character token can be found appended to the login URL sent to you via SMS. For example: https://chalkedu.co/#/login/token. Alternatively, you may use the login link sent to you via SMS to log back in.",
+    "tokenPlaceholder": "6-character token"
   },
   "account": {
     "language": "Language",
@@ -59,6 +67,13 @@
     }
   },
   "error": {
-    "dismiss": "Dismiss"
+    "dismiss": "Dismiss",
+    "authenticationError": "Authentication Error"
+  },
+  "logout": {
+    "title": "Confirm Logout",
+    "message": "Are you sure you want to logout?",
+    "button": "Logout",
+    "cancelButton": "Cancel"
   }
 }

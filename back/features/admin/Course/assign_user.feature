@@ -6,8 +6,8 @@ Feature: Assign Users to Course
       | university  | University of Chalkboard      |
       | title       | Implementation of course list |
     And there is following users
-      | uuid      | firstName | lastName | phoneNumber | locale |
-      | 1234-uuid | John      | Cenna    | +000000000  | en     |
+      | uuid      | firstName | lastName | phoneNumber | locale | multiLogin |
+      | 1234-uuid | John      | Cenna    | +000000000  | en     | 0      |
     And I go to "/admin"
     When I go to "/admin/course"
     Then I should see "admin.course.column.students"
