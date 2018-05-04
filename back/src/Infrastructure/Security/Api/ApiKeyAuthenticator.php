@@ -86,7 +86,7 @@ class ApiKeyAuthenticator implements SimplePreAuthenticatorInterface, Authentica
             'errors' => [
                 ['message' => strtr($exception->getMessageKey(), $exception->getMessageData())],
             ]
-        ], $exception->getCode());
+        ], $exception->getCode() ? $exception->getCode() : 401);
     }
 
     private function extractKey(string $header = null): ?string
