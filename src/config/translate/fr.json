@@ -56,7 +56,7 @@
     "checking": "Vérification ...",
     "start": "Commencer",
     "title": "Identifiant",
-    "message": "Entrez votre code à 6 caractères sensible à la casse",
+    "message": "Entrez votre code à 6 caractères",
     "hint": "Votre code à 6 caractères se trouve à la fin du lien qui vous est envoyé par SMS pour vous connecter. Par exemple: https://chalkedu.co/#/login/code. Vous pouvez également utiliser l'identifiant qui vous a été envoyé par SMS pour vous re-connecter à l'application.",
     "tokenPlaceholder": "Code à 6 caractères"
   },
