@@ -24,6 +24,7 @@ import QuestionDetailScreen from './containers/QuestionDetailScreen';
 import SendSMSScreen from './containers/SendSMSScreen';
 import ValidateSessionByCodeScreen from './containers/ValidateSessionByCodeScreen';
 import Logout from './components/Logout';
+import GoogleAnalytics from './components/analytics/GoogleAnalytics';
 
 // Check network status
 import networkStatusEventListener from './services/network/networkStatusEventListener';
@@ -68,6 +69,7 @@ class App extends Component {
           <HashRouter>
             <ScrollToTop>
               <div>
+                <Route path="/" component={GoogleAnalytics} />
                 <Header />
                 <div className="container-layout">
                   <Updates />
