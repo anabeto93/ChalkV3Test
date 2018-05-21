@@ -1,13 +1,14 @@
 import { Component } from 'react';
 import ReactGA from 'react-ga';
 import { connect } from 'react-redux';
+import getConfig from '../../config/index';
 
 class GoogleAnalytics extends Component {
   constructor(props) {
     super(props);
 
     //Initialization
-    ReactGA.initialize('UA-72855958-2', {
+    ReactGA.initialize(getConfig().googleAnalytics, {
       gaOptions: {
         userId: props.token
       }
