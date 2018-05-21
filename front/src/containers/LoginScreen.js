@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getUserInformations, getUpdates } from '../actions/actionCreators';
 import UserPanel from '../components/Course/UserPanel';
 import * as moment from 'moment';
+import ReactGA from 'react-ga';
 
 import { COURSES, HOME } from '../config/routes';
 import { LOGIN_STATE_LOGGED_IN } from '../store/defaultState';
@@ -20,6 +21,9 @@ class LoginScreen extends Component {
     const token = this.props.match.params.token;
     const tokenIssuedAt = moment().format('X');
 
+    //Set userID for Google Analytics
+    ReactGA.set({ userId: token });
+
     if (null === token) {
       this.props.history.push(HOME);
     }
@@ -30,6 +34,12 @@ class LoginScreen extends Component {
     if (isTokenChanged || currentUser.loginState !== LOGIN_STATE_LOGGED_IN) {
       this.setState({ isFetching: true });
       this.props.dispatch(getUserInformations({ token, tokenIssuedAt }));
+
+      ReactGA.event({
+        category: 'Login',
+        action: 'Logged in',
+        label: token
+      });
 
       return;
     }
