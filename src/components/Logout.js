@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 import { userLogout, cancelUserLogout } from '../actions/actionCreators';
 import { HOME } from '../config/routes';
@@ -29,6 +30,12 @@ class Logout extends Component {
   handleLogout = () => {
     this.props.dispatch(userLogout());
     this.handleClose();
+
+    ReactGA.event({
+      category: 'Logout',
+      action: 'Logged out',
+      label: this.props.logout.isForced ? 'Forced' : 'Voluntary'
+    });
 
     return this.props.history.push(HOME);
   };
