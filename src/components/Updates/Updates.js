@@ -214,7 +214,8 @@ function mapStateToProps(
   { content, network, settings: { locale }, updates },
   props
 ) {
-  const isLoginScreen = LOGIN === RouteResolver.resolve(props.location).path;
+  const route = RouteResolver.resolve(props.location);
+  const isLoginScreen = LOGIN === (route && route.path);
   return { content, locale, network, updates, isLoginScreen };
 }
 
