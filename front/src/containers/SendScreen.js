@@ -11,6 +11,7 @@ import generateUrl from '../services/generateUrl';
 import stringifyUserAnswers from '../services/quiz/stringifyUserAnswers';
 import { SESSION_SEND_SMS } from '../config/routes';
 import store from '../store/store';
+import ReactGA from 'react-ga';
 
 const DEFAULT_STATE = {
   nextSession: null,
@@ -39,6 +40,12 @@ class SendScreen extends Component {
 
     const { session } = this.props;
 
+    ReactGA.event({
+      category: 'Session',
+      action: 'Validated via internet',
+      label: session.uuid
+    });
+
     if (session && session.questions) {
       store.dispatch(
         answerSessionQuiz({
@@ -46,6 +53,12 @@ class SendScreen extends Component {
           answers: stringifyUserAnswers(session.questions)
         })
       );
+
+      ReactGA.event({
+        category: 'Quiz',
+        action: 'Submitted via Internet',
+        label: 'Session: ' + session.uuid
+      });
     } else {
       store.dispatch(validateSession(session.uuid));
     }

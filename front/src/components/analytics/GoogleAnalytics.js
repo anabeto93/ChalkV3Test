@@ -1,11 +1,17 @@
 import { Component } from 'react';
 import ReactGA from 'react-ga';
-
-ReactGA.initialize('UA-72855958-2');
+import { connect } from 'react-redux';
 
 class GoogleAnalytics extends Component {
   constructor(props) {
     super(props);
+
+    //Initialization
+    ReactGA.initialize('UA-72855958-2', {
+      gaOptions: {
+        userId: props.token
+      }
+    });
 
     // Initial page load - only fired once
     this.sendPageChange(props.location.pathname, props.location.search);
@@ -35,4 +41,8 @@ class GoogleAnalytics extends Component {
   }
 }
 
-export default GoogleAnalytics;
+function mapStateToProps(state) {
+  return { token: state.currentUser.token };
+}
+
+export default connect(mapStateToProps)(GoogleAnalytics);
