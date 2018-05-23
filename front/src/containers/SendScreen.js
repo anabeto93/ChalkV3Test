@@ -1,5 +1,5 @@
 import I18n from 'i18n-js';
-import { RaisedButton } from 'material-ui';
+import { Button, Typography } from '@material-ui/core';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -9,7 +9,7 @@ import ValidatedSession from '../components/ValidatedSession';
 import CourseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
 import stringifyUserAnswers from '../services/quiz/stringifyUserAnswers';
-import { SESSION_SEND_SMS } from '../config/routes';
+import { SESSION_SEND_SMS, QUESTION_DETAIL } from '../config/routes';
 import store from '../store/store';
 import ReactGA from 'react-ga';
 
@@ -73,6 +73,28 @@ class SendScreen extends Component {
     );
   };
 
+  handleBackToQuizStart = () => {
+    return this.props.history.push(
+      generateUrl(QUESTION_DETAIL, {
+        ':courseUuid': this.props.session.courseUuid,
+        ':sessionUuid': this.props.session.uuid,
+        ':questionIndex': 0
+      })
+    );
+  };
+
+  checkQuestionAnswers = () => {
+    const { session: { questions } } = this.props;
+
+    for (let i = 0; i < questions.length; i++) {
+      if (!questions[i].userAnswers || questions[i].userAnswers.length === 0) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
   render() {
     const { session, locale, isValidating, isFailValidating } = this.props;
 
@@ -86,6 +108,24 @@ class SendScreen extends Component {
       );
     }
 
+    if (session.questions && !this.checkQuestionAnswers()) {
+      return (
+        <div className="screen-centered">
+          <Typography variant="headline" component="h1">
+            {I18n.t('question.answerAll', { locale })}
+          </Typography>
+          <Button
+            variant="raised"
+            color="primary"
+            onClick={this.handleBackToQuizStart}
+            style={{ margin: '2em' }}
+          >
+            {I18n.t('question.backToStart', { locale })}
+          </Button>
+        </div>
+      );
+    }
+
     return (
       <div>
         <div className="screen-centered">
@@ -94,18 +134,25 @@ class SendScreen extends Component {
               {I18n.t('send.label', { locale })}
             </p>
 
-            <RaisedButton
-              label={I18n.t('send.medium.internet', { locale })}
+            <Button
+              variant="raised"
+              color="primary"
               disabled={isValidating}
               onClick={this.handleSendByInternet}
               style={{ marginRight: '10px', width: '40%' }}
-            />
+            >
+              {I18n.t('send.medium.internet', { locale })}
+            </Button>
 
-            <RaisedButton
-              label={I18n.t('send.medium.sms', { locale })}
-              onClick={this.handleSendBySms}
-              style={{ width: '40%' }}
-            />
+            {!session.questions &&
+              <Button
+                variant="raised"
+                color="primary"
+                onClick={this.handleSendBySms}
+                style={{ width: '40%' }}
+              >
+                {I18n.t('send.medium.sms', { locale })}
+              </Button>}
           </div>
         </div>
 

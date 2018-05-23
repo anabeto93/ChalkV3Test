@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardHeader } from 'material-ui/Card';
+import { Card, CardHeader } from '@material-ui/core';
 import { connect } from 'react-redux';
 
 class UserPanel extends React.Component {
@@ -22,8 +22,7 @@ class UserPanel extends React.Component {
         <Card>
           <CardHeader
             title={`${this.props.user.firstName} ${this.props.user.lastName}`}
-            subtitle={this.subtitle()}
-            style={{ textAlign: 'left' }}
+            subheader={this.subtitle()}
           />
         </Card>
       );

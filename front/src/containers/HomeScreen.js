@@ -4,16 +4,26 @@ import { Redirect } from 'react-router-dom';
 import { COURSES, LOGIN } from '../config/routes';
 import { LOGIN_STATE_LOGGED_IN } from '../store/defaultState';
 import I18n from 'i18n-js';
-import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
+import {
+  Card,
+  CardActions,
+  CardHeader,
+  CardContent,
+  TextField,
+  Button,
+  IconButton,
+  Collapse,
+  Typography
+} from '@material-ui/core';
+import HelpIcon from '@material-ui/icons/Help';
 import generateUrl from '../services/generateUrl';
 
 export class HomeScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: ''
+      token: '',
+      expanded: false
     };
   }
 
@@ -21,6 +31,12 @@ export class HomeScreen extends Component {
     this.setState({
       token: e.target.value
     });
+  };
+
+  handleKeyPress = e => {
+    if (e.key === 'Enter') {
+      this.handleLogin();
+    }
   };
 
   handleLogin = () => {
@@ -42,33 +58,46 @@ export class HomeScreen extends Component {
         <Card>
           <CardHeader
             title={I18n.t('login.title')}
-            subtitle={I18n.t('login.message')}
-            actAsExpander={true}
-            showExpandableButton={true}
-            style={{ textAlign: 'left' }}
+            subheader={I18n.t('login.message')}
+            action={
+              <IconButton
+                onClick={() =>
+                  this.setState({ expanded: !this.state.expanded })}
+              >
+                <HelpIcon />
+              </IconButton>
+            }
           />
 
-          <CardText>
+          <CardContent>
             <TextField
               fullWidth={true}
-              hintText={I18n.t('login.tokenPlaceholder')}
+              placeholder={I18n.t('login.tokenPlaceholder')}
               onChange={this.handleChange}
+              onKeyPress={this.handleKeyPress}
               value={this.state.token}
             />
-          </CardText>
+          </CardContent>
 
           <CardActions>
-            <RaisedButton
-              primary={true}
-              label={I18n.t('login.title')}
+            <Button
+              variant="raised"
+              color="primary"
               onClick={this.handleLogin}
               disabled={!(this.state.token.length === 6)}
-            />
+              fullWidth
+            >
+              {I18n.t('login.title')}
+            </Button>
           </CardActions>
 
-          <CardText expandable={true}>
-            {I18n.t('login.hint')}
-          </CardText>
+          <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+            <CardContent>
+              <Typography
+                dangerouslySetInnerHTML={{ __html: I18n.t('login.hint') }}
+              />
+            </CardContent>
+          </Collapse>
         </Card>
       </div>
     );

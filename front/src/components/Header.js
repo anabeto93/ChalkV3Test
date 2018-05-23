@@ -1,14 +1,26 @@
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
-import Back from 'material-ui/svg-icons/navigation/chevron-left';
-import UserIcon from 'material-ui/svg-icons/social/person';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Avatar
+} from '@material-ui/core';
+import Back from '@material-ui/icons/ChevronLeft';
+import UserIcon from '@material-ui/icons/AccountCircle';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 import logoImage from '../assets/logo.png';
 import getConfig from '../config/index';
-import { ACCOUNT, COURSES, HOME, LOGIN, SESSION_LIST, FOLDER_LIST } from '../config/routes';
+import {
+  ACCOUNT,
+  COURSES,
+  HOME,
+  LOGIN,
+  SESSION_LIST,
+  FOLDER_LIST
+} from '../config/routes';
 import RouteResolver from '../services/RouteResolver';
 import CourseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
@@ -21,17 +33,14 @@ class Header extends Component {
 
     const sessionRegEx = /session\/([-\w]+)/;
 
-    if(sessionRegEx.test(pathname)) {
+    if (sessionRegEx.test(pathname)) {
       const sessionUuid = sessionRegEx.exec(pathname)[1];
 
       const { sessions } = this.props;
 
-      const session = CourseManager.getSession(
-        sessions,
-        sessionUuid
-      );
+      const session = CourseManager.getSession(sessions, sessionUuid);
 
-      if(session) {
+      if (session) {
         return history.push(
           generateUrl(SESSION_LIST, {
             ':courseUuid': session.courseUuid,
@@ -42,8 +51,8 @@ class Header extends Component {
     }
 
     const foldersRegEx = /folders\/([-\w]+)\/sessions\/list/;
-    
-    if(foldersRegEx.test(pathname)) {
+
+    if (foldersRegEx.test(pathname)) {
       const folderUuid = foldersRegEx.exec(pathname)[1];
       const { folders } = this.props;
       const courseUuid = folders[folderUuid].courseUuid;
@@ -56,7 +65,7 @@ class Header extends Component {
       const totalFolders = Object.keys(courseFolders).length;
       const firstFolder = folders[Object.keys(courseFolders)[0]];
 
-      if(!(totalFolders === 1 && firstFolder.isDefault)) {
+      if (!(totalFolders === 1 && firstFolder.isDefault)) {
         return history.push(
           generateUrl(FOLDER_LIST, {
             ':courseUuid': courseUuid
@@ -82,26 +91,31 @@ class Header extends Component {
     const { title } = this.props;
 
     return (
-      <span style={{ fontSize: '14px' }}>
-        <img
+      <React.Fragment>
+        <Avatar
           src={logoImage}
           alt={APP_NAME}
           style={{
-            paddingTop: '10px',
-            float: 'left',
-            maxHeight: '50%',
-            margin: '6px'
+            padding: '0.5em'
           }}
-        />{' '}
-        {title}
-      </span>
+          onClick={this.handleRedirectToList}
+        />
+        <Typography
+          color="inherit"
+          onClick={this.handleRedirectToList}
+          aria-label="Top"
+          style={{ flex: 1 }}
+        >
+          {title}
+        </Typography>
+      </React.Fragment>
     );
   };
 
   leftIcon = () => {
     return (
-      <IconButton onClick={this.handleGoBack}>
-        <Back>Back</Back>
+      <IconButton color="inherit" onClick={this.handleGoBack} aria-label="Back">
+        <Back />
       </IconButton>
     );
   };
@@ -127,7 +141,11 @@ class Header extends Component {
       matchPath.path !== LOGIN
     ) {
       return (
-        <IconButton onClick={this.handleRedirectAccount}>
+        <IconButton
+          color="inherit"
+          onClick={this.handleRedirectAccount}
+          aria-label="Account"
+        >
           <UserIcon />
         </IconButton>
       );
@@ -136,14 +154,15 @@ class Header extends Component {
 
   render() {
     return (
-      <AppBar
-        className="navbar-header"
-        title={this.logo()}
-        onTitleTouchTap={this.handleRedirectToList}
-        iconElementLeft={this.leftIcon()}
-        iconElementRight={this.rightIcon()}
-        showMenuIconButton={this.showMenuIconButton()}
-      />
+      <AppBar position="static">
+        <Toolbar>
+          {this.showMenuIconButton() && this.leftIcon()}
+
+          {this.logo()}
+
+          {this.rightIcon()}
+        </Toolbar>
+      </AppBar>
     );
   }
 }
