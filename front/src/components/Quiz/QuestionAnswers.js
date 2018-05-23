@@ -1,57 +1,68 @@
 import React from 'react';
-import { RadioButtonGroup, RadioButton, Checkbox } from 'material-ui';
+import {
+  RadioGroup,
+  Radio,
+  Checkbox,
+  FormControl,
+  FormControlLabel
+} from '@material-ui/core';
 
 const QuestionAnswers = props => {
   const { question } = props;
-  const optionStyle = {
-    marginBottom: 16
-  };
 
   const userAnswers = question.userAnswers ? question.userAnswers : [];
 
   if (question.isMultiple) {
     return (
-      <div>
+      <FormControl component="fieldset">
         {Object.keys(question.answers).map((key, index) => {
           const answer = question.answers[index];
 
           return (
-            <Checkbox
+            <FormControlLabel
               key={index}
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={userAnswers.includes(index)}
+                  onChange={() => {
+                    props.handleAnswerChange(index);
+                  }}
+                />
+              }
               label={answer.title}
-              checked={userAnswers.includes(index)}
-              onCheck={() => {
-                props.handleAnswerChange(index);
-              }}
-              style={optionStyle}
             />
           );
         })}
-      </div>
+      </FormControl>
     );
   }
 
   return (
-    <RadioButtonGroup
-      name={question.title}
-      valueSelected={userAnswers[0]}
-      onChange={(e, value) => {
-        props.handleAnswerChange(value);
-      }}
-    >
-      {Object.keys(question.answers).map((key, index) => {
-        const answer = question.answers[index];
+    <FormControl component="fieldset">
+      <RadioGroup
+        aria-label={question.title}
+        name={question.title}
+        value={userAnswers[0] && userAnswers[0].toString()}
+        onChange={(e, value) => {
+          props.handleAnswerChange(value);
+        }}
+      >
+        {Object.keys(question.answers).map((key, index) => {
+          const answer = question.answers[index];
 
-        return (
-          <RadioButton
-            key={index}
-            label={answer.title}
-            value={index}
-            style={optionStyle}
-          />
-        );
-      })}
-    </RadioButtonGroup>
+          return (
+            <FormControlLabel
+              key={index}
+              label={answer.title}
+              value={index.toString()}
+              checked={index === userAnswers[0]}
+              control={<Radio color="primary" />}
+            />
+          );
+        })}
+      </RadioGroup>
+    </FormControl>
   );
 };
 

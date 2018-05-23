@@ -1,46 +1,15 @@
-import Clipboard from 'clipboard';
 import I18n from 'i18n-js';
-import { FlatButton, RaisedButton, TextField } from 'material-ui';
+import { Button } from '@material-ui/core';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { UnBlockSession } from '../services/session/UnBlockSession';
 import stringifyUserAnswers from '../services/quiz/stringifyUserAnswers';
 import CourseManager from '../services/CourseManager';
 import getConfig from '../config/index';
+import NotWorking from '../components/SMS/NotWorking';
 
 const DEFAULT_STATE = {
   showNotWorking: false
-};
-
-const NotWorking = props => {
-  const { validationCode, locale } = props;
-  return (
-    <div>
-      <p>
-        {I18n.t('send.sms.notworking.label', { locale })}
-      </p>
-      <div>
-        <TextField
-          id="phone-number"
-          data-clipboard-target="#phone-number"
-          defaultValue={getConfig().apiPhoneNumber}
-          floatingLabelText={I18n.t('send.sms.notworking.toPhone', { locale })}
-          fullWidth={true}
-        />
-      </div>
-      <div>
-        <TextField
-          id="validation-code"
-          data-clipboard-target="#validation-code"
-          defaultValue={validationCode}
-          floatingLabelText={I18n.t('send.sms.notworking.validationCode', {
-            locale
-          })}
-          fullWidth={true}
-        />
-      </div>
-    </div>
-  );
 };
 
 class SendSMSScreen extends Component {
@@ -61,13 +30,24 @@ class SendSMSScreen extends Component {
       validationCode += ' ' + stringifyUserAnswers(sessionQuestions);
     }
 
-    new Clipboard('#phone-number');
-    new Clipboard('#validation-code');
-
     this.setState({ validationCode });
   }
 
   openSMSAppLink = validationCode => {
+    if (/iPhone|iPad|iPod|Mac/i.test(navigator.userAgent)) {
+      if (/iP(hone|od|ad)/i.test(navigator.userAgent)) {
+        var v = navigator.appVersion.match(/OS (\d+)_(\d+)_?(\d+)?/);
+        //Below iOS 8
+        if (parseInt(v[1], 10) < 8) {
+          return `sms:${getConfig().apiPhoneNumber};body=${validationCode}`;
+        }
+      }
+
+      //iOS 8 and above
+      return `sms:${getConfig().apiPhoneNumber}&body=${validationCode}`;
+    }
+
+    //Every other platform
     return `sms:${getConfig().apiPhoneNumber}?body=${validationCode}`;
   };
 
@@ -92,20 +72,24 @@ class SendSMSScreen extends Component {
         {!this.state.showNotWorking &&
           <div>
             <div>
-              <RaisedButton
+              <Button
+                variant="raised"
                 href={this.openSMSAppLink(validationCode)}
                 target="_blank"
-                label={I18n.t('send.sms.button', { locale })}
-              />
+                color="primary"
+              >
+                {I18n.t('send.sms.button', { locale })}
+              </Button>
             </div>
 
             <div style={{ margin: '20px' }}>
-              <FlatButton
-                label={I18n.t('send.sms.notworking.button', { locale })}
+              <Button
                 onClick={this.showNotWorking}
-                secondary={true}
-                labelStyle={{ fontSize: '12px' }}
-              />
+                color="secondary"
+                style={{ fontSize: '12px' }}
+              >
+                {I18n.t('send.sms.notworking.button', { locale })}
+              </Button>
             </div>
           </div>}
 

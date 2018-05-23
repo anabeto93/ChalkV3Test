@@ -1,6 +1,6 @@
 import I18n from 'i18n-js';
-import { RaisedButton } from 'material-ui';
-import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import { Button } from '@material-ui/core';
+import Arrow from '@material-ui/icons/KeyboardArrowRight';
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -57,18 +57,15 @@ const footer = props => {
 
   return (
     <footer className="next-session-footer background-grey">
-      <RaisedButton
-        label={I18n.t(
+      <Button variant="raised" color="primary" onClick={handleNext}>
+        {I18n.t(
           session.questions && !session.validated
             ? 'session.quizButton'
             : 'session.nextButton',
           { locale }
         )}
-        labelPosition="before"
-        primary={true}
-        onClick={handleNext}
-        icon={<Arrow />}
-      />
+        <Arrow />
+      </Button>
     </footer>
   );
 };

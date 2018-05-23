@@ -7,7 +7,9 @@
     "quizButton": "Respond to quiz"
   },
   "question": {
-    "nextButton": "Save & Next"
+    "nextButton": "Save & Next",
+    "answerAll": "Kindly answer all questions before proceeding.",
+    "backToStart": "Back to Start"
   },
   "tokenError": {
     "401": "Your link has a problem - please contact Chalkboard Education for support.",
@@ -26,7 +28,8 @@
     "stayOnline": "Please stay online when downloading updates",
     "offline": "You are offline.",
     "updateSuccess": "App updated successfully!",
-    "retry": "Retry"
+    "retry": "Retry",
+    "edit": "Edit"
   },
   "send": {
     "label": "Submit your progress with:",
@@ -57,7 +60,7 @@
     "start": "Start",
     "title": "Login",
     "message": "Kindly enter your 6-character token",
-    "hint": "Your 6-character token can be found appended to the login URL sent to you via SMS. For example: https://chalkedu.co/#/login/token. Alternatively, you may use the login link sent to you via SMS to log back in.",
+    "hint": "You may use the login link sent to you via SMS to log back in.<br />Alternatively, your 6-character token can be found appended to the login URL sent to you via SMS. For example: https://chalkedu.co/#/login/<b>token</b>",
     "tokenPlaceholder": "6-character token"
   },
   "account": {

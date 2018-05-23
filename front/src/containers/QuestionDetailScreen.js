@@ -8,8 +8,8 @@ import CourseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
 import { setUserAnswers } from '../actions/actionCreators';
 import store from '../store/store';
-import { RaisedButton } from 'material-ui';
-import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import { Button } from '@material-ui/core';
+import Arrow from '@material-ui/icons/KeyboardArrowRight';
 import QuestionAnswers from './../components/Quiz/QuestionAnswers';
 
 class QuestionDetailScreen extends Component {
@@ -73,13 +73,10 @@ class QuestionDetailScreen extends Component {
           </div>
 
           <footer className="next-session-footer background-grey">
-            <RaisedButton
-              label={I18n.t('question.nextButton', { locale })}
-              labelPosition="before"
-              primary={true}
-              onClick={this.handleNext}
-              icon={<Arrow />}
-            />
+            <Button variant="raised" color="primary" onClick={this.handleNext}>
+              {I18n.t('question.nextButton', { locale })}
+              <Arrow />
+            </Button>
           </footer>
         </div>
       );

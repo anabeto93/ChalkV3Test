@@ -1,6 +1,5 @@
-import { darkBlack } from 'material-ui/styles/colors';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { darkBlack } from '@material-ui/core/colors';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
@@ -58,11 +57,12 @@ class App extends Component {
     return (
       <Provider store={store}>
         <MuiThemeProvider
-          muiTheme={getMuiTheme({
+          theme={createMuiTheme({
             palette: {
-              primary1Color: PRIMARY_COLOR,
-              primary2Color: darkBlack,
-              textColor1: darkBlack
+              primary: {
+                main: PRIMARY_COLOR
+              },
+              secondary: darkBlack
             }
           })}
         >

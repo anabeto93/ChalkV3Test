@@ -1,6 +1,6 @@
 import I18n from 'i18n-js';
-import { List, ListItem } from 'material-ui/List';
-import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import { List, ListItem, ListItemText, Divider } from '@material-ui/core';
+import Arrow from '@material-ui/icons/KeyboardArrowRight';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -38,7 +38,7 @@ class FolderScreen extends Component {
               {I18n.t('course.noContentAvailable', { locale })}
             </p>
           : <List>
-              {Object.keys(folders).map(key => {
+              {Object.keys(folders).map((key, index) => {
                 let folder = folders[key];
                 return (
                   <Link
@@ -49,10 +49,12 @@ class FolderScreen extends Component {
                       ':folderUuid': folder.uuid
                     })}
                   >
-                    <ListItem
-                      primaryText={folder.title}
-                      rightIcon={<Arrow />}
-                    />
+                    <ListItem button>
+                      <ListItemText primary={folder.title} />
+                      <Arrow />
+                    </ListItem>
+
+                    {index < totalFolders - 1 && <Divider />}
                   </Link>
                 );
               })}
