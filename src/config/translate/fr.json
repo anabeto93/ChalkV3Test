@@ -7,7 +7,9 @@
     "quizButton": "Répondre au quiz"
   },
   "question": {
-    "nextButton": "Enregistrer et passer à la suite"
+    "nextButton": "Enregistrer et passer à la suite",
+    "answerAll": "Veuillez répondre à toutes les questions avant de continuer.",
+    "backToStart": "Revenir au Départ"
   },
   "tokenError": {
     "401": "Un problème est survenu avec votre lien - Merci de contacter Chalkboard Education pour assistance.",
@@ -26,7 +28,8 @@
     "stayOnline": "Restez connecté pendant la mise à jour",
     "offline": "Pas de connexion internet",
     "updateSuccess": "L'application a été mise à jour !",
-    "retry": "Réessayer"
+    "retry": "Réessayer",
+    "edit": "Modifier"
   },
   "send": {
     "label": "Soumettre sa progression avec :",
@@ -57,7 +60,7 @@
     "start": "Commencer",
     "title": "Identifiant",
     "message": "Entrez votre code à 6 caractères",
-    "hint": "Votre code à 6 caractères se trouve à la fin du lien qui vous est envoyé par SMS pour vous connecter. Par exemple: https://chalkedu.co/#/login/code. Vous pouvez également utiliser l'identifiant qui vous a été envoyé par SMS pour vous re-connecter à l'application.",
+    "hint": "Vous pouvez également utiliser l'identifiant qui vous a été envoyé par SMS pour vous re-connecter à l'application.<br />Votre code à 6 caractères se trouve à la fin du lien qui vous est envoyé par SMS pour vous connecter. Par exemple: https://chalkedu.co/#/login/<b>code</b>",
     "tokenPlaceholder": "Code à 6 caractères"
   },
   "account": {

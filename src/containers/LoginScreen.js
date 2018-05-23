@@ -1,5 +1,5 @@
 import I18n from 'i18n-js';
-import { RaisedButton } from 'material-ui';
+import { Button } from '@material-ui/core';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUserInformations, getUpdates } from '../actions/actionCreators';
@@ -83,11 +83,14 @@ class LoginScreen extends Component {
       return (
         <div className="screen-centered">
           <UserPanel />
-          <RaisedButton
-            label={I18n.t('login.start', { locale })}
+          <Button
+            variant="raised"
+            color="primary"
             style={{ margin: '10px' }}
             onClick={this.handleRedirectCourses}
-          />
+          >
+            {I18n.t('login.start', { locale })}
+          </Button>
         </div>
       );
     }

@@ -1,8 +1,13 @@
 import I18n from 'i18n-js';
 import React, { Component } from 'react';
-import Dialog from 'material-ui/Dialog';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions
+} from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import ReactGA from 'react-ga';
@@ -48,34 +53,36 @@ class Logout extends Component {
     const { logout, locale } = this.props;
     const forcedLogout = logout.isForced;
 
-    const actions = [
-      !forcedLogout
-        ? [
-            <FlatButton
-              label={I18n.t('logout.cancelButton', { locale })}
-              secondary={true}
-              onClick={this.handleClose}
-            />
-          ]
-        : [],
-      <RaisedButton
-        label={I18n.t('logout.button', { locale })}
-        primary={true}
-        onClick={this.handleLogout}
-      />
-    ];
-
     return (
       <Dialog
-        title={I18n.t(
-          forcedLogout ? 'error.authenticationError' : 'logout.title',
-          { locale }
-        )}
-        actions={actions}
-        modal={true}
+        disableBackdropClick={forcedLogout}
         open={this.state.open}
+        onClose={this.handleClose}
       >
-        {I18n.t(forcedLogout ? 'tokenError.402' : 'logout.message', { locale })}
+        <DialogTitle>
+          {I18n.t(forcedLogout ? 'error.authenticationError' : 'logout.title', {
+            locale
+          })}
+        </DialogTitle>
+
+        <DialogContent>
+          <DialogContentText>
+            {I18n.t(forcedLogout ? 'tokenError.402' : 'logout.message', {
+              locale
+            })}
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions>
+          {!forcedLogout &&
+            <Button color="secondary" onClick={this.handleClose}>
+              {I18n.t('logout.cancelButton', { locale })}
+            </Button>}
+
+          <Button variant="raised" color="primary" onClick={this.handleLogout}>
+            {I18n.t('logout.button', { locale })}
+          </Button>
+        </DialogActions>
       </Dialog>
     );
   }

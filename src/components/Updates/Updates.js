@@ -1,8 +1,6 @@
 import I18n from 'i18n-js';
-import LinearProgress from 'material-ui/LinearProgress';
-import RaisedButton from 'material-ui/RaisedButton';
+import { Button, LinearProgress, Snackbar } from '@material-ui/core';
 import React, { Component } from 'react';
-import Snackbar from 'material-ui/Snackbar';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -123,7 +121,7 @@ class Updates extends Component {
     if (percentSpoolCompleted < 100) {
       return (
         <div>
-          <LinearProgress mode="determinate" value={percentSpoolCompleted} />
+          <LinearProgress variant="determinate" value={percentSpoolCompleted} />
           <div className="updates-container">
             <p>
               {I18n.t('update.stayOnline', { locale })}
@@ -139,11 +137,13 @@ class Updates extends Component {
           <p>
             {I18n.t('update.errorWhileCheckingUpdates', { locale })}
           </p>
-          <RaisedButton
-            label={I18n.t('update.retry', { locale })}
-            primary={true}
+          <Button
+            variant="raised"
+            color="primary"
             onClick={this.handleRetryCheckUpdates}
-          />
+          >
+            {I18n.t('update.retry', { locale })}
+          </Button>
         </div>
       );
     }
@@ -178,11 +178,9 @@ class Updates extends Component {
               })}
             </small>
           </p>
-          <RaisedButton
-            label={I18n.t('update.label', { locale })}
-            primary={true}
-            onClick={this.handleLoad}
-          />
+          <Button variant="raised" color="primary" onClick={this.handleLoad}>
+            {I18n.t('update.label', { locale })}
+          </Button>
         </div>
       );
     }
@@ -193,17 +191,22 @@ class Updates extends Component {
           open={this.state.isAlreadyUpToDate}
           message={I18n.t('update.upToDate', { locale })}
           autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
+          onClose={this.handleRequestClose}
+          onClick={this.handleRequestClose}
         />
         <Snackbar
           open={this.state.isUpdated}
           message={I18n.t('update.updateSuccess', { locale })}
           autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
+          onClose={this.handleRequestClose}
+          onClick={this.handleRequestClose}
         />
         <Snackbar
           open={this.state.isErrorWhileUpdating}
           message={I18n.t('errorWhileUpdating', { locale })}
           autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
-          onRequestClose={this.handleRequestClose}
+          onClose={this.handleRequestClose}
+          onClick={this.handleRequestClose}
         />
       </div>
     );

@@ -1,6 +1,14 @@
 import I18n from 'i18n-js';
-import { List, ListItem } from 'material-ui/List';
-import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import {
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText,
+  ListItemSecondaryAction,
+  Divider
+} from '@material-ui/core';
+import Arrow from '@material-ui/icons/KeyboardArrowRight';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -61,29 +69,47 @@ class SessionScreen extends Component {
                       ':courseUuid': course.uuid,
                       ':sessionUuid': session.uuid
                     })}
-                    style={{ textDecoration: 'none' }}
+                    className="link-primary"
                   >
                     <ListItem
-                      leftAvatar={this.leftIcon(index + 1, true, isLastToRead)}
+                      button
                       key={session.uuid}
-                      primaryText={session.title}
-                      rightIcon={<Arrow />}
                       style={isLastToRead ? { fontWeight: 'bold' } : {}}
-                    />
+                    >
+                      <ListItemAvatar>
+                        <Avatar>
+                          {this.leftIcon(index + 1, true, isLastToRead)}
+                        </Avatar>
+                      </ListItemAvatar>
+
+                      <ListItemText primary={session.title} />
+
+                      <ListItemSecondaryAction>
+                        <Arrow />
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                    {index < sessionsArray.length - 1 && <Divider />}
                   </Link>
                 );
               } else {
                 return (
-                  <ListItem
-                    leftAvatar={this.leftIcon(index + 1, false, false)}
-                    key={session.uuid}
-                    primaryText={session.title}
-                    disabled={true}
-                    style={{
-                      backgroundColor: '#ddd',
-                      borderTop: 'solid 1px #ccc'
-                    }}
-                  />
+                  <React.Fragment key={session.uuid}>
+                    <ListItem
+                      disabled={true}
+                      style={{
+                        backgroundColor: '#ddd',
+                        borderTop: 'solid 1px #ccc'
+                      }}
+                    >
+                      <ListItemAvatar>
+                        <Avatar>
+                          {this.leftIcon(index + 1, false, false)}
+                        </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText primary={session.title} />
+                    </ListItem>
+                    {index < sessionsArray.length - 1 && <Divider />}
+                  </React.Fragment>
                 );
               }
             })}

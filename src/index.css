@@ -26,8 +26,6 @@ body {
   height: 40px;
   width: 40px;
   position: absolute;
-  top: 16px;
-  left: 16px;
 }
 
 .session-content img {
@@ -45,6 +43,7 @@ body {
 
 .link-primary {
   text-decoration: none;
+  color: inherit;
 }
 
 .flash-container {
@@ -59,10 +58,6 @@ body {
   background-color: white;
 }
 
-.container-layout {
-  margin-top: 64px;
-}
-
 .content-layout {
   background-color: #ffffff;
 }
@@ -73,11 +68,6 @@ body {
 
 .hidden {
   display: none;
-}
-
-.navbar-header {
-  position: fixed !important;
-  top: 0;
 }
 
 .updates-container {

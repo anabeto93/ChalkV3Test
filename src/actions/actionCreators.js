@@ -301,7 +301,7 @@ export function answerSessionQuiz({ sessionUuid, answers }) {
           receiveValidateSessionInternet({ sessionUuid, response: data })
         );
       })
-      .catch(() => {
+      .catch(error => {
         dispatch(failValidateSessionInternet());
       });
   };

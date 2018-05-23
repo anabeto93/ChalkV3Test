@@ -1,5 +1,5 @@
 import I18n from 'i18n-js';
-import { Snackbar } from 'material-ui';
+import { Snackbar, Button } from '@material-ui/core';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../store/store';
@@ -28,10 +28,14 @@ class Error extends Component {
       <Snackbar
         open={this.state.show}
         message={this.props.message}
-        action={I18n.t('error.dismiss', { locale })}
+        action={
+          <Button color="secondary">
+            {I18n.t('error.dismiss', { locale })}
+          </Button>
+        }
         autoHideDuration={3000}
-        onRequestClose={this.handleDismiss}
-        onActionTouchTap={this.handleDismiss}
+        onClose={this.handleDismiss}
+        onClick={this.handleDismiss}
       />
     );
   }

@@ -1,5 +1,5 @@
 import I18n from 'i18n-js';
-import { RaisedButton, FlatButton } from 'material-ui';
+import { Button } from '@material-ui/core';
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 
@@ -37,19 +37,22 @@ class ValidatedSession extends Component {
         <h4>
           {I18n.t('send.validation.success', { locale })}
         </h4>
-        <FlatButton
-          label={I18n.t('send.sessionListButton', { locale })}
+        <Button
           onClick={this.handleRedirectSessionList}
-          style={{ marginRight: '10px', fontSize: '10px', width: '60%' }}
-          secondary={true}
-        />
+          style={{ marginRight: '10px', width: '60%' }}
+          color="secondary"
+        >
+          {I18n.t('send.sessionListButton', { locale })}
+        </Button>
         {null !== this.props.nextSession &&
-          <RaisedButton
-            primary={true}
+          <Button
+            variant="raised"
+            color="primary"
             onClick={this.handleRedirectNextSession}
-            label={I18n.t('send.nextButton', { locale })}
             style={{ width: '20%' }}
-          />}
+          >
+            {I18n.t('send.nextButton', { locale })}
+          </Button>}
       </div>
     );
   }

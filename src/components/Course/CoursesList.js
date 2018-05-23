@@ -1,6 +1,6 @@
 import I18n from 'i18n-js';
-import { List, ListItem } from 'material-ui/List';
-import Arrow from 'material-ui/svg-icons/hardware/keyboard-arrow-right';
+import { List, ListItem, ListItemText, Divider } from '@material-ui/core';
+import Arrow from '@material-ui/icons/KeyboardArrowRight';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -10,8 +10,9 @@ import { FOLDER_LIST } from '../../config/routes';
 export class CoursesList extends Component {
   render() {
     const { courses, locale } = this.props;
+    const totalCourses = Object.keys(courses).length;
 
-    if (undefined === courses || 0 === Object.keys(courses).length) {
+    if (undefined === courses || 0 === totalCourses) {
       return (
         <p className="screen-centered alert">
           {I18n.t('course.noContentAvailable', { locale })}
@@ -21,7 +22,7 @@ export class CoursesList extends Component {
 
     return (
       <List>
-        {Object.keys(courses).map(key => {
+        {Object.keys(courses).map((key, index) => {
           let course = courses[key];
 
           return (
@@ -30,11 +31,14 @@ export class CoursesList extends Component {
               key={course.uuid}
               to={generateUrl(FOLDER_LIST, { ':courseUuid': course.uuid })}
             >
-              <ListItem
-                primaryText={course.title}
-                secondaryText={course.teacherName}
-                rightIcon={<Arrow />}
-              />
+              <ListItem button>
+                <ListItemText
+                  primary={course.title}
+                  secondary={course.teacherName}
+                />
+                <Arrow />
+              </ListItem>
+              {index < totalCourses - 1 && <Divider />}
             </Link>
           );
         })}
