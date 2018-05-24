@@ -25,11 +25,13 @@
     "upToDate": "Your app is already up to date!",
     "errorWhileCheckingUpdates": "There is a network problem while checking updates.",
     "errorWhileUpdating": "There is a network problem while updating.",
-    "stayOnline": "Please stay online when downloading updates",
+    "stayOnline": "Kindly stay online and keep the page open. This may take several minutes.",
     "offline": "You are offline.",
     "updateSuccess": "App updated successfully!",
     "retry": "Retry",
-    "edit": "Edit"
+    "edit": "Edit",
+    "downloadingContent": "Downloading Content",
+    "dismiss": "Dismiss"
   },
   "send": {
     "label": "Submit your progress with:",

@@ -3,6 +3,7 @@ import { Button, LinearProgress, Snackbar } from '@material-ui/core';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import UpdateDialog from './UpdateDialog';
 
 import {
   getCoursesInformations,
@@ -121,10 +122,19 @@ class Updates extends Component {
     if (percentSpoolCompleted < 100) {
       return (
         <div>
-          <LinearProgress variant="determinate" value={percentSpoolCompleted} />
+          <UpdateDialog
+            percentSpoolCompleted={percentSpoolCompleted}
+            locale={locale}
+          />
+
+          <LinearProgress
+            variant="determinate"
+            color="secondary"
+            value={percentSpoolCompleted}
+          />
           <div className="updates-container">
             <p>
-              {I18n.t('update.stayOnline', { locale })}
+              {I18n.t('update.downloadingContent', { locale })}...
             </p>
           </div>
         </div>
