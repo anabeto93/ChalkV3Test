@@ -1,8 +1,9 @@
 import I18n from 'i18n-js';
 import { Button, Typography } from '@material-ui/core';
+import InternetIcon from '@material-ui/icons/Language';
+import SMSIcon from '@material-ui/icons/Sms';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import { validateSession, answerSessionQuiz } from '../actions/actionCreators';
 import Error from '../components/Error';
 import ValidatedSession from '../components/ValidatedSession';
@@ -97,6 +98,7 @@ class SendScreen extends Component {
 
   render() {
     const { session, locale, isValidating, isFailValidating } = this.props;
+    const iconStyle = { marginRight: '0.3em' };
 
     if (this.state.isSessionValidated) {
       return (
@@ -141,6 +143,7 @@ class SendScreen extends Component {
               onClick={this.handleSendByInternet}
               style={{ marginRight: '10px', width: '40%' }}
             >
+              <InternetIcon style={iconStyle} />
               {I18n.t('send.medium.internet', { locale })}
             </Button>
 
@@ -151,6 +154,7 @@ class SendScreen extends Component {
                 onClick={this.handleSendBySms}
                 style={{ width: '40%' }}
               >
+                <SMSIcon style={iconStyle} />
                 {I18n.t('send.medium.sms', { locale })}
               </Button>}
           </div>
