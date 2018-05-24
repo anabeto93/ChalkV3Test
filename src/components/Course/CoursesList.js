@@ -1,6 +1,13 @@
 import I18n from 'i18n-js';
-import { List, ListItem, ListItemText, Divider } from '@material-ui/core';
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
+  Avatar
+} from '@material-ui/core';
 import Arrow from '@material-ui/icons/KeyboardArrowRight';
+import FolderIcon from '@material-ui/icons/Folder';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -32,6 +39,9 @@ export class CoursesList extends Component {
               to={generateUrl(FOLDER_LIST, { ':courseUuid': course.uuid })}
             >
               <ListItem button>
+                <Avatar>
+                  <FolderIcon />
+                </Avatar>
                 <ListItemText
                   primary={course.title}
                   secondary={course.teacherName}
