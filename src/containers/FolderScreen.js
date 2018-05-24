@@ -1,6 +1,13 @@
 import I18n from 'i18n-js';
-import { List, ListItem, ListItemText, Divider } from '@material-ui/core';
+import {
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
+  Avatar
+} from '@material-ui/core';
 import Arrow from '@material-ui/icons/KeyboardArrowRight';
+import FolderIcon from '@material-ui/icons/Folder';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -50,6 +57,9 @@ class FolderScreen extends Component {
                     })}
                   >
                     <ListItem button>
+                      <Avatar>
+                        <FolderIcon />
+                      </Avatar>
                       <ListItemText primary={folder.title} />
                       <Arrow />
                     </ListItem>
