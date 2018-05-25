@@ -57,7 +57,7 @@ const footer = props => {
 
   return (
     <footer className="next-session-footer background-grey">
-      <Button variant="raised" color="primary" onClick={handleNext}>
+      <Button variant="raised" color="primary" onClick={handleNext} fullWidth>
         {I18n.t(
           session.questions && !session.validated
             ? 'session.quizButton'
