@@ -1,5 +1,5 @@
 import I18n from 'i18n-js';
-import { Button, LinearProgress, Snackbar } from '@material-ui/core';
+import { Button, LinearProgress, Snackbar, Slide } from '@material-ui/core';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -195,7 +195,7 @@ class Updates extends Component {
       );
     }
 
-    const snackbarPos = { vertical: 'center', horizontal: 'center' };
+    const snackbarStyle = { bottom: '56px' };
 
     return (
       <div>
@@ -205,7 +205,10 @@ class Updates extends Component {
           autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
           onClose={this.handleRequestClose}
           onClick={this.handleRequestClose}
-          anchorOrigin={snackbarPos}
+          style={snackbarStyle}
+          TransitionComponent={props => {
+            return <Slide {...props} direction="left" />;
+          }}
         />
         <Snackbar
           open={this.state.isUpdated}
@@ -213,7 +216,10 @@ class Updates extends Component {
           autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
           onClose={this.handleRequestClose}
           onClick={this.handleRequestClose}
-          anchorOrigin={snackbarPos}
+          style={snackbarStyle}
+          TransitionComponent={props => {
+            return <Slide {...props} direction="left" />;
+          }}
         />
         <Snackbar
           open={this.state.isErrorWhileUpdating}
@@ -221,7 +227,10 @@ class Updates extends Component {
           autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
           onClose={this.handleRequestClose}
           onClick={this.handleRequestClose}
-          anchorOrigin={snackbarPos}
+          style={snackbarStyle}
+          TransitionComponent={props => {
+            return <Slide {...props} direction="left" />;
+          }}
         />
       </div>
     );
