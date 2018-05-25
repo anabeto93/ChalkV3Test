@@ -19,7 +19,7 @@ const DEFAULT_STATE = {
   isUpdated: false,
   spoolCompleted: 0
 };
-const MESSAGE_DELAY_IN_SECONDS = 5;
+const MESSAGE_DELAY_IN_SECONDS = 3;
 
 class Updates extends Component {
   constructor(...args) {
@@ -195,6 +195,8 @@ class Updates extends Component {
       );
     }
 
+    const snackbarPos = { vertical: 'center', horizontal: 'center' };
+
     return (
       <div>
         <Snackbar
@@ -203,6 +205,7 @@ class Updates extends Component {
           autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
           onClose={this.handleRequestClose}
           onClick={this.handleRequestClose}
+          anchorOrigin={snackbarPos}
         />
         <Snackbar
           open={this.state.isUpdated}
@@ -210,6 +213,7 @@ class Updates extends Component {
           autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
           onClose={this.handleRequestClose}
           onClick={this.handleRequestClose}
+          anchorOrigin={snackbarPos}
         />
         <Snackbar
           open={this.state.isErrorWhileUpdating}
@@ -217,6 +221,7 @@ class Updates extends Component {
           autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
           onClose={this.handleRequestClose}
           onClick={this.handleRequestClose}
+          anchorOrigin={snackbarPos}
         />
       </div>
     );
