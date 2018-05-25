@@ -23,6 +23,7 @@ class Error extends Component {
 
   render() {
     const { locale } = this.props;
+    const snackbarPos = { vertical: 'center', horizontal: 'center' };
 
     return (
       <Snackbar
@@ -36,6 +37,7 @@ class Error extends Component {
         autoHideDuration={3000}
         onClose={this.handleDismiss}
         onClick={this.handleDismiss}
+        anchorOrigin={snackbarPos}
       />
     );
   }
