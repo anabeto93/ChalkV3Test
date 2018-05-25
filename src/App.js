@@ -24,6 +24,7 @@ import SendSMSScreen from './containers/SendSMSScreen';
 import ValidateSessionByCodeScreen from './containers/ValidateSessionByCodeScreen';
 import Logout from './components/Logout';
 import GoogleAnalytics from './components/analytics/GoogleAnalytics';
+import Footer from './components/Footer';
 
 // Check network status
 import networkStatusEventListener from './services/network/networkStatusEventListener';
@@ -135,6 +136,7 @@ class App extends Component {
                     </Switch>
                   </div>
                 </div>
+                <Footer />
               </div>
             </ScrollToTop>
           </HashRouter>
