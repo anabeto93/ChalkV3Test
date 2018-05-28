@@ -64,12 +64,12 @@ export default {
       }
       case routes.SESSION_DETAIL:
       case routes.SESSION_SEND:
-        course = CourseManager.getCourse(
-          store.getState().content.courses,
-          params.courseUuid
+        const session = CourseManager.getSession(
+          store.getState().content.sessions,
+          params.sessionUuid
         );
 
-        return course ? course.title : '';
+        return session ? session.title : '';
       default:
         return APP_NAME;
     }

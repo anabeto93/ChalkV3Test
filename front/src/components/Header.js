@@ -5,8 +5,8 @@ import {
   Typography,
   Avatar
 } from '@material-ui/core';
-import Back from '@material-ui/icons/ChevronLeft';
-import UserIcon from '@material-ui/icons/AccountCircle';
+import BackIcon from '@material-ui/icons/ChevronLeft';
+import NextIcon from '@material-ui/icons/ChevronRight';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -14,27 +14,26 @@ import { withRouter } from 'react-router-dom';
 import logoImage from '../assets/logo.png';
 import getConfig from '../config/index';
 import {
-  ACCOUNT,
   COURSES,
   HOME,
-  LOGIN,
   SESSION_LIST,
-  FOLDER_LIST
+  FOLDER_LIST,
+  SESSION_DETAIL
 } from '../config/routes';
 import RouteResolver from '../services/RouteResolver';
 import CourseManager from '../services/CourseManager';
 import generateUrl from '../services/generateUrl';
+import sessionNext from '../services/session/sessionNext';
 
 const APP_NAME = getConfig().appName;
 
 class Header extends Component {
   handleRedirectToList = () => {
-    const { location: { pathname }, history } = this.props;
+    const { location, history } = this.props;
+    const matchPath = RouteResolver.resolve(location);
 
-    const sessionRegEx = /session\/([-\w]+)/;
-
-    if (sessionRegEx.test(pathname)) {
-      const sessionUuid = sessionRegEx.exec(pathname)[1];
+    if (matchPath.path === SESSION_DETAIL) {
+      const sessionUuid = matchPath.params.sessionUuid;
 
       const { sessions } = this.props;
 
@@ -50,12 +49,9 @@ class Header extends Component {
       }
     }
 
-    const foldersRegEx = /folders\/([-\w]+)\/sessions\/list/;
-
-    if (foldersRegEx.test(pathname)) {
-      const folderUuid = foldersRegEx.exec(pathname)[1];
+    if (matchPath.path === SESSION_LIST) {
       const { folders } = this.props;
-      const courseUuid = folders[folderUuid].courseUuid;
+      const courseUuid = folders[matchPath.params.folderUuid].courseUuid;
 
       const courseFolders = CourseManager.getFoldersFromCourse(
         folders,
@@ -77,8 +73,17 @@ class Header extends Component {
     return history.push(COURSES);
   };
 
-  handleRedirectAccount = () => {
-    this.props.history.push(ACCOUNT);
+  handleGoNext = () => {
+    const { location, sessions } = this.props;
+    const matchPath = RouteResolver.resolve(location);
+    const { courseUuid } = matchPath.params;
+
+    const session = CourseManager.getSession(
+      sessions,
+      matchPath.params.sessionUuid
+    );
+
+    sessionNext({ ...this.props, session, courseUuid });
   };
 
   handleGoBack = () => {
@@ -115,7 +120,7 @@ class Header extends Component {
   leftIcon = () => {
     return (
       <IconButton color="inherit" onClick={this.handleGoBack} aria-label="Back">
-        <Back />
+        <BackIcon />
       </IconButton>
     );
   };
@@ -131,22 +136,13 @@ class Header extends Component {
   };
 
   rightIcon = () => {
-    const { pathname } = this.props.location;
     const matchPath = RouteResolver.resolve(this.props.location);
 
-    // show account icon only on logged page
-    if (
-      pathname !== HOME &&
-      matchPath !== undefined &&
-      matchPath.path !== LOGIN
-    ) {
+    // show next button on session detail screen only
+    if (matchPath.path === SESSION_DETAIL) {
       return (
-        <IconButton
-          color="inherit"
-          onClick={this.handleRedirectAccount}
-          aria-label="Account"
-        >
-          <UserIcon />
+        <IconButton color="inherit" onClick={this.handleGoNext}>
+          <NextIcon />
         </IconButton>
       );
     }
@@ -154,7 +150,7 @@ class Header extends Component {
 
   render() {
     return (
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           {this.showMenuIconButton() && this.leftIcon()}
 
