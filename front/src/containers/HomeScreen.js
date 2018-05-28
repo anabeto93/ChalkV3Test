@@ -34,7 +34,7 @@ export class HomeScreen extends Component {
   };
 
   handleKeyPress = e => {
-    if (e.key === 'Enter') {
+    if (this.state.token.length === 6 && e.key === 'Enter') {
       this.handleLogin();
     }
   };
