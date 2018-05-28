@@ -23,14 +23,16 @@ export class SpoolFileLoader {
     this.isLoading = true;
 
     fetch(fileToLoad)
-      .then(() => {
+      .then(response => {
+        response.status === 404 && console.log(`File not found: ${fileToLoad}`);
+
         this.isLoading = false;
         store.dispatch(fileLoaded(fileToLoad));
         this.handle();
       })
       .catch(error => {
         this.isLoading = false;
-        alert(
+        console.log(
           `There has been a problem when loading: ${fileToLoad}; Error: ${error.message}`
         );
       });
