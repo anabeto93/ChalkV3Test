@@ -52,6 +52,10 @@ body {
   text-align: center;
 }
 
+.container-layout {
+  margin-top: 60px;
+}
+
 .alert {
   padding: 10px;
   text-align: center;
