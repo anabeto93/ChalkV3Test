@@ -1,5 +1,5 @@
 import I18n from 'i18n-js';
-import { Snackbar, Button } from '@material-ui/core';
+import { Snackbar, Button, Slide } from '@material-ui/core';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../store/store';
@@ -23,6 +23,7 @@ class Error extends Component {
 
   render() {
     const { locale } = this.props;
+    const snackbarStyle = { bottom: '56px' };
 
     return (
       <Snackbar
@@ -36,6 +37,10 @@ class Error extends Component {
         autoHideDuration={3000}
         onClose={this.handleDismiss}
         onClick={this.handleDismiss}
+        style={snackbarStyle}
+        TransitionComponent={props => {
+          return <Slide {...props} direction="left" />;
+        }}
       />
     );
   }

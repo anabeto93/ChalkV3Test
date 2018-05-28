@@ -52,6 +52,10 @@ body {
   text-align: center;
 }
 
+.container-layout {
+  margin-top: 60px;
+}
+
 .alert {
   padding: 10px;
   text-align: center;
@@ -60,6 +64,7 @@ body {
 
 .content-layout {
   background-color: #ffffff;
+  margin-bottom: 4em;
 }
 
 .content {
@@ -86,4 +91,15 @@ body {
   padding: 0 5%;
   background: #eeeeee;
   z-index: 1;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #d8497d !important;
+}
+
+.bottom-nav button {
+  color: white;
 }

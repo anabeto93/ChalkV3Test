@@ -1,8 +1,9 @@
 import I18n from 'i18n-js';
-import { Button, LinearProgress, Snackbar } from '@material-ui/core';
+import { Button, LinearProgress, Snackbar, Slide } from '@material-ui/core';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import UpdateDialog from './UpdateDialog';
 
 import {
   getCoursesInformations,
@@ -18,7 +19,7 @@ const DEFAULT_STATE = {
   isUpdated: false,
   spoolCompleted: 0
 };
-const MESSAGE_DELAY_IN_SECONDS = 5;
+const MESSAGE_DELAY_IN_SECONDS = 3;
 
 class Updates extends Component {
   constructor(...args) {
@@ -121,10 +122,19 @@ class Updates extends Component {
     if (percentSpoolCompleted < 100) {
       return (
         <div>
-          <LinearProgress variant="determinate" value={percentSpoolCompleted} />
+          <UpdateDialog
+            percentSpoolCompleted={percentSpoolCompleted}
+            locale={locale}
+          />
+
+          <LinearProgress
+            variant="determinate"
+            color="secondary"
+            value={percentSpoolCompleted}
+          />
           <div className="updates-container">
             <p>
-              {I18n.t('update.stayOnline', { locale })}
+              {I18n.t('update.downloadingContent', { locale })}...
             </p>
           </div>
         </div>
@@ -185,6 +195,8 @@ class Updates extends Component {
       );
     }
 
+    const snackbarStyle = { bottom: '56px' };
+
     return (
       <div>
         <Snackbar
@@ -193,6 +205,10 @@ class Updates extends Component {
           autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
           onClose={this.handleRequestClose}
           onClick={this.handleRequestClose}
+          style={snackbarStyle}
+          TransitionComponent={props => {
+            return <Slide {...props} direction="left" />;
+          }}
         />
         <Snackbar
           open={this.state.isUpdated}
@@ -200,6 +216,10 @@ class Updates extends Component {
           autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
           onClose={this.handleRequestClose}
           onClick={this.handleRequestClose}
+          style={snackbarStyle}
+          TransitionComponent={props => {
+            return <Slide {...props} direction="left" />;
+          }}
         />
         <Snackbar
           open={this.state.isErrorWhileUpdating}
@@ -207,6 +227,10 @@ class Updates extends Component {
           autoHideDuration={MESSAGE_DELAY_IN_SECONDS * 1000}
           onClose={this.handleRequestClose}
           onClick={this.handleRequestClose}
+          style={snackbarStyle}
+          TransitionComponent={props => {
+            return <Slide {...props} direction="left" />;
+          }}
         />
       </div>
     );
