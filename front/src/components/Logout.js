@@ -34,7 +34,6 @@ class Logout extends Component {
 
   handleLogout = () => {
     this.props.dispatch(userLogout());
-    this.handleClose();
 
     ReactGA.event({
       category: 'Logout',
