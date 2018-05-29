@@ -13,7 +13,6 @@ import { withRouter } from 'react-router-dom';
 import ReactGA from 'react-ga';
 
 import { userLogout, cancelUserLogout } from '../actions/actionCreators';
-import { HOME } from '../config/routes';
 
 class Logout extends Component {
   constructor(props) {
@@ -34,7 +33,6 @@ class Logout extends Component {
 
   handleLogout = () => {
     this.props.dispatch(userLogout());
-    this.handleClose();
 
     ReactGA.event({
       category: 'Logout',
@@ -42,7 +40,7 @@ class Logout extends Component {
       label: this.props.logout.isForced ? 'Forced' : 'Voluntary'
     });
 
-    return this.props.history.push(HOME);
+    return window.location.reload();
   };
 
   handleClose = () => {

@@ -1,5 +1,5 @@
 import I18n from 'i18n-js';
-import { Snackbar, Button, Slide } from '@material-ui/core';
+import { Snackbar, Button } from '@material-ui/core';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import store from '../store/store';
@@ -38,9 +38,6 @@ class Error extends Component {
         onClose={this.handleDismiss}
         onClick={this.handleDismiss}
         style={snackbarStyle}
-        TransitionComponent={props => {
-          return <Slide {...props} direction="left" />;
-        }}
       />
     );
   }
