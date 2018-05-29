@@ -127,11 +127,7 @@ class Updates extends Component {
             locale={locale}
           />
 
-          <LinearProgress
-            variant="determinate"
-            color="secondary"
-            value={percentSpoolCompleted}
-          />
+          <LinearProgress variant="determinate" value={percentSpoolCompleted} />
           <div className="updates-container">
             <p>
               {I18n.t('update.downloadingContent', { locale })}...
