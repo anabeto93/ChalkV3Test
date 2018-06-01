@@ -10,4 +10,5 @@ App\Domain\Model\User:
             - 44
             - 'token'
             - <dateTime()>
+            - false
         apiToken: 'api-key-token-user-1'
