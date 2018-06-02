@@ -99,6 +99,7 @@ admin.institution.action.update: 'Update'
 admin.institution.action.delete: 'Delete'
 admin.institution.column.name: 'Name'
 admin.institution.column.cohorts: 'Cohorts'
+admin.institution.column.courses: 'Courses'
 
 admin.institution.create.title: 'Create Institution'
 admin.institution.update.title: 'Update Institution "%institutionName%"'
