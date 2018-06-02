@@ -56,7 +56,7 @@ class CourseRepository implements CourseRepositoryInterface
             ->createQueryBuilder()
             ->select('course')
             ->from(Course::class, 'course')
-            ->orderBy('course.university')
+            ->orderBy('course.title')
         ;
 
         return $queryBuilder->getQuery()->getResult();
