@@ -21,9 +21,6 @@ class CourseView
     /** @var string */
     public $teacherName;
 
-    /** @var string */
-    public $university;
-
     /** @var bool */
     public $enabled;
 
@@ -31,20 +28,17 @@ class CourseView
      * @param int    $id
      * @param string $title
      * @param string $teacherName
-     * @param string $university
      * @param bool   $enabled
      */
     public function __construct(
         int $id,
         string $title,
         string $teacherName,
-        string $university,
         bool $enabled
     ) {
         $this->id = $id;
         $this->title = $title;
         $this->teacherName = $teacherName;
-        $this->university = $university;
         $this->enabled = $enabled;
     }
 }

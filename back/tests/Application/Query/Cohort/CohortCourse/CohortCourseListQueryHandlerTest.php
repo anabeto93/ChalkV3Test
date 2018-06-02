@@ -34,13 +34,11 @@ class CohortCourseListQueryHandlerTest extends TestCase {
         $course1->getId()->shouldBeCalled()->willReturn(1);
         $course1->getTitle()->shouldBeCalled()->willReturn('title 1');
         $course1->getTeacherName()->shouldBeCalled()->willReturn('teacher 1');
-        $course1->getUniversity()->shouldBeCalled()->willReturn('uni 1');
         $course1->isEnabled()->shouldBeCalled()->willReturn(true);
 
         $course2->getId()->shouldBeCalled()->willReturn(2);
         $course2->getTitle()->shouldBeCalled()->willReturn('title 2');
         $course2->getTeacherName()->shouldBeCalled()->willReturn('teacher 2');
-        $course2->getUniversity()->shouldBeCalled()->willReturn('uni 2');
         $course2->isEnabled()->shouldBeCalled()->willReturn(false);
 
         //Mock
@@ -60,8 +58,8 @@ class CohortCourseListQueryHandlerTest extends TestCase {
 
         //Expected
         $expected = [
-            new CourseView(1, 'title 1', 'teacher 1', 'uni 1', true),
-            new CourseView(2, 'title 2', 'teacher 2', 'uni 2', false)
+            new CourseView(1, 'title 1', 'teacher 1', true),
+            new CourseView(2, 'title 2', 'teacher 2', false)
         ];
 
         $this->assertEquals($expected, $result);

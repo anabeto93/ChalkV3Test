@@ -40,10 +40,6 @@ class CourseListQueryHandlerTest extends TestCase
         $course2->getTeacherName()->shouldBeCalled()->willReturn('teacher Name 2');
         $course3->getTeacherName()->shouldBeCalled()->willReturn('teacher Name 3');
 
-        $course1->getUniversity()->shouldBeCalled()->willReturn('University 1');
-        $course2->getUniversity()->shouldBeCalled()->willReturn('University 2');
-        $course3->getUniversity()->shouldBeCalled()->willReturn('University 3');
-
         $course1->isEnabled()->shouldBeCalled()->willReturn(true);
         $course2->isEnabled()->shouldBeCalled()->willReturn(false);
         $course3->isEnabled()->shouldBeCalled()->willReturn(false);
@@ -61,9 +57,9 @@ class CourseListQueryHandlerTest extends TestCase
         $result = $handler->handle(new CourseListQuery());
 
         $expected = [
-            new CourseView(1, 'title 1', 'teacher Name 1', 'University 1', true),
-            new CourseView(2, 'title 2', 'teacher Name 2', 'University 2', false),
-            new CourseView(3, 'title 3', 'teacher Name 3', 'University 3', false),
+            new CourseView(1, 'title 1', 'teacher Name 1', true),
+            new CourseView(2, 'title 2', 'teacher Name 2', false),
+            new CourseView(3, 'title 3', 'teacher Name 3', false),
         ];
 
         $this->assertEquals($expected, $result);

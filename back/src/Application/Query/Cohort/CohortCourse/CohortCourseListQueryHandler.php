@@ -40,7 +40,6 @@ class CohortCourseListQueryHandler {
                 $course->getId(),
                 $course->getTitle(),
                 $course->getTeacherName(),
-                $course->getUniversity(),
                 $course->isEnabled()
             );
         }

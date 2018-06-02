@@ -41,7 +41,6 @@ class CourseListQueryHandler
                 $course->getId(),
                 $course->getTitle(),
                 $course->getTeacherName(),
-                $course->getUniversity(),
                 $course->isEnabled()
             );
         }
