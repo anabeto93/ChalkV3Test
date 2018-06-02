@@ -19,15 +19,20 @@ class InstitutionView {
     /** @var int */
     public $numberOfCohorts;
 
+    /** @var int */
+    public $numberOfCourses;
+
     /**
      * InstitutionView constructor.
      * @param int $id
      * @param string $name
      * @param int $numberOfCohorts
+     * @param int $numberOfCourses
      */
-    public function __construct(int $id, string $name, int $numberOfCohorts) {
+    public function __construct(int $id, string $name, int $numberOfCohorts, int $numberOfCourses) {
         $this->id = $id;
         $this->name = $name;
         $this->numberOfCohorts = $numberOfCohorts;
+        $this->numberOfCourses = $numberOfCourses;
     }
 }
