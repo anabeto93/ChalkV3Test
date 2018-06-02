@@ -40,4 +40,11 @@ interface CourseRepositoryInterface
      * @return Course|null
      */
     public function getByUuid(string $uuid): ?Course;
+
+    /**
+     * @param $institution
+     *
+     * @return Course[]
+     */
+    public function findByInstitution($institution): array;
 }

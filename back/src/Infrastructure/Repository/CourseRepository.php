@@ -97,4 +97,21 @@ class CourseRepository implements CourseRepositoryInterface
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByInstitution($institution): array
+    {
+        $queryBuilder = $this->entityManager
+            ->createQueryBuilder()
+            ->select('course')
+            ->from(Course::class, 'course')
+            ->where('course.institution = :institution')
+            ->setParameter('institution', $institution)
+            ->orderBy('course.title')
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }
