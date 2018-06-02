@@ -87,7 +87,7 @@ class CourseNormalizer
             'title' => $course->getTitle(),
             'description' => $course->getDescription(),
             'teacherName' => $course->getTeacherName(),
-            'university' => $course->getUniversity(),
+            'university' => $course->getInstitution()->getName(),
             'createdAt' => $course->getCreatedAt(),
             'updatedAt' => $course->getUpdatedAt(),
             'folders' => $foldersNormalized,
