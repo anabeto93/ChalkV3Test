@@ -4,7 +4,5 @@ App\Application\Command\Course\Update:
             - NotBlank: ~
         teacherName:
             - NotBlank: ~
-        university:
-            - NotBlank: ~
         enabled:
             - NotNull: ~

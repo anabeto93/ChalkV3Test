@@ -62,7 +62,6 @@ class UpdateHandler
             $command->title,
             $command->description,
             $command->teacherName,
-            $command->university,
             $command->enabled,
             $this->sizeCalculator->calculateSize(
                 sprintf(
