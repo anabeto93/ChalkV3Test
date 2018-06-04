@@ -40,10 +40,10 @@ class CohortCourseListQueryHandler {
                 $course->getId(),
                 $course->getTitle(),
                 $course->getTeacherName(),
+                $course->isEnabled(),
                 count($course->getFolders()),
                 count($course->getSessions()),
-                count($course->getUsers()),
-                $course->isEnabled()
+                count($course->getUsers())
             );
         }
 
