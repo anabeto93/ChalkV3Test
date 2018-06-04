@@ -108,6 +108,7 @@ admin.institution.title: 'List of Institutions'
 admin.link.institution.list: 'Institutions'
 admin.institution.action.confirmDelete: 'Are you sure you want to complete the delete action?'
 admin.institution.listCohorts: 'List of Cohorts'
+admin.institution.listCourses: 'List of Courses'
 admin.institution.action.confirmDelete: 'Are you sure you want to complete the delete action?'
 
 admin.cohort.action.confirmDelete: 'Are you sure you want to delete this Cohort?'
