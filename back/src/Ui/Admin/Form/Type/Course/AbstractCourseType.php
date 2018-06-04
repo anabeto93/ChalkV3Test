@@ -33,9 +33,6 @@ abstract class AbstractCourseType extends AbstractType
             ->add('teacherName', TextType::class, [
                 'required' => true,
             ])
-            ->add('university', TextType::class, [
-                'required' => true,
-            ])
             ->add('enabled', CheckboxType::class, [
                 'required' => false,
             ])

@@ -12,6 +12,7 @@ namespace Tests\Ui\Admin\Action\Course;
 
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\Course\Create;
+use App\Domain\Model\Institution;
 use App\Ui\Admin\Action\Course\CreateAction;
 use App\Ui\Admin\Form\Type\Course\CreateType;
 use PHPUnit\Framework\TestCase;
@@ -56,16 +57,17 @@ class CreateActionTest extends TestCase
     public function testInvoke()
     {
         // Context
+        $institution = $this->prophesize(Institution::class);
         $request = new Request();
         $response = new Response();
-        $create = new Create();
+        $create = new Create($institution->reveal());
         $form = $this->prophesize(FormInterface::class);
         $formView = $this->prophesize(FormView::class);
         $form->createView()->shouldBeCalled()->willReturn($formView->reveal());
 
         // Mock
         $this->engine
-            ->renderResponse("Admin/Course/create.html.twig", ['form' => $formView])
+            ->renderResponse("Admin/Course/create.html.twig", ['institution' => $institution->reveal(), 'form' => $formView])
             ->shouldBeCalled()
             ->willReturn($response)
         ;
@@ -85,7 +87,7 @@ class CreateActionTest extends TestCase
             $this->flashBag->reveal(),
             $this->router->reveal()
         );
-        $result = $createAction($request);
+        $result = $createAction($request, $institution->reveal());
 
         $this->assertInstanceOf(Response::class, $result);
     }
@@ -93,8 +95,10 @@ class CreateActionTest extends TestCase
     public function testInvokeHandle()
     {
         // Context
+        $institution = $this->prophesize(Institution::class);
+        $institution->getId()->shouldBeCalled()->willReturn(123);
         $request = new Request();
-        $create = new Create();
+        $create = new Create($institution->reveal());
         $form = $this->prophesize(FormInterface::class);
         $form->createView()->shouldNotBeCalled();
 
@@ -110,7 +114,7 @@ class CreateActionTest extends TestCase
         $form->isValid()->shouldBeCalled()->willReturn(true);
         $this->commandBus->handle($create)->shouldBeCalled();
         $this->flashBag->add('success', 'flash.admin.course.create.success')->shouldBeCalled();
-        $this->router->generate('admin_course_list')->shouldBeCalled()->willReturn('/admin/course');
+        $this->router->generate('admin_course_list', ['institution' => 123])->shouldBeCalled()->willReturn('/admin/course');
 
         // Action
         $createAction = new CreateAction(
@@ -120,7 +124,7 @@ class CreateActionTest extends TestCase
             $this->flashBag->reveal(),
             $this->router->reveal()
         );
-        $result = $createAction($request);
+        $result = $createAction($request, $institution->reveal());
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
         $this->assertEquals('/admin/course', $result->getTargetUrl());

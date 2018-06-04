@@ -27,6 +27,5 @@ class Update extends AbstractCourseCommand
         $this->description = $course->getDescription();
         $this->enabled = $course->isEnabled();
         $this->teacherName = $course->getTeacherName();
-        $this->university = $course->getUniversity();
     }
 }

@@ -20,6 +20,9 @@ class Course
     /** @var string */
     private $uuid;
 
+    /** @var Institution */
+    private $institution;
+
     /** @var string */
     private $title;
 
@@ -31,9 +34,6 @@ class Course
 
     /** @var \DateTimeInterface */
     private $createdAt;
-
-    /** @var string */
-    private $university;
 
     /** @var bool */
     private $enabled;
@@ -58,9 +58,9 @@ class Course
 
     /**
      * @param string             $uuid
+     * @param Institution        $institution
      * @param string             $title
      * @param string|null        $teacherName
-     * @param string             $university
      * @param bool               $enabled
      * @param \DateTimeInterface $createdAt
      * @param string             $description
@@ -68,19 +68,19 @@ class Course
      */
     public function __construct(
         string $uuid,
+        Institution $institution,
         string $title,
         string $teacherName,
-        string $university,
         bool $enabled,
         \DateTimeInterface $createdAt,
         string $description = null,
         int $size = 0
     ) {
         $this->uuid = $uuid;
+        $this->institution = $institution;
         $this->title = $title;
         $this->teacherName = $teacherName;
         $this->enabled = $enabled;
-        $this->university = $university;
         $this->description = $description;
         $this->createdAt = $createdAt;
         $this->updatedAt = $createdAt;
@@ -109,6 +109,14 @@ class Course
     }
 
     /**
+     * @return Institution
+     */
+    public function getInstitution(): Institution
+    {
+        return $this->institution;
+    }
+
+    /**
      * @return string
      */
     public function getTitle(): string
@@ -130,14 +138,6 @@ class Course
     public function getTeacherName(): string
     {
         return $this->teacherName;
-    }
-
-    /**
-     * @return string
-     */
-    public function getUniversity(): string
-    {
-        return $this->university;
     }
 
     /**
@@ -313,7 +313,6 @@ class Course
      * @param string             $title
      * @param null|string        $description
      * @param string             $teacherName
-     * @param string             $university
      * @param bool               $enabled
      * @param int                $size
      * @param \DateTimeInterface $updatedAt
@@ -322,7 +321,6 @@ class Course
         string $title,
         ?string $description,
         string $teacherName,
-        string $university,
         bool $enabled,
         int $size,
         \DateTimeInterface $updatedAt
@@ -330,7 +328,6 @@ class Course
         $this->title = $title;
         $this->description = $description;
         $this->teacherName = $teacherName;
-        $this->university = $university;
         $this->enabled = $enabled;
         $this->size = $size;
         $this->updatedAt = $updatedAt;

@@ -12,6 +12,7 @@ namespace App\Ui\Admin\Action\Course;
 
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\Course\Create;
+use App\Domain\Model\Institution;
 use App\Ui\Admin\Form\Type\Course\CreateType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -61,12 +62,13 @@ class CreateAction
 
     /**
      * @param Request $request
+     * @param Institution $institution
      *
      * @return Response|RedirectResponse
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, Institution $institution): Response
     {
-        $create = new Create();
+        $create = new Create($institution);
         $form = $this->formFactory->create(CreateType::class, $create, [
             'submit' => true,
         ]);
@@ -75,10 +77,13 @@ class CreateAction
             $this->commandBus->handle($create);
             $this->flashBag->add('success', 'flash.admin.course.create.success');
 
-            return new RedirectResponse($this->router->generate('admin_course_list'));
+            return new RedirectResponse($this->router->generate('admin_course_list', [
+                'institution' => $institution->getId()
+            ]));
         }
 
         return $this->engine->renderResponse('Admin/Course/create.html.twig', [
+            'institution' => $institution,
             'form' => $form->createView()
         ]);
     }

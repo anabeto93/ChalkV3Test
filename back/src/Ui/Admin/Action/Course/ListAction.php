@@ -12,6 +12,7 @@ namespace App\Ui\Admin\Action\Course;
 
 use App\Application\Adapter\QueryBusInterface;
 use App\Application\Query\Course\CourseListQuery;
+use App\Domain\Model\Institution;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -34,13 +35,16 @@ class ListAction
     }
 
     /**
+     * @param Institution $institution
+     *
      * @return Response
      */
-    public function __invoke(): Response
+    public function __invoke(Institution $institution): Response
     {
-        $courses = $this->queryBus->handle(new CourseListQuery());
+        $courses = $this->queryBus->handle(new CourseListQuery($institution));
 
         return $this->engine->renderResponse('Admin/Course/list.html.twig', [
+            'institution' => $institution,
             'courses' => $courses,
         ]);
     }

@@ -55,20 +55,19 @@ class CreateHandler
         $uuid = $this->generator->generateUuid();
         $size = $this->sizeCalculator->calculateSize(
             sprintf(
-                '%s%s%s%s%s',
+                '%s%s%s%s',
                 $uuid,
                 $command->title,
                 $command->teacherName,
-                $command->university,
                 $command->description
             )
         );
 
         $course = new Course(
             $uuid,
+            $command->institution,
             $command->title,
             $command->teacherName,
-            $command->university,
             $command->enabled,
             $this->dateTime,
             $command->description,

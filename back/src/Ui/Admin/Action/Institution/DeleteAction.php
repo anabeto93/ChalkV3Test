@@ -39,9 +39,15 @@ class DeleteAction {
     }
 
     public function __invoke(Institution $institution): RedirectResponse {
+        if(count($institution->getCourses()) > 0) {
+            $this->flashBag->add('error', 'flash.admin.institution.courses.delete.error');
+
+            return new RedirectResponse($this->router->generate('admin_institution_list'));
+        }
+
         foreach ($institution->getCohorts() as $cohort) {
             if ($cohort->getCourses()) {
-                $this->flashBag->add('error', 'flash.admin.institution.delete.error');
+                $this->flashBag->add('error', 'flash.admin.institution.cohorts.delete.error');
 
                 return new RedirectResponse($this->router->generate('admin_institution_list'));
             }

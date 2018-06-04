@@ -13,6 +13,7 @@ namespace App\Ui\Admin\Action\Course;
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\Course\AssignUser;
 use App\Domain\Model\Course;
+use App\Domain\Model\Institution;
 use App\Ui\Admin\Form\Type\Course\AssignUserType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -65,11 +66,12 @@ class AssignUserAction
 
     /**
      * @param Request $request
+     * @param Institution $institution
      * @param Course  $course
      *
      * @return RedirectResponse|Response
      */
-    public function __invoke(Request $request, Course $course): Response
+    public function __invoke(Request $request, Institution $institution, Course $course): Response
     {
         $assign = new AssignUser($course);
         $form = $this->formFactory->create(AssignUserType::class, $assign, []);
@@ -78,12 +80,15 @@ class AssignUserAction
             $this->commandBus->handle($assign);
             $this->flashBag->add('success', 'flash.admin.course.assign_user.success');
 
-            return new RedirectResponse($this->router->generate(self::ROUTE_REDIRECT_AFTER_SUCCESS));
+            return new RedirectResponse($this->router->generate(self::ROUTE_REDIRECT_AFTER_SUCCESS, [
+                'institution' => $institution->getId()
+            ]));
         }
 
         return $this->engine->renderResponse(self::TEMPLATE, [
             'form' => $form->createView(),
             'course' => $course,
+            'institution' => $institution
         ]);
     }
 }

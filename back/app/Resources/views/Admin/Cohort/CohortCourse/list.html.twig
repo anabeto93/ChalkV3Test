@@ -34,19 +34,19 @@
                     <td>{{ course.title }}</td>
                     <td>{{ course.teacherName }}</td>
                     <td>
-                        <a href="{{ path('admin_folder_list', {'course': course.id}) }}" title="{{ 'admin.course.viewFolders'|trans }}" class="btn btn-sm btn-default">
-                            {{ 'admin.course.column.folders'|trans }}
+                        <a href="{{ path('admin_folder_list', {'course': course.id}) }}" title="{{ 'admin.course.viewFolders'|trans }}">
+                            {{ course.numberOfFolders }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ path('admin_session_list', {'course': course.id}) }}" title="{{ 'admin.course.viewSessions'|trans }}" class="btn btn-sm btn-default">
-                            {{ 'admin.course.column.sessions'|trans }}
+                        <a href="{{ path('admin_session_list', {'course': course.id}) }}" title="{{ 'admin.course.viewSessions'|trans }}">
+                            {{ course.numberOfSessions }}
                         </a>
                     </td>
                     <td>{{ course.enabled ? '✔︎' : '' }}</td>
                     <td class="text-right">
                         <div class="btn-group">
-                            <a href="{{ path('admin_course_update', {'course': course.id}) }}" class="btn btn-sm btn-default">
+                            <a href="{{ path('admin_course_update', {'institution': institution.id, 'course': course.id}) }}" class="btn btn-sm btn-default">
                                 {{ 'admin.course.action.update'|trans }}
                             </a>
                             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

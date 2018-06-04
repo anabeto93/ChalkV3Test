@@ -13,6 +13,7 @@ namespace App\Ui\Admin\Action\Course;
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\Course\Update;
 use App\Domain\Model\Course;
+use App\Domain\Model\Institution;
 use App\Ui\Admin\Form\Type\Course\UpdateType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -62,13 +63,19 @@ class UpdateAction
 
     /**
      * @param Request $request
-     *
+     * @param Institution $institution
      * @param Course  $course
      *
      * @return Response
      */
-    public function __invoke(Request $request, Course $course): Response
+    public function __invoke(Request $request, Institution $institution, Course $course): Response
     {
+        if ($institution !== $course->getInstitution()) {
+            throw new NotFoundHttpException(
+                sprintf('The course %s does not exist in the institution %s', $course->getId(), $institution->getId())
+            );
+        }
+
         $update = new Update($course);
         $form = $this->formFactory->create(UpdateType::class, $update, [
             'submit' => true,
@@ -78,10 +85,13 @@ class UpdateAction
             $this->commandBus->handle($update);
             $this->flashBag->add('success', 'flash.admin.course.update.success');
 
-            return new RedirectResponse($this->router->generate('admin_course_list'));
+            return new RedirectResponse($this->router->generate('admin_course_list', [
+                'institution' => $institution->getId()
+            ]));
         }
 
         return $this->engine->renderResponse('Admin/Course/update.html.twig', [
+            'institution' => $institution,
             'course' => $course,
             'form'   => $form->createView()
         ]);

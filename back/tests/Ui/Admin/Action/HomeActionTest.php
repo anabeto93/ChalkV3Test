@@ -12,21 +12,21 @@ namespace Tests\Ui\Admin\Action;
 
 use App\Ui\Admin\Action\HomeAction;
 use PHPUnit\Framework\TestCase;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\RouterInterface;
 
 class HomeActionTest extends TestCase
 {
     public function testInvoke()
     {
-        $engine = $this->prophesize(EngineInterface::class);
+        $router = $this->prophesize(RouterInterface::class);
 
-        $response = new Response();
-        $engine->renderResponse("Admin/home.html.twig")->shouldBeCalled()->willReturn($response);
+        $response = new RedirectResponse("admin_institution_list'");
+        $router->generate('admin_institution_list')->shouldBeCalled()->willReturn($response);
 
-        $action = new HomeAction($engine->reveal());
+        $action = new HomeAction($router->reveal());
         $result = $action();
 
-        $this->assertInstanceOf(Response::class, $result);
+        $this->assertInstanceOf(RedirectResponse::class, $result);
     }
 }

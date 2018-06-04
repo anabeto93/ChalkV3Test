@@ -20,8 +20,8 @@ use Symfony\Component\HttpFoundation\Response;
 class ListActionTest extends TestCase {
     public function testInvoke() {
         //Context
-        $institution1 = new InstitutionView(1, 'name1', 1);
-        $institution2 = new InstitutionView(2, 'name2', 2);
+        $institution1 = new InstitutionView(1, 'name1', 1, 0);
+        $institution2 = new InstitutionView(2, 'name2', 2, 1);
 
         //Mock
         $engine = $this->prophesize(EngineInterface::class);

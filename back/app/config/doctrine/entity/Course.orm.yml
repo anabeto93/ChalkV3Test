@@ -17,8 +17,6 @@ App\Domain\Model\Course:
             nullable: true
         teacherName:
             type: string
-        university:
-            type: string
         enabled:
             type: boolean
             option:
@@ -44,3 +42,10 @@ App\Domain\Model\Course:
         cohortCourses:
             targetEntity: App\Domain\Model\CohortCourse
             mappedBy: course
+    manyToOne:
+        institution:
+            targetEntity: App\Domain\Model\Institution
+            inversedBy: courses
+            joinColumn:
+                onDelete: "SET NULL"
+                nullable: true

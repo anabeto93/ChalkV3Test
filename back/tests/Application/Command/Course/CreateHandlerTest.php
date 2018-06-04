@@ -13,6 +13,7 @@ namespace Tests\Application\Command\Course;
 use App\Application\Command\Course\Create;
 use App\Application\Command\Course\CreateHandler;
 use App\Domain\Model\Course;
+use App\Domain\Model\Institution;
 use App\Domain\Repository\CourseRepositoryInterface;
 use App\Domain\Size\Calculator;
 use App\Domain\Uuid\Generator;
@@ -23,25 +24,26 @@ class CreateHandlerTest extends TestCase
     public function testHandle()
     {
         // Context
+        $institution = $this->prophesize(Institution::class);
+
         $dateTime = new \DateTime();
 
-        $command = new Create();
+        $command = new Create($institution->reveal());
         $command->title = 'title';
         $command->teacherName = 'teacherName';
-        $command->university = 'university';
         $command->description = 'this is the description';
         $command->enabled = true;
 
         // Expected
         $expectedCourse = new Course(
             '12345abc-def67-890ik',
+            $institution->reveal(),
             'title',
             'teacherName',
-            'university',
             true,
             $dateTime,
             'this is the description',
-            69
+            59
         );
 
         // Mock
@@ -51,9 +53,9 @@ class CreateHandlerTest extends TestCase
         $generator->generateUuid()->shouldBeCalled()->willReturn('12345abc-def67-890ik');
         $sizeCalculator = $this->prophesize(Calculator::class);
         $sizeCalculator
-            ->calculateSize('12345abc-def67-890iktitleteacherNameuniversitythis is the description')
+            ->calculateSize('12345abc-def67-890iktitleteacherNamethis is the description')
             ->shouldBeCalled()
-            ->willReturn(69)
+            ->willReturn(59)
         ;
 
         $handler = new CreateHandler(

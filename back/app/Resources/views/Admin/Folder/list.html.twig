@@ -6,7 +6,7 @@
 
 {% block content %}
     <h1>
-        <a href="{{ path('admin_course_list') }}">{{ course.title }}</a>: {{ 'admin.folder.title'|trans }}
+        {{ 'admin.folder.title'|trans }}
         <span class="pull-right">
             <a class="btn btn-primary" href="{{ path('admin_folder_create', {'course': course.id}) }}">
                 {{ 'admin.folder.create.link'|trans }}

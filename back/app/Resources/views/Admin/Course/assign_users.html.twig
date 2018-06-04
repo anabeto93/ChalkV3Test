@@ -4,4 +4,4 @@
 
 {% block form_title 'admin.course.assign_users.title'|trans({'%courseTitle%': course.title}) %}
 
-{% block goback_link path('admin_course_list') %}
+{% block goback_link path('admin_course_list', {'institution': institution.id}) %}

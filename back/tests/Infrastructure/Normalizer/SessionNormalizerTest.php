@@ -10,6 +10,7 @@
 
 namespace Tests\Infrastructure\Normalizer;
 
+use App\Domain\Model\Institution;
 use App\Domain\Model\Session;
 use App\Domain\Repository\Session\QuestionRepositoryInterface;
 use App\Infrastructure\Normalizer\Session\FileNormalizer;
@@ -24,7 +25,8 @@ class SessionNormalizerTest extends TestCase
     {
         // Context
         $createdAt = new \DateTime();
-        $course = CourseFactory::create();
+        $institution = new Institution('uuid-uni', 'Chalkboard', $createdAt);
+        $course = CourseFactory::create($institution);
         $session = new Session('uuid', 5, 'session title', 'this is the content', $course, null, true, true, $createdAt);
         $file1 = $this->prophesize(Session\File::class);
         $file2 = $this->prophesize(Session\File::class);

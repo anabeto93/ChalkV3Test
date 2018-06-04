@@ -10,27 +10,28 @@
 
 namespace App\Ui\Admin\Action;
 
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\RouterInterface;
 
 class HomeAction
 {
-    /** @var EngineInterface */
-    private $engine;
+    /** @var RouterInterface */
+    private $router;
 
     /**
-     * @param EngineInterface $engine
+     * HomeAction constructor.
+     * @param RouterInterface $router
      */
-    public function __construct(EngineInterface $engine)
+    public function __construct(RouterInterface $router)
     {
-        $this->engine = $engine;
+        $this->router = $router;
     }
 
     /**
-     * @return Response
+     * @return RedirectResponse
      */
-    public function __invoke() : Response
+    public function __invoke() : RedirectResponse
     {
-        return $this->engine->renderResponse('Admin/home.html.twig');
+        return new RedirectResponse($this->router->generate('admin_institution_list'));
     }
 }

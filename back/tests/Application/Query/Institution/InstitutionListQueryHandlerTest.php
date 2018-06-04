@@ -13,6 +13,7 @@ use App\Application\Query\Institution\InstitutionListQuery;
 use App\Application\Query\Institution\InstitutionListQueryHandler;
 use App\Application\View\Institution\InstitutionView;
 use App\Domain\Model\Cohort;
+use App\Domain\Model\Course;
 use App\Domain\Model\Institution;
 use App\Domain\Repository\InstitutionRepositoryInterface;
 use PHPUnit\Framework\TestCase;
@@ -28,6 +29,10 @@ class InstitutionListQueryHandlerTest extends TestCase {
         $cohort2 = $this->prophesize(Cohort::class);
         $cohort3 = $this->prophesize(Cohort::class);
 
+        $course1 = $this->prophesize(Course::class);
+        $course2 = $this->prophesize(Course::class);
+        $course3 = $this->prophesize(Course::class);
+
         $institution1->getId()->shouldBeCalled()->willReturn(1);
         $institution2->getId()->shouldBeCalled()->willReturn(2);
         $institution3->getId()->shouldBeCalled()->willReturn(3);
@@ -40,6 +45,10 @@ class InstitutionListQueryHandlerTest extends TestCase {
         $institution2->getCohorts()->shouldBeCalled()->willReturn([]);
         $institution3->getCohorts()->shouldBeCalled()->willReturn([$cohort2->reveal(),
             $cohort3->reveal()]);
+
+        $institution1->getCourses()->shouldBeCalled()->willReturn([]);
+        $institution2->getCourses()->shouldBeCalled()->willReturn([$course1->reveal(), $course2->reveal()]);
+        $institution3->getCourses()->shouldBeCalled()->willReturn([$course3->reveal()]);
 
 
         //Mock
@@ -54,9 +63,9 @@ class InstitutionListQueryHandlerTest extends TestCase {
         $result = $handler->handle(new InstitutionListQuery());
 
         $expected = [
-            new InstitutionView(1, 'name 1', 1),
-            new InstitutionView(2, 'name 2', 0),
-            new InstitutionView(3, 'name 3', 2)
+            new InstitutionView(1, 'name 1', 1, 0),
+            new InstitutionView(2, 'name 2', 0, 2),
+            new InstitutionView(3, 'name 3', 2, 1)
         ];
 
         $this->assertEquals($expected, $result);

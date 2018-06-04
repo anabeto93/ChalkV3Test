@@ -54,9 +54,12 @@ class CourseRepository implements CourseRepositoryInterface
         $queryBuilder = $this
             ->entityManager
             ->createQueryBuilder()
-            ->select('course')
+            ->select('course, folder, session, userCourses')
             ->from(Course::class, 'course')
-            ->orderBy('course.university')
+            ->leftJoin('course.folders', 'folder')
+            ->leftJoin('course.sessions', 'session')
+            ->leftJoin('course.userCourses', 'userCourses')
+            ->orderBy('course.title')
         ;
 
         return $queryBuilder->getQuery()->getResult();
@@ -96,5 +99,25 @@ class CourseRepository implements CourseRepositoryInterface
         ;
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByInstitution($institution): array
+    {
+        $queryBuilder = $this->entityManager
+            ->createQueryBuilder()
+            ->select('course, folder, session, userCourses')
+            ->from(Course::class, 'course')
+            ->leftJoin('course.folders', 'folder')
+            ->leftJoin('course.sessions', 'session')
+            ->leftJoin('course.userCourses', 'userCourses')
+            ->where('course.institution = :institution')
+            ->setParameter('institution', $institution)
+            ->orderBy('course.title')
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
     }
 }
