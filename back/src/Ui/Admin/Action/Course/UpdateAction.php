@@ -85,9 +85,9 @@ class UpdateAction
             $this->commandBus->handle($update);
             $this->flashBag->add('success', 'flash.admin.course.update.success');
 
-            return new RedirectResponse($this->router->generate('admin_course_list'), [
+            return new RedirectResponse($this->router->generate('admin_course_list', [
                 'institution' => $institution->getId()
-            ]);
+            ]));
         }
 
         return $this->engine->renderResponse('Admin/Course/update.html.twig', [

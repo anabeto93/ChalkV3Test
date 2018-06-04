@@ -77,9 +77,9 @@ class CreateAction
             $this->commandBus->handle($create);
             $this->flashBag->add('success', 'flash.admin.course.create.success');
 
-            return new RedirectResponse($this->router->generate('admin_course_list'), [
+            return new RedirectResponse($this->router->generate('admin_course_list', [
                 'institution' => $institution->getId()
-            ]);
+            ]));
         }
 
         return $this->engine->renderResponse('Admin/Course/create.html.twig', [
