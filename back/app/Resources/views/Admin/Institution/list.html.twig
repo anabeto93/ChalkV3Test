@@ -36,7 +36,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href="#">
+                        <a href="{{ path('admin_course_list', {'institution': institution.id}) }}" title="{{ 'admin.institution.listCourses'|trans }}">
                             {{ institution.numberOfCourses }}
                         </a>
                     </td>
