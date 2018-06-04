@@ -3,14 +3,14 @@
 {% block title 'admin.course.title'|trans %}
 
 {% block content %}
-    <h1>
-        {{ 'admin.course.title'|trans }}
+    <h2>
+        <a href="{{ path('admin_institution_list') }}">{{ institution.name }}</a> | {{ 'admin.course.title'|trans }}
         <span class="pull-right">
             <a class="btn btn-primary" href="{{ path('admin_course_create', {'institution': institution.id}) }}">
                 {{ 'admin.course.create.title'|trans }}
             </a>
         </span>
-    </h1>
+    </h2>
     <hr>
     {% if courses is empty %}
         <div class="alert alert-info">{{ 'admin.course.no-result'|trans }}</div>
@@ -33,18 +33,18 @@
                     <td>{{ course.title }}</td>
                     <td>{{ course.teacherName }}</td>
                     <td>
-                        <a href="{{ path('admin_folder_list', {'course': course.id}) }}" title="{{ 'admin.course.viewFolders'|trans }}" class="btn btn-sm btn-default">
-                            {{ 'admin.course.column.folders'|trans }}
+                        <a href="{{ path('admin_folder_list', {'course': course.id}) }}" title="{{ 'admin.course.viewFolders'|trans }}">
+                            {{ course.numberOfFolders }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ path('admin_session_list', {'course': course.id}) }}" title="{{ 'admin.course.viewSessions'|trans }}" class="btn btn-sm btn-default">
-                            {{ 'admin.course.column.sessions'|trans }}
+                        <a href="{{ path('admin_session_list', {'course': course.id}) }}" title="{{ 'admin.course.viewSessions'|trans }}">
+                            {{ course.numberOfSessions }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ path('admin_course_assign_user', {'course': course.id, 'institution': institution.id}) }}" title="{{ 'admin.course.viewStudents'|trans }}" class="btn btn-sm btn-default">
-                            {{ 'admin.course.column.students'|trans }}
+                        <a href="{{ path('admin_course_assign_user', {'course': course.id, 'institution': institution.id}) }}" title="{{ 'admin.course.viewStudents'|trans }}">
+                            {{ course.numberOfStudents }}
                         </a>
                     </td>
                     <td>{{ course.enabled ? '✔︎' : '' }}</td>
