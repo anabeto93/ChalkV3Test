@@ -34,7 +34,7 @@ class CourseListQueryHandler
     public function handle(CourseListQuery $courseListQuery): array
     {
         $courseViews = [];
-        $courses = $this->courseRepository->getAll();
+        $courses = $this->courseRepository->findByInstitution($courseListQuery->institution);
 
         foreach ($courses as $course) {
             $courseViews[] = new CourseView(
