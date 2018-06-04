@@ -52,7 +52,15 @@ class InstitutionRepository implements InstitutionRepositoryInterface {
      * @inheritdoc
      */
     public function getAll(): array {
-        return $this->entityManager->getRepository(Institution::class)->findAll();
+        $queryBuilder = $this->entityManager
+                        ->createQueryBuilder()
+                        ->select('institution, course, cohort')
+                        ->from(Institution::class, 'institution')
+                        ->leftJoin('institution.courses', 'course')
+                        ->leftJoin('institution.cohorts', 'cohort')
+                        ->orderBy('institution.name');
+
+        return $queryBuilder->getQuery()->getResult();
     }
 
     /**
