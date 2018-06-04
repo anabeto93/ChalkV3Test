@@ -34,11 +34,17 @@ class CohortCourseListQueryHandlerTest extends TestCase {
         $course1->getId()->shouldBeCalled()->willReturn(1);
         $course1->getTitle()->shouldBeCalled()->willReturn('title 1');
         $course1->getTeacherName()->shouldBeCalled()->willReturn('teacher 1');
+        $course1->getFolders()->shouldBeCalled()->willReturn([]);
+        $course1->getSessions()->shouldBeCalled()->willReturn([]);
+        $course1->getUsers()->shouldBeCalled()->willReturn([]);
         $course1->isEnabled()->shouldBeCalled()->willReturn(true);
 
         $course2->getId()->shouldBeCalled()->willReturn(2);
         $course2->getTitle()->shouldBeCalled()->willReturn('title 2');
         $course2->getTeacherName()->shouldBeCalled()->willReturn('teacher 2');
+        $course2->getFolders()->shouldBeCalled()->willReturn([]);
+        $course2->getSessions()->shouldBeCalled()->willReturn([]);
+        $course2->getUsers()->shouldBeCalled()->willReturn([]);
         $course2->isEnabled()->shouldBeCalled()->willReturn(false);
 
         //Mock
@@ -58,8 +64,8 @@ class CohortCourseListQueryHandlerTest extends TestCase {
 
         //Expected
         $expected = [
-            new CourseView(1, 'title 1', 'teacher 1', true),
-            new CourseView(2, 'title 2', 'teacher 2', false)
+            new CourseView(1, 'title 1', 'teacher 1', true, 0, 0, 0),
+            new CourseView(2, 'title 2', 'teacher 2', false, 0, 0, 0)
         ];
 
         $this->assertEquals($expected, $result);

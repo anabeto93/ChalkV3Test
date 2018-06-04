@@ -36,10 +36,32 @@ class DeleteActionTest extends TestCase {
         $this->flashBag = $this->prophesize(FlashBagInterface::class);
     }
 
-    public function testInvokeError() {
+    public function testInvokeCoursesError() {
+        $institution = $this->prophesize(Institution::class);
+        $course = $this->prophesize(Course::class);
+
+        $institution->getCourses()->shouldBeCalled()->willReturn([$course->reveal()]);
+
+        $this->router->generate('admin_institution_list')
+            ->shouldBeCalled()
+            ->willReturn('/admin/institutions');
+
+        $this->flashBag->add('error', 'flash.admin.institution.courses.delete.error');
+
+        $deleteAction = new DeleteAction(
+            $this->router->reveal(),
+            $this->commandBus->reveal(),
+            $this->flashBag->reveal()
+        );
+        $deleteAction($institution->reveal());
+    }
+
+    public function testInvokeCohortsCoursesError() {
         $institution = $this->prophesize(Institution::class);
         $cohort = $this->prophesize(Cohort::class);
         $course = $this->prophesize(Course::class);
+
+        $institution->getCourses()->shouldBeCalled()->willReturn([]);
 
         $institution->getCohorts()->shouldBeCalled()->willReturn([$cohort->reveal()]);
         $cohort->getCourses()->shouldBeCalled()->willReturn([$course->reveal()]);
@@ -48,7 +70,7 @@ class DeleteActionTest extends TestCase {
                     ->shouldBeCalled()
                     ->willReturn('/admin/institutions');
 
-        $this->flashBag->add('error', 'flash.admin.institution.delete.error');
+        $this->flashBag->add('error', 'flash.admin.institution.cohorts.delete.error');
 
         $deleteAction = new DeleteAction(
             $this->router->reveal(),
@@ -62,6 +84,8 @@ class DeleteActionTest extends TestCase {
         $institution = $this->prophesize(Institution::class);
         $cohort1 = $this->prophesize(Cohort::class);
         $cohort2 = $this->prophesize(Cohort::class);
+
+        $institution->getCourses()->shouldBeCalled()->willReturn([]);
 
         $institution->getCohorts()->shouldBeCalled()
                     ->willReturn([$cohort1->reveal(), $cohort2->reveal()]);

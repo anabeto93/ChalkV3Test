@@ -11,6 +11,7 @@
 namespace Tests\Infrastructure\Normalizer;
 
 use App\Domain\Model\Folder;
+use App\Domain\Model\Institution;
 use App\Infrastructure\Normalizer\FolderNormalizer;
 use PHPUnit\Framework\TestCase;
 use Tests\Factory\CourseFactory;
@@ -21,7 +22,8 @@ class FolderNormalizerTest extends TestCase
     {
         // Context
         $dateTime = new \DateTime();
-        $course = CourseFactory::create();
+        $institution = new Institution('uuid-uni', 'Chalkboard', $dateTime);
+        $course = CourseFactory::create($institution);
         $folder = new Folder('folder-uuid', 1, 'folder title', $course, $dateTime);
 
         // Normalizer

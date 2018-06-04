@@ -12,6 +12,7 @@ namespace Tests\Ui\Admin\Action\Course;
 
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\Course\Update;
+use App\Domain\Model\Institution;
 use App\Ui\Admin\Action\Course\UpdateAction;
 use App\Ui\Admin\Form\Type\Course\UpdateType;
 use PHPUnit\Framework\TestCase;
@@ -57,7 +58,8 @@ class UpdateActionTest extends TestCase
     public function testInvoke()
     {
         // Context
-        $course = CourseFactory::create();
+        $institution = $this->prophesize(Institution::class);
+        $course = CourseFactory::create($institution->reveal());
         $request = new Request();
         $response = new Response();
         $create = new Update($course);
@@ -67,7 +69,7 @@ class UpdateActionTest extends TestCase
 
         // Mock
         $this->engine
-            ->renderResponse("Admin/Course/update.html.twig", ['course' => $course, 'form' => $formView])
+            ->renderResponse("Admin/Course/update.html.twig", ['institution' => $institution->reveal(), 'course' => $course, 'form' => $formView])
             ->shouldBeCalled()
             ->willReturn($response)
         ;
@@ -87,7 +89,7 @@ class UpdateActionTest extends TestCase
             $this->formFactory->reveal(),
             $this->flashBag->reveal()
         );
-        $result = $updateAction($request, $course);
+        $result = $updateAction($request, $institution->reveal(), $course);
 
         $this->assertInstanceOf(Response::class, $result);
     }
@@ -95,7 +97,9 @@ class UpdateActionTest extends TestCase
     public function testInvokeHandle()
     {
         // Context
-        $course = CourseFactory::create();
+        $institution = $this->prophesize(Institution::class);
+        $institution->getId()->shouldBeCalled()->willReturn(123);
+        $course = CourseFactory::create($institution->reveal());
         $request = new Request();
         $update = new Update($course);
         $form = $this->prophesize(FormInterface::class);
@@ -113,7 +117,7 @@ class UpdateActionTest extends TestCase
         $form->isValid()->shouldBeCalled()->willReturn(true);
         $this->commandBus->handle($update)->shouldBeCalled();
         $this->flashBag->add('success', 'flash.admin.course.update.success')->shouldBeCalled();
-        $this->router->generate('admin_course_list')->shouldBeCalled()->willReturn('/admin/course');
+        $this->router->generate('admin_course_list', ['institution' => 123])->shouldBeCalled()->willReturn('/admin/course');
 
         // Action
         $updateAction = new UpdateAction(
@@ -123,7 +127,7 @@ class UpdateActionTest extends TestCase
             $this->formFactory->reveal(),
             $this->flashBag->reveal()
         );
-        $result = $updateAction($request, $course);
+        $result = $updateAction($request, $institution->reveal(), $course);
 
         $this->assertInstanceOf(RedirectResponse::class, $result);
         $this->assertEquals('/admin/course', $result->getTargetUrl());

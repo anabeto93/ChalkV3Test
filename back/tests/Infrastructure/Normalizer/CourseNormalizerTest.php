@@ -12,6 +12,7 @@ namespace Tests\Infrastructure\Normalizer;
 
 use App\Domain\Model\Course;
 use App\Domain\Model\Folder;
+use App\Domain\Model\Institution;
 use App\Domain\Model\Session;
 use App\Domain\Model\User;
 use App\Domain\Model\User\Progression;
@@ -44,7 +45,8 @@ class CourseNormalizerTest extends TestCase
     {
         $dateTime = new \DateTime();
         $user = $this->prophesize(User::class);
-        $course = new Course("1234-azerty", "title", "teacherName", 'University', true, $dateTime, "description");
+        $institution = new Institution('uuid-uni', 'Chalkboard', $dateTime);
+        $course = new Course("1234-azerty", $institution, "title", "teacherName", true, $dateTime, "description");
         $folder = new Folder('123456789', 0, 'folder title', $course, $dateTime);
         $session1 = new Session('098765432', 1, 'session 1', 'content 1', $course, $folder, true, true, $dateTime);
         $session2 = new Session('ZERTYUIOIUYTRE', 2, 'session 2', 'content 2', $course, $folder, true, true, $dateTime);
@@ -79,8 +81,8 @@ class CourseNormalizerTest extends TestCase
             'uuid' => '1234-azerty',
             'title' => 'title',
             'description' => 'description',
-            'university' => 'University',
             'teacherName' => 'teacherName',
+            'university' => 'Chalkboard',
             'createdAt' => $dateTime,
             'updatedAt' => $dateTime,
             'folders' => [
@@ -105,7 +107,8 @@ class CourseNormalizerTest extends TestCase
     {
         $dateTime = new \DateTime();
         $user = $this->prophesize(User::class);
-        $course = new Course("1234-azerty", "title", "teacherName", 'University', true, $dateTime, "description");
+        $institution = new Institution('uuid-uni', 'Chalkboard', $dateTime);
+        $course = new Course("1234-azerty", $institution, "title", "teacherName", true, $dateTime, "description");
         $session1 = new Session('098765432', 2, 'session 1', 'content 1', $course, null, false, true, $dateTime);
         $session2 = new Session('ZERTYUIOIUYTRE', 3, 'session 2', 'content 2', $course, null, true, true, $dateTime);
         $course->setSessions([$session1, $session2]);
@@ -137,7 +140,7 @@ class CourseNormalizerTest extends TestCase
             'title' => 'title',
             'description' => 'description',
             'teacherName' => 'teacherName',
-            'university' => 'University',
+            'university' => 'Chalkboard',
             'createdAt' => $dateTime,
             'updatedAt' => $dateTime,
             'folders' => [
