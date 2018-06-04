@@ -7,26 +7,32 @@ admin_home:
 # Course
 #
 admin_course_list:
-    path: /course
+    path: /institutions/{institution}/courses
     methods: [GET]
+    requirements:
+        institution: \d+
     defaults: { _controller: App\Ui\Admin\Action\Course\ListAction }
 
 admin_course_create:
-    path: /course/create
+    path: /institutions/{institution}/courses/create
     methods: [GET, POST]
+    requirements:
+        institution: \d+
     defaults: { _controller: App\Ui\Admin\Action\Course\CreateAction }
 
 admin_course_update:
-    path: /course/update/{course}
+    path: /institutions/{institution}/courses/update/{course}
     methods: [GET, POST]
     requirements:
+        institution: \d+
         course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Course\UpdateAction }
 
 admin_course_assign_user:
-    path: /course/{course}/student
+    path: /institutions/{institution}/courses/{course}/student
     methods: [GET, POST]
     requirements:
+        institution: \d+
         course: \d+
     defaults: { _controller: App\Ui\Admin\Action\Course\AssignUserAction }
 
