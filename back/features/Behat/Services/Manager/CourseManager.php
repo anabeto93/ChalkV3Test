@@ -11,6 +11,7 @@
 namespace Features\Behat\Services\Manager;
 
 use App\Domain\Model\Course;
+use App\Domain\Model\Institution;
 use App\Domain\Model\User;
 use App\Domain\Model\UserCourse;
 use App\Domain\Repository\CourseRepositoryInterface;
@@ -42,7 +43,8 @@ class CourseManager
      */
     public function create(string $uuid, string $title): Course
     {
-        $course = CourseFactory::create($uuid, $title, new \DateTime());
+        $institution = new Institution('uuid-uni', 'Chalkboard', new \DateTime());
+        $course = CourseFactory::create($institution, $uuid, $title, new \DateTime());
         $this->courseRepository->add($course);
 
         return $course;
