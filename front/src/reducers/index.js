@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { asyncLocalStorage } from 'redux-persist/storages';
+import * as storage from 'localforage';
 
 import GraphqlClient from '../graphql/client/GraphqlClient';
 
@@ -25,9 +25,7 @@ const appReducer = combineReducers({
 
 const rootReducer = (state, action) => {
   if (action.type === USER_LOGOUT) {
-    Object.keys(state).forEach(key => {
-      asyncLocalStorage.removeItem(`persist:${key}`);
-    });
+    storage.clear();
 
     state = undefined;
   }
