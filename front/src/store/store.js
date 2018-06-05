@@ -1,6 +1,7 @@
 import { applyMiddleware, compose, createStore } from 'redux';
-import { autoRehydrate } from 'redux-persist';
+import { persistReducer } from 'redux-persist';
 import thunkMiddleware from 'redux-thunk';
+import * as storage from 'localforage';
 
 import rootReducer from '../reducers';
 import coursesIsFetchingSubscriber from '../subscriber/CoursesIsFetchingSubscriber';
@@ -10,12 +11,18 @@ import { networkInterface } from '../graphql/client/GraphqlClient';
 
 import { requestForcedUserLogout } from '../actions/actionCreators';
 
+const persistConfig = {
+  key: 'root',
+  storage
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const store = createStore(
-  rootReducer,
+  persistedReducer,
   defaultState,
   compose(
     applyMiddleware(thunkMiddleware),
-    autoRehydrate(),
     process.env.NODE_ENV !== 'production' &&
     typeof window.__REDUX_DEVTOOLS_EXTENSION__ !== 'undefined'
       ? window.__REDUX_DEVTOOLS_EXTENSION__()
