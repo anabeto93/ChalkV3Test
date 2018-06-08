@@ -15,7 +15,6 @@ const footer = props => {
         variant="raised"
         color="primary"
         onClick={() => sessionNext(props)}
-        fullWidth
       >
         {I18n.t(
           session.questions && !session.validated
