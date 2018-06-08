@@ -80,5 +80,10 @@
     "message": "Are you sure you want to logout?",
     "button": "Logout",
     "cancelButton": "Cancel"
+  },
+  "selfTestQuiz": {
+    "okay": "Okay",
+    "checkAnswer": "Check Answer",
+    "answers": "Answers"
   }
 }

@@ -5,8 +5,11 @@ import CourseManager from '../services/CourseManager';
 import JsxParser from 'react-jsx-parser';
 import * as material from '@material-ui/core';
 import * as icons from '@material-ui/icons';
+import SelfTestQuestion from '../components/SelfTestQuiz/SelfTestQuestion';
 
-const materialUI = Object.assign({}, material, icons);
+const jsxComponents = Object.assign({}, material, icons, {
+  SelfTestQuestion: SelfTestQuestion
+});
 
 class SessionDetailScreen extends Component {
   renderContent() {
@@ -19,9 +22,7 @@ class SessionDetailScreen extends Component {
     const isJSX = jsxRegEX.test(content);
 
     if (isJSX) {
-      return (
-        <JsxParser jsx={content} components={materialUI} showWarnings={true} />
-      );
+      return <JsxParser jsx={content} components={jsxComponents} />;
     }
 
     return (
