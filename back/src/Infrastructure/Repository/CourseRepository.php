@@ -127,7 +127,7 @@ class CourseRepository implements CourseRepositoryInterface
     public function countFoldersForCourse(Course $course): int {
         $queryBuilder = $this->entityManager
             ->createQueryBuilder()
-            ->select('COUNT(IDENTITY(folder))')
+            ->select('COUNT(folder)')
             ->from(Folder::class, 'folder')
             ->where('folder.course = :course')
             ->setParameter('course', $course);
@@ -141,7 +141,7 @@ class CourseRepository implements CourseRepositoryInterface
     public function countSessionsForCourse(Course $course): int {
         $queryBuilder = $this->entityManager
             ->createQueryBuilder()
-            ->select('COUNT(IDENTITY(session))')
+            ->select('COUNT(session)')
             ->from(Session::class, 'session')
             ->where('session.course = :course')
             ->setParameter('course', $course);
@@ -155,7 +155,7 @@ class CourseRepository implements CourseRepositoryInterface
     public function countUsersForCourse(Course $course): int {
         $queryBuilder = $this->entityManager
             ->createQueryBuilder()
-            ->select('COUNT(IDENTITY(course_user))')
+            ->select('COUNT(IDENTITY(user_course))')
             ->from(UserCourse::class, 'user_course')
             ->where('user_course.course = :course')
             ->setParameter('course', $course);
