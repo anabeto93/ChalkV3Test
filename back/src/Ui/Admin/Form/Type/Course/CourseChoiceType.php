@@ -35,9 +35,8 @@ class CourseChoiceType extends AbstractType {
         $resolver->setDefaults([
             'class' => Course::class,
             'choice_label' => function(Course $course) {
-                return sprintf('%s (%s)',
-                    $course->getTitle(),
-                    $course->getTeacherName()
+                return sprintf('%s',
+                    $course->getTitle()
                 );
             },
             'repositoryMethod' => function(CourseRepositoryInterface $courseRepository) {
