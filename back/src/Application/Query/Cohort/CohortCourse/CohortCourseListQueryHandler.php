@@ -50,7 +50,7 @@ class CohortCourseListQueryHandler {
                 $course->isEnabled(),
                 $this->courseRepository->countFoldersForCourse($course),
                 $this->courseRepository->countSessionsForCourse($course),
-                $this->courseRepository->countUsersForCourse($course)
+                0
             );
         }
 
