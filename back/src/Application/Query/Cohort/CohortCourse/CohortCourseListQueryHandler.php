@@ -11,17 +11,24 @@ namespace App\Application\Query\Cohort\CohortCourse;
 
 use App\Application\View\Course\CourseView;
 use App\Domain\Repository\CohortCourseRepositoryInterface;
+use App\Domain\Repository\CourseRepositoryInterface;
 
 class CohortCourseListQueryHandler {
     /** @var CohortCourseRepositoryInterface */
     private $cohortCourseRepository;
 
+    /** @var CourseRepositoryInterface */
+    private $courseRepository;
+
     /**
      * CohortCourseListQueryHandler constructor.
      * @param CohortCourseRepositoryInterface $cohortCourseRepository
+     * @param CourseRepositoryInterface $courseRepository
      */
-    public function __construct(CohortCourseRepositoryInterface $cohortCourseRepository) {
+    public function __construct(CohortCourseRepositoryInterface $cohortCourseRepository, CourseRepositoryInterface $courseRepository)
+    {
         $this->cohortCourseRepository = $cohortCourseRepository;
+        $this->courseRepository = $courseRepository;
     }
 
     /**
@@ -41,9 +48,9 @@ class CohortCourseListQueryHandler {
                 $course->getTitle(),
                 $course->getTeacherName(),
                 $course->isEnabled(),
-                count($course->getFolders()),
-                count($course->getSessions()),
-                count($course->getUsers())
+                $this->courseRepository->countFoldersForCourse($course),
+                $this->courseRepository->countSessionsForCourse($course),
+                $this->courseRepository->countUsersForCourse($course)
             );
         }
 

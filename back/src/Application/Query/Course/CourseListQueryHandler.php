@@ -42,9 +42,9 @@ class CourseListQueryHandler
                 $course->getTitle(),
                 $course->getTeacherName(),
                 $course->isEnabled(),
-                count($course->getFolders()),
-                count($course->getSessions()),
-                count($course->getUsers())
+                $this->courseRepository->countFoldersForCourse($course),
+                $this->courseRepository->countSessionsForCourse($course),
+                $this->courseRepository->countUsersForCourse($course)
             );
         }
 
