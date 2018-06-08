@@ -47,4 +47,22 @@ interface CourseRepositoryInterface
      * @return Course[]
      */
     public function findByInstitution($institution): array;
+
+    /**
+     * @param Course $course
+     * @return int
+     */
+    public function countFoldersForCourse(Course $course): int;
+
+    /**
+     * @param Course $course
+     * @return int
+     */
+    public function countSessionsForCourse(Course $course): int;
+
+    /**
+     * @param Course $course
+     * @return int
+     */
+    public function countUsersForCourse(Course $course): int;
 }

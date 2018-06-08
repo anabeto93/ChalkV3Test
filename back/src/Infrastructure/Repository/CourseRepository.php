@@ -11,6 +11,9 @@
 namespace App\Infrastructure\Repository;
 
 use App\Domain\Model\Course;
+use App\Domain\Model\Folder;
+use App\Domain\Model\Session;
+use App\Domain\Model\UserCourse;
 use App\Domain\Repository\CourseRepositoryInterface;
 use Doctrine\ORM\EntityManager;
 
@@ -116,5 +119,47 @@ class CourseRepository implements CourseRepositoryInterface
         ;
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function countFoldersForCourse(Course $course): int {
+        $queryBuilder = $this->entityManager
+            ->createQueryBuilder()
+            ->select('COUNT(IDENTITY(folder))')
+            ->from(Folder::class, 'folder')
+            ->where('folder.course = :course')
+            ->setParameter('course', $course);
+
+        return (int) $queryBuilder->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function countSessionsForCourse(Course $course): int {
+        $queryBuilder = $this->entityManager
+            ->createQueryBuilder()
+            ->select('COUNT(IDENTITY(session))')
+            ->from(Session::class, 'session')
+            ->where('session.course = :course')
+            ->setParameter('course', $course);
+
+        return (int) $queryBuilder->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function countUsersForCourse(Course $course): int {
+        $queryBuilder = $this->entityManager
+            ->createQueryBuilder()
+            ->select('COUNT(IDENTITY(course_user))')
+            ->from(UserCourse::class, 'user_course')
+            ->where('user_course.course = :course')
+            ->setParameter('course', $course);
+
+        return (int) $queryBuilder->getQuery()->getSingleScalarResult();
     }
 }
