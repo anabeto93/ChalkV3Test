@@ -80,5 +80,10 @@
     "message": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
     "button": "Déconnexion",
     "cancelButton": "Annuler"
+  },
+  "selfTestQuiz": {
+    "okay": "Compris",
+    "checkAnswer": "Vérifier la réponse",
+    "answers": "Réponses"
   }
 }
