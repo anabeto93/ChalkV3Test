@@ -5,7 +5,7 @@ module.exports = {
     'build/index.html'
   ],
   runtimeCaching: [{
-    urlPattern: /\.*\.(?:svg|jpg|gif|png)/g,
+    urlPattern: /\.*\.(?:svg|jpg|jpeg|gif|png)/g,
     handler: 'cacheFirst'
   }],
   importScripts: [
