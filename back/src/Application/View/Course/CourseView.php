@@ -25,9 +25,6 @@ class CourseView
     public $enabled;
 
     /** @var int */
-    public $numberOfFolders;
-
-    /** @var int */
     public $numberOfSessions;
 
     /** @var int */
@@ -38,7 +35,6 @@ class CourseView
      * @param string $title
      * @param string $teacherName
      * @param bool   $enabled
-     * @param int    $numberOfFolders
      * @param int    $numberOfSessions
      * @param int    $numberOfStudents
      */
@@ -47,7 +43,6 @@ class CourseView
         string $title,
         string $teacherName,
         bool $enabled,
-        int $numberOfFolders,
         int $numberOfSessions,
         int $numberOfStudents
     ) {
@@ -55,7 +50,6 @@ class CourseView
         $this->title = $title;
         $this->teacherName = $teacherName;
         $this->enabled = $enabled;
-        $this->numberOfFolders = $numberOfFolders;
         $this->numberOfSessions = $numberOfSessions;
         $this->numberOfStudents = $numberOfStudents;
     }
