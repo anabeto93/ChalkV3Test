@@ -48,7 +48,6 @@ class CohortCourseListQueryHandler {
                 $course->getTitle(),
                 $course->getTeacherName(),
                 $course->isEnabled(),
-                $this->courseRepository->countFoldersForCourse($course),
                 $this->courseRepository->countSessionsForCourse($course),
                 0
             );
