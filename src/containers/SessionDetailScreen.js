@@ -18,7 +18,7 @@ class SessionDetailScreen extends Component {
 
   renderer() {
     const content = this.props.session.content;
-    const jsxRegEx = /(?:<([A-Z][a-z]+)>(?:.|\n)*?<\/\1>|<[A-Z](?:[^>])+\/>)/g;
+    const jsxRegEx = /(?:<([A-Z][\w]+)\s?[\w\s={}:"]*>(.|\r|\n)*?<\/\1>|<[A-Z]([^>])+\/>)/g;
     const isJSX = jsxRegEx.test(content);
 
     if (isJSX) {
