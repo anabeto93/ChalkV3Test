@@ -10,6 +10,7 @@
 
 namespace App\Ui\Admin\Form\Type\User;
 
+use App\Domain\Model\Institution;
 use App\Domain\Model\User;
 use App\Domain\Repository\UserRepositoryInterface;
 use Symfony\Component\Form\AbstractType;
@@ -35,6 +36,8 @@ class UserChoiceType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setRequired('institution');
+        $resolver->setAllowedTypes('institution', Institution::class);
         $resolver->setDefaults([
             'class'            => User::class,
             'choice_label'     => function (User $user) {
@@ -44,11 +47,11 @@ class UserChoiceType extends AbstractType
                     $user->getPhoneNumber()
                 );
             },
-            'repositoryMethod' => function (UserRepositoryInterface $userRepository) {
-                return $userRepository->getAll();
+            'repositoryMethod' => function (UserRepositoryInterface $userRepository, Institution $institution) {
+                return $userRepository->findByInstitution($institution);
             },
             'choices'          => function (Options $options) {
-                return $options['repositoryMethod']($this->userRepository);
+                return $options['repositoryMethod']($this->userRepository, $options['institution']);
             },
         ]);
     }
