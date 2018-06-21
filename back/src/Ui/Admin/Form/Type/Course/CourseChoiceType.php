@@ -10,6 +10,7 @@ namespace App\Ui\Admin\Form\Type\Course;
 
 
 use App\Domain\Model\Course;
+use App\Domain\Model\Institution;
 use App\Domain\Repository\CourseRepositoryInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -32,6 +33,8 @@ class CourseChoiceType extends AbstractType {
      * @inheritdoc
      */
     public function configureOptions(OptionsResolver $resolver) {
+        $resolver->setRequired('institution');
+        $resolver->setAllowedTypes('institution', Institution::class);
         $resolver->setDefaults([
             'class' => Course::class,
             'choice_label' => function(Course $course) {
@@ -39,11 +42,11 @@ class CourseChoiceType extends AbstractType {
                     $course->getTitle()
                 );
             },
-            'repositoryMethod' => function(CourseRepositoryInterface $courseRepository) {
-                return $courseRepository->getAll();
+            'repositoryMethod' => function(CourseRepositoryInterface $courseRepository, Institution $institution) {
+                return $courseRepository->findByInstitution($institution);
             },
             'choices' => function(Options $options) {
-                return $options['repositoryMethod']($this->courseRepository);
+                return $options['repositoryMethod']($this->courseRepository, $options['institution']);
             }
         ]);
     }

@@ -64,7 +64,9 @@ class AssignCourseAction {
     public function __invoke(Request $request, Institution $institution, Cohort $cohort): Response {
         $assign = new AssignCourse($cohort);
 
-        $form = $this->formFactory->create(AssignCourseType::class, $assign, []);
+        $form = $this->formFactory->create(AssignCourseType::class, $assign, [
+            'institution' => $institution
+        ]);
 
         $form->handleRequest($request);
 
