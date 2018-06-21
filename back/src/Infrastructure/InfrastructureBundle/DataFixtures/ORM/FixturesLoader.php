@@ -22,14 +22,14 @@ class FixturesLoader extends AbstractFixture
     public function load(ObjectManager $manager)
     {
         $files = [
+            __DIR__ . '/Institution.yml',
             __DIR__ . '/Course.yml',
             __DIR__ . '/Folder.yml',
             __DIR__ . '/Session.yml',
             __DIR__ . '/Session.File.yml',
             __DIR__ . '/User.yml',
             __DIR__ . '/UserCourse.yml',
-            __DIR__ . '/User.Progression.yml',
-            __DIR__ . '/Institution.yml',
+            __DIR__ . '/User.Progression.yml'
         ];
 
         Fixtures::load($files, $manager, []);
