@@ -13,6 +13,7 @@ namespace App\Ui\Admin\Action\User;
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Adapter\TranslatorInterface;
 use App\Application\Command\User\Import\Import;
+use App\Domain\Model\Institution;
 use App\Ui\Admin\Form\Type\User\ImportType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -64,10 +65,11 @@ class ImportAction
 
     /**
      * @param Request $request
+     * @param Institution $institution
      *
      * @return Response|RedirectResponse
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, Institution $institution): Response
     {
         $import = new Import();
         $form = $this->formFactory->create(ImportType::class, $import, [
@@ -80,12 +82,16 @@ class ImportAction
             return new RedirectResponse(
                 $this->router->generate(
                     self::ROUTE_REDIRECT_AFTER_SUCCESS,
-                    ['file' => $file->getId()]
+                    [
+                        'file' => $file->getId(),
+                        'institution' => $institution->getId()
+                    ]
                 )
             );
         }
 
         return $this->engine->renderResponse(self::TEMPLATE, [
+            'institution' => $institution,
             'form' => $form->createView()
         ]);
     }

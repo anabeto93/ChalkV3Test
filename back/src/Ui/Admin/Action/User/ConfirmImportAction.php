@@ -17,6 +17,7 @@ use App\Application\Command\File\Remove;
 use App\Application\Command\User\Import\ConfirmImport;
 use App\Application\Query\User\Import\ImportQuery;
 use App\Domain\Exception\User\Import\InvalidImportHeaderFileFormatException;
+use App\Domain\Model\Institution;
 use App\Domain\Model\Upload\File;
 use App\Ui\Admin\Form\Type\User\ConfirmImportType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -90,10 +91,11 @@ class ConfirmImportAction
     /**
      * @param Request $request
      * @param File    $file
+     * @param Institution $institution
      *
      * @return Response
      */
-    public function __invoke(Request $request, File $file): Response
+    public function __invoke(Request $request, File $file, Institution $institution): Response
     {
         $import = new ConfirmImport($file);
         $form = $this->formFactory->create(ConfirmImportType::class, $import);
@@ -111,10 +113,13 @@ class ConfirmImportAction
             $this->flashBag->add('error', 'flash.admin.user.import.errorHeader');
             $this->commandBus->handle(new Remove($file, $this->importDir));
 
-            return new RedirectResponse($this->router->generate(self::ROUTE_REDIRECT_ERROR));
+            return new RedirectResponse($this->router->generate(self::ROUTE_REDIRECT_ERROR, [
+                'institution' => $institution->getId()
+            ]));
         }
 
         return $this->engine->renderResponse(self::TEMPLATE, [
+            'institution'        => $institution,
             'form'               => $form->createView(),
             'userImportListView' => $userImportListView,
         ]);

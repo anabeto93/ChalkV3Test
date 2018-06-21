@@ -16,6 +16,7 @@ class Create extends AbstractUserCommand
 {
     /** @var Institution */
     public $institution;
+
     /**
      * @param Institution $institution
      */
