@@ -48,4 +48,4 @@ App\Domain\Model\Course:
             inversedBy: courses
             joinColumn:
                 onDelete: CASCADE
-                nullable: true
+                nullable: false
