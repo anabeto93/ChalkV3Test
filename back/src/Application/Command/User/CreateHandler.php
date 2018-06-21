@@ -84,6 +84,7 @@ class CreateHandler
         }
 
         $user = new User(
+            $command->institution,
             $uuid,
             $command->firstName,
             $command->lastName,
