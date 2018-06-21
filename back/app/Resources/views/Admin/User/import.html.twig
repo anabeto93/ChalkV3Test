@@ -8,10 +8,10 @@
     {{ form_row(form.file) }}
     {{ form_row(form.charset) }}
     <div class="col-md-offset-3 col-md-9">
-        <a href="{{ path('admin_user_import_sample') }}">
+        <a href="{{ path('admin_user_import_sample', {'institution': institution.id}) }}">
             <i class="glyphicon glyphicon-info-sign"></i> {{ 'admin.user.import.sample'|trans }}
         </a>
     </div>
 {% endblock %}
 
-{% block goback_link path('admin_user_list') %}
+{% block goback_link path('admin_user_list', {'institution': institution.id}) %}

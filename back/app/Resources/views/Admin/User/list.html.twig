@@ -6,10 +6,10 @@
     <h1>
         {{ 'admin.user.list.title'|trans }}
         <span class="pull-right">
-            <a class="btn btn-default" href="{{ path('admin_user_import') }}">
+            <a class="btn btn-default" href="{{ path('admin_user_import', {'institution': institution.id}) }}">
                 {{ 'admin.user.import.title'|trans }}
             </a>
-            <a class="btn btn-primary" href="{{ path('admin_user_create') }}">
+            <a class="btn btn-primary" href="{{ path('admin_user_create', {'institution': institution.id}) }}">
                 {{ 'admin.user.create.title'|trans }}
             </a>
         </span>
@@ -51,7 +51,7 @@
                     <td>{{ user.lastLoginAccessNotificationAt ? user.lastLoginAccessNotificationAt|localizeddate('medium', 'short') : '-' }}</td>
                     <td>{{ user.multiLogin ? '✔︎' : '' }}</td>
                     <td class="text-right">
-                        <a href="{{ path('admin_user_update', {'user': user.id}) }}" class="btn btn-default btn-sm">
+                        <a href="{{ path('admin_user_update', {'user': user.id, 'institution': institution.id}) }}" class="btn btn-default btn-sm">
                             {{ 'admin.user.action.update'|trans }}
                         </a>
                     </td>
