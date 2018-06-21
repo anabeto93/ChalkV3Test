@@ -37,7 +37,7 @@ class UserListQueryHandler
      */
     public function handle(UserListQuery $query): UserListView
     {
-        $users = $this->userRepository->paginate($query->page, self::USERS_PER_PAGE);
+        $users = $this->userRepository->paginate($query->institution, $query->page, self::USERS_PER_PAGE);
         $userListView = new UserListView($users->page, $users->pages, $users->total);
 
         /** @var User $user */

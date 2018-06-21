@@ -1,10 +1,12 @@
 {% extends '::base.html.twig' %}
 
-{% block title 'admin.course.title'|trans %}
+{% block title %}
+    {{ institution.name }} | {{ 'admin.course.list.title'|trans }}
+{% endblock title %}
 
 {% block content %}
     <h2>
-        <a href="{{ path('admin_institution_list') }}">{{ institution.name }}</a> | {{ 'admin.course.title'|trans }}
+        {{ institution.name }} | {{ 'admin.course.list.title'|trans }}
         <span class="pull-right">
             <a class="btn btn-primary" href="{{ path('admin_course_create', {'institution': institution.id}) }}">
                 {{ 'admin.course.create.title'|trans }}
@@ -33,17 +35,17 @@
                     <td>{{ course.title }}</td>
                     <td>{{ course.teacherName }}</td>
                     <td>
-                        <a href="{{ path('admin_folder_list', {'course': course.id}) }}" title="{{ 'admin.course.viewFolders'|trans }}" class="btn btn-sm btn-default">
+                        <a href="{{ path('admin_folder_list', {'course': course.id}) }}" title="{{ 'admin.folder.list.title'|trans }}" class="btn btn-sm btn-default">
                             {{ 'admin.course.column.folders'|trans }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ path('admin_session_list', {'course': course.id}) }}" title="{{ 'admin.course.viewSessions'|trans }}">
+                        <a href="{{ path('admin_session_list', {'course': course.id}) }}" title="{{ 'admin.session.list.title'|trans }}">
                             {{ course.numberOfSessions }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ path('admin_course_assign_user', {'course': course.id, 'institution': institution.id}) }}" title="{{ 'admin.course.viewStudents'|trans }}">
+                        <a href="{{ path('admin_course_assign_user', {'course': course.id, 'institution': institution.id}) }}" title="{{ 'admin.user.list.title'|trans }}">
                             {{ course.numberOfStudents }}
                         </a>
                     </td>

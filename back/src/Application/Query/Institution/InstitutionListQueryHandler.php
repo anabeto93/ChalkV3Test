@@ -38,7 +38,8 @@ class InstitutionListQueryHandler {
               $institution->getId(),
               $institution->getName(),
               count($institution->getCohorts()),
-              count($institution->getCourses())
+              count($institution->getCourses()),
+              count($institution->getUsers())
             );
         }
 

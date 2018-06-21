@@ -6,7 +6,7 @@
 
 {% block content %}
     <h2>
-        <a href="{{ path('admin_institution_list') }}">{{ institution.name }}</a> | {{ 'admin.cohort.list.title'|trans }}
+        {{ institution.name }} | {{ 'admin.cohort.list.title'|trans }}
         <span class="pull-right">
             <a class="btn btn-primary" href="{{ path('admin_cohort_create', {'institution': institution.id}) }}">
                 {{ 'admin.cohort.create.link'|trans }}

@@ -63,7 +63,9 @@ class AssignUserAction {
     public function __invoke(Request $request, Institution $institution, Cohort $cohort): Response {
         $assign = new AssignUser($cohort);
 
-        $form = $this->formFactory->create(AssignUserType::class, $assign, []);
+        $form = $this->formFactory->create(AssignUserType::class, $assign, [
+            'institution' => $institution
+        ]);
 
         $form->handleRequest($request);
 

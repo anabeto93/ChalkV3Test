@@ -15,6 +15,7 @@ use App\Application\Adapter\QueryBusInterface;
 use App\Application\Command\User\Batch;
 use App\Application\Query\User\UserListQuery;
 use App\Application\View\User\UserListView;
+use App\Domain\Model\Institution;
 use App\Ui\Admin\Form\Type\User\BatchType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -77,13 +78,14 @@ class ListAction
 
     /**
      * @param Request $request
+     * @param Institution $institution
      *
      * @return Response
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, Institution $institution): Response
     {
         /** @var UserListView $userList */
-        $userList = $this->queryBus->handle(new UserListQuery($request->get('page', 1)));
+        $userList = $this->queryBus->handle(new UserListQuery($institution, $request->get('page', 1)));
 
         $batch = new Batch();
 
@@ -110,10 +112,13 @@ class ListAction
                 );
             }
 
-            return new RedirectResponse($this->router->generate('admin_user_list'));
+            return new RedirectResponse($this->router->generate('admin_user_list', [
+                'institution' => $institution,
+            ]));
         }
 
         return $this->engine->renderResponse('Admin/User/list.html.twig', [
+            'institution' => $institution,
             'userList' => $userList,
             'batchForm' => $batchForm->createView(),
         ]);

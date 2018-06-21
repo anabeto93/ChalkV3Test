@@ -54,13 +54,15 @@ class UserRepository implements UserRepositoryInterface
     /**
      * {@inheritdoc}
      */
-    public function paginate(int $page, int $limit): PaginatedResult
+    public function paginate($institution, int $page, int $limit): PaginatedResult
     {
         $queryBuilder = $this
             ->entityManager
             ->createQueryBuilder()
             ->select('user')
             ->from(User::class, 'user', 'user.id')
+            ->where('user.institution = :institution')
+            ->setParameter('institution', $institution)
             ->orderBy('user.lastName', 'ASC')
             ->addOrderBy('user.firstName', 'ASC');
 
@@ -190,5 +192,23 @@ class UserRepository implements UserRepositoryInterface
         ;
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByInstitution($institution): array
+    {
+        $queryBuilder = $this->entityManager
+            ->createQueryBuilder()
+            ->select('user')
+            ->from(User::class, 'user')
+            ->where('user.institution = :institution')
+            ->setParameter('institution', $institution)
+            ->orderBy('user.lastName', 'ASC')
+            ->addOrderBy('user.firstName', 'ASC')
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
     }
 }

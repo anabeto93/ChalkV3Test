@@ -37,4 +37,4 @@
     </table>
 {% endblock %}
 
-{% block goback_link path('admin_user_list') %}
+{% block goback_link path('admin_user_list', {'institution': institution.id}) %}

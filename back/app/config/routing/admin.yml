@@ -29,7 +29,7 @@ admin_course_update:
     defaults: { _controller: App\Ui\Admin\Action\Course\UpdateAction }
 
 admin_course_assign_user:
-    path: /institutions/{institution}/courses/{course}/students
+    path: /institutions/{institution}/courses/{course}/users
     methods: [GET, POST]
     requirements:
         institution: \d+
@@ -40,35 +40,46 @@ admin_course_assign_user:
 # User
 #
 admin_user_list:
-    path: /user
+    path: /institutions/{institution}/users
     methods: [GET, POST]
+    requirements:
+        institution: \d+
     defaults: { _controller: App\Ui\Admin\Action\User\ListAction }
 
 admin_user_create:
-    path: /user/create
+    path: /institutions/{institution}/users/create
     methods: [GET, POST]
+    requirements:
+        institution: \d+
     defaults: { _controller: App\Ui\Admin\Action\User\CreateAction }
 
 admin_user_update:
-    path: /user/{user}/update
+    path: /institutions/{institution}/users/update
     methods: [GET, POST]
     requirements:
+        institution: \d+
         user: \d+
     defaults: { _controller: App\Ui\Admin\Action\User\UpdateAction }
 
 admin_user_import:
-    path: /user/import
+    path: /institutions/{institution}/users/import
     methods: [GET, POST]
+    requirements:
+        institution: \d+
     defaults: { _controller: App\Ui\Admin\Action\User\ImportAction }
 
 admin_user_import_confirm:
-    path: /user/import/{file}/confirm
+    path: /institutions/{institution}/users/import/{file}/confirm
     methods: [GET, POST]
+    requirements:
+        institution: \d+
     defaults: { _controller: App\Ui\Admin\Action\User\ConfirmImportAction }
 
 admin_user_import_sample:
-    path: /user/import/sample
+    path: /institutions/{institution}/users/import/sample
     methods: [GET]
+    requirements:
+        institution: \d+
     defaults: { _controller: App\Ui\Admin\Action\User\Import\SampleAction }
 
 #

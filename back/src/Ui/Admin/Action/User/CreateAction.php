@@ -13,6 +13,7 @@ namespace App\Ui\Admin\Action\User;
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\User\Create;
 use App\Domain\Exception\User\PhoneNumberAlreadyUsedException;
+use App\Domain\Model\Institution;
 use App\Ui\Admin\Form\Type\User\CreateType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Form\FormError;
@@ -74,12 +75,13 @@ class CreateAction
 
     /**
      * @param Request $request
+     * @param Institution $institution
      *
      * @return Response|RedirectResponse
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request, Institution $institution): Response
     {
-        $create = new Create();
+        $create = new Create($institution);
         $form = $this->formFactory->create(CreateType::class, $create, [
             'submit' => true,
         ]);
@@ -89,7 +91,9 @@ class CreateAction
                 $this->commandBus->handle($create);
                 $this->flashBag->add('success', 'flash.admin.user.create.success');
 
-                return new RedirectResponse($this->router->generate(self::ROUTE_REDIRECT_AFTER_SUCCESS));
+                return new RedirectResponse($this->router->generate(self::ROUTE_REDIRECT_AFTER_SUCCESS, [
+                    'institution' => $institution->getId()
+                ]));
             } catch (PhoneNumberAlreadyUsedException $exception) {
                 $form->get('phoneNumber')->addError(new FormError(
                     $this->translator->trans(self::TRANS_VALIDATOR_PHONE_NUMBER_USED, [], 'validators')
@@ -98,6 +102,7 @@ class CreateAction
         }
 
         return $this->engine->renderResponse(self::TEMPLATE, [
+            'institution' => $institution,
             'form' => $form->createView()
         ]);
     }

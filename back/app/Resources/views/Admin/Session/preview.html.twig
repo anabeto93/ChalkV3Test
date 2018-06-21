@@ -1,6 +1,6 @@
 {% extends '::base.html.twig' %}
 
-{% block title 'admin.session.preview.title'|trans({'%sessionTitle%': session.title}) %}
+{% block title course.institution.name ~ ' | ' ~ 'admin.course.title'|trans({'%courseTitle%': course.title}) ~ ' | ' ~ 'admin.session.preview.title'|trans({'%sessionTitle%': session.title}) %}
 
 {% block content %}
     <style>
@@ -21,9 +21,11 @@
         }
     </style>
 
-    <h1>
-        <a href="{{ path('admin_session_list', {'course': course.id}) }}">{{ course.title }}</a>
-    </h1>
+    <h2>
+        <a href="{{ path('admin_course_list', {'institution': course.institution.id}) }}">{{ course.institution.name }}</a>
+        | <a href="{{ path('admin_session_list', {'course': course.id}) }}">{{ 'admin.course.title'|trans({'%courseTitle%': course.title}) }}</a>
+        | {{ session.title }}
+    </h2>
 
     <hr>
 

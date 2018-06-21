@@ -47,5 +47,5 @@ App\Domain\Model\Course:
             targetEntity: App\Domain\Model\Institution
             inversedBy: courses
             joinColumn:
-                onDelete: "SET NULL"
-                nullable: true
+                onDelete: CASCADE
+                nullable: false

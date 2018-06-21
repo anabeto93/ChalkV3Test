@@ -45,6 +45,12 @@ class DeleteAction {
             return new RedirectResponse($this->router->generate('admin_institution_list'));
         }
 
+        if(count($institution->getUsers()) > 0) {
+            $this->flashBag->add('error', 'flash.admin.institution.users.delete.error');
+
+            return new RedirectResponse($this->router->generate('admin_institution_list'));
+        }
+
         foreach ($institution->getCohorts() as $cohort) {
             if ($cohort->getCourses()) {
                 $this->flashBag->add('error', 'flash.admin.institution.cohorts.delete.error');

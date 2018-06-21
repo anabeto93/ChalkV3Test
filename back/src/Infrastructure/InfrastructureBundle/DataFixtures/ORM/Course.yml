@@ -2,9 +2,9 @@ App\Domain\Model\Course:
     course_1:
         __construct:
             - "4bf73791a3-18a21-43401"
+            - '@institution_1'
             - "Installation de GraphQL"
             - "Nicolas"
-            - "University of Chalkboard"
             - true
             - <(new DateTime('2017-07-12 08:00:00.000'))>
             - 'This is an example'
@@ -13,9 +13,9 @@ App\Domain\Model\Course:
     course_2:
         __construct:
             - "4bf73791a3-18a21-43402"
+            - '@institution_1'
             - "Débuter avec Redux"
             - "Paul"
-            - "University of Chalkboard"
             - true
             - <(new DateTime('2017-07-12 08:00:00.000'))>
             - 'This is an example'
@@ -24,9 +24,9 @@ App\Domain\Model\Course:
     course_3:
         __construct:
             - "4bf73791a3-18a21-43403"
+            - '@institution_1'
             - "React et React-Native"
             - "Richard"
-            - "University of Chalkboard"
             - true
             - <(new DateTime('2017-07-12 08:00:00.000'))>
             - 'This is an example'
@@ -35,9 +35,9 @@ App\Domain\Model\Course:
     course_4:
         __construct:
             - "4bf73791a3-18a21-43404"
+            - '@institution_1'
             - "Le pattern Flux"
             - "Maxime"
-            - "University of Chalkboard"
             - true
             - <(new DateTime('2017-07-12 08:00:00.000'))>
             - 'This is an example'

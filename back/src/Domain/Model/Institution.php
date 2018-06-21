@@ -36,6 +36,9 @@ class Institution {
     /** @var ArrayCollection of Course */
     private $courses;
 
+    /** @var ArrayCollection of User */
+    private $users;
+
     /**
      * Institution constructor.
      * @param string $uuid
@@ -53,6 +56,7 @@ class Institution {
 
         $this->cohorts = new ArrayCollection();
         $this->courses = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     /**
@@ -122,5 +126,12 @@ class Institution {
      */
     public function getCourses(): array {
         return $this->courses->toArray();
+    }
+
+    /**
+     * @return User[]
+     */
+    public function getUsers(): array {
+        return $this->users->toArray();
     }
 }

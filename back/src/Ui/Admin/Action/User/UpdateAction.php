@@ -13,6 +13,7 @@ namespace App\Ui\Admin\Action\User;
 use App\Application\Adapter\CommandBusInterface;
 use App\Application\Command\User\Update;
 use App\Domain\Exception\User\PhoneNumberAlreadyUsedException;
+use App\Domain\Model\Institution;
 use App\Domain\Model\User;
 use App\Ui\Admin\Form\Type\User\UpdateType;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
@@ -22,6 +23,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
@@ -75,12 +77,19 @@ class UpdateAction
 
     /**
      * @param Request $request
+     * @param Institution $institution
      * @param User    $user
      *
      * @return Response
      */
-    public function __invoke(Request $request, User $user): Response
+    public function __invoke(Request $request, Institution $institution, User $user): Response
     {
+        if ($institution !== $user->getInstitution()) {
+            throw new NotFoundHttpException(
+                sprintf('The user %s does not exist in the institution %s', $user->getId(), $institution->getId())
+            );
+        }
+
         $update = new Update($user);
         $form = $this->formFactory->create(UpdateType::class, $update, [
             'submit' => true,
@@ -91,7 +100,9 @@ class UpdateAction
                 $this->commandBus->handle($update);
                 $this->flashBag->add('success', 'flash.admin.user.update.success');
 
-                return new RedirectResponse($this->router->generate(self::ROUTE_REDIRECT_AFTER_SUCCESS));
+                return new RedirectResponse($this->router->generate(self::ROUTE_REDIRECT_AFTER_SUCCESS, [
+                    'institution' => $institution->getId()
+                ]));
             } catch (PhoneNumberAlreadyUsedException $exception) {
                 $form->get('phoneNumber')->addError(new FormError(
                     $this->translator->trans(self::TRANS_VALIDATOR_PHONE_NUMBER_USED, [], 'validators')
@@ -100,6 +111,7 @@ class UpdateAction
         }
 
         return $this->engine->renderResponse(self::TEMPLATE, [
+            'institution' => $institution,
             'form' => $form->createView()
         ]);
     }

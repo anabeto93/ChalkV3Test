@@ -74,7 +74,9 @@ class AssignUserAction
     public function __invoke(Request $request, Institution $institution, Course $course): Response
     {
         $assign = new AssignUser($course);
-        $form = $this->formFactory->create(AssignUserType::class, $assign, []);
+        $form = $this->formFactory->create(AssignUserType::class, $assign, [
+            'institution' => $institution
+        ]);
 
         if ($form->handleRequest($request)->isSubmitted() && $form->isValid()) {
             $this->commandBus->handle($assign);

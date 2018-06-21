@@ -48,3 +48,10 @@ App\Domain\Model\User:
         cohortUsers:
             targetEntity: App\Domain\Model\CohortUser
             mappedBy: user
+    manyToOne:
+        institution:
+            targetEntity: App\Domain\Model\Institution
+            inversedBy: users
+            joinColumn:
+                onDelete: CASCADE
+                nullable: false

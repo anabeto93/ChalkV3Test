@@ -20,10 +20,11 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th class="col-md-5">{{ 'admin.institution.column.name'|trans }}</th>
+                    <th class="col-md-4">{{ 'admin.institution.column.name'|trans }}</th>
                     <th class="col-md-2">{{ 'admin.institution.column.cohorts'|trans }}</th>
+                    <th class="col-md-2">{{ 'admin.institution.column.students'|trans }}</th>
                     <th class="col-md-2">{{ 'admin.institution.column.courses'|trans }}</th>
-                    <th class="col-md-3"></th>
+                    <th class="col-md-2"></th>
                 </tr>
             </thead>
             <tbody>
@@ -31,12 +32,17 @@
                 <tr>
                     <td>{{ institution.name }}</td>
                     <td>
-                        <a href="{{ path('admin_cohort_list', {'institution': institution.id}) }}" title="{{ 'admin.institution.listCohorts'|trans }}">
+                        <a href="{{ path('admin_cohort_list', {'institution': institution.id}) }}" title="{{ 'admin.cohort.list.title'|trans }}">
                             {{ institution.numberOfCohorts }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ path('admin_course_list', {'institution': institution.id}) }}" title="{{ 'admin.institution.listCourses'|trans }}">
+                        <a href="{{ path('admin_user_list', {'institution': institution.id}) }}" title="{{ 'admin.user.list.title'|trans }}">
+                            {{ institution.numberOfStudents }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('admin_course_list', {'institution': institution.id}) }}" title="{{ 'admin.course.list.title'|trans }}">
                             {{ institution.numberOfCourses }}
                         </a>
                     </td>

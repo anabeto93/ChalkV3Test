@@ -26,3 +26,6 @@ App\Domain\Model\Institution:
         courses:
             targetEntity: App\Domain\Model\Course
             mappedBy: institution
+        users:
+            targetEntity: App\Domain\Model\User
+            mappedBy: institution

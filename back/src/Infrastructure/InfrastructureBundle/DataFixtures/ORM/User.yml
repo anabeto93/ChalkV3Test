@@ -1,6 +1,7 @@
 App\Domain\Model\User:
     user_1:
         __construct:
+            - '@institution_1'
             - "d1fae8c298-adb2e-e878b"
             - "Jean"
             - "Paul"
@@ -11,4 +12,4 @@ App\Domain\Model\User:
             - 'token'
             - <dateTime()>
             - false
-        apiToken: 'api-key-token-user-1'
+        apiToken: 'token1'
