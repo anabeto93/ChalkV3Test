@@ -29,7 +29,7 @@ admin_course_update:
     defaults: { _controller: App\Ui\Admin\Action\Course\UpdateAction }
 
 admin_course_assign_user:
-    path: /institutions/{institution}/courses/{course}/students
+    path: /institutions/{institution}/courses/{course}/users
     methods: [GET, POST]
     requirements:
         institution: \d+
