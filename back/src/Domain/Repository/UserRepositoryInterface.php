@@ -26,12 +26,13 @@ interface UserRepositoryInterface
     public function set(User $user);
 
     /**
+     * @param $institution
      * @param int $page
      * @param int $limit
      *
      * @return PaginatedResult
      */
-    public function paginate(int $page, int $limit): PaginatedResult;
+    public function paginate($institution, int $page, int $limit): PaginatedResult;
 
     /**
      * @return User[]
