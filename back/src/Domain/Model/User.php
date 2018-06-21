@@ -17,6 +17,9 @@ class User
     /** @var int */
     private $id;
 
+    /** @var Institution */
+    private $institution;
+
     /** @var string */
     private $uuid;
 
@@ -66,6 +69,7 @@ class User
     private $multiLogin;
 
     /**
+     * @param Institution        $institution
      * @param string             $uuid
      * @param string             $firstName
      * @param string             $lastName
@@ -78,6 +82,7 @@ class User
      * @param bool               $multiLogin
      */
     public function __construct(
+        Institution $institution,
         string $uuid,
         string $firstName,
         string $lastName,
@@ -89,6 +94,7 @@ class User
         \DateTimeInterface $createdAt,
         bool $multiLogin
     ) {
+        $this->institution = $institution;
         $this->uuid = $uuid;
         $this->firstName = $firstName;
         $this->lastName = $lastName;
@@ -112,6 +118,14 @@ class User
     public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * @return Institution
+     */
+    public function getInstitution(): Institution
+    {
+        return $this->institution;
     }
 
     /**
