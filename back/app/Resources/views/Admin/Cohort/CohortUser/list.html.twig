@@ -8,7 +8,7 @@
     <h2>
         <a href="{{ path('admin_institution_list') }}">{{ institution.name }}</a> | <a href="{{ path('admin_cohort_list', { 'institution': institution.id }) }}">{{ 'admin.cohort.cohortUser.list.title'|trans({'%cohortTitle%': cohort.title}) }}</a> | {{ 'admin.cohort.listStudents'|trans }}
         <span class="pull-right">
-            <a class="btn btn-primary" href="{{ path('admin_user_create') }}">
+            <a class="btn btn-primary" href="{{ path('admin_user_create', {'institution': institution.id}) }}">
                 {{ 'admin.user.create.title'|trans }}
             </a>
             <a class="btn btn-primary" href="{{ path('admin_cohort_assign_users', {'institution': institution.id, 'cohort': cohort.id}) }}">
@@ -54,7 +54,7 @@
                     <td>{{ user.multiLogin ? '✔︎' : '' }}</td>
                     <td class="text-right">
                         <div class="btn-group">
-                            <a href="{{ path('admin_user_update', {'user': user.id}) }}" class="btn btn-default btn-sm">
+                            <a href="{{ path('admin_user_update', {'user': user.id, 'institution': institution.id}) }}" class="btn btn-default btn-sm">
                                 {{ 'admin.user.action.update'|trans }}
                             </a>
                             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
