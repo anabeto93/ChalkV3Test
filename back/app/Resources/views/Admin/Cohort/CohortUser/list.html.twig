@@ -1,18 +1,20 @@
 {% extends '::base.html.twig' %}
 
-{% block title 'admin.cohort.cohortUser.list.title'|trans({'%cohortTitle%': cohort.title}) ~ ' | ' ~ 'admin.cohort.listStudents'|trans %}
+{% block title %}
+    {{ institution.name }} | {{ 'admin.cohort.title'|trans({'%cohortTitle%': cohort.title}) }} | {{ 'admin.user.list.title'|trans }}
+{% endblock title %}
 
 {% import ':Admin/Common:macro.html.twig' as macro %}
 
 {% block content %}
     <h2>
-        <a href="{{ path('admin_institution_list') }}">{{ institution.name }}</a> | <a href="{{ path('admin_cohort_list', { 'institution': institution.id }) }}">{{ 'admin.cohort.cohortUser.list.title'|trans({'%cohortTitle%': cohort.title}) }}</a> | {{ 'admin.cohort.listStudents'|trans }}
+        <a href="{{ path('admin_cohort_list', { 'institution': institution.id }) }}">{{ institution.name }}</a> | {{ 'admin.cohort.title'|trans({'%cohortTitle%': cohort.title}) }} | {{ 'admin.user.list.title'|trans }}
         <span class="pull-right">
             <a class="btn btn-primary" href="{{ path('admin_user_create', {'institution': institution.id}) }}">
                 {{ 'admin.user.create.title'|trans }}
             </a>
             <a class="btn btn-primary" href="{{ path('admin_cohort_assign_users', {'institution': institution.id, 'cohort': cohort.id}) }}">
-                {{ 'admin.cohort.cohortUser.assign.title'|trans }}
+                {{ 'admin.cohortUser.assign.title'|trans }}
             </a>
         </span>
     </h2>

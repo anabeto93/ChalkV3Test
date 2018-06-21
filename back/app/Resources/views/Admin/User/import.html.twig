@@ -2,7 +2,9 @@
 
 {% block title 'admin.user.import.title'|trans %}
 
-{% block form_title 'admin.user.import.title'|trans %}
+{% block form_title %}
+    <a href="{{ path('admin_user_list', {'institution': institution.id}) }}">{{ institution.name }}</a> | {{ 'admin.user.import.title'|trans }}
+{% endblock form_title %}
 
 {% block form_content %}
     {{ form_row(form.file) }}

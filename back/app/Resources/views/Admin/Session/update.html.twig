@@ -1,7 +1,11 @@
 {% extends ':Admin/Form:base_form_layout.html.twig' %}
 
-{% block title 'admin.session.update.title'|trans({'%sessionTitle%': session.title, '%courseTitle%': course.title }) %}
+{% block title course.institution.name ~ ' | ' ~ 'admin.course.title'|trans({'%courseTitle%': course.title}) ~ ' | ' ~ 'admin.session.update.title'|trans %}
 
-{% block form_title 'admin.session.update.title'|trans({'%sessionTitle%': session.title, '%courseTitle%': course.title }) %}
+{% block form_title %}
+    <a href="{{ path('admin_course_list', {'institution': course.institution.id}) }}">{{ course.institution.name }}</a>
+    | <a href="{{ path('admin_session_list', {'course': course.id}) }}">{{ 'admin.course.title'|trans({'%courseTitle%': course.title}) }}</a>
+    | {{ 'admin.session.update.title'|trans }}
+{% endblock form_title %}
 
 {% block goback_link path('admin_session_list', {'course': course.id}) %}

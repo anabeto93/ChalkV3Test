@@ -1,18 +1,20 @@
 {% extends '::base.html.twig' %}
 
-{% block title course.title ~ ': ' ~ 'admin.folder.title'|trans %}
+{% block title course.institution.name ~ ' | ' ~ 'admin.course.title'|trans({'%courseTitle%': course.title}) ~ ' | ' ~ 'admin.folder.list.title'|trans %}
 
 {% import ':Admin/Common:macro.html.twig' as macro %}
 
 {% block content %}
-    <h1>
-        {{ 'admin.folder.title'|trans }}
+    <h2>
+        <a href="{{ path('admin_course_list', {'institution': course.institution.id}) }}">{{ course.institution.name }}</a>
+        | {{ 'admin.course.title'|trans({'%courseTitle%': course.title}) }} | {{ 'admin.folder.list.title'|trans }}
+
         <span class="pull-right">
             <a class="btn btn-primary" href="{{ path('admin_folder_create', {'course': course.id}) }}">
                 {{ 'admin.folder.create.link'|trans }}
             </a>
         </span>
-    </h1>
+    </h2>
     <hr>
     {% if folders is empty %}
         <div class="alert alert-info">{{ 'admin.folder.no-result'|trans }}</div>

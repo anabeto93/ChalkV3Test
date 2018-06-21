@@ -1,13 +1,15 @@
 {% extends '::base.html.twig' %}
 
-{% block title 'admin.session.title'|trans({'%courseTitle%': course.title}) %}
+{% block title course.institution.name ~ ' | ' ~ 'admin.course.title'|trans({'%courseTitle%': course.title}) ~ ' | ' ~ 'admin.session.progression.title'|trans({'%sessionTitle%': session.title}) %}
 
 {% import ':Admin/Common:macro.html.twig' as macro %}
 
 {% block content %}
-    <h1>
-        {{ 'admin.session.progression.title'|trans({'%sessionTitle%': session.title}) }}
-    </h1>
+    <h3>
+        <a href="{{ path('admin_course_list', {'institution': course.institution.id}) }}">{{ course.institution.name }}</a>
+        | <a href="{{ path('admin_session_list', {'course': course.id}) }}">{{ 'admin.course.title'|trans({'%courseTitle%': course.title}) }}</a>
+        | {{ 'admin.session.progression.title'|trans({'%sessionTitle%': session.title}) }}
+    </h3>
 
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#usersValidated" aria-controls="usersValidated" role="tab" data-toggle="tab">{{ 'admin.session.progression.usersValidated.title'|trans }}</a></li>

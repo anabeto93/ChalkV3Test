@@ -1,7 +1,7 @@
 {% extends '::base.html.twig' %}
 
 {% block content %}
-    <h1 class="page-header">{% block form_title 'Form title' %}</h1>
+    <h2 class="page-header">{% block form_title %}Form Title{% endblock form_title %}</h2>
 
     {{ form_start(form, { 'attr': { 'class': 'with-submit-section' } }) }}
     {{ form_errors(form) }}

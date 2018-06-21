@@ -1,18 +1,20 @@
 {% extends '::base.html.twig' %}
 
-{% block title 'admin.session.title'|trans({'%courseTitle%': course.title}) %}
+{% block title course.institution.name ~ ' | ' ~ course.title ~ ' | ' ~ 'admin.session.list.title'|trans %}
 
 {% import ':Admin/Common:macro.html.twig' as macro %}
 
 {% block content %}
-    <h1>
-        {{ 'admin.session.title'|trans({'%courseTitle%': course.title}) }}
+    <h2>
+        <a href="{{ path('admin_course_list', {'institution': course.institution.id}) }}">{{ course.institution.name }}</a>
+        | {{ 'admin.course.title'|trans({'%courseTitle%': course.title}) }} | {{ 'admin.session.list.title'|trans }}
+
         <span class="pull-right">
             <a class="btn btn-primary" href="{{ path('admin_session_create', {'course': course.id}) }}">
                 {{ 'admin.session.create.link'|trans }}
             </a>
         </span>
-    </h1>
+    </h2>
     <hr>
     {% if sessions is empty %}
         <div class="alert alert-info">{{ 'admin.session.no-result'|trans }}</div>

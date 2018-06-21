@@ -22,8 +22,8 @@
                 <tr>
                     <th class="col-md-4">{{ 'admin.institution.column.name'|trans }}</th>
                     <th class="col-md-2">{{ 'admin.institution.column.cohorts'|trans }}</th>
-                    <th class="col-md-2">{{ 'admin.institution.column.courses'|trans }}</th>
                     <th class="col-md-2">{{ 'admin.institution.column.students'|trans }}</th>
+                    <th class="col-md-2">{{ 'admin.institution.column.courses'|trans }}</th>
                     <th class="col-md-2"></th>
                 </tr>
             </thead>
@@ -32,18 +32,18 @@
                 <tr>
                     <td>{{ institution.name }}</td>
                     <td>
-                        <a href="{{ path('admin_cohort_list', {'institution': institution.id}) }}" title="{{ 'admin.institution.listCohorts'|trans }}">
+                        <a href="{{ path('admin_cohort_list', {'institution': institution.id}) }}" title="{{ 'admin.cohort.list.title'|trans }}">
                             {{ institution.numberOfCohorts }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ path('admin_course_list', {'institution': institution.id}) }}" title="{{ 'admin.institution.listCourses'|trans }}">
-                            {{ institution.numberOfCourses }}
+                        <a href="{{ path('admin_user_list', {'institution': institution.id}) }}" title="{{ 'admin.user.list.title'|trans }}">
+                            {{ institution.numberOfStudents }}
                         </a>
                     </td>
                     <td>
-                        <a href="{{ path('admin_user_list', {'institution': institution.id}) }}" title="{{ 'admin.institution.listStudents'|trans }}">
-                            {{ institution.numberOfStudents }}
+                        <a href="{{ path('admin_course_list', {'institution': institution.id}) }}" title="{{ 'admin.course.list.title'|trans }}">
+                            {{ institution.numberOfCourses }}
                         </a>
                     </td>
                     <td class="text-right">

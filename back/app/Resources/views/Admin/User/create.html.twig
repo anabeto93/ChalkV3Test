@@ -2,6 +2,8 @@
 
 {% block title 'admin.user.create.title'|trans %}
 
-{% block form_title 'admin.user.create.title'|trans %}
+{% block form_title %}
+    <a href="{{ path('admin_user_list', {'institution': institution.id}) }}">{{ institution.name }}</a> | {{ 'admin.user.create.title'|trans }}
+{% endblock form_title %}
 
 {% block goback_link path('admin_user_list', {'institution': institution.id}) %}
