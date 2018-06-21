@@ -77,4 +77,11 @@ interface UserRepositoryInterface
      * @return User|null
      */
     public function findByUuid(string $userUuid): ?User;
+
+    /**
+     * @param $institution
+     *
+     * @return User[]
+     */
+    public function findByInstitution($institution): array;
 }

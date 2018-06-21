@@ -191,4 +191,21 @@ class UserRepository implements UserRepositoryInterface
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findByInstitution($institution): array
+    {
+        $queryBuilder = $this->entityManager
+            ->createQueryBuilder()
+            ->select('user')
+            ->from(User::class, 'user')
+            ->where('user.institution = :institution')
+            ->setParameter('institution', $institution)
+            ->orderBy('user.firstName', 'ASC')
+        ;
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }
