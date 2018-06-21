@@ -62,6 +62,7 @@ class UserRepository implements UserRepositoryInterface
             ->select('user')
             ->from(User::class, 'user', 'user.id')
             ->where('user.institution = :institution')
+            ->setParameter('institution', $institution)
             ->orderBy('user.lastName', 'ASC')
             ->addOrderBy('user.firstName', 'ASC');
 
