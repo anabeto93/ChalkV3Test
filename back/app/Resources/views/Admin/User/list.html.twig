@@ -1,10 +1,10 @@
 {% extends '::base.html.twig' %}
 
-{% block title 'admin.user.list.title'|trans %}
+{% block title institution.name ~ ' | ' ~ 'admin.user.list.title'|trans %}
 
 {% block content %}
-    <h1>
-        {{ 'admin.user.list.title'|trans }}
+    <h2>
+        <a href="{{ path('admin_institution_list') }}">{{ institution.name }}</a> | {{ 'admin.user.list.title'|trans }}
         <span class="pull-right">
             <a class="btn btn-default" href="{{ path('admin_user_import', {'institution': institution.id}) }}">
                 {{ 'admin.user.import.title'|trans }}
@@ -13,7 +13,7 @@
                 {{ 'admin.user.create.title'|trans }}
             </a>
         </span>
-    </h1>
+    </h2>
     <hr>
     {% if userList.users is empty %}
         <div class="alert alert-info">{{ 'admin.user.no-result'|trans }}</div>

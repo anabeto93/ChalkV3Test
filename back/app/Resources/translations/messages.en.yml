@@ -89,7 +89,7 @@ admin.user.import.column.firstName: First name
 admin.user.import.column.language: Language
 admin.user.import.column.lastName: Last name
 admin.user.import.column.phoneNumber: Phone number
-admin.user.list.title: 'List of students'
+admin.user.list.title: 'List of Students'
 admin.user.update.title: 'Update student'
 admin.user.no-result: 'No user'
 admin.user.batch.confirm: 'Confirm this action?'
