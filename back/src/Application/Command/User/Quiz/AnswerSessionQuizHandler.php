@@ -38,6 +38,7 @@ class AnswerSessionQuizHandler
 
     /** @var \DateTimeInterface */
     private $dateTime;
+
     /** @var QuestionRepositoryInterface */
     private $questionRepository;
 
@@ -115,6 +116,7 @@ class AnswerSessionQuizHandler
             $answerSessionQuiz->medium,
             $quizResultView->correctAnswersNumber,
             $quizResultView->questionsNumber,
+            explode(';', $answerSessionQuiz->answers),
             $quizResultView->questionsResult,
             $this->dateTime
         );
