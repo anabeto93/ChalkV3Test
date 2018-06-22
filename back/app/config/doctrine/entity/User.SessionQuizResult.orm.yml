@@ -11,6 +11,8 @@ App\Domain\Model\User\SessionQuizResult:
             type: integer
         questionsNumber:
             type: integer
+        questionsAnswers:
+            type: array
         questionsResult:
             type: array
         medium:
