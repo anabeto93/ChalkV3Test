@@ -54,4 +54,4 @@ App\Domain\Model\User:
             inversedBy: users
             joinColumn:
                 onDelete: CASCADE
-                nullable: true
+                nullable: false
