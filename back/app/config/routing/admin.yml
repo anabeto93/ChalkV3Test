@@ -54,7 +54,7 @@ admin_user_create:
     defaults: { _controller: App\Ui\Admin\Action\User\CreateAction }
 
 admin_user_update:
-    path: /institutions/{institution}/users/update
+    path: /institutions/{institution}/users/update/{user}
     methods: [GET, POST]
     requirements:
         institution: \d+
