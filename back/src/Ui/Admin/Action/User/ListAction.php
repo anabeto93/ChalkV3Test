@@ -113,7 +113,7 @@ class ListAction
             }
 
             return new RedirectResponse($this->router->generate('admin_user_list', [
-                'institution' => $institution,
+                'institution' => $institution->getId(),
             ]));
         }
 
