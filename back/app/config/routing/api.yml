@@ -1,3 +1,0 @@
-overblog_graphql_endpoint:
-    prefix: /graphql
-    resource: "@OverblogGraphQLBundle/Resources/config/routing/graphql.yml"

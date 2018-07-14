@@ -1,6 +1,0 @@
-services:
-    App\Infrastructure\Security\Api\ApiKeyUserProvider:
-        autowire: true
-
-    App\Infrastructure\Security\Api\ApiKeyAuthenticator:
-        autowire: true

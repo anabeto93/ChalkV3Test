@@ -1,4 +1,0 @@
-App\Application\Command\Cohort\Create:
-    properties:
-        title:
-            - NotBlank: ~

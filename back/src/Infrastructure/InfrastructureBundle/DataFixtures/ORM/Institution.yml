@@ -1,7 +1,0 @@
-App\Domain\Model\Institution:
-    institution_1:
-        __construct:
-            - "institution-uuid-string"
-            - "Chalkboard Education"
-            - <dateTime()>
-        updatedAt: <(new DateTime('2018-02-28 08:00:00.000'))>

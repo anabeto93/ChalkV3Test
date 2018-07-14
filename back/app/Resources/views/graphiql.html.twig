@@ -1,9 +1,0 @@
-{% extends 'OverblogGraphQLBundle:GraphiQL:index.html.twig' %}
-
-{% block graphql_fetcher_headers %}
-    headers = {
-        "Accept": "application/json",
-        "Content-Type": "application/json",
-        "Authorization": "Bearer {{ graphiql_default_user_api_key }}",
-    }
-{% endblock graphql_fetcher_headers %}

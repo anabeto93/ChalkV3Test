@@ -1,4 +1,0 @@
-App\Application\Command\Institution\Create:
-    properties:
-        name:
-            - NotBlank: ~

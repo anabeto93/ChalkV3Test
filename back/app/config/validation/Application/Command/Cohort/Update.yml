@@ -1,4 +1,0 @@
-App\Application\Command\Cohort\Update:
-    properties:
-        title:
-            - NotBlank: ~

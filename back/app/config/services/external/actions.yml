@@ -1,3 +1,0 @@
-services:
-    App\Ui\External\Action\Infobip\HookAction:
-        autowire: true

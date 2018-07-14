@@ -1,8 +1,0 @@
-App\Application\Command\Course\Update:
-    properties:
-        title:
-            - NotBlank: ~
-        teacherName:
-            - NotBlank: ~
-        enabled:
-            - NotNull: ~

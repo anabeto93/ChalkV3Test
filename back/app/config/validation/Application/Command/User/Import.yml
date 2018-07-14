@@ -1,5 +1,0 @@
-App\Application\Command\User\Import:
-    properties:
-        file:
-            - File:
-                mimeTypes: ['text/plain', 'text/csv', 'application/csv']
