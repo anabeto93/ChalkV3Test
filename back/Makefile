@@ -28,6 +28,8 @@ help:
 ## Install applications
 install:
 	composer install
+	cp .env.example .env
+	php artisan key:generate
 	php vendor/bin/homestead make
 	vagrant plugin install vagrant-hostmanager
 	vagrant up
