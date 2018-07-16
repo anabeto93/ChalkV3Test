@@ -28,5 +28,6 @@ help:
 ## Install applications
 install:
 	composer install
+	php vendor/bin/homestead make
 	vagrant plugin install vagrant-hostmanager
 	vagrant up
