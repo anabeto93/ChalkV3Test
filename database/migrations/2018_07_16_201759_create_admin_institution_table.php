@@ -19,8 +19,14 @@ class CreateAdminInstitutionTable extends Migration
             $table->unsignedInteger('institution_id');
             $table->timestamps();
 
-            $table->foreign('admin_id')->references('id')->on('admins');
-            $table->foreign('institution_id')->references('id')->on('institutions');
+            $table->foreign('admin_id')
+                ->references('id')
+                ->on('admins')
+                ->onDelete('cascade');
+            $table->foreign('institution_id')
+                ->references('id')
+                ->on('institutions')
+                ->onDelete('cascade');
         });
     }
 

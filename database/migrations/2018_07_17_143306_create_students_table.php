@@ -28,7 +28,10 @@ class CreateStudentsTable extends Migration
             $table->boolean('multi_device_login')->default(false);
             $table->timestamps();
 
-            $table->foreign('institution_id')->references('id')->on('institutions');
+            $table->foreign('institution_id')
+                ->references('id')
+                ->on('institutions')
+                ->onDelete('cascade');
         });
     }
 
