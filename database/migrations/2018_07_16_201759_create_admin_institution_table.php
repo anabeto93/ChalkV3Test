@@ -15,9 +15,12 @@ class CreateAdminInstitutionTable extends Migration
     {
         Schema::create('admin_institution', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('admin_id')->unsigned();
-            $table->integer('institution_id')->unsigned();
+            $table->unsignedInteger('admin_id');
+            $table->unsignedInteger('institution_id');
             $table->timestamps();
+
+            $table->foreign('admin_id')->references('id')->on('admins');
+            $table->foreign('institution_id')->references('id')->on('institutions');
         });
     }
 

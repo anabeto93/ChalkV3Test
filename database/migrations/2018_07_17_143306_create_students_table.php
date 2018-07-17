@@ -15,7 +15,7 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('institution_id')->unsigned();
+            $table->unsignedInteger('institution_id');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone_number')->unique();
@@ -27,6 +27,8 @@ class CreateStudentsTable extends Migration
             $table->boolean('force_update')->default(false);
             $table->boolean('multi_device_login')->default(false);
             $table->timestamps();
+
+            $table->foreign('institution_id')->references('id')->on('institutions');
         });
     }
 
