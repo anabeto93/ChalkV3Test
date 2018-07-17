@@ -21,6 +21,11 @@ class CreateCoursesTable extends Migration
             $table->string('teacher');
             $table->boolean('enabled')->default(false);
             $table->timestamps();
+
+            $table->foreign('institution_id')
+                ->references('id')
+                ->on('institutions')
+                ->onDelete('cascade');
         });
     }
 
