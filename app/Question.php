@@ -12,4 +12,11 @@ class Question extends Model
     public function quiz() {
         return $this->belongsTo(Quiz::class);
     }
+
+    /**
+     * The Answers that belong to the Question.
+     */
+    public function questionAnswers() {
+        return $this->belongsTo(QuestionAnswers::class);
+    }
 }
