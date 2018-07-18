@@ -15,10 +15,16 @@ class CreateFilesTable extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('institution_id')->nullable();
             $table->string('path');
             $table->unsignedInteger('fileable_id');
             $table->string('fileable_type');
             $table->timestamps();
+
+            $table->foreign('institution_id')
+                ->references('id')
+                ->on('institutions')
+                ->onDelete('set null');
         });
     }
 
