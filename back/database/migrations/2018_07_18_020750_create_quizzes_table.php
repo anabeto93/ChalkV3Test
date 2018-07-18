@@ -15,10 +15,16 @@ class CreateQuizzesTable extends Migration
     {
         Schema::create('quizzes', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('institution_id');
             $table->string('title');
             $table->unsignedInteger('quizzable_id');
             $table->string('quizzable_type');
             $table->timestamps();
+
+            $table->foreign('institution_id')
+                ->references('id')
+                ->on('institutions')
+                ->onDelete('cascade');
         });
     }
 
