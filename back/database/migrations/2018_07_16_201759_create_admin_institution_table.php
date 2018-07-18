@@ -19,6 +19,8 @@ class CreateAdminInstitutionTable extends Migration
             $table->unsignedInteger('institution_id');
             $table->timestamps();
 
+            $table->unique(array('admin_id','institution_id'));
+
             $table->foreign('admin_id')
                 ->references('id')
                 ->on('admins')
