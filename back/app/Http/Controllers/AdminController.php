@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreInstitutionRequest;
 use Illuminate\Http\Request;
 
-class InstitutionController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -33,7 +32,7 @@ class InstitutionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreInstitutionRequest $request)
+    public function store(Request $request)
     {
         //
     }
