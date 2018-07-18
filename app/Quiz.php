@@ -14,6 +14,14 @@ class Quiz extends Model
     }
 
     /**
+     * Get all of the owning Quiz models.
+     */
+    public function quizzable()
+    {
+        return $this->morphTo();
+    }
+
+    /**
      * The Questions that belong to the Quiz.
      */
     public function questions() {

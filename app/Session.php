@@ -28,6 +28,13 @@ class Session extends Model
     }
 
     /**
+     * The Quizzes that belongs to the Session.
+     */
+    public function quizzes() {
+        return $this->morphMany(Quiz::class, 'quizzable');
+    }
+
+    /**
      * The Files that belongs to the Session.
      */
     public function files() {
