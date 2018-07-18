@@ -21,9 +21,9 @@ class CreateStudentsTable extends Migration
             $table->string('phone_number')->unique();
             $table->string('country');
             $table->string('locale')->default('en');
-            $table->dateTime('last_login_access_sent_at')->nullable();
+            $table->dateTime('login_access_last_sent')->nullable();
             $table->string('api_token');
-            $table->dateTime('api_token_used_at')->nullable();
+            $table->dateTime('api_token_last_used')->nullable();
             $table->boolean('force_update')->default(false);
             $table->boolean('multi_device_login')->default(false);
             $table->timestamps();
