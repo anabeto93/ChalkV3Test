@@ -22,7 +22,7 @@ class CreateStudentsTable extends Migration
             $table->string('country');
             $table->string('locale')->default('en');
             $table->dateTime('login_access_last_sent')->nullable();
-            $table->string('api_token');
+            $table->string('api_token')->unique();
             $table->dateTime('api_token_last_used')->nullable();
             $table->boolean('force_update')->default(false);
             $table->boolean('multi_device_login')->default(false);
