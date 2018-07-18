@@ -40,4 +40,11 @@ class Course extends Model
     public function cohorts() {
         return $this->belongsToMany(Cohort::class);
     }
+
+    /**
+     * The Quizzes that belongs to the Course.
+     */
+    public function quizzes() {
+        return $this->morphMany(Quiz::class, 'quizzable');
+    }
 }
