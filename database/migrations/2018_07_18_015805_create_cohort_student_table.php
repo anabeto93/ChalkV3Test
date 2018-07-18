@@ -19,6 +19,8 @@ class CreateCohortStudentTable extends Migration
             $table->unsignedInteger('student_id');
             $table->timestamps();
 
+            $table->unique(array('cohort_id','student_id'));
+
             $table->foreign('cohort_id')
                 ->references('id')
                 ->on('cohorts')
