@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Answer extends Model
+class QuestionAnswer extends Model
 {
     /**
-     * The Question the Answer belongs to.
+     * The Question the QuestionAnswer belongs to.
      */
     public function question() {
         return $this->belongsTo(Question::class);
