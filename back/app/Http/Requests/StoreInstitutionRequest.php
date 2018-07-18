@@ -13,7 +13,7 @@ class StoreInstitutionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class StoreInstitutionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|string|min:4|max:50'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'institution name is required',
+            'name.min' => 'institution name is too short',
+            'name.max' => 'institution name is too long'
         ];
     }
 }
