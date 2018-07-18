@@ -19,6 +19,8 @@ class CreateCourseStudentTable extends Migration
             $table->unsignedInteger('student_id');
             $table->timestamps();
 
+            $table->unique(array('course_id','student_id'));
+
             $table->foreign('course_id')
                 ->references('id')
                 ->on('courses')
