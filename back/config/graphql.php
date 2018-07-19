@@ -4,7 +4,7 @@
  * Types
  */
 use App\GraphQL\Type\InstitutionType;
-use App\GraphQL\Type\StudentType;
+use App\GraphQL\Type\UserType;
 use App\GraphQL\Type\CourseType;
 use App\GraphQL\Type\FolderType;
 use App\GraphQL\Type\SessionType;
@@ -125,7 +125,7 @@ return [
     //
     'types' => [
         'Institution' => InstitutionType::class,
-        'Student' => StudentType::class,
+        'User' => UserType::class,
         'Course' => CourseType::class,
         'Folder' => FolderType::class,
         'Session' => SessionType::class,
