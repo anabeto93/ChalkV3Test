@@ -12,6 +12,7 @@ use App\GraphQL\Type\HasUpdatesType;
 use App\GraphQL\Type\QuizType;
 use App\GraphQL\Type\QuestionType;
 use App\GraphQL\Type\QuestionAnswerType;
+use App\GraphQL\Type\FileType;
 
 /**
  * Enums
@@ -132,6 +133,7 @@ return [
         'Quiz' => QuizType::class,
         'Question' => QuestionType::class,
         'QuestionAnswer' => QuestionAnswerType::class,
+        'File' => FileType::class,
         'QuestionEnum' => QuestionEnum::class,
     ],
 

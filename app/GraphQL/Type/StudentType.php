@@ -22,7 +22,7 @@ class StudentType extends GraphQLType {
 				'description' => 'Student ID',
 			],
 			'institution' => [
-				'type' => Type::nonNull(GraphQL::type('institution')),
+				'type' => Type::nonNull(GraphQL::type('Institution')),
 				'description' => 'Institution of student',
 			],
 			'first_name' => [
