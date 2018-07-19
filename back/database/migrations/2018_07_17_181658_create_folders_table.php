@@ -17,7 +17,7 @@ class CreateFoldersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('course_id');
             $table->smallInteger('order')->default(0);
-            $table->string('title');
+            $table->string('name');
             $table->timestamps();
 
             $table->foreign('course_id')

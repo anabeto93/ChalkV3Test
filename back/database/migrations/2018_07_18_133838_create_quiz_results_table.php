@@ -23,6 +23,8 @@ class CreateQuizResultsTable extends Migration
             $table->enum('medium', ['internet', 'sms']);
             $table->timestamps();
 
+            $table->unique(array('student_id', 'quiz_id'));
+
             $table->foreign('student_id')
                 ->references('id')
                 ->on('students')
