@@ -35,6 +35,10 @@ class AdminController extends Controller
      */
     public function store(StoreAdminRequest $request)
     {
+        $admin = [
+            'username' => $request->input('username'),
+            'password' => bcrypt($request->input('password'))
+        ];
         return response($request->all());
     }
 
