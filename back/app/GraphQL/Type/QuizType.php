@@ -26,7 +26,7 @@ class QuizType extends GraphQLType {
 				'description' => 'Title of the quiz',
             ],
 			'questions' => [
-				'type' => Type::listOf(GraphQL::type('question')),
+				'type' => Type::listOf(GraphQL::type('Question')),
 				'description' => 'Questions of the quiz',
             ]
 		];

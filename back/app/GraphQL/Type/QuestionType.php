@@ -34,7 +34,7 @@ class QuestionType extends GraphQLType {
 				'description' => 'Feedback to the question',
             ],
 			'answers' => [
-				'type' => Type::nonNull(Type::listOf(GraphQL::type('question_answer'))),
+				'type' => Type::nonNull(Type::listOf(GraphQL::type('QuestionAnswer'))),
 				'description' => 'Answers of the question',
             ]
 		];
