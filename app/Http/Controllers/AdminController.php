@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use App\Http\Requests\StoreAdminRequest;
 use Illuminate\Http\Request;
 
@@ -35,11 +36,8 @@ class AdminController extends Controller
      */
     public function store(StoreAdminRequest $request)
     {
-        $admin = [
-            'username' => $request->input('username'),
-            'password' => bcrypt($request->input('password'))
-        ];
-        return response($request->all());
+        $admin = new Admin($request->input('username'), $request->input('password'));
+        return $admin->store();
     }
 
     /**

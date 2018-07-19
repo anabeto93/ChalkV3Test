@@ -9,6 +9,13 @@ class Admin extends Model
     private $username;
     private $password;
 
+
+    public function __construct($username = null, $password = null)
+    {
+        $this->username = $username;
+        $this->password = $password;
+    }
+
     /**
      * @param mixed $username
      */
@@ -25,7 +32,7 @@ class Admin extends Model
         $this->password = $password;
     }
 
-    protected $fillable = ['username', 'password'];
+    protected $hidden = ['password'];
 
     /**
      * The Institutions that belong to the Admin.
@@ -51,6 +58,6 @@ class Admin extends Model
 
     public function store()
     {
-        return self::create(['username' => $this->username, 'password' => $this->password]);
+        return $this->save();
     }
 }
