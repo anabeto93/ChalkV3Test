@@ -14,9 +14,9 @@ class QuizResult extends Model
     }
 
     /**
-     * The Student the QuizResult belongs to.
+     * The User the QuizResult belongs to.
      */
-    public function student() {
-        return $this->belongsTo(Student::class);
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 }

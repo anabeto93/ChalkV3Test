@@ -28,10 +28,10 @@ class Course extends Model
     }
 
     /**
-     * The Students that belong to the Course.
+     * The Users that belong to the Course.
      */
-    public function students() {
-        return $this->belongsToMany(Student::class);
+    public function users() {
+        return $this->belongsToMany(User::class);
     }
 
     /**
