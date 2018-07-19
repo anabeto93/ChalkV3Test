@@ -19,6 +19,8 @@ class CreateProgressionsTable extends Migration
             $table->unsignedInteger('student_id');
             $table->timestamps();
 
+            $table->unique(array('session_id', 'student_id'));
+
             $table->foreign('session_id')
                 ->references('id')
                 ->on('sessions')
