@@ -14,10 +14,10 @@ class Institution extends Model
     }
 
     /**
-     * The Students that belong to the Institution.
+     * The Users that belong to the Institution.
      */
-    public function students() {
-        return $this->hasMany(Student::class);
+    public function users() {
+        return $this->hasMany(User::class);
     }
 
     /**
