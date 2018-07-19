@@ -6,24 +6,24 @@ use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
 
-use App\Student;
+use App\User;
 
-class StudentType extends GraphQLType {
+class UserType extends GraphQLType {
 	protected $attributes = [
-		'name' => 'Student',
-		'description' => 'A student',
-		'model' => Student::class,
+		'name' => 'User',
+		'description' => 'A user',
+		'model' => User::class,
 	];
 
 	public function fields() {
 		return [
 			'id' => [
 				'type' => Type::nonNull(Type::int()),
-				'description' => 'Student ID',
+				'description' => 'User ID',
 			],
 			'institution' => [
 				'type' => Type::nonNull(GraphQL::type('Institution')),
-				'description' => 'Institution of student',
+				'description' => 'Institution of user',
 			],
 			'first_name' => [
 				'type' => Type::nonNull(Type::string()),
