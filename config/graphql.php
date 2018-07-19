@@ -13,6 +13,11 @@ use App\GraphQL\Type\QuizType;
 use App\GraphQL\Type\QuestionType;
 use App\GraphQL\Type\QuestionAnswerType;
 
+/**
+ * Enums
+ */
+use App\GraphQL\Enum\QuestionEnum;
+
 return [
 
     // The prefix for routes
@@ -127,6 +132,7 @@ return [
         'Quiz' => QuizType::class,
         'Question' => QuestionType::class,
         'QuestionAnswer' => QuestionAnswerType::class,
+        'QuestionEnum' => QuestionEnum::class,
     ],
 
     // This callable will be passed the Error object for each errors GraphQL catch.
