@@ -41,7 +41,7 @@ class SessionType extends GraphQLType {
 				'type' => Type::nonNull(Type::boolean()),
 				'description' => 'Is the session progression locked?',
 			],
-			'progressed' => [
+			'has_progressed' => [
 				'type' => Type::boolean(),
                 'description' => 'Has the student progressed already from this session?',
                 'selectable' => false,
