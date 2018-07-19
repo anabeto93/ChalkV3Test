@@ -27,7 +27,7 @@ class QuestionType extends GraphQLType {
             ],
 			'feedback' => [
 				'type' => Type::string(),
-				'description' => 'Feedback of the question',
+				'description' => 'Feedback to the question',
             ],
 			'answers' => [
 				'type' => Type::listOf(GraphQL::type('question_answer')),
