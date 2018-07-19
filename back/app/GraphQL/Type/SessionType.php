@@ -51,11 +51,11 @@ class SessionType extends GraphQLType {
 				'description' => 'Date session was updated in format YYYY-MM-DD HH:MM',
 			],
 			'files' => [
-				'type' => Type::listOf(GraphQL::type('file')),
+				'type' => Type::listOf(GraphQL::type('File')),
 				'description' => 'Files of the session',
 			],
 			'quiz' => [
-				'type' => GraphQL::type('quiz'),
+				'type' => GraphQL::type('Quiz'),
 				'description' => 'Quiz of the session',
 			]
 		];

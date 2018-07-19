@@ -42,11 +42,11 @@ class CourseType extends GraphQLType {
 				'description' => 'Date course was updated in format YYYY-MM-DD HH:MM',
 			],
 			'folders' => [
-				'type' => Type::listOf(GraphQL::type('folder')),
+				'type' => Type::listOf(GraphQL::type('Folder')),
 				'description' => 'Folders of the course',
 			],
 			'quiz' => [
-				'type' => GraphQL::type('quiz'),
+				'type' => GraphQL::type('Quiz'),
 				'description' => 'Quiz of the session',
 			]
 		];
