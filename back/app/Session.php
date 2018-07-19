@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 
 class Session extends Model
@@ -39,5 +40,14 @@ class Session extends Model
      */
     public function files() {
         return $this->morphMany(File::class, 'fileable');
+    }
+
+    /**
+     * Has the student progressed past this session?
+     */
+    public function hasProgressed() {
+        $student_id = Auth::student()->id;
+
+        return !is_empty($this->progressions()->where('student_id', $student_id)->get());
     }
 }
