@@ -44,8 +44,13 @@ class Admin extends Model
         $this->attributes['username'] = strtolower($username);
     }
 
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
+
     public function store()
     {
-
+        return self::create(['username' => $this->username, 'password' => $this->password]);
     }
 }
