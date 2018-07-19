@@ -38,11 +38,11 @@ class FolderType extends GraphQLType {
 				'description' => 'Date folder was updated in format YYYY-MM-DD HH:MM',
 			],
 			'sessions' => [
-				'type' => Type::listOf(GraphQL::type('session')),
+				'type' => Type::listOf(GraphQL::type('Session')),
 				'description' => 'Sessions of the folder',
 			],
 			'quiz' => [
-				'type' => GraphQL::type('quiz'),
+				'type' => GraphQL::type('Quiz'),
 				'description' => 'Quiz of the session',
 			]
 		];
