@@ -9,6 +9,22 @@ class Admin extends Model
     private $username;
     private $password;
 
+    /**
+     * @param mixed $username
+     */
+    public function setUsername($username): void
+    {
+        $this->username = $username;
+    }
+
+    /**
+     * @param mixed $password
+     */
+    public function setPassword($password): void
+    {
+        $this->password = $password;
+    }
+
     protected $fillable = ['username', 'password'];
 
     /**
@@ -23,7 +39,7 @@ class Admin extends Model
      *
      * @param $username
      */
-    public function setUserNameAttribute($username)
+    public function setUsernameAttribute($username)
     {
         $this->attributes['username'] = strtolower($username);
     }
