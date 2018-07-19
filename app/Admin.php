@@ -12,4 +12,9 @@ class Admin extends Model
     public function institutions() {
         return $this->belongsToMany(Institution::class);
     }
+
+    public function setUserNameAttribute($username)
+    {
+        $this->attributes['username'] = strtolower($username);
+    }
 }
