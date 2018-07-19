@@ -25,12 +25,16 @@ class QuestionType extends GraphQLType {
 				'type' => Type::nonNull(Type::string()),
 				'description' => 'Title of the question',
             ],
+			'type' => [
+				'type' => Type::nonNull(GraphQL::type('QuestionEnum')),
+				'description' => 'Type of the question',
+            ],
 			'feedback' => [
 				'type' => Type::string(),
 				'description' => 'Feedback to the question',
             ],
 			'answers' => [
-				'type' => Type::listOf(GraphQL::type('question_answer')),
+				'type' => Type::nonNull(Type::listOf(GraphQL::type('question_answer'))),
 				'description' => 'Answers of the question',
             ]
 		];
