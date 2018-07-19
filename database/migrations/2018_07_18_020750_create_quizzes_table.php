@@ -21,6 +21,8 @@ class CreateQuizzesTable extends Migration
             $table->string('quizzable_type');
             $table->timestamps();
 
+            $table->unique(array('quizzable_id', 'quizzable_type'));
+
             $table->foreign('institution_id')
                 ->references('id')
                 ->on('institutions')
