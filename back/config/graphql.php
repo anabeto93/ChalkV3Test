@@ -1,10 +1,17 @@
 <?php
 
-
-use example\Mutation\ExampleMutation;
-use example\Query\ExampleQuery;
-use example\Type\ExampleRelationType;
-use example\Type\ExampleType;
+/**
+ * Types
+ */
+use App\GraphQL\Type\InstitutionType;
+use App\GraphQL\Type\StudentType;
+use App\GraphQL\Type\CourseType;
+use App\GraphQL\Type\FolderType;
+use App\GraphQL\Type\SessionType;
+use App\GraphQL\Type\HasUpdatesType;
+use App\GraphQL\Type\QuizType;
+use App\GraphQL\Type\QuestionType;
+use App\GraphQL\Type\QuestionAnswerType;
 
 return [
 
@@ -92,10 +99,10 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                'example_query' => ExampleQuery::class,
+
             ],
             'mutation' => [
-                'example_mutation'  => ExampleMutation::class,
+
             ],
             'middleware' => []
         ],
@@ -111,8 +118,15 @@ return [
     // ]
     //
     'types' => [
-        'example'           => ExampleType::class,
-        'relation_example'  => ExampleRelationType::class,
+        'Institution' => InstitutionType::class,
+        'Student' => StudentType::class,
+        'Course' => CourseType::class,
+        'Folder' => FolderType::class,
+        'Session' => SessionType::class,
+        'HasUpdates' => HasUpdatesType::class,
+        'Quiz' => QuizType::class,
+        'Question' => QuestionType::class,
+        'QuestionAnswer' => QuestionAnswerType::class,
     ],
 
     // This callable will be passed the Error object for each errors GraphQL catch.
