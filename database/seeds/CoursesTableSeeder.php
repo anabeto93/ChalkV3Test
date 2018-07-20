@@ -2,6 +2,7 @@
 
 use App\Course;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class CoursesTableSeeder extends Seeder
 {
@@ -12,12 +13,17 @@ class CoursesTableSeeder extends Seeder
      */
     public function run()
     {
-        Course::create([
+        $course = Course::create([
             'institution_id' => 1,
             'name' => 'Laravel',
             'description' => 'An intro to V3',
             'teacher' => 'Nii Apa Abbey',
             'enabled' => true
+        ]);
+
+        DB::table('course_user')->insert([
+            'course_id' => $course->id,
+            'user_id' => 1
         ]);
 
         Course::create([
