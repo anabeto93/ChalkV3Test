@@ -16,5 +16,15 @@ class CohortsTableSeeder extends Seeder
             'institution_id' => 1,
             'name' => 'A',
         ]);
+
+        DB::table('cohort_user')->insert([
+            'cohort_id' => $cohort->id,
+            'user_id' => 1
+        ]);
+
+        DB::table('cohort_course')->insert([
+            'cohort_id' => $cohort->id,
+            'course_id' => 1
+        ]);
     }
 }
