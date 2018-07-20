@@ -3,13 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Admin extends Model
 {
-    private $username;
-    private $password;
 
-
+    /**
+     * Admin constructor.
+     * @param null $username
+     * @param null $password
+     */
     public function __construct($username = null, $password = null)
     {
         $this->username = $username;
@@ -48,7 +51,7 @@ class Admin extends Model
      */
     public function setUsernameAttribute($username)
     {
-        $this->attributes['username'] = strtolower($username);
+//        $this->attributes['username'] = strtolower($username);
     }
 
     public function setPasswordAttribute($password)
@@ -58,6 +61,34 @@ class Admin extends Model
 
     public function store()
     {
-        return $this->save();
+        try {
+            $this->save();
+            return $this;
+        } catch (\Exception $exception) {
+            return response()->json([
+                'error' => true,
+                'code' => $exception->getCode(),
+                'reason' => $exception->getMessage()
+            ]);
+        }
+
+    }
+
+    public function updateRecord(int $id, Request $request)
+    {
+        $admin = $this->find($id);
+        $admin->username = $request->input('username', $admin->username);
+        $admin->password = $request->input('password', $admin->password);
+
+        try {
+            $admin->save();
+            return $admin;
+        } catch (\Exception $exception){
+            return response()->json([
+                'error' => true,
+                'code' => $exception->getCode(),
+                'reason' => $exception->getMessage()
+            ]);
+        }
     }
 }
