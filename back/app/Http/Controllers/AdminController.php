@@ -43,23 +43,23 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Admin $admin
+     * @return Admin
      */
-    public function show($id)
+    public function show(Admin $admin)
     {
-        //
+        return $admin;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Admin $admin
+     * @return Admin
      */
-    public function edit($id)
+    public function edit(Admin $admin)
     {
-        //
+        return $admin;
     }
 
     /**
@@ -71,7 +71,8 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $admin = new Admin();
+        return $admin->updateRecord($id);
     }
 
     /**
