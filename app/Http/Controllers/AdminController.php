@@ -75,6 +75,11 @@ class AdminController extends Controller
         return $admin->updateRecord($id);
     }
 
+    public function changePassword()
+    {
+        
+    }
+
     /**
      * Remove the specified resource from storage.
      *
