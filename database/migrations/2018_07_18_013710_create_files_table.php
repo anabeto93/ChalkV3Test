@@ -19,6 +19,7 @@ class CreateFilesTable extends Migration
             $table->string('path');
             $table->unsignedInteger('fileable_id');
             $table->string('fileable_type');
+            $table->integer('size');
             $table->timestamps();
 
             $table->foreign('institution_id')
