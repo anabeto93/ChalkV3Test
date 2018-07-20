@@ -91,4 +91,28 @@ class Admin extends Model
             ]);
         }
     }
+
+    public function changePassword(int $id, string $old_password, string $new_password)
+    {
+        $admin = Admin::find($id);
+        if (hash_equals($admin->password, bcrypt($old_password))){
+            $admin->password = $new_password;
+            try {
+                $admin->save();
+                return $admin;
+            } catch (\Exception $exception){
+                return response()->json([
+                    'error' => true,
+                    'code' => $exception->getCode(),
+                    'reason' => $exception->getMessage()
+                ]);
+            }
+        } else {
+            return response()->json([
+                'error' => true,
+                'code' => 900,
+                'reason' => 'password mismatch'
+            ]);
+        }
+    }
 }

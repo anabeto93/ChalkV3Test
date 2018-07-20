@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Admin;
+use App\Http\Requests\ChangeAdminPasswordRequest;
 use App\Http\Requests\StoreAdminRequest;
 use Illuminate\Http\Request;
 
@@ -72,10 +73,10 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         $admin = new Admin();
-        return $admin->updateRecord($id);
+        return $admin->updateRecord($id, $request);
     }
 
-    public function changePassword()
+    public function changePassword(ChangeAdminPasswordRequest $request, $id)
     {
         
     }
