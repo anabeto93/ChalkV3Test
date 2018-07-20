@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
             'institution_id' => 1,
             'first_name' => 'Tester',
             'last_name' => 'Account',
-            'phone_numer' =>  '+233123456789',
+            'phone_number' =>  '+233123456789',
             'country' => 'gh',
             'locale' => 'en',
             'token' => 'tester'
@@ -26,7 +26,7 @@ class UsersTableSeeder extends Seeder
             'institution_id' => 2,
             'first_name' => 'Second',
             'last_name' => 'Account',
-            'phone_numer' =>  '+233000000000',
+            'phone_number' =>  '+233000000000',
             'country' => 'gh',
             'locale' => 'en',
             'token' => 'logger'
