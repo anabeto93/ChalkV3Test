@@ -16,13 +16,13 @@ class FileType extends GraphQLType {
 
 	public function fields() {
 		return [
-			'id' => [
-				'type' => Type::nonNull(Type::int()),
-				'description' => 'File ID',
-			],
 			'path' => [
 				'type' => Type::nonNull(Type::string()),
 				'description' => 'Path of the file',
+            ],
+			'size' => [
+				'type' => Type::nonNull(Type::int()),
+				'description' => 'Size of the file',
             ]
 		];
 	}
