@@ -19,6 +19,11 @@ use App\GraphQL\Type\FileType;
  */
 use App\GraphQL\Enum\QuestionEnum;
 
+/**
+ * Queries
+ */
+use App\GraphQL\Query\UserQuery;
+
 return [
 
     // The prefix for routes
@@ -105,7 +110,7 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-
+                'user' => UserQuery::class
             ],
             'mutation' => [
 
