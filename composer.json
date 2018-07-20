@@ -12,13 +12,14 @@
         "rebing/graphql-laravel": "^1.14"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.1",
         "filp/whoops": "^2.0",
         "fzaninotto/faker": "^1.4",
         "laravel/homestead": "^7.12",
         "mockery/mockery": "^1.0",
+        "noh4ck/graphiql": "@dev",
         "nunomaduro/collision": "^2.0",
-        "phpunit/phpunit": "^7.0",
-        "noh4ck/graphiql": "@dev"
+        "phpunit/phpunit": "^7.0"
     },
     "autoload": {
         "classmap": [
