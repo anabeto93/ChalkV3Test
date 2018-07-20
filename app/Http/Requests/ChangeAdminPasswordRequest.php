@@ -13,7 +13,7 @@ class ChangeAdminPasswordRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class ChangeAdminPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'password' => 'bail|required|min:5|confirmed'
         ];
     }
 }
