@@ -23,6 +23,7 @@ use App\GraphQL\Enum\QuestionEnum;
  * Queries
  */
 use App\GraphQL\Query\UserQuery;
+use App\GraphQL\Query\HasUpdatesQuery;
 
 return [
 
@@ -110,7 +111,8 @@ return [
     'schemas' => [
         'default' => [
             'query' => [
-                'user' => UserQuery::class
+                'user' => UserQuery::class,
+                'hasUpdates' => HasUpdatesQuery::class
             ],
             'mutation' => [
 
