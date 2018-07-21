@@ -16,12 +16,8 @@ class InstitutionType extends GraphQLType {
 
 	public function fields() {
 		return [
-			'id' => [
-				'type' => Type::nonNull(Type::int()),
-				'description' => 'Institution ID',
-			],
 			'name' => [
-				'type' => Type::nonNull(Type::string()),
+				'type' => Type::string(),
 				'description' => 'Name of Institution',
 			]
 		];

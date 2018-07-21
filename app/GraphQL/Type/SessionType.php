@@ -5,6 +5,7 @@ namespace App\GraphQL\Type;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
+use Vinkla\Hashids\Facades\Hashids;
 
 use App\Session;
 
@@ -17,9 +18,10 @@ class SessionType extends GraphQLType {
 
 	public function fields() {
 		return [
-			'id' => [
-				'type' => Type::nonNull(Type::int()),
-				'description' => 'Session ID',
+			'hash_id' => [
+				'type' => Type::nonNull(Type::string()),
+                'description' => 'Session hashID',
+                'selectable' => false
 			],
 			'name' => [
 				'type' => Type::nonNull(Type::string()),
@@ -59,5 +61,9 @@ class SessionType extends GraphQLType {
 				'description' => 'Quiz of the session',
 			]
 		];
-	}
+    }
+
+    protected function resolveHashIdField($root, $args) {
+        return Hashids::connection('session')->encode($root->id);
+    }
 }
