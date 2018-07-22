@@ -3,10 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class Admin extends Model
 {
+    protected $hidden = ['password'];
 
     /**
      * Admin constructor.
@@ -20,24 +21,6 @@ class Admin extends Model
     }
 
     /**
-     * @param mixed $username
-     */
-    public function setUsername($username): void
-    {
-        $this->username = $username;
-    }
-
-    /**
-     * @param mixed $password
-     */
-    public function setPassword($password): void
-    {
-        $this->password = $password;
-    }
-
-    protected $hidden = ['password'];
-
-    /**
      * The Institutions that belong to the Admin.
      */
     public function institutions() {
@@ -49,14 +32,24 @@ class Admin extends Model
      *
      * @param $username
      */
-    public function setUsernameAttribute($username)
-    {
+//    public function setUsernameAttribute($username)
+//    {
 //        $this->attributes['username'] = strtolower($username);
-    }
+//    }
 
+    /**
+     * Hash password string
+     *
+     * @param $password
+     */
     public function setPasswordAttribute($password)
     {
         $this->attributes['password'] = bcrypt($password);
+    }
+
+    public function getUsernameAttribute()
+    {
+        return $this->attributes['username'];
     }
 
     public function store()
@@ -74,28 +67,10 @@ class Admin extends Model
 
     }
 
-    public function updateRecord(int $id, Request $request)
-    {
-        $admin = $this->find($id);
-        $admin->username = $request->input('username', $admin->username);
-        $admin->password = $request->input('password', $admin->password);
-
-        try {
-            $admin->save();
-            return $admin;
-        } catch (\Exception $exception){
-            return response()->json([
-                'error' => true,
-                'code' => $exception->getCode(),
-                'reason' => $exception->getMessage()
-            ]);
-        }
-    }
-
-    public function changePassword(int $id, string $old_password, string $new_password)
+    public static function changePassword(int $id, string $old_password, string $new_password)
     {
         $admin = Admin::find($id);
-        if (hash_equals($admin->password, bcrypt($old_password))){
+        if (Hash::check($old_password, $admin->password)){
             $admin->password = $new_password;
             try {
                 $admin->save();
