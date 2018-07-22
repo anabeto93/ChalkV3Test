@@ -24,7 +24,8 @@ class ChangeAdminPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'password' => 'bail|required|min:5|confirmed'
+            'password' => 'bail|required|min:5',
+            'new_password' => 'bail|required|min:5|confirmed'
         ];
     }
 }

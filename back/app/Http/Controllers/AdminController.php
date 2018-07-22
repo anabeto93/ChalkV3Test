@@ -78,7 +78,7 @@ class AdminController extends Controller
 
     public function changePassword(ChangeAdminPasswordRequest $request, $id)
     {
-        
+        return Admin::changePassword($id, $request->input('password'), $request->input('new_password'));
     }
 
     /**

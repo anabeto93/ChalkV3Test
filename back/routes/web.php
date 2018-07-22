@@ -18,3 +18,4 @@ Route::get('/', function () {
 });
 
 Route::resource('admins', 'AdminController');
+Route::put('admins/{id}/change.password', 'AdminController@changePassword');
