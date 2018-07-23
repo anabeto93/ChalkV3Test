@@ -43,11 +43,11 @@ class Session extends Model
     }
 
     /**
-     * Has the student progressed past this session?
+     * Has the user progressed past this session?
      */
     public function hasProgressed() {
-        $student_id = Auth::student()->id;
+        $user_id = Auth::user()->id;
 
-        return !is_empty($this->progressions()->where('student_id', $student_id)->get());
+        return !is_empty($this->progressions()->where('user_id', $user_id)->get());
     }
 }

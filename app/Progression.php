@@ -14,9 +14,9 @@ class Progression extends Model
     }
 
     /**
-     * The Student the Progression belongs to.
+     * The User the Progression belongs to.
      */
-    public function student() {
-        return $this->belongsTo(Student::class);
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 }
