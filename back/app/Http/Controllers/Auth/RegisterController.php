@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Admin;
+use App\Http\Requests\StoreAdminRequest;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -57,6 +59,14 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+        ]);
+    }
+
+    public function createAdmin(StoreAdminRequest $request)
+    {
+        return Admin::create([
+            'username' => $request->input('username'),
+            'password' => $request->input('password')
         ]);
     }
 }
