@@ -41,19 +41,19 @@ class Admin extends Model
             $response = [
                 'error' => true,
                 'code' => 4005,
-                'reason' => 'institution already added'
+                'reason' => 'Institution already added'
             ];
         } elseif (is_null($admin->institutions()->attach($institution_id))) {
             $response = [
                 'error' => false,
                 'code' => 2000,
-                'reason' => 'institution added'
+                'reason' => 'Institution added'
             ];
         } else {
             $response = [
                 'error' => true,
                 'code' => 5005,
-                'reason' => 'something went wrong, we could not complete your request at this time'
+                'reason' => 'Something went wrong, we could not complete your request at this time'
             ];
         }
 
