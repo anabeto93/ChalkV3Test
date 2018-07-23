@@ -18,6 +18,7 @@ Route::get('/', function () {
 });
 
 Route::post('admins/register', 'Auth\RegisterController@createAdmin');
+Route::get('admins/{admin}/institutions/{institution}', 'AdminController@institution');
 Route::resource('admins', 'AdminController');
 Route::put('admins/{id}/change.password', 'AdminController@changePassword');
 

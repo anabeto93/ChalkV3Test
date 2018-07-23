@@ -19,6 +19,11 @@ class AdminTest extends TestCase
 
     }
 
+    public function testAddInstitution()
+    {
+        $this->get('admins/1/institutions/2')->assertJson(['error' => false]);
+    }
+
 //    public function testChangePassword()
 //    {
 //        $this->put('admins/1/change.password', ['password' => 'secret', 'new_password' => 'password', 'new_password_confirmation' => 'password'])->assertJson(['username' => 'sign']);

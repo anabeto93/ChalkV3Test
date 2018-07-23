@@ -37,8 +37,13 @@ class AdminController extends Controller
      */
     public function store(StoreAdminRequest $request)
     {
-        $admin = new Admin($request->input('username'), $request->input('password'));
+        $admin = new Admin();
         return $admin->store();
+    }
+
+    public function institution($admin_id, $institution_id)
+    {
+        return Admin::addInstitutions($admin_id, $institution_id);
     }
 
     /**
