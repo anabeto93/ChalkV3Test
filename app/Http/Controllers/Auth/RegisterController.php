@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Admin;
+use App\Http\Requests\ChangeAdminPasswordRequest;
 use App\Http\Requests\StoreAdminRequest;
 use App\User;
 use App\Http\Controllers\Controller;
