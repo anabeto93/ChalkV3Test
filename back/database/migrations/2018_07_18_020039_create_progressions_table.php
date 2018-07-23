@@ -16,18 +16,18 @@ class CreateProgressionsTable extends Migration
         Schema::create('progressions', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('session_id');
-            $table->unsignedInteger('student_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
 
-            $table->unique(array('session_id', 'student_id'));
+            $table->unique(array('session_id', 'user_id'));
 
             $table->foreign('session_id')
                 ->references('id')
                 ->on('sessions')
                 ->onDelete('cascade');
-            $table->foreign('student_id')
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('students')
+                ->on('users')
                 ->onDelete('cascade');
         });
     }

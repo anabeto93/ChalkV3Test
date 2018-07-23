@@ -21,9 +21,9 @@ class Cohort extends Model
     }
 
     /**
-     * The Students that belong to the Cohort.
+     * The Users that belong to the Cohort.
      */
-    public function students() {
-        return $this->belongsToMany(Student::class);
+    public function users() {
+        return $this->belongsToMany(User::class);
     }
 }
