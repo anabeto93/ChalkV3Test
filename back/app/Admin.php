@@ -7,18 +7,8 @@ use Illuminate\Support\Facades\Hash;
 
 class Admin extends Model
 {
+    protected $fillable = ['username', 'password'];
     protected $hidden = ['password'];
-
-    /**
-     * Admin constructor.
-     * @param null $username
-     * @param null $password
-     */
-    public function __construct($username = null, $password = null)
-    {
-        $this->username = $username;
-        $this->password = $password;
-    }
 
     /**
      * The Institutions that belong to the Admin.
@@ -27,20 +17,6 @@ class Admin extends Model
         return $this->belongsToMany(Institution::class);
     }
 
-    /**
-     * Hash password string
-     *
-     * @param $password
-     */
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = bcrypt($password);
-    }
-
-    public function getUsernameAttribute()
-    {
-        return $this->attributes['username'];
-    }
 
     public function store()
     {

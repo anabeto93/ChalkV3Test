@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('admins/register', 'Auth\RegisterController@createAdmin');
 Route::resource('admins', 'AdminController');
 Route::put('admins/{id}/change.password', 'AdminController@changePassword');
 
