@@ -25,7 +25,7 @@ class StoreAdminRequest extends FormRequest
     {
         return [
             'username' => 'bail|required|string|unique:admins',
-            'password' => 'bail|required|confirmed|min:5'
+            'password' => 'bail|required|confirmed|min:5',
         ];
     }
 }
