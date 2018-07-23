@@ -65,7 +65,7 @@ class RegisterController extends Controller
     public function createAdmin(StoreAdminRequest $request)
     {
         return Admin::create([
-            'username' => $request->input('username'),
+            'username' => strtolower($request->input('username')),
             'password' => $request->input('password')
         ]);
     }
