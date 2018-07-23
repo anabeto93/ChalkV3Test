@@ -28,16 +28,6 @@ class Admin extends Model
     }
 
     /**
-     * Change username to lower case
-     *
-     * @param $username
-     */
-//    public function setUsernameAttribute($username)
-//    {
-//        $this->attributes['username'] = strtolower($username);
-//    }
-
-    /**
      * Hash password string
      *
      * @param $password
