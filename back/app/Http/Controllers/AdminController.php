@@ -6,6 +6,7 @@ use App\Admin;
 use App\Http\Requests\ChangeAdminPasswordRequest;
 use App\Http\Requests\StoreAdminRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -41,9 +42,9 @@ class AdminController extends Controller
         return $admin->store();
     }
 
-    public function institution($admin_id, $institution_id)
+    public function institution(Request $request)
     {
-        return Admin::addInstitutions($admin_id, $institution_id);
+        return Admin::addInstitutions($request->user()->id, $request->input('institution_id'));
     }
 
     /**
@@ -81,10 +82,10 @@ class AdminController extends Controller
         return $admin->updateRecord($id, $request);
     }
 
-    public function changePassword(ChangeAdminPasswordRequest $request, $id)
-    {
-        return Admin::changePassword($id, $request->input('password'), $request->input('new_password'));
-    }
+//    public function changePassword(ChangeAdminPasswordRequest $request, $id)
+//    {
+//        return Admin::changePassword($id, $request->input('password'), $request->input('new_password'));
+//    }
 
     /**
      * Remove the specified resource from storage.

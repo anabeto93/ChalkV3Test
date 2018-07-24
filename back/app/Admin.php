@@ -2,12 +2,21 @@
 
 namespace App;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Admin extends User
+class Admin extends Authenticatable
 {
+    use Notifiable;
+
     protected $fillable = ['username', 'password'];
     protected $hidden = ['password'];
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
 
     /**
      * The Institutions that belong to the Admin.
@@ -15,7 +24,6 @@ class Admin extends User
     public function institutions() {
         return $this->belongsToMany(Institution::class);
     }
-
 
     public function store()
     {
