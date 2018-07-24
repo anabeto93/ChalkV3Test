@@ -2,10 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 
-class Admin extends Model
+class Admin extends User
 {
     protected $fillable = ['username', 'password'];
     protected $hidden = ['password'];
