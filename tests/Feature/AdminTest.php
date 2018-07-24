@@ -4,8 +4,6 @@ namespace Tests\Feature;
 
 use App\Admin;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AdminTest extends TestCase
 {
@@ -23,6 +21,6 @@ class AdminTest extends TestCase
     public function testAddInstitution()
     {
         $this->actingAs(Admin::first());
-        $this->get('admins/institutions.add')->assertJson(['error' => false]);
+        $this->post('admins/institutions.add', ['institution_id' => rand(1, 5)])->assertJson(['error' => false]);
     }
 }
