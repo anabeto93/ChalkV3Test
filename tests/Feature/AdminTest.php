@@ -20,7 +20,8 @@ class AdminTest extends TestCase
 
     public function testAddInstitution()
     {
-        $this->actingAs(Admin::first());
-        $this->post('admins/institutions.add', ['institution_id' => rand(1, 5)])->assertJson(['error' => false]);
+        $this->actingAs(Admin::first())
+            ->post('admins/institutions.add', ['institution_id' => rand(1, 5)])
+            ->assertJson(['error' => false]);
     }
 }
