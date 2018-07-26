@@ -19,6 +19,6 @@ class SessionQuery extends Query {
 	}
 
 	public function resolve($root, $args) {
-        return Session::enabled();
+        return Session::enabled()->get();
 	}
 }
