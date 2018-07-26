@@ -19,6 +19,6 @@ class CoursesQuery extends Query {
 	}
 
 	public function resolve($root, $args) {
-        return Course::enabledCourses();
+        return Course::enabled();
 	}
 }
