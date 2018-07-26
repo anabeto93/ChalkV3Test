@@ -3,19 +3,18 @@
 namespace App\GraphQL\Query;
 
 use GraphQL;
-use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 
 use App\Session;
 
 class SessionQuery extends Query {
 	protected $attributes = [
-		'name' => 'Session Query',
-		'description' => 'A query of the sessions of a course'
+		'name' => 'Session Content Query',
+		'description' => 'A query of the contents of a session'
 	];
 
 	public function type() {
-		return Type::listOf(GraphQL::type('Session'));
+		return GraphQL::type('Session');
 	}
 
 	public function resolve($root, $args) {

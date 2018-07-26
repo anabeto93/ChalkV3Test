@@ -2,16 +2,14 @@
 
 namespace App\GraphQL\Query;
 
-use Auth;
 use GraphQL;
-use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Query;
 
 use App\User;
 
 class UserQuery extends Query {
 	protected $attributes = [
-		'name' => 'Authenticated User Query',
+		'name' => 'User Query',
 		'description' => 'A query of the currently authenticated user'
 	];
 
