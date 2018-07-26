@@ -16,14 +16,16 @@ class UserQuery extends Query {
 	];
 
 	public function authorize(array $args) {
-        if(Auth::check()) {
-            if($args["token_last_used"]) {
-                Auth::user()->token_last_used = date_create_from_format("U", $args["token_last_used"]);
-                Auth::user()->save();
-            }
-        }
+        // if(Auth::check()) {
+        //     if($args["token_last_used"]) {
+        //         Auth::user()->token_last_used = date_create_from_format("U", $args["token_last_used"]);
+        //         Auth::user()->save();
+        //     }
+        // }
 
-        return Auth::check();
+        // return Auth::check();
+
+        return true;
     }
 
 	public function type() {
@@ -31,6 +33,8 @@ class UserQuery extends Query {
 	}
 
 	public function resolve($root, $args) {
-        return Auth::user();
+        // return Auth::user();
+
+        return User::find(1);
 	}
 }
