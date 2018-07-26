@@ -47,4 +47,14 @@ class Course extends Model
     public function quizzes() {
         return $this->morphMany(Quiz::class, 'quizzable');
     }
+
+    /**
+     * Enabled Courses.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeEnabled($query) {
+        return $query->where('enabled', true);
+    }
 }
