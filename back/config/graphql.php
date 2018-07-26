@@ -24,6 +24,7 @@ use App\GraphQL\Enum\QuestionEnum;
  */
 use App\GraphQL\Query\UserQuery;
 use App\GraphQL\Query\HasUpdatesQuery;
+use App\GraphQL\Query\CoursesQuery;
 
 return [
 
@@ -112,7 +113,8 @@ return [
         'default' => [
             'query' => [
                 'user' => UserQuery::class,
-                'hasUpdates' => HasUpdatesQuery::class
+                'hasUpdates' => HasUpdatesQuery::class,
+                'courses' => CoursesQuery::class
             ],
             'mutation' => [
 
