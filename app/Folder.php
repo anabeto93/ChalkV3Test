@@ -14,6 +14,13 @@ class Folder extends Model
     }
 
     /**
+     * The Sessions that belongs to the Folder.
+     */
+    public function sessions() {
+        return $this->hasMany(Session::class);
+    }
+
+    /**
      * The Quizzes that belongs to the Folder.
      */
     public function quizzes() {
