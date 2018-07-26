@@ -50,4 +50,14 @@ class Session extends Model
 
         return !is_empty($this->progressions()->where('user_id', $user_id)->get());
     }
+
+    /**
+     * Enabled Sessions.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeEnabled($query) {
+        return $query->where('enabled', true);
+    }
 }
