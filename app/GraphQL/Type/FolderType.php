@@ -5,15 +5,11 @@ namespace App\GraphQL\Type;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
-use Vinkla\Hashids\Facades\Hashids;
-
-use App\Folder;
 
 class FolderType extends GraphQLType {
 	protected $attributes = [
 		'name' => 'Folder',
 		'description' => 'A folder (contains sessions)',
-		'model' => Folder::class,
 	];
 
 	public function fields() {
@@ -21,19 +17,14 @@ class FolderType extends GraphQLType {
 			'hash_id' => [
 				'type' => Type::nonNull(Type::string()),
 				'description' => 'Folder hashID',
-                'selectable' => false
-			],
-			'name' => [
-				'type' => Type::nonNull(Type::string()),
-				'description' => 'Name of the folder',
 			],
 			'order' => [
 				'type' => Type::nonNull(Type::int()),
 				'description' => 'Order number of the folder',
 			],
-			'teacher' => [
+			'name' => [
 				'type' => Type::nonNull(Type::string()),
-				'description' => 'Teacher of the Folder',
+				'description' => 'Name of the folder',
 			],
 			'updated_at' => [
 				'type' => Type::nonNull(Type::string()),
@@ -45,12 +36,8 @@ class FolderType extends GraphQLType {
 			],
 			'quiz' => [
 				'type' => GraphQL::type('Quiz'),
-				'description' => 'Quiz of the session',
+				'description' => 'Quiz of the folder',
 			]
 		];
 	}
-
-    protected function resolveHashIdField($root, $args) {
-        return Hashids::connection('folder')->encode($root->id);
-    }
 }
