@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Folder extends Model
 {
+    const DEFAULT_FOLDER = 'Default Folder';
     /**
      * The Course the Folder belongs to.
      */
