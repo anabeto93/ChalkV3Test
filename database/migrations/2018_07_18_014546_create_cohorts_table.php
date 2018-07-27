@@ -19,6 +19,8 @@ class CreateCohortsTable extends Migration
             $table->string('name');
             $table->timestamps();
 
+            $table->unique(array('institution_id', 'name'));
+
             $table->foreign('institution_id')
                 ->references('id')
                 ->on('institutions')
