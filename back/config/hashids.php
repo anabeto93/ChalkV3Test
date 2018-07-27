@@ -46,7 +46,7 @@ return [
         'user' => [
             'salt' => 'cbev3user',
             'length' => '6',
-            'alphabet' => 'abcdefghijklmnopqrstuvwxyz'
+            'alphabet' => 'abcdefghijklmnopqrstuvwxyz1234567890'
         ],
         'course' => [
             'salt' => 'cbev3course',
