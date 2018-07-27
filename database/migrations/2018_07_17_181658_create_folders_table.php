@@ -20,6 +20,8 @@ class CreateFoldersTable extends Migration
             $table->string('name');
             $table->timestamps();
 
+            $table->unique(array('course_id', 'name'));
+
             $table->foreign('course_id')
                 ->references('id')
                 ->on('courses')
