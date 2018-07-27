@@ -19,7 +19,11 @@ class InstitutionType extends GraphQLType {
 			'name' => [
 				'type' => Type::string(),
 				'description' => 'Name of Institution',
-			]
+            ],
+			'color' => [
+				'type' => Type::string(),
+				'description' => 'Hex color code of Institution',
+            ]
 		];
 	}
 }
