@@ -16,7 +16,7 @@ class CreateInstitutionsTable extends Migration
         Schema::create('institutions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->char('color', 7);
+            $table->char('color', 7)->default('#d8497d');
             $table->timestamps();
         });
     }
