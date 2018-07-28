@@ -30,9 +30,11 @@ class SessionNormalizer {
     public function normalize(Session $session, Collection $files = null): array {
         $normalizedFiles = [];
 
-        /** @var File $file */
-        foreach ($files as $file) {
-            $normalizedFiles[] = $this->fileNormalizer->normalize($file);
+        if (filled($files)) {
+            /** @var File $file */
+            foreach ($files as $file) {
+                $normalizedFiles[] = $this->fileNormalizer->normalize($file);
+            }
         }
 
         return [
