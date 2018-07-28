@@ -9,29 +9,30 @@ use GraphQL\Type\Definition\Type;
 use Folklore\GraphQL\Support\Query;
 
 
-class CoursesQuery extends Query {
+class CoursesInfoQuery extends Query {
+    protected $attributes = [
+        'name' => 'Course Query',
+        'description' => 'A query of the currently authenticated user\'s enabled courses'
+    ];
+
     /** @var CourseNormalizer */
     private $courseNormalizer;
 
     /**
-     * CoursesQuery constructor.
+     * CoursesInfoQuery constructor.
      * @param CourseNormalizer $courseNormalizer
      */
     public function __construct(CourseNormalizer $courseNormalizer) {
         $this->courseNormalizer = $courseNormalizer;
     }
 
-    protected $attributes = [
-		'name' => 'Course Query',
-		'description' => 'A query of the currently authenticated user\'s enabled courses'
-	];
 
 	public function type() {
 		return Type::listOf(GraphQL::type('Course'));
 	}
 
 	public function resolve($root, $args) {
-	    $courses = array();
+	    $courses = [];
 
 	    $user = User::find(1);
 	    $userCourses = $user->courses()->enabled()->get();
