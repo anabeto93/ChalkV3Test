@@ -5,15 +5,11 @@ namespace App\GraphQL\Type;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
-use Vinkla\Hashids\Facades\Hashids;
-
-use App\Quiz;
 
 class QuizType extends GraphQLType {
 	protected $attributes = [
 		'name' => 'Quiz',
 		'description' => 'A quiz',
-		'model' => Quiz::class,
 	];
 
 	public function fields() {
@@ -32,9 +28,5 @@ class QuizType extends GraphQLType {
 				'description' => 'Questions of the quiz',
             ]
 		];
-    }
-
-    protected function resolveHashIdField($root, $args) {
-        return Hashids::connection('quiz')->encode($root->id);
     }
 }
