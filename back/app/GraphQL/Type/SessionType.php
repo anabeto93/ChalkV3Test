@@ -4,15 +4,15 @@ namespace App\GraphQL\Type;
 
 use GraphQL;
 use GraphQL\Type\Definition\Type;
-use Rebing\GraphQL\Support\Type as GraphQLType;
+use Folklore\GraphQL\Support\Type as GraphQLType;
 
 class SessionType extends GraphQLType {
 	protected $attributes = [
 		'name' => 'Session',
-		'description' => 'A session that contains content of information',
+		'description' => 'A session that contains content',
 	];
 
-	public function fields() {
+    public function fields() {
 		return [
 			'hash_id' => [
 				'type' => Type::nonNull(Type::string()),
@@ -35,8 +35,8 @@ class SessionType extends GraphQLType {
 				'description' => 'HTML content of the Session',
 			],
             'content_updated_at' => [
-                'type' => Type::nonNull(Type::string()),
-                'description' => 'Date session content was updated in format YYYY-MM-DD HH:MM',
+                'type' => Type::nonNull(DateTime::type()),
+                'description' => 'Date session content was updated in format YYYY-MM-DD HH:MM:SS',
             ],
 			'progression_lock' => [
 				'type' => Type::nonNull(Type::boolean()),
@@ -48,12 +48,12 @@ class SessionType extends GraphQLType {
                 'selectable' => false,
 			],
             'created_at' => [
-                'type' => Type::nonNull(Type::string()),
-                'description' => 'Date session was created in format YYYY-MM-DD HH:MM',
+                'type' => Type::nonNull(DateTime::type()),
+                'description' => 'Date session was created in format YYYY-MM-DD HH:MM:SS',
             ],
             'updated_at' => [
-                'type' => Type::nonNull(Type::string()),
-                'description' => 'Date session was updated in format YYYY-MM-DD HH:MM',
+                'type' => Type::nonNull(DateTime::type()),
+                'description' => 'Date session was updated in format YYYY-MM-DD HH:MM:SS',
             ],
 			'files' => [
 				'type' => Type::listOf(GraphQL::type('File')),
