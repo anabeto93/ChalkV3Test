@@ -3,7 +3,7 @@
 namespace App\GraphQL\Query;
 
 use GraphQL;
-use Rebing\GraphQL\Support\Query;
+use Folklore\GraphQL\Support\Query;
 
 use App\Session;
 

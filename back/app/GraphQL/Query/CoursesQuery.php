@@ -2,14 +2,26 @@
 
 namespace App\GraphQL\Query;
 
+use App\GraphQL\Normalizer\CourseNormalizer;
+use App\User;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
-use Rebing\GraphQL\Support\Query;
+use Folklore\GraphQL\Support\Query;
 
-use App\Course;
 
 class CoursesQuery extends Query {
-	protected $attributes = [
+    /** @var CourseNormalizer */
+    private $courseNormalizer;
+
+    /**
+     * CoursesQuery constructor.
+     * @param CourseNormalizer $courseNormalizer
+     */
+    public function __construct(CourseNormalizer $courseNormalizer) {
+        $this->courseNormalizer = $courseNormalizer;
+    }
+
+    protected $attributes = [
 		'name' => 'Course Query',
 		'description' => 'A query of the currently authenticated user\'s enabled courses'
 	];
@@ -19,6 +31,15 @@ class CoursesQuery extends Query {
 	}
 
 	public function resolve($root, $args) {
-        return Course::enabled()->get();
+	    $courses = array();
+
+	    $user = User::find(1);
+	    $userCourses = $user->courses()->enabled()->get();
+
+	    foreach($userCourses as $userCourse) {
+	        $courses[] = $this->courseNormalizer->normalize($userCourse, $user);
+        }
+
+	    return $courses;
 	}
 }
