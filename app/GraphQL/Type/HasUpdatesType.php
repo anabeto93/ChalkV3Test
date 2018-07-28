@@ -3,7 +3,7 @@
 namespace App\GraphQL\Type;
 
 use GraphQL\Type\Definition\Type;
-use Rebing\GraphQL\Support\Type as GraphQLType;
+use Folklore\GraphQL\Support\Type as GraphQLType;
 
 use App\HasUpdates;
 

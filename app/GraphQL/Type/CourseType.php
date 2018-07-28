@@ -4,7 +4,7 @@ namespace App\GraphQL\Type;
 
 use GraphQL;
 use GraphQL\Type\Definition\Type;
-use Rebing\GraphQL\Support\Type as GraphQLType;
+use Folklore\GraphQL\Support\Type as GraphQLType;
 
 
 class CourseType extends GraphQLType {
@@ -32,12 +32,12 @@ class CourseType extends GraphQLType {
 				'description' => 'Teacher of the course',
 			],
 			'created_at' => [
-				'type' => Type::nonNull(Type::string()),
-				'description' => 'Date course was created in format YYYY-MM-DD HH:MM',
+                'type' => Type::nonNull(DateTime::type()),
+				'description' => 'Date course was created in format YYYY-MM-DD HH:MM:SS',
 			],
 			'updated_at' => [
-				'type' => Type::nonNull(Type::string()),
-				'description' => 'Date course was updated in format YYYY-MM-DD HH:MM',
+                'type' => Type::nonNull(DateTime::type()),
+				'description' => 'Date course was updated in format YYYY-MM-DD HH:MM:SS',
 			],
 			'folders' => [
 				'type' => Type::listOf(GraphQL::type('Folder')),
