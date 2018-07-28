@@ -40,11 +40,11 @@ class SessionContentsQuery extends Query {
     }
 
 	public function resolve($root, $args) {
-	    $sessionID= Hashids::connection('session')->encode($args['id']);
+	    $sessionID = Hashids::connection('session')->decode($args['hash_id']);
 
 	    $session = Session::with(['progressions' => function($query) {
             $query->where('user_id', 1);
-        }])->find($sessionID);
+        }])->where('id', $sessionID)->first();
 
         return $this->sessionNormalizer->normalize($session);
 	}
