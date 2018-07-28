@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\GraphQL\Normalizer;
-
 
 use App\Course;
 use App\Folder;
@@ -71,8 +69,7 @@ class CourseNormalizer {
             //Normalize the session and put the data in sessionsByFolderID array
             $sessionsByFolderID[$folderID][] = $this->sessionNormalizer->normalize(
                 $session,
-                $files,
-                filled($session->progressions)
+                $files
             );
         }
 
