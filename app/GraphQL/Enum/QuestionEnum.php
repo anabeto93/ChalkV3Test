@@ -2,7 +2,7 @@
 
 namespace App\GraphQL\Enum;
 
-use Rebing\GraphQL\Support\Type as GraphQLType;
+use Folklore\GraphQL\Support\Type as GraphQLType;
 
 class QuestionEnum extends GraphQLType {
 
