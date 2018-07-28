@@ -34,7 +34,8 @@ class SessionContentsQuery extends Query {
         return [
             'hash_id' => [
                 'name' => 'hash_id',
-                'type' => Type::nonNull(Type::string())
+                'type' => Type::nonNull(Type::string()),
+                'rules' => ['required']
             ],
         ];
     }
