@@ -5,15 +5,11 @@ namespace App\GraphQL\Type;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
-use Vinkla\Hashids\Facades\Hashids;
-
-use App\Session;
 
 class SessionType extends GraphQLType {
 	protected $attributes = [
 		'name' => 'Session',
 		'description' => 'A session that contains content of information',
-		'model' => Session::class,
 	];
 
 	public function fields() {
@@ -21,7 +17,6 @@ class SessionType extends GraphQLType {
 			'hash_id' => [
 				'type' => Type::nonNull(Type::string()),
                 'description' => 'Session hashID',
-                'selectable' => false
 			],
 			'name' => [
 				'type' => Type::nonNull(Type::string()),
@@ -39,19 +34,27 @@ class SessionType extends GraphQLType {
 				'type' => Type::string(),
 				'description' => 'HTML content of the Session',
 			],
+            'content_updated_at' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'Date session content was updated in format YYYY-MM-DD HH:MM',
+            ],
 			'progression_lock' => [
 				'type' => Type::nonNull(Type::boolean()),
 				'description' => 'Is the session progression locked?',
 			],
-			'has_progressed' => [
+			'progressed' => [
 				'type' => Type::boolean(),
-                'description' => 'Has the student progressed already from this session?',
+                'description' => 'Has the student progressed already past this session?',
                 'selectable' => false,
 			],
-			'updated_at' => [
-				'type' => Type::nonNull(Type::string()),
-				'description' => 'Date session was updated in format YYYY-MM-DD HH:MM',
-			],
+            'created_at' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'Date session was created in format YYYY-MM-DD HH:MM',
+            ],
+            'updated_at' => [
+                'type' => Type::nonNull(Type::string()),
+                'description' => 'Date session was updated in format YYYY-MM-DD HH:MM',
+            ],
 			'files' => [
 				'type' => Type::listOf(GraphQL::type('File')),
 				'description' => 'Files of the session',
@@ -61,9 +64,5 @@ class SessionType extends GraphQLType {
 				'description' => 'Quiz of the session',
 			]
 		];
-    }
-
-    protected function resolveHashIdField($root, $args) {
-        return Hashids::connection('session')->encode($root->id);
     }
 }

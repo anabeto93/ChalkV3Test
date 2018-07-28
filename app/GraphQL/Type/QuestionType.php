@@ -5,15 +5,11 @@ namespace App\GraphQL\Type;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
-use Vinkla\Hashids\Facades\Hashids;
-
-use App\Question;
 
 class QuestionType extends GraphQLType {
 	protected $attributes = [
 		'name' => 'Question',
 		'description' => 'A Question',
-		'model' => Question::class,
 	];
 
 	public function fields() {
@@ -40,9 +36,5 @@ class QuestionType extends GraphQLType {
 				'description' => 'Answers of the question',
             ]
 		];
-    }
-
-    protected function resolveHashIdField($root, $args) {
-        return Hashids::connection('question')->encode($root->id);
     }
 }

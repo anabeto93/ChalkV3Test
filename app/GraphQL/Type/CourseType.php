@@ -5,15 +5,12 @@ namespace App\GraphQL\Type;
 use GraphQL;
 use GraphQL\Type\Definition\Type;
 use Rebing\GraphQL\Support\Type as GraphQLType;
-use Vinkla\Hashids\Facades\Hashids;
 
-use App\Course;
 
 class CourseType extends GraphQLType {
 	protected $attributes = [
 		'name' => 'Course',
 		'description' => 'A course',
-		'model' => Course::class,
 	];
 
 	public function fields() {
@@ -21,7 +18,6 @@ class CourseType extends GraphQLType {
 			'hash_id' => [
 				'type' => Type::nonNull(Type::string()),
 				'description' => 'Course hashID',
-                'selectable' => false
 			],
 			'name' => [
 				'type' => Type::nonNull(Type::string()),
@@ -53,8 +49,4 @@ class CourseType extends GraphQLType {
 			]
 		];
 	}
-
-    protected function resolveHashIdField($root, $args) {
-        return Hashids::connection('course')->encode($root->id);
-    }
 }
