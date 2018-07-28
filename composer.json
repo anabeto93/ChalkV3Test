@@ -18,7 +18,6 @@
         "fzaninotto/faker": "^1.4",
         "laravel/homestead": "^7.12",
         "mockery/mockery": "^1.0",
-        "noh4ck/graphiql": "@dev",
         "nunomaduro/collision": "^2.0",
         "phpunit/phpunit": "^7.0"
     },
