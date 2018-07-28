@@ -17,7 +17,7 @@ class FileNormalizer
      */
     public function normalize(File $file): array {
         return [
-            'url' => url('/').'/'.$file->path,
+            'url' => url($file->path),
             'size' => $file->size,
         ];
     }
