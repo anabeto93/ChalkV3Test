@@ -48,7 +48,7 @@ class Session extends Model
     public function hasProgressed() {
         $user_id = Auth::user()->id;
 
-        return !is_empty($this->progressions()->where('user_id', $user_id)->get());
+        return filled($this->progressions()->where('user_id', $user_id)->get());
     }
 
     /**
