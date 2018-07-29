@@ -29,6 +29,7 @@ class SessionNormalizer {
     public function normalize(Session $session): array {
         $files = $session->files;
         $normalizedFiles = [];
+        $normalizedQuiz = [];
 
         if (filled($files)) {
             /** @var File $file */
@@ -47,7 +48,8 @@ class SessionNormalizer {
             'updated_at' => $session->updated_at,
             'progressed' => filled($session->progressions),
             'progression_lock' => $session->progression_lock,
-            'files' => $normalizedFiles
+            'files' => $normalizedFiles,
+            'quiz' => $normalizedQuiz
         ];
     }
 }
