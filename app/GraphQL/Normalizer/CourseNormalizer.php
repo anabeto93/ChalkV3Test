@@ -54,7 +54,6 @@ class CourseNormalizer {
         foreach ($sessions as $session) {
             $folderID = Folder::DEFAULT_FOLDER_ID;
             $folder = $session->folder;
-            $files = $session->files;
 
             //Set folder ID if there is a folder
             if (filled($folder)) {
@@ -68,8 +67,7 @@ class CourseNormalizer {
 
             //Normalize the session and put the data in sessionsByFolderID array
             $sessionsByFolderID[$folderID][] = $this->sessionNormalizer->normalize(
-                $session,
-                $files
+                $session
             );
         }
 
