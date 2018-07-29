@@ -13,7 +13,8 @@ class ProgressionsTableSeeder extends Seeder
     public function run()
     {
         Progression::create([
-            
+            'session_id' => 1,
+            'user_id' => 1
         ]);
     }
 }
