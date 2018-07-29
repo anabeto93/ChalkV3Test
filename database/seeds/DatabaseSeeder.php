@@ -18,5 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(FoldersTableSeeder::class);
         $this->call(SessionsTableSeeder::class);
         $this->call(CohortsTableSeeder::class);
+        $this->call(ProgressionsTableSeeder::class);
+        $this->call(QuizzesTableSeeder::class);
+        $this->call(FilesTableSeeder::class);
     }
 }
