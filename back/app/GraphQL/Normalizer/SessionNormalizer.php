@@ -23,11 +23,11 @@ class SessionNormalizer {
      * Normalize a session's data
      *
      * @param Session $session
-     * @param Collection $files
      *
      * @return array
      */
-    public function normalize(Session $session, Collection $files = null): array {
+    public function normalize(Session $session): array {
+        $files = $session->files;
         $normalizedFiles = [];
 
         if (filled($files)) {
@@ -47,7 +47,7 @@ class SessionNormalizer {
             'updated_at' => $session->updated_at,
             'progressed' => filled($session->progressions),
             'progression_lock' => $session->progression_lock,
-            'files' => $normalizedFiles,
+            'files' => $normalizedFiles
         ];
     }
 }
