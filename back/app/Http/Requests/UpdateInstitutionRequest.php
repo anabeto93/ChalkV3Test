@@ -13,7 +13,7 @@ class UpdateInstitutionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class UpdateInstitutionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'bail|required|max:50|min:6|exists:institutions'
         ];
     }
 }
