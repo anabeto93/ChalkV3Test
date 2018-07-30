@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInstitutionRequest;
+use App\Institution;
 use Illuminate\Http\Request;
 
 class InstitutionController extends Controller
@@ -30,12 +31,13 @@ class InstitutionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreInstitutionRequest $request
+     * @return array
      */
-    public function store(StoreInstitutionRequest $request)
+    public function store(StoreInstitutionRequest $request): array
     {
-        //
+        $institution = new Institution($request->input('name'));
+        return $institution->store();
     }
 
     /**
@@ -67,7 +69,7 @@ class InstitutionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Institution $institution)
     {
         //
     }
