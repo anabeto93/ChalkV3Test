@@ -40,4 +40,9 @@ class User extends Model
     public function quizResults() {
         return $this->hasMany(QuizResult::class);
     }
+
+    public function getInstitution()
+    {
+        return $this->institution()->get();
+    }
 }
