@@ -60,8 +60,33 @@ class Institution extends Model
         }
     }
 
+    /**
+     * Get Users that belong to Institution
+     *
+     * @return array
+     */
     public function getUsers()
     {
-        return $this->users()->get();
+        return $this->users()->get()->toArray();
+    }
+
+    /**
+     * Get Cohorts that belong to Institution
+     *
+     * @return array
+     */
+    public function getCohorts()
+    {
+        return $this->cohorts()->get()->toArray();
+    }
+
+    /**
+     * Get Courses that belong to Institution
+     *
+     * @return array
+     */
+    public function getCourses()
+    {
+        return $this->courses()->get()->toArray();
     }
 }
