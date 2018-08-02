@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreInstitutionRequest;
 use App\Http\Requests\UpdateInstitutionRequest;
 use App\Institution;
+use phpDocumentor\Reflection\Types\Resource_;
 
 class InstitutionController extends Controller
 {
@@ -34,10 +35,11 @@ class InstitutionController extends Controller
      * @param StoreInstitutionRequest $request
      * @return array
      */
-    public function store(StoreInstitutionRequest $request): array
+    public function store(StoreInstitutionRequest $request)
     {
         $institution = new Institution();
-        return $institution->store($request->input('name'));
+        $response = $institution->store($request->input('name'));
+        return response()->json($response);
     }
 
     /**
