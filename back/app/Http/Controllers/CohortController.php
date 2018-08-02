@@ -46,7 +46,7 @@ class CohortController extends Controller
     public function store(StoreCohortRequest $request)
     {
         $cohort = new Cohort();
-        return $cohort->store($request->input('name'));
+        return $cohort->store($cohort, $request->input('name'));
     }
 
     /**
@@ -55,9 +55,9 @@ class CohortController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Cohort $cohort)
     {
-        //
+        return response()->json($cohort->toArray());
     }
 
     /**
@@ -78,7 +78,7 @@ class CohortController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cohort $cohort)
     {
         //
     }

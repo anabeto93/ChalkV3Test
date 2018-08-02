@@ -38,9 +38,8 @@ class Cohort extends Model
         $this->attributes['institution_id'] = Auth::user()->getInstitution()->id;
     }
 
-    public function store(string $name)
+    public function store(Cohort $cohort, string $name)
     {
-        $cohort = new Cohort();
         $cohort->setName($name);
         $cohort->setInstitutionId();
         try {
@@ -48,7 +47,7 @@ class Cohort extends Model
             $response = [
                 'error' =>  false,
                 'code'  =>  200,
-                'reason'    =>  'Cohort created!'
+                'reason'    =>  'success'
             ];
         } catch (\Exception $exception) {
             $response = [
@@ -59,6 +58,12 @@ class Cohort extends Model
         }
 
         return response()->json($response);
+    }
+
+    public function saveUpdates(Cohort $cohort, string $name)
+    {
+        $cohort->setName($name);
+
     }
 
     /**
