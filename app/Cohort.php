@@ -28,11 +28,21 @@ class Cohort extends Model
         return $this->belongsToMany(User::class);
     }
 
+    public function setName($name)
+    {
+        $this->attributes['name'] = ucwords(strtolower($name));
+    }
+
+    public function setInstitutionId()
+    {
+        $this->attributes['institution_id'] = Auth::user()->getInstitution()->id;
+    }
+
     public function store(string $name)
     {
         $cohort = new Cohort();
-        $cohort->name = $name;
-        $cohort->institution_id = Auth::user()->getInstitution()->id;
+        $cohort->setName($name);
+        $cohort->setInstitutionId();
         try {
             $cohort->save();
             $response = [
