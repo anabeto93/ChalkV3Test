@@ -38,12 +38,12 @@ class Cohort extends Model
         $this->attributes['institution_id'] = Auth::user()->getInstitution()->id;
     }
 
-    public function store(Cohort $cohort, string $name)
+    public function store(string $name)
     {
-        $cohort->setName($name);
-        $cohort->setInstitutionId();
+        $this->setName($name);
+        $this->setInstitutionId();
         try {
-            $cohort->save();
+            $this->save();
             $response = [
                 'error' =>  false,
                 'code'  =>  200,
@@ -60,10 +60,10 @@ class Cohort extends Model
         return response()->json($response);
     }
 
-    public function saveUpdates(Cohort $cohort, string $name)
+    public function saveUpdates(string $name)
     {
-        $cohort->setName($name);
-
+        $this->setName($name);
+        return $this->store($name);
     }
 
     /**

@@ -13,7 +13,7 @@ class UpdateCohortRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class UpdateCohortRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "name"  =>  "bail|required|unique:cohorts|min:2|max:50"
         ];
     }
 }

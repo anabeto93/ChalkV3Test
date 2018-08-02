@@ -20,6 +20,14 @@ class CohortTest extends TestCase
         $user = Auth::loginUsingId(User::first()->id);
         $this->actingAs($user)
             ->post('cohorts', ['name' => 'php developers'])
-            ->assertJson(['error' => false, 'reason' => 'Cohort created!']);
+            ->assertJson(['error' => false, 'reason' => 'success']);
+    }
+
+    public function testUpdate()
+    {
+        $user = Auth::loginUsingId(User::first()->id);
+        $this->actingAs($user)
+            ->put('cohorts/6', ['name' => 'laravel Developers'])
+            ->assertJson(['error' => false, 'reason' => 'success', 'code' => 200]);
     }
 }
