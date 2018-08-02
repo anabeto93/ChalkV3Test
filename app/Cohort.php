@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cohort extends Model
 {
+    private $name;
     /**
      * The Institution the Cohort belongs to.
      */
@@ -25,6 +26,28 @@ class Cohort extends Model
      */
     public function users() {
         return $this->belongsToMany(User::class);
+    }
+
+    public function store(string $name)
+    {
+        $cohort = new Cohort();
+        $cohort->name = $name;
+        try {
+            $cohort->save();
+            $response = [
+                'error' =>  false,
+                'code'  =>  200,
+                'reason'    =>  'Cohort created!'
+            ];
+        } catch (\Exception $exception) {
+            $response = [
+                'error' =>  true,
+                'code'  =>  $exception->getCode(),
+                'reason'    =>  $exception->getMessage()
+            ];
+        }
+
+        return response()->json($response);
     }
 
     /**
