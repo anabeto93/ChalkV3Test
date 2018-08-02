@@ -3,10 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Cohort extends Model
 {
-    private $name;
     /**
      * The Institution the Cohort belongs to.
      */
@@ -32,6 +32,7 @@ class Cohort extends Model
     {
         $cohort = new Cohort();
         $cohort->name = $name;
+        $cohort->institution_id = Auth::user()->getInstitution()->id;
         try {
             $cohort->save();
             $response = [

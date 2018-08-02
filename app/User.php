@@ -3,8 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+class User extends Authenticatable
 {
     /**
      * The Institution the User belongs to.
@@ -43,6 +44,6 @@ class User extends Model
 
     public function getInstitution()
     {
-        return $this->institution()->get();
+        return $this->institution()->first();
     }
 }
