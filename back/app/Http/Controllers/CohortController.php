@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cohort;
+use App\Http\Requests\StoreCohortRequest;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,9 +43,10 @@ class CohortController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCohortRequest $request)
     {
-        //
+        $cohort = new Cohort();
+        return $cohort->store($request->input('name'));
     }
 
     /**
