@@ -42,8 +42,23 @@ class User extends Authenticatable
         return $this->hasMany(QuizResult::class);
     }
 
+    /**
+     * Get User Institution
+     *
+     * @return Model|\Illuminate\Database\Eloquent\Relations\BelongsTo|null|object
+     */
     public function getInstitution()
     {
         return $this->institution()->first();
+    }
+
+    /**
+     * Get User Cohorts
+     *
+     * @return mixed
+     */
+    public function getCohorts()
+    {
+        return $this->getInstitution()->cohorts()->get();
     }
 }
