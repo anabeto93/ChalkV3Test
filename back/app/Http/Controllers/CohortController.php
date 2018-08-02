@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Cohort;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CohortController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +21,9 @@ class CohortController extends Controller
      */
     public function index()
     {
-        //
+        $user = User::find(Auth::id());
+        $cohorts = $user->cohorts()->get()->toArray();
+        return response()->json($cohorts);
     }
 
     /**
