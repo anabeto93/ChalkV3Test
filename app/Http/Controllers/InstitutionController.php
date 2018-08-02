@@ -36,8 +36,8 @@ class InstitutionController extends Controller
      */
     public function store(StoreInstitutionRequest $request): array
     {
-        $institution = new Institution($request->input('name'));
-        return $institution->store();
+        $institution = new Institution();
+        return $institution->store($request->input('name'));
     }
 
     /**

@@ -6,13 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Institution extends Model
 {
-
     private $name;
-
-    public function __construct(string $name = null)
-    {
-        $this->name = $name;
-    }
 
     /**
      * The Admins that belong to the Institution.
@@ -42,8 +36,9 @@ class Institution extends Model
         return $this->hasMany(Cohort::class);
     }
 
-    public function store()
+    public function store(string $name)
     {
+        $this->name = $name;
         try {
             $this->save();
             return [
