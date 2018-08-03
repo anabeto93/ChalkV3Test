@@ -13,7 +13,7 @@ class CohortController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
@@ -90,8 +90,8 @@ class CohortController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cohort $cohort)
     {
-        //
+
     }
 }
