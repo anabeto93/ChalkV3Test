@@ -2,10 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
+
+    private $user;
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,9 +23,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        Auth::user()->getCourses();
     }
-
     /**
      * Show the form for creating a new resource.
      *
