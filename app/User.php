@@ -61,4 +61,12 @@ class User extends Authenticatable
     {
         return $this->getInstitution()->cohorts()->get();
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getCourses()
+    {
+        return $this->courses()->get();
+    }
 }
