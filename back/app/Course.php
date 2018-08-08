@@ -154,8 +154,31 @@ class Course extends Model
             $this->save();
             return [
                 "error" =>  false,
-                "code"  =>  200,
+                "code"  =>  201,
                 "reason"    =>  'Course created!'
+            ];
+        } catch (\Exception $exception) {
+            return [
+                "error" =>  true,
+                "code"  =>  500,
+                "reason"    =>  $exception->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * Delete Course
+     *
+     * @return array
+     */
+    public function remove()
+    {
+        try {
+            $this->delete();
+            return [
+                "error" =>  false,
+                "code"  =>  205,
+                "reason"    => "Course deleted!"
             ];
         } catch (\Exception $exception) {
             return [
