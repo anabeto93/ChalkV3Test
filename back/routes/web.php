@@ -23,6 +23,7 @@ Route::resources([
     'admins'    => 'AdminController',
     'cohorts'   => 'CohortController',
     'institutions'  =>  'InstitutionController',
+    'courses'   =>  'CourseController'
 ]);
 
 Auth::routes();

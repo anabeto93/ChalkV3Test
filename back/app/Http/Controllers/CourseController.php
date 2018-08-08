@@ -44,9 +44,9 @@ class CourseController extends Controller
         $course = new Course();
         $course->setName($request->name);
         $course->setInstitutionId($request->institution);
-        $course->setDescription($request->description);
+        $course->setDescription($request->input('description', ''));
         $course->setTeacher($request->teacher);
-        $course->setEnabled($request->enabled);
+        $course->setEnabled($request->input('enabled', ''));
         return response()->json($course->store());
     }
 
