@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Cohort;
 use App\Course;
 use App\Institution;
 use App\User;
