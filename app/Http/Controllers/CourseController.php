@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Http\Request;
+use App\Course;
+use App\Http\Requests\StoreCourseRequest;
 use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
-
-    private $user;
 
     public function __construct()
     {
@@ -41,20 +39,26 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCourseRequest $request)
     {
-        //
+        $course = new Course();
+        $course->setName($request->name);
+        $course->setInstitutionId($request->institution);
+        $course->setDescription($request->description);
+        $course->setTeacher($request->teacher);
+        $course->setEnabled($request->enabled);
+        return response()->json($course->store());
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Course $course
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Course $course)
     {
-        //
+        return response()->json($course->toArray());
     }
 
     /**
@@ -71,13 +75,18 @@ class CourseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param StoreCourseRequest $request
+     * @param Course $course
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(StoreCourseRequest $request, Course $course)
     {
-        //
+        $course->setName($request->name);
+        $course->setDescription($request->description);
+        $course->setTeacher($request->teacher);
+        $course->setInstitutionId($request->institution);
+        $course->setEnabled($request->enabled);
+        return response()->json($course->store());
     }
 
     /**
@@ -86,8 +95,8 @@ class CourseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Course $course)
     {
-        //
+        return response()->json($course->remove());
     }
 }

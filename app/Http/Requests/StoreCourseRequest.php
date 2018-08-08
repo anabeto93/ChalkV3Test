@@ -24,10 +24,11 @@ class StoreCourseRequest extends FormRequest
     public function rules()
     {
         return [
-            "name"  =>  "bail|required|alpha|min:2",
+            "name"          =>  "bail|required|alpha|min:2",
             "description"   =>  "bail|min:2",
-            "teacher"   =>  "bail|required|alpha|min:2",
-            "enabled"   =>  "bail|in:0,1"
+            "teacher"       =>  "bail|required|alpha|min:2",
+            "enabled"       =>  "bail|in:0,1",
+            "institution"   =>  "bail|required|exists:institutions,id"
         ];
     }
 }
