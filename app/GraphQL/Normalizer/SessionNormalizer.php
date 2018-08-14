@@ -11,12 +11,17 @@ class SessionNormalizer {
     /** @var FileNormalizer */
     private $fileNormalizer;
 
+    /** @var QuizNormalizer */
+    private $quizNormalizer;
+
     /**
      * SessionNormalizer constructor.
      * @param FileNormalizer $fileNormalizer
+     * @param QuizNormalizer $quizNormalizer
      */
-    public function __construct(FileNormalizer $fileNormalizer) {
+    public function __construct(FileNormalizer $fileNormalizer, QuizNormalizer $quizNormalizer) {
         $this->fileNormalizer = $fileNormalizer;
+        $this->quizNormalizer = $quizNormalizer;
     }
 
     /**
@@ -27,15 +32,20 @@ class SessionNormalizer {
      * @return array
      */
     public function normalize(Session $session): array {
-        $files = $session->files;
         $normalizedFiles = [];
         $normalizedQuiz = [];
 
+        $files = $session->files;
+        $quiz = $session->quiz;
+
         if (filled($files)) {
-            /** @var File $file */
             foreach ($files as $file) {
                 $normalizedFiles[] = $this->fileNormalizer->normalize($file);
             }
+        }
+
+        if(filled($quiz)) {
+            $normalizedQuiz = $this->quizNormalizer->normalize($quiz);
         }
 
         return [
