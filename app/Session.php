@@ -29,10 +29,10 @@ class Session extends Model
     }
 
     /**
-     * The Quizzes that belongs to the Session.
+     * The Quiz that belongs to the Session.
      */
-    public function quizzes() {
-        return $this->morphMany(Quiz::class, 'quizzable');
+    public function quiz() {
+        return $this->morphOne(Quiz::class, 'quizzable');
     }
 
     /**
