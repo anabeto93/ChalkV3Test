@@ -23,9 +23,9 @@ class Folder extends Model
     }
 
     /**
-     * The Quizzes that belongs to the Folder.
+     * The Quiz that belongs to the Folder.
      */
-    public function quizzes() {
-        return $this->morphMany(Quiz::class, 'quizzable');
+    public function quiz() {
+        return $this->morphOne(Quiz::class, 'quizzable');
     }
 }

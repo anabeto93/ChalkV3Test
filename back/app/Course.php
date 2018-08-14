@@ -42,10 +42,10 @@ class Course extends Model
     }
 
     /**
-     * The Quizzes that belongs to the Course.
+     * The Quiz that belongs to the Course.
      */
-    public function quizzes() {
-        return $this->morphMany(Quiz::class, 'quizzable');
+    public function quiz() {
+        return $this->morphOne(Quiz::class, 'quizzable');
     }
 
     /**
