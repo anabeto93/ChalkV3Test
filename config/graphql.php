@@ -17,7 +17,7 @@ use App\GraphQL\Type\FileType;
 /**
  * Enums
  */
-use App\GraphQL\Enum\QuestionEnum;
+use App\GraphQL\Enum\QuestionTypeEnum;
 
 /**
  * Queries
@@ -220,7 +220,7 @@ return [
         'Question' => QuestionType::class,
         'QuestionAnswer' => QuestionAnswerType::class,
         'File' => FileType::class,
-        'QuestionEnum' => QuestionEnum::class,
+        'QuestionTypeEnum' => QuestionTypeEnum::class,
     ],
 
     /*

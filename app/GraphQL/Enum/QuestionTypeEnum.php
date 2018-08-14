@@ -4,16 +4,16 @@ namespace App\GraphQL\Enum;
 
 use Folklore\GraphQL\Support\Type as GraphQLType;
 
-class QuestionEnum extends GraphQLType {
+class QuestionTypeEnum extends GraphQLType {
 
     protected $enumObject = true;
 
     protected $attributes = [
-        'name' => 'question_type',
+        'name' => 'QuestionType',
         'description' => 'The type of question (multiple choice etc...)',
         'values' => [
             'multiple_choice' => 'multiple_choice',
-            'simple_exact' => 'simple_exact',
+            'short_exact' => 'short_exact',
         ],
     ];
 
