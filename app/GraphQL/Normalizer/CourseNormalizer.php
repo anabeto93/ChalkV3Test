@@ -33,22 +33,22 @@ class CourseNormalizer {
      *
      * @return array
      */
-    public function normalize(Course $course, User $user): array
-    {
+    public function normalize(Course $course, User $user): array {
+        $normalizedFolders = [];
+        $sessionsByFolderID = [];
+
         //Eager load relations (minimized querying)
         $sessions = $course->sessions()->enabled()
                         ->with([
-                            'folder',
+                            'folder.quiz.questions.questionAnswers',
                             'files',
+                            'quiz.questions.questionAnswers',
                             'progressions' => function($query) use ($user) {
                                 $query->where('user_id', $user->id);
                             }
                         ])
                         ->orderBy('order', 'asc')
                         ->get();
-
-        $normalizedFolders = [];
-        $sessionsByFolderID = [];
 
         /** @var Session $session */
         foreach ($sessions as $session) {
