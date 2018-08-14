@@ -14,9 +14,9 @@ class QuestionType extends GraphQLType {
 
 	public function fields() {
 		return [
-			'id' => [
+			'hash_id' => [
 				'type' => Type::nonNull(Type::string()),
-                'description' => 'Question ID',
+                'description' => 'Question hashID',
                 'selectable' => false
 			],
 			'title' => [
@@ -24,14 +24,14 @@ class QuestionType extends GraphQLType {
 				'description' => 'Title of the question',
             ],
 			'type' => [
-				'type' => Type::nonNull(GraphQL::type('QuestionEnum')),
+				'type' => Type::nonNull(GraphQL::type('QuestionTypeEnum')),
 				'description' => 'Type of the question',
             ],
 			'feedback' => [
 				'type' => Type::string(),
 				'description' => 'Feedback to the question',
             ],
-			'answers' => [
+			'question_answers' => [
 				'type' => Type::nonNull(Type::listOf(GraphQL::type('QuestionAnswer'))),
 				'description' => 'Answers of the question',
             ]
