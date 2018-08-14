@@ -35,7 +35,7 @@ class CoursesInfoQuery extends Query {
 	    $courses = [];
 
 	    $user = User::find(1);
-	    $userCourses = $user->courses()->enabled()->get();
+	    $userCourses = $user->courses()->enabled()->with(['quiz.questions.questionAnswers'])->get();
 
 	    foreach($userCourses as $userCourse) {
 	        $courses[] = $this->courseNormalizer->normalize($userCourse, $user);
