@@ -11,6 +11,16 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('admins/register', 'Auth\RegisterController@createAdmin');
+Route::post('admins/institutions.add', 'AdminController@institution');
+Route::resource('admins', 'AdminController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
