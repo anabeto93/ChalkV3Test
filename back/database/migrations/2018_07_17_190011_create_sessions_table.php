@@ -22,6 +22,7 @@ class CreateSessionsTable extends Migration
             $table->text('content')->nullable();
             $table->boolean('progression_lock')->default(false);
             $table->boolean('enabled')->default(false);
+            $table->timestamp('content_updated_at');
             $table->timestamps();
 
             $table->foreign('course_id')
