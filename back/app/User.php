@@ -7,6 +7,40 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    public function setToken()
+    {
+        $this->attributes['token'] = str_random(64);
+        return $this;
+    }
+    public function setPhoneNumber(string $phone_number)
+    {
+        $this->attributes['phone_number'] = $phone_number;
+        return $this;
+    }
+
+    public function setFirstName(string $first_name)
+    {
+        $this->attributes['first_name'] = ucwords(strtolower($first_name));
+        return $this;
+    }
+
+    public function setLastName(string $last_name)
+    {
+        $this->attributes['last_name'] = ucwords(strtolower($last_name));
+        return $this;
+    }
+
+    public function setInstitutionId(int $institution_id)
+    {
+        $this->institution()->associate($institution_id);
+        return $this;
+    }
+
+    public function setCountry(string $country)
+    {
+        $this->attributes['country'] = $country;
+        return $this;
+    }
     /**
      * The Institution the User belongs to.
      */
@@ -68,5 +102,27 @@ class User extends Authenticatable
     public function getCourses()
     {
         return $this->courses()->get();
+    }
+
+    public function store()
+    {
+        try {
+            $this->save();
+            session()->flash('success', 'User created!');
+            logger('User created!');
+            return [
+                'error' => false,
+                'code' => 201,
+                'reason' => 'User created!'
+            ];
+        } catch (\Exception $exception) {
+            logger($exception);
+            session()->flash('error', 'User could not be created!');
+            return [
+                'error' => true,
+                'code' => 500,
+                'reason' => 'User could not be created'
+            ];
+        }
     }
 }
