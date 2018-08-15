@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Admin;
-use App\Http\Requests\ChangeAdminPasswordRequest;
 use App\Http\Requests\StoreAdminRequest;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -42,10 +42,17 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'first_name' => 'required|string|max:50',
+            'last_name' => 'required|string|max:50',
+            'phone_number' => 'required|digits|unique:users,phone_number',
+            'country'   =>  'required|string',
+            'institution_id' => 'required|exists:institutions,id'
         ]);
+    }
+
+    protected function register(Request $request)
+    {
+        return $this->create($request->all());
     }
 
     /**
@@ -56,11 +63,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user = new User();
+        return $user
+            ->setToken()
+            ->setFirstName($data['first_name'])
+            ->setLastName($data['last_name'])
+            ->setInstitutionId($data['institution_id'])
+            ->setPhoneNumber($data['phone_name'])
+            ->setCountry($data['country'])
+            ->store();
     }
 
     public function createAdmin(StoreAdminRequest $request)
