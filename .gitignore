@@ -4,6 +4,8 @@
 # Vagrant
 /.vagrant/
 
+/.idea/
+
 # Ansible
 /ansible/**/*.retry
 /ansible/group_vars/*_local.yml

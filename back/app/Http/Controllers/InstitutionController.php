@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreInstitutionRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\UpdateInstitutionRequest;
+use App\Institution;
+use phpDocumentor\Reflection\Types\Resource_;
 
 class InstitutionController extends Controller
 {
@@ -14,7 +16,7 @@ class InstitutionController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(Institution::all()->toArray());
     }
 
     /**
@@ -30,56 +32,88 @@ class InstitutionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreInstitutionRequest $request
+     * @return array
      */
     public function store(StoreInstitutionRequest $request)
     {
-        //
+        $institution = new Institution();
+        $response = $institution->store($request->input('name'));
+        return response()->json($response);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Institution $institution
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Institution $institution)
     {
-        //
+        return response()->json($institution->toArray());
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Institution $institution
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Institution $institution)
     {
-        //
+        return response()->json($institution->toArray());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateInstitutionRequest $request
+     * @param Institution $institution
+     * @return array
      */
-    public function update(Request $request, $id)
+    public function update(UpdateInstitutionRequest $request, Institution $institution)
     {
-        //
+        $institution->name = $request->input('name');
+        try {
+            $institution->save();
+            $response = [
+                'error' => false,
+                'code' => 200,
+                'reason' => 'Institution updated!'
+            ];
+        } catch (\Exception $exception) {
+            $response = [
+                'error' => true,
+                'code' => $exception->getCode(),
+                'reason' => $exception->getMessage()
+            ];
+        }
+
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Institution $institution
+     * @return array
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Institution $institution)
     {
-        //
+        try {
+            $institution->delete();
+            return [
+                'error' => false,
+                'code' => 205,
+                'reason' => 'Institution deleted!'
+            ];
+        } catch (\Exception $exception) {
+            return [
+                'error' => true,
+                'code' => $exception->getCode(),
+                'reason' => $exception->getMessage()
+            ];
+        }
     }
 }

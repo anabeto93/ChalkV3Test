@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Cohort extends Model
 {
@@ -25,5 +26,73 @@ class Cohort extends Model
      */
     public function users() {
         return $this->belongsToMany(User::class);
+    }
+
+    public function setName($name)
+    {
+        $this->attributes['name'] = ucwords(strtolower($name));
+    }
+
+    public function setInstitutionId()
+    {
+        $this->attributes['institution_id'] = Auth::user()->getInstitution()->id;
+    }
+
+    public function store(string $name)
+    {
+        $this->setName($name);
+        $this->setInstitutionId();
+        try {
+            $this->save();
+            $response = [
+                'error' =>  false,
+                'code'  =>  200,
+                'reason'    =>  'success'
+            ];
+        } catch (\Exception $exception) {
+            $response = [
+                'error' =>  true,
+                'code'  =>  $exception->getCode(),
+                'reason'    =>  $exception->getMessage()
+            ];
+        }
+
+        return response()->json($response);
+    }
+
+    public function saveUpdates(string $name)
+    {
+        $this->setName($name);
+        return $this->store($name);
+    }
+
+    /**
+     * Get all user for cohort
+     *
+     * @return array
+     */
+    public function getUsers(): array
+    {
+        return $this->users()->get()->toArray();
+    }
+
+    /**
+     * Get all Courses for Cohort
+     *
+     * @return array
+     */
+    public function getCourses(): array
+    {
+        return $this->courses()->get()->toArray();
+    }
+
+    /**
+     * Get Institution for Cohort
+     *
+     * @return array
+     */
+    public function getInstitution(): array
+    {
+        return $this->institution()->first()->toArray();
     }
 }

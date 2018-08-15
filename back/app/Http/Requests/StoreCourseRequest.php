@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreInstitutionRequest extends FormRequest
+class StoreCourseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,11 @@ class StoreInstitutionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:4|max:50|unique:institutions'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'name.required' => 'institution name is required',
-            'name.min' => 'institution name is too short',
-            'name.max' => 'institution name is too long'
+            "name"          =>  "bail|required|min:2",
+            "description"   =>  "bail|min:2",
+            "teacher"       =>  "bail|required|min:2",
+            "enabled"       =>  "bail|in:0,1",
+            "institution"   =>  "bail|required|exists:institutions,id"
         ];
     }
 }
