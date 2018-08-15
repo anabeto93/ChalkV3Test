@@ -29,10 +29,10 @@ class Session extends Model
     }
 
     /**
-     * The Quizzes that belongs to the Session.
+     * The Quiz that belongs to the Session.
      */
-    public function quizzes() {
-        return $this->morphMany(Quiz::class, 'quizzable');
+    public function quiz() {
+        return $this->morphOne(Quiz::class, 'quizzable');
     }
 
     /**
@@ -48,6 +48,16 @@ class Session extends Model
     public function hasProgressed() {
         $user_id = Auth::user()->id;
 
-        return !is_empty($this->progressions()->where('user_id', $user_id)->get());
+        return filled($this->progressions()->where('user_id', $user_id)->get());
+    }
+
+    /**
+     * Enabled Sessions.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeEnabled($query) {
+        return $query->where('enabled', true);
     }
 }

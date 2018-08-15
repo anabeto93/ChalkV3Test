@@ -134,10 +134,20 @@ class Course extends Model
     }
 
     /**
-     * The Quizzes that belongs to the Course.
+     * The Quiz that belongs to the Course.
      */
-    public function quizzes() {
-        return $this->morphMany(Quiz::class, 'quizzable');
+    public function quiz() {
+        return $this->morphOne(Quiz::class, 'quizzable');
+    }
+
+    /**
+     * Enabled Courses.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeEnabled($query) {
+        return $query->where('enabled', true);
     }
 
     /**
