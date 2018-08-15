@@ -4,12 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Vinkla\Hashids\Facades\Hashids;
 
 class User extends Authenticatable
 {
     public function setToken()
     {
-        $this->attributes['token'] = str_random(6);
+        $this->attributes['token'] = Hashids::connection('user')->encode($this->attributes['id']);
         return $this;
     }
     public function setPhoneNumber(string $phone_number)
@@ -108,8 +109,8 @@ class User extends Authenticatable
     {
         try {
             $this->save();
+            $this->setToken()->save();
             session()->flash('success', 'User created!');
-            logger('User created!');
             return [
                 'error' => false,
                 'code' => 201,
