@@ -65,7 +65,6 @@ class RegisterController extends Controller
     {
         $user = new User();
         return $user
-            ->setToken()
             ->setFirstName($data['first_name'])
             ->setLastName($data['last_name'])
             ->setInstitutionId($data['institution_id'])
