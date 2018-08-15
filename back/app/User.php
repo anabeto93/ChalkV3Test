@@ -9,7 +9,7 @@ class User extends Authenticatable
 {
     public function setToken()
     {
-        $this->attributes['token'] = str_random(64);
+        $this->attributes['token'] = str_random(6);
         return $this;
     }
     public function setPhoneNumber(string $phone_number)
