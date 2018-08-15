@@ -2,6 +2,7 @@
 
 use App\User;
 use Illuminate\Database\Seeder;
+use Vinkla\Hashids\Facades\Hashids;
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,24 +13,26 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create([
+        $user = User::create([
             'institution_id' => 1,
             'first_name' => 'Tester',
             'last_name' => 'Account',
             'phone_number' =>  '+233123456789',
             'country' => 'gh',
             'locale' => 'en',
-            'token' => 'tester'
         ]);
+        $user->token = Hashids::connection('user')->encode($user->id);
+        $user->save();
 
-        User::create([
+        $user2 = User::create([
             'institution_id' => 2,
             'first_name' => 'Second',
             'last_name' => 'Account',
             'phone_number' =>  '+233000000000',
             'country' => 'gh',
             'locale' => 'en',
-            'token' => 'logger'
         ]);
+        $user2->token = Hashids::connection('user')->encode($user2->id);
+        $user2->save();
     }
 }
