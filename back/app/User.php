@@ -44,9 +44,9 @@ class User extends Authenticatable
         return $this;
     }
 
-    public function setTokenLastUser()
+    public function setTokenLastUsed(string $datetime)
     {
-        $this->attributes['token_last_used'] = Carbon::now()->toDateTimeString();
+        $this->attributes['token_last_used'] = $datetime;
         return $this;
     }
     /**
