@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Vinkla\Hashids\Facades\Hashids;
@@ -40,6 +41,12 @@ class User extends Authenticatable
     public function setCountry(string $country)
     {
         $this->attributes['country'] = $country;
+        return $this;
+    }
+
+    public function setTokenLastUser()
+    {
+        $this->attributes['token_last_used'] = Carbon::now()->toDateTimeString();
         return $this;
     }
     /**
@@ -124,6 +131,18 @@ class User extends Authenticatable
                 'code' => 500,
                 'reason' => 'User could not be created'
             ];
+        }
+    }
+
+    public function login()
+    {
+        try {
+            auth()->login($this);
+            $this->setTokenLastUser()->save();
+            return redirect()->to('home');
+        } catch (\Exception $exception) {
+            session()->flash('error', 'Something went wrong, please try again later!');
+            return redirect()->back();
         }
     }
 }

@@ -26,6 +26,7 @@ Route::resources([
     'courses'   =>  'CourseController'
 ]);
 
+Route::get('login/{token}', 'Auth\LoginController@login');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
