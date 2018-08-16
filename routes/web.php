@@ -26,7 +26,9 @@ Route::resources([
     'courses'   =>  'CourseController'
 ]);
 
-Route::get('login/{token}', 'Auth\LoginController@login');
+Route::get('graphql/test/tests', function (){
+    return response()->json(['message' => 'welcome']);
+})->middleware('auth.student');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
