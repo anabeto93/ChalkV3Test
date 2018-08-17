@@ -11,6 +11,8 @@ return [
     |
     */
     'title' => [
+        'dashboard' => 'Dashboard',
+
         'institutions' => 'Institutions',
         'admins' => 'Admins',
         'users' => 'Users',
