@@ -24,3 +24,13 @@ Route::resource('admins', 'AdminController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+/**
+ * Course routes
+ */
+Route::prefix('courses')->name('courses.')->group(function () {
+    Route::get('/', function() { return view('course.list', ['courses' => \App\Course::all()]); })->name('list');
+    Route::get('create', function() { return view('course.create'); })->name('create');
+    Route::get('edit/{id}', function() { return view('course.edit'); })->name('edit');
+    Route::get('{id}', function() { return view('course.view'); })->name('view');
+});
