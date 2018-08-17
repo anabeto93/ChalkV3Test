@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreStudentRequest extends FormRequest
+class StoreCourseFormRequest extends FormRequest
 {
     /**
      * Determine if the admin is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreStudentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class StoreStudentRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|unique|max:255',
+            'description' => 'max:255',
+            'teacher' => 'required|max:255',
+            'enabled' => 'boolean'
         ];
     }
 }
