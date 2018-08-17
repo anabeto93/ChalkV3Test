@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreInstitutionRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the admin is authorized to make this request.
      *
      * @return bool
      */
@@ -25,15 +25,6 @@ class StoreInstitutionRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:4|max:50'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'name.required' => 'institution name is required',
-            'name.min' => 'institution name is too short',
-            'name.max' => 'institution name is too long'
         ];
     }
 }
