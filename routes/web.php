@@ -40,6 +40,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('courses')->name('courses.')->group(function () {
     Route::get('/', 'CourseController@index')->name('list');
     Route::get('create', 'CourseController@create')->name('create');
-    Route::get('edit/{id}', 'CourseController@update')->name('edit');
+    Route::get('update/{id}', 'CourseController@update')->name('update');
     Route::get('{id}', 'CourseController@show')->name('show');
 });
