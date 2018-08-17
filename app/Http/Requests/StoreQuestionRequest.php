@@ -13,7 +13,7 @@ class StoreQuestionRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class StoreQuestionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "type"  =>  "bail|required|in,multiple_choice,short_exact",
+            "quiz"  =>  "bail|required|exists:quizzes,id",
+            "title" =>  "bail|required|string"
         ];
     }
 }

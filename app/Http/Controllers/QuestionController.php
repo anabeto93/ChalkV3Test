@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreQuestionRequest;
 use App\Question;
-use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
@@ -30,23 +30,35 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreQuestionRequest $request
+     * @return array
      */
-    public function store(Request $request)
+    public function store(StoreQuestionRequest $request)
     {
-        //
+        $question = new Question();
+        return $question
+            ->setAttributes($request)
+            ->store();
+    }
+
+    /**
+     * @param Question $question
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getAnswers(Question $question)
+    {
+        return $question->getAnswers();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Question $question
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Question $question)
     {
-        //
+        return response()->json($question->toArray());
     }
 
     /**
@@ -63,23 +75,25 @@ class QuestionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param StoreQuestionRequest $request
+     * @param Question $question
+     * @return array
      */
-    public function update(Request $request, $id)
+    public function update(StoreQuestionRequest $request, Question $question)
     {
-        //
+        return $question
+            ->setAttributes($request)
+            ->store(true);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Question $question
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Question $question)
     {
-        //
+        return response()->json($question->remove());
     }
 }
