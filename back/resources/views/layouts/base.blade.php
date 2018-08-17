@@ -8,7 +8,7 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Chalkboard Development') }}</title>
+        <title>{{ config('app.name', 'Chalkboard Development') }} | @yield('title')</title>
 
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
