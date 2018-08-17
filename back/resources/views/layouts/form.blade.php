@@ -1,7 +1,11 @@
 @extends('layouts.base')
 
+@section('title')
+    @yield('title')
+@endsection
+
 @section('content')
-    <h1>@yield('title')</h1>
+    <h1>@yield('form.title')</h1>
     <hr />
 
     @if(count($errors) > 0)
@@ -14,7 +18,6 @@
         </div>
     @endif
 
-    {{ Form::open() }}
     @yield('form')
     {{ Form::bsSubmit(trans('actions.save')) }}
     {{ Form::close() }}
