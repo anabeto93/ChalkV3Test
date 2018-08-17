@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use App\User;
 use Closure;
-use Illuminate\Support\Facades\Validator;
 
-class StudentMiddleware
+class UserMiddleware
 {
     /**
      * Handle an incoming request.
