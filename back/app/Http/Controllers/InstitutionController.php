@@ -38,9 +38,6 @@ class InstitutionController extends Controller
     public function store(StoreInstitutionRequest $request)
     {
         $institution = new Institution();
-<<<<<<< HEAD
-        $response = $institution->store($request->input('name'));
-=======
         $institution->name = $request->name;
         try {
             $institution->save();
@@ -58,8 +55,6 @@ class InstitutionController extends Controller
                 'reason' => 'Institution could not be created!'
             ];
         }
-
->>>>>>> feature/institutionController
         return response()->json($response);
     }
 
