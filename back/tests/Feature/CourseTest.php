@@ -19,7 +19,7 @@ class CourseTest extends TestCase
      */
     public function testStore()
     {
-        $institution_id = Institution::find(rand(1,5))->id;
+        $institution_id = Institution::inRandomOrder()->first()->id;
 
         $this->actingAs(User::first())
             ->post('courses', [
@@ -31,7 +31,7 @@ class CourseTest extends TestCase
 
     public function testRemove()
     {
-        $course = Course::first();
+        $course = Course::inRandomOrder()->first();
         $this->actingAs(User::first())
             ->delete('courses/'.$course->id)
             ->assertJson(["error" => false]);
