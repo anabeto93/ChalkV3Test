@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Question extends Model
 {
@@ -17,6 +18,7 @@ class Question extends Model
      * The Answers that belong to the Question.
      */
     public function questionAnswers() {
-        return $this->belongsTo(QuestionAnswers::class);
+        return $this->hasMany(QuestionAnswer::class);
     }
+
 }

@@ -43,10 +43,11 @@ class Course extends Model
     }
 
     /**
-     * The Quizzes that belongs to the Course.
+     * Quiz that belongs to Course
+     * @return \Illuminate\Database\Eloquent\Relations\MorphOne
      */
-    public function quizzes() {
-        return $this->morphMany(Quiz::class, 'quizzable');
+    public function quiz() {
+        return $this->morphOne(Quiz::class, 'quizzable');
     }
 
 }
