@@ -38,7 +38,28 @@ class InstitutionController extends Controller
     public function store(StoreInstitutionRequest $request)
     {
         $institution = new Institution();
+<<<<<<< HEAD
         $response = $institution->store($request->input('name'));
+=======
+        $institution->name = $request->name;
+        try {
+            $institution->save();
+            $response = [
+                'status' => 'success',
+                'code' => 200,
+                'reason' => 'Institution created!'
+            ];
+        } catch (\Exception $exception) {
+            logger($exception);
+            session()->flash('error', 'Institution could not be created!');
+            $response = [
+                'error' => true,
+                'code' => 500,
+                'reason' => 'Institution could not be created!'
+            ];
+        }
+
+>>>>>>> feature/institutionController
         return response()->json($response);
     }
 
@@ -82,10 +103,12 @@ class InstitutionController extends Controller
                 'reason' => 'Institution updated!'
             ];
         } catch (\Exception $exception) {
+            logger($exception);
+            session()->flash('error', 'Institution could not be created!');
             $response = [
                 'error' => true,
-                'code' => $exception->getCode(),
-                'reason' => $exception->getMessage()
+                'code' => 500,
+                'reason' => 'Institution could not be updated!'
             ];
         }
 
@@ -103,17 +126,21 @@ class InstitutionController extends Controller
     {
         try {
             $institution->delete();
-            return [
+            session()->flash('success', 'Institution deleted!');
+            $response = [
                 'error' => false,
                 'code' => 205,
                 'reason' => 'Institution deleted!'
             ];
         } catch (\Exception $exception) {
-            return [
+            logger($exception);
+            session()->flash('error', 'Institution could not be deleted!');
+            $response = [
                 'error' => true,
                 'code' => $exception->getCode(),
-                'reason' => $exception->getMessage()
+                'reason' => 'Institution could not be deleted!'
             ];
         }
+        return response()->json($response);
     }
 }
