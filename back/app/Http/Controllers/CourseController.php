@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use App\Http\Requests\StoreCourseRequest;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
@@ -21,7 +22,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        Auth::user()->getCourses();
+        $user = new User();
+        $courses = $user->courses()->get()->toArray();
+        return response()->json($courses);
     }
     /**
      * Show the form for creating a new resource.
@@ -36,18 +39,33 @@ class CourseController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreCourseRequest $request
+     * @return array
      */
     public function store(StoreCourseRequest $request)
     {
         $course = new Course();
-        $course->setName($request->name);
-        $course->setInstitutionId($request->institution);
-        $course->setDescription($request->input('description', ''));
-        $course->setTeacher($request->teacher);
-        $course->setEnabled($request->input('enabled', ''));
-        return response()->json($course->store());
+        $course->name = $request->name;
+        $course->institution()->associate($request->institution);
+        $course->description = $request->description;
+        $course->teacher = $request->teacher;
+        $course->enabled = (bool) $request->enabled;
+
+        try {
+            $course->save();
+            $response = [
+                "error" =>  false,
+                "code"  =>  201,
+                "reason"    =>  'Course created!'
+            ];
+        } catch (\Exception $exception) {
+            $response = [
+                "error" =>  true,
+                "code"  =>  500,
+                "reason"    =>  $exception->getMessage()
+            ];
+        }
+        return response()->json($response);
     }
 
     /**
@@ -81,22 +99,54 @@ class CourseController extends Controller
      */
     public function update(StoreCourseRequest $request, Course $course)
     {
-        $course->setName($request->name);
-        $course->setDescription($request->description);
-        $course->setTeacher($request->teacher);
-        $course->setInstitutionId($request->institution);
-        $course->setEnabled($request->enabled);
-        return response()->json($course->store());
+        $course->name = $request->name;
+        $course->institution()->associate($request->institution);
+        $course->description = $request->description;
+        $course->teacher = $request->teacher;
+        $course->enabled = (bool) $request->enabled;
+
+        try {
+            $course->save();
+            $response = [
+                "error" =>  false,
+                "code"  =>  200,
+                "reason"    =>  'Course updated!'
+            ];
+        } catch (\Exception $exception) {
+            $response = [
+                "error" =>  true,
+                "code"  =>  500,
+                "reason"    =>  'Course update failed!'
+            ];
+        }
+        return response()->json($response);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Course $course
      * @return \Illuminate\Http\Response
      */
     public function destroy(Course $course)
     {
-        return response()->json($course->remove());
+        try {
+            $course->delete();
+            session()->flash('success', 'Course removed!');
+            $response = [
+                "error" => false,
+                "code" => 204,
+                "reason" => "Course removed!"
+            ];
+        } catch (\Exception $exception) {
+            logger($exception);
+            session()->flash('success', 'Course could not be removed!');
+            $response = [
+                "error" => false,
+                "code" => 204,
+                "reason" => "Course could not be removed!"
+            ];
+        }
+        return response()->json($response);
     }
 }
