@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Folder extends Model
 {
+    const DEFAULT_FOLDER_ID = 'default';
+    const DEFAULT_FOLDER = 'Default Folder';
     /**
      * The Course the Folder belongs to.
      */
@@ -14,9 +16,16 @@ class Folder extends Model
     }
 
     /**
-     * The Quizzes that belongs to the Folder.
+     * The Sessions that belongs to the Folder.
      */
-    public function quizzes() {
-        return $this->morphMany(Quiz::class, 'quizzable');
+    public function sessions() {
+        return $this->hasMany(Session::class);
+    }
+
+    /**
+     * The Quiz that belongs to the Folder.
+     */
+    public function quiz() {
+        return $this->morphOne(Quiz::class, 'quizzable');
     }
 }
