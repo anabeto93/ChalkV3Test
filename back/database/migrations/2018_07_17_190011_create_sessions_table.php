@@ -18,7 +18,7 @@ class CreateSessionsTable extends Migration
             $table->unsignedInteger('course_id');
             $table->unsignedInteger('folder_id')->nullable();
             $table->integer('order')->default(0);
-            $table->string('name');
+            $table->string('title');
             $table->text('content')->nullable();
             $table->boolean('progression_lock')->default(false);
             $table->boolean('enabled')->default(false);

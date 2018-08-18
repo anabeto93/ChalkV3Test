@@ -14,13 +14,13 @@ class FoldersTableSeeder extends Seeder
     {
         Folder::create([
             'course_id' => 1,
-            'name' => 'One'
+            'title' => 'One'
         ]);
 
         Folder::create([
             'course_id' => 1,
             'order' => 1,
-            'name' => 'Two'
+            'title' => 'Two'
         ]);
     }
 }

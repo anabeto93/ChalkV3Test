@@ -17,10 +17,10 @@ class CreateFoldersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('course_id');
             $table->smallInteger('order')->default(0);
-            $table->string('name');
+            $table->string('title');
             $table->timestamps();
 
-            $table->unique(array('course_id', 'name'));
+            $table->unique(array('course_id', 'title'));
 
             $table->foreign('course_id')
                 ->references('id')
