@@ -7,13 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Institution extends Model
 {
 
-    private $name;
-
-    public function __construct(string $name = null)
-    {
-        $this->name = $name;
-    }
-
     /**
      * The Admins that belong to the Institution.
      */
@@ -42,51 +35,4 @@ class Institution extends Model
         return $this->hasMany(Cohort::class);
     }
 
-    public function store()
-    {
-        try {
-            $this->save();
-            return [
-                'status' => 'success',
-                'code' => 200,
-                'reason' => 'Institution created!'
-            ];
-        } catch (\Exception $exception) {
-            return [
-                'error' => true,
-                'code' => $exception->getCode(),
-                'reason' => $exception->getMessage()
-            ];
-        }
-    }
-
-    /**
-     * Get Users that belong to Institution
-     *
-     * @return array
-     */
-    public function getUsers()
-    {
-        return $this->users()->get()->toArray();
-    }
-
-    /**
-     * Get Cohorts that belong to Institution
-     *
-     * @return array
-     */
-    public function getCohorts()
-    {
-        return $this->cohorts()->get()->toArray();
-    }
-
-    /**
-     * Get Courses that belong to Institution
-     *
-     * @return array
-     */
-    public function getCourses()
-    {
-        return $this->courses()->get()->toArray();
-    }
 }
