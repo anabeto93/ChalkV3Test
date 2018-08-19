@@ -24,7 +24,8 @@ Route::resources([
     'cohorts'   => 'CohortController',
     'institutions'  =>  'InstitutionController',
     'courses'   =>  'CourseController',
-    'questions' =>  'QuestionController'
+    'questions' =>  'QuestionController',
+    'answers'   =>  'QuestionAnswerController'
 ]);
 
 Route::get('graphql/test/tests', function (){
