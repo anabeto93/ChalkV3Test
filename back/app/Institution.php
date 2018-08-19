@@ -6,10 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Institution extends Model
 {
-<<<<<<< HEAD
     private $name;
-=======
->>>>>>> feature/institutionController
 
     /**
      * The Admins that belong to the Institution.
@@ -39,7 +36,6 @@ class Institution extends Model
         return $this->hasMany(Cohort::class);
     }
 
-<<<<<<< HEAD
     public function store(string $name)
     {
         $this->name = $name;
@@ -88,6 +84,4 @@ class Institution extends Model
     {
         return $this->courses()->get()->toArray();
     }
-=======
->>>>>>> feature/institutionController
 }
