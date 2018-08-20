@@ -13023,6 +13023,29 @@ module.exports = __webpack_require__(9);
 
 __webpack_require__(5);
 
+$(document).ready(function () {
+    //Custom file name change
+    $('input[type="file"]').change(function (e) {
+        var fileName = e.target.files[0].name;
+        $('.custom-file-label').html(fileName);
+    });
+
+    //Select all functionality
+    $("#select_all").change(function () {
+        $(":checkbox").prop('checked', $(this).prop("checked"));
+    });
+
+    $(':checkbox').change(function () {
+        if (false === $(this).prop("checked")) {
+            $("#select_all").prop('checked', false);
+        }
+
+        if ($(':checkbox:checked').length === $(':checkbox').length - 1) {
+            $("#select_all").prop('checked', true);
+        }
+    });
+});
+
 /***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
