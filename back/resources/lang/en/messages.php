@@ -21,9 +21,14 @@ return [
         'folders' => 'Folders',
         'sessions' => 'Sessions',
         'quizzes' => 'Quizzes',
-        'questions' => 'Questions',
+		'questions' => 'Questions',
         'questionAnswers' => 'Answers',
+		'quizResults' => 'Quiz Results',
         'progressions' => 'User Progressions',
+    ],
+
+    'header' => [
+        'title' => ':Model: ":Title" | '
     ],
 
     'list' => [
@@ -35,13 +40,15 @@ return [
         'folders' => 'List of Folders',
         'sessions' => 'List of Sessions',
         'quizzes' => 'List of Quizzes',
-        'questions' => 'List of Questions',
+		'questions' => 'List of Questions',
         'questionAnswers' => 'List of Answers',
+		'quizResults' => 'List of Quiz Results',
         'progressions' => 'User Progressions',
     ],
 
     'none' => [
-        'none.institutions' => 'No Institutions found!',
+        'title' => 'Sorry. There is nothing here.',
+        'institutions' => 'No Institutions found!',
         'admins' => 'No Admins found!',
         'users' => 'No Users found!',
         'cohorts' => 'No Cohorts found!',
@@ -49,9 +56,38 @@ return [
         'folders' => 'No Folders found!',
         'sessions' => 'No Sessions found!',
         'quizzes' => 'No Quizzes found!',
-        'questions' => 'No Questions found!',
+		'questions' => 'No Questions found!',
+        'questionAnswer' => 'Answer: ":Answer"',
+		'quizResults' => 'No Quiz Results found!',
         'questionAnswers' => 'No Answers found!',
         'progressions' => 'No users have progressed past this point!',
+    ],
+
+    'show' => [
+        'institution' => 'Institution: ":Institution"',
+        'admin' => 'Admin: ":Admin"',
+        'user' => 'User: ":User"',
+        'cohort' => 'Cohort: ":Cohort"',
+        'course' => 'Course: ":Course"',
+        'folder' => 'Folder: ":Folder"',
+        'session' => 'Session: ":Session"',
+        'quiz' => 'Quiz: ":Quiz"',
+		'question' => 'Question: ":Question"',
+		'quizResult' => 'Quiz Result: ":QuizResult"',
+        'progressions' => 'Progressions for: ":Session"',
+    ],
+
+    // 'assign' => [
+	// 	'to' => 'Assign To',
+    //     'users' => 'Assign Users',
+    //     'courses' => 'Assign Courses',
+    // ],
+
+    'help' => [
+        'session' => [
+            'create' => 'Kindly upload a ZIP file no larger than 10MB.',
+            'update' => 'Keep empty if no modification or upload new ZIP to replace old.'
+        ]
     ],
     
 ];

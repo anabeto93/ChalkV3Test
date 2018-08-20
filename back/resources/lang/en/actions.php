@@ -21,22 +21,22 @@ return [
         'folder' => 'Create Folder',
         'session' => 'Create Session',
         'quiz' => 'Create Quiz',
-        'question' => 'New Question',
-        'questionAnswer' => 'Add Answer',
+        'question' => 'Create Question',
+        'questionAnswer' => 'Create Answer',
     ],
     
-    'edit' => [
-        'title' => 'Edit',
-        'institution' => 'Edit Institution',
-        'admin' => 'Edit Administrator',
-        'course' => 'Edit Course',
-        'user' => 'Edit User',
-        'cohort' => 'Edit Cohort',
-        'folder' => 'Edit Folder',
-        'session' => 'Edit Session',
-        'quiz' => 'Edit Quiz',
-        'question' => 'Edit Question',
-        'questionAnswer' => 'Edit Answer',
+    'update' => [
+        'title' => 'Update',
+        'institution' => 'Update Institution',
+        'admin' => 'Update Administrator',
+        'course' => 'Update Course',
+        'user' => 'Update User',
+        'cohort' => 'Update Cohort',
+        'folder' => 'Update Folder',
+        'session' => 'Update Session',
+        'quiz' => 'Update Quiz',
+        'question' => 'Update Question',
+        'questionAnswer' => 'Update Answer',
     ],
     
     'delete' => [
@@ -44,12 +44,32 @@ return [
     ],
     'remove' => 'Remove',
 
-    'view' => [
-        'title' => 'View'
+    'show' => [
+        'title' => 'View',
+        'courses' => 'View Courses',
+        'folders' => 'View Folders',
+        'sessions' => 'View Sessions',
+        'users' => 'View Users',
+        'quiz' => 'View Quiz',
+        'questions' => 'View Questions',
+		'questionAnswers' => 'View Answers',
+		'quizResults' => 'View Quiz Results'
+	],
+	
+    'assign' => [
+		'to' => 'Assign To',
+        'users' => 'Assign Users',
+        'course' => 'Assign Course',
+        'courses' => 'Assign Courses',
+        'quiz' => 'Assign Quiz'
     ],
-    'preview' => 'Preview',
 
+    'send' => [
+        'login' => 'Send Login Access SMS'
+    ],
+
+    'logout' => 'Logout',
+    'preview' => 'Preview',
     'save' => 'Save',
-    'update' => 'Update'
 
 ];
