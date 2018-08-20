@@ -1,19 +1,17 @@
 @extends('layouts.form')
 
-@section('title')
-    @lang('actions.create.course')
-@endsection
+@section('title', trans(empty($course) ? 'actions.create.course' : 'actions.update.course'))
 
-@section('form.title', trans('actions.create.course'))
+@section('form.title', trans(empty($course) ? 'actions.create.course' : 'actions.update.course'))
 
 @section('form')
     @if(isset($course))
-        {{ Form::model($course, ['route' => 'course.update', $course->id]) }}
+        {{ Form::model($course, ['route' => ['course.update', $course->id]]) }}
     @else
         {{ Form::open(['route' => 'course.create']) }}
     @endif
-    {{ Form::bsText('name') }}
-    {{ Form::bsTextArea('description') }}
-    {{ Form::bsText('teacher') }}
-    {{ Form::bsCheckbox('enabled') }}
+    {{ Form::bsText('title', Input::old('title')) }}
+    {{ Form::bsTextArea('description', Input::old('description')) }}
+    {{ Form::bsText('teacher', Input::old('teacher')) }}
+    {{ Form::bsCheckbox('enabled', Input::old('enabled')) }}
 @endsection
