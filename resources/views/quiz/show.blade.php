@@ -106,16 +106,16 @@
                     <li class="list-group-item">
                         <div class="row">
                             <div class="col-6">
-                                {{ $quizResult->$user->name }}
+                                {{ $quizResult->user->name }}
                             </div>
 
                             <div class="col-3">
-                                {{ $quizResult->grade }}
+                                {{ $quizResult->gradePercent . "%" }}
                             </div>
 
                             <div class="col-3 text-right">
                                 <a class="btn btn-sm btn-outline-info" role="button" href="{{ route('user.show',
-                                $user->id) }}">
+                                $quizResult->user->id) }}">
                                     @lang('actions.show.title')
                                 </a>
                             </div>
