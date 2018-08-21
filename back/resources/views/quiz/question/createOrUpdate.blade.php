@@ -17,8 +17,7 @@
         {{ Form::open(['route' => ['quiz.question.create', $quiz->id]]) }}
     @endif
     {{ Form::bsText('title', Input::old('title'), ['required' => true]) }}
-    {{ Form::bsSelect('type', ['multiple_choice' => 'Multiple Choice', 'short_exact' => 'Short Exact Answer'],
-    Input::old('type'), ['required' => true]) }}
+    {{ Form::bsSelect('type', Config::get('constants.quiz_type'), Input::old('type'), ['required' => true]) }}
     {{ Form::bsTextArea('feedback', Input::old('feedback')) }}
 
     {{-- Answers --}}
