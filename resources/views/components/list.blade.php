@@ -20,9 +20,11 @@
                 <input class="btn btn-outline-dark" type="submit" value="{{ $formSubmit }}" />
             @endif
 
-            <a class="btn btn-success" role="button" href="{{ $headerActionRoute }}">
-                {{ $headerActionTitle }}
-            </a>
+            @if(isset($headerActionRoute) && isset($headerActionTitle))
+                <a class="btn btn-success" role="button" href="{{ $headerActionRoute }}">
+                    {{ $headerActionTitle }}
+                </a>
+            @endif
         </span>
     </div>
 
