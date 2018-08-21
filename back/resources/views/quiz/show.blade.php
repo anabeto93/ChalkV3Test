@@ -114,8 +114,11 @@
                             </div>
 
                             <div class="col-3 text-right">
-                                <a class="btn btn-sm btn-outline-info" role="button" href="{{ route('user.show',
-                                $quizResult->user->id) }}">
+                                <a class="btn btn-sm btn-outline-info" role="button"
+                                   href="{{ route('quiz.result.show', [
+                                       'quiz' => $quiz->id,
+                                       '$quizResult' => $quizResult->id
+                                   ]) }}">
                                     @lang('actions.show.title')
                                 </a>
                             </div>
