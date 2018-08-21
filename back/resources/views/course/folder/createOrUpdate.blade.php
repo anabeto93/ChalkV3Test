@@ -17,5 +17,5 @@
         {{ Form::open(['route' => ['course.folder.create', $course->id]]) }}
     @endif
     {{ Form::bsNumber('order', Input::old('order')) }}
-    {{ Form::bsText('title', Input::old('title')) }}
+    {{ Form::bsText('title', Input::old('title'), ['required' => true]) }}
 @endsection
