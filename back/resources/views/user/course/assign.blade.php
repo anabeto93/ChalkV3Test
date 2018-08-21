@@ -1,14 +1,14 @@
 @extends('layouts.form')
 
 @section('title')
-    {{ $user->name }} ~ @lang('messages.assign.courses')
+    {{ $user->name }} ~ @lang('actions.assign.courses')
 @endsection
 
 @section('form.title')
     <i width="32" height="32" data-feather="user"></i>
     <a href="{{ route('user.show', $user->id) }}">
         {{ $user->name }}
-    </a> ~ @lang('messages.assign.courses')
+    </a> ~ @lang('actions.assign.courses')
 @endsection
 
 @section('form')
@@ -16,8 +16,8 @@
 
     @foreach($courses as $course)
         <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="{{ $course->id }}" {{ $user->courses->contains
-            ($course) ? 'checked' : '' }}>
+            <input id="{{ $course->id }}" name="course_id[]" type="checkbox"
+                   class="form-check-input" {{ $user->courses->contains($course) ? 'checked' : '' }}>
             <label class="form-check-label" for="{{ $course->id }}">
                 {{ $course->title }} | <b>{{ $course->teacher }}</b>
             </label>
