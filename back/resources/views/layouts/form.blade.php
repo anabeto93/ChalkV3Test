@@ -21,5 +21,8 @@
     @yield('form')
     {{ Form::bsSubmit(trans('actions.save')) }}
     {{ Form::close() }}
+@endsection
 
+@section('javascript')
+    @yield('javascript')
 @endsection

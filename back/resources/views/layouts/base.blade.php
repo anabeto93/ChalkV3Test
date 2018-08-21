@@ -33,4 +33,5 @@
     <script>
         feather.replace();
     </script>
+    @yield('javascript')
 </html>
