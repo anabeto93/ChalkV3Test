@@ -9,22 +9,26 @@
             <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('course.list') }}">
+                        <a class="nav-link {{ explode('.', Route::currentRouteName())[0] == 'course' ? 'active' :
+                        null }}" href="{{ route('course.list') }}">
                             @lang('messages.title.courses')
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('user.list') }}">
+                        <a class="nav-link {{ explode('.', Route::currentRouteName())[0] == 'user' ? 'active' :
+                        null }}"" href="{{ route('user.list') }}">
                             @lang('messages.title.users')
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('cohort.list') }}">
+                        <a class="nav-link {{ explode('.', Route::currentRouteName())[0] == 'cohort' ? 'active' :
+                        null }}"" href="{{ route('cohort.list') }}">
                             @lang('messages.title.cohorts')
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('quiz.list') }}">
+                        <a class="nav-link {{ explode('.', Route::currentRouteName())[0] == 'quiz' ? 'active' :
+                        null }}"" href="{{ route('quiz.list') }}">
                             @lang('messages.title.quizzes')
                         </a>
                     </li>
