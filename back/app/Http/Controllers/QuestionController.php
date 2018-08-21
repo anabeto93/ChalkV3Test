@@ -36,9 +36,27 @@ class QuestionController extends Controller
     public function store(StoreQuestionRequest $request)
     {
         $question = new Question();
-        return $question
-            ->setAttributes($request)
-            ->store();
+        $question->type = $request->input('type');
+        $question->title = $request->input('title');
+        $question->quiz()->associate($request->input('quiz'));
+        $question->feedback = $request->input('feedback', null);
+        try {
+            $question->save();
+            session()->flash('success', 'Question created!');
+            return response()->json([
+                "error" =>  false,
+                "code"  =>  201,
+                "reason"    =>  "Question created!"
+            ]);
+        } catch (\Exception $exception) {
+            logger($exception);
+            session()->flash('error', 'Question could not be created!');
+            return response()->json([
+                "error" =>  true,
+                "code"  =>  500,
+                "reason"    =>  "Question could not be created!"
+            ]);
+        }
     }
 
     /**
@@ -47,7 +65,7 @@ class QuestionController extends Controller
      */
     public function getAnswers(Question $question)
     {
-        return $question->getAnswers();
+        return response()->json($question->questionAnswers()->get()->toArray());
     }
 
     /**
@@ -81,9 +99,27 @@ class QuestionController extends Controller
      */
     public function update(StoreQuestionRequest $request, Question $question)
     {
-        return $question
-            ->setAttributes($request)
-            ->store(true);
+        $question->type = $request->input('type');
+        $question->title = $request->input('title');
+        $question->quiz()->associate($request->input('quiz'));
+        $question->feedback = $request->input('feedback', null);
+        try {
+            $question->save();
+            session()->flash('success', 'Question updated!');
+            return response()->json([
+                "error" =>  false,
+                "code"  =>  201,
+                "reason"    =>  "Question updated!"
+            ]);
+        } catch (\Exception $exception) {
+            logger($exception);
+            session()->flash('error', 'Question could not be updated!');
+            return response()->json([
+                "error" =>  true,
+                "code"  =>  500,
+                "reason"    =>  "Question could not be updated!"
+            ]);
+        }
     }
 
     /**
@@ -94,6 +130,20 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        return response()->json($question->remove());
+        try {
+            $question->delete();
+            session()->flash('success', 'Question removed!');
+            return response()->json([
+                "error" =>  false,
+                "code"  =>  204,
+                "reason"    =>  "Question removed"
+            ]);
+        } catch (\Exception $exception) {
+            return response([
+                "error" =>  false,
+                "code"  =>  204,
+                "reason"    =>  "Question could not be removed"
+            ]);
+        }
     }
 }
