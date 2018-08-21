@@ -9,16 +9,22 @@
                 @if(isset($headerIcon))
                     <i data-feather="{{ $headerIcon }}" width="32" height="32"></i>
                 @endif
-                {{ $headerTitle }}
+                @if(isset($headerTitle))
+                    {{ $headerTitle }}
+                @endif
             </h1>
         </span>
 
-        <div class="float-right">
-            {{ $headerActions }}
-        </div>
+        @if(isset($headerActions))
+            <div class="float-right">
+                {{ $headerActions }}
+            </div>
+        @endif
     </div>
 
     <hr style="margin-top: 0"/>
 
-    {{ $rows }}
+    @if(isset($rows))
+        {{ $rows }}
+    @endif
 @endsection
