@@ -13024,13 +13024,17 @@ module.exports = __webpack_require__(9);
 __webpack_require__(5);
 
 $(document).ready(function () {
-    //Custom file name change
+    /**
+     * Custom file name change
+     */
     $('input[type="file"]').change(function (e) {
         var fileName = e.target.files[0].name;
         $('.custom-file-label').html(fileName);
     });
 
-    //Select all functionality
+    /**
+     * Select all functionality
+     */
     $("#select_all").change(function () {
         $(":checkbox").prop('checked', $(this).prop("checked"));
     });
@@ -13043,6 +13047,42 @@ $(document).ready(function () {
         if ($(':checkbox:checked').length === $(':checkbox').length - 1) {
             $("#select_all").prop('checked', true);
         }
+    });
+
+    /**
+     * Dynamic field generation for QuestionAnswers
+     */
+    //Allow only one answer when short_exact
+    $('select#type').on('change', function () {
+        if (this.value === 'short_exact') {
+            //Remove all other answers except the first
+            $('.dynamic-added').remove();
+            //Hide the Add Answer button
+            $('#add-answer').hide();
+            //Check the only possible answer as correct and disable it
+            $('input[name="questionAnswerCorrect[]"]').prop('checked', true).prop('disabled', true);
+        } else {
+            //Show the Add Answer button
+            $('#add-answer').show();
+            //Re-enable checkbox
+            $('input[name="questionAnswerCorrect[]"]').prop('disabled', false);
+        }
+    });
+
+    //Get questAnswerIndex of dynamically added answers
+    var questionAnswerIndex = $('div.dynamic-added').length;
+
+    //Add new answer
+    $('#add-answer').click(function () {
+        questionAnswerIndex++;
+
+        $('#dynamic-field').append('<div id="row' + questionAnswerIndex + '" class="row form-inline form-group dynamic-added">' + '<div class="col-8">' + '<div class="input-group">' + '<input required type="text" name="questionAnswerTitle[]" class="form-control" />' + '<div class="input-group-append">' + '<button id="' + questionAnswerIndex + '" name="remove" class="input-group btn btn-danger btn-remove"' + ' type="button">' + 'X' + '</button>' + '</div>' + '</div>' + '</div>' + '<div class="col-4 text-center">' + '<div class="form-check">' + '<input type="checkbox" id="checkbox' + questionAnswerIndex + '" name="questionAnswerCorrect[]"' + ' class="form-check-input" />' + '<label class="form-check-label" for="checkbox' + questionAnswerIndex + '">' + 'Correct' + '</label>' + '</div>' + '</div>' + '</div>');
+    });
+
+    //Remove answer
+    $(document).on('click', '.btn-remove', function () {
+        var button_id = $(this).attr("id");
+        $('#row' + button_id + '').remove();
     });
 });
 
