@@ -17,7 +17,7 @@
         {{ Form::open(['route' => ['course.session.create', $course->id]]) }}
     @endif
     {{ Form::bsNumber('order', Input::old('order')) }}
-    {{ Form::bsText('title', Input::old('title')) }}
+    {{ Form::bsText('title', Input::old('title'), ['required' => true]) }}
     {{ Form::bsFile('content', trans('fields.file')) }}
     <small id="content" class="form-text text-muted" style="margin-bottom: 1.5em">
         @if(isset($session))

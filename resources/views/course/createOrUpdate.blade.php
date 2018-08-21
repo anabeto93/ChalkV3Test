@@ -10,8 +10,8 @@
     @else
         {{ Form::open(['route' => 'course.create']) }}
     @endif
-    {{ Form::bsText('title', Input::old('title')) }}
+    {{ Form::bsText('title', Input::old('title'), ['required' => true]) }}
     {{ Form::bsTextArea('description', Input::old('description')) }}
-    {{ Form::bsText('teacher', Input::old('teacher')) }}
+    {{ Form::bsText('teacher', Input::old('teacher'), ['required' => true]) }}
     {{ Form::bsCheckbox('enabled', Input::old('enabled')) }}
 @endsection
