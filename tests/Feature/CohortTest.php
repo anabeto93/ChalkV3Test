@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Cohort;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
@@ -17,17 +18,18 @@ class CohortTest extends TestCase
      */
     public function testStore()
     {
-        $user = Auth::loginUsingId(User::first()->id);
+        $user = User::first();
         $this->actingAs($user)
             ->post('cohorts', ['name' => 'php developers'])
-            ->assertJson(['error' => false, 'reason' => 'success']);
+            ->assertJson(['error' => false, 'reason' => 'Cohort created!']);
     }
 
     public function testUpdate()
     {
-        $user = Auth::loginUsingId(User::first()->id);
+        $user = User::first();
+        $cohort = Cohort::inRandomOrder()->first();
         $this->actingAs($user)
-            ->put('cohorts/6', ['name' => 'laravel Developers'])
-            ->assertJson(['error' => false, 'reason' => 'success', 'code' => 200]);
+            ->put('cohorts/'. $cohort->id, ['name' => 'laravel Developers'])
+            ->assertJson(['error' => false, 'reason' => 'Cohort updated!', 'code' => 200]);
     }
 }

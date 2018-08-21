@@ -19,6 +19,7 @@ Route::get('/', function () {
 
 Route::post('admins/register', 'Auth\RegisterController@createAdmin');
 Route::post('admins/institutions.add', 'AdminController@institution');
+
 //Route::resources([
 //    'admins'    => 'AdminController',
 //    'cohorts'   => 'CohortController',
