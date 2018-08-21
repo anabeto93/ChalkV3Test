@@ -18,8 +18,8 @@ class UsersTableSeeder extends Seeder
             'first_name' => 'Tester',
             'last_name' => 'Account',
             'phone_number' =>  '+233123456789',
-            'country' => 'gh',
-            'locale' => 'en',
+            'country' => 'GH',
+            'language' => 'en',
         ]);
         $user->token = Hashids::connection('user')->encode($user->id);
         $user->save();
@@ -29,8 +29,8 @@ class UsersTableSeeder extends Seeder
             'first_name' => 'Second',
             'last_name' => 'Account',
             'phone_number' =>  '+233000000000',
-            'country' => 'gh',
-            'locale' => 'en',
+            'country' => 'GH',
+            'language' => 'en',
         ]);
         $user2->token = Hashids::connection('user')->encode($user2->id);
         $user2->save();

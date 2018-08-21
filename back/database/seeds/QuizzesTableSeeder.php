@@ -19,7 +19,9 @@ class QuizzesTableSeeder extends Seeder
             'institution_id' => 1,
             'quizzable_type' => 'App\Session',
             'quizzable_id' => 1,
-            'title' => 'Premier Quiz'
+            'title' => 'Premier Quiz',
+            'description' => 'Le first quiz of V3',
+            'enabled' => true
         ]);
 
         //Question 1

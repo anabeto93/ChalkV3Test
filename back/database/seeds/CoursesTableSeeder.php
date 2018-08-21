@@ -15,7 +15,7 @@ class CoursesTableSeeder extends Seeder
     {
         $course = Course::create([
             'institution_id' => 1,
-            'name' => 'Laravel',
+            'title' => 'Laravel',
             'description' => 'An intro to V3',
             'teacher' => 'Nii Apa Abbey',
             'enabled' => true
@@ -28,7 +28,7 @@ class CoursesTableSeeder extends Seeder
 
         Course::create([
             'institution_id' => 1,
-            'name' => 'Symfony',
+            'title' => 'Symfony',
             'description' => 'Comparison study',
             'teacher' => 'Nii Apa Abbey',
             'enabled' => true
@@ -36,7 +36,7 @@ class CoursesTableSeeder extends Seeder
 
         Course::create([
             'institution_id' => 2,
-            'name' => 'Nothing',
+            'title' => 'Nothing',
             'description' => 'We have no idea',
             'teacher' => 'Solomon',
             'enabled' => true

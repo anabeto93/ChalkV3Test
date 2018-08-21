@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('phone_number')->unique();
             $table->string('country');
-            $table->string('locale')->default('en');
+            $table->string('language')->default('en');
             $table->dateTime('login_access_last_sent')->nullable();
             $table->string('token')->unique()->nullable();
             $table->dateTime('token_last_used')->nullable();
