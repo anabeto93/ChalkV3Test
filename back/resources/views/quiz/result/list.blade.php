@@ -28,7 +28,7 @@
                     <td class="col-4">{{ $quizResult->user->name }}</td>
                     <td class="col-2">{{ $quizResult->total_correct }}</td>
                     <td class="col-2">{{ $quizResult->medium }}</td>
-                    <td class="col-2">{{ round((float)$quizResult->grade * 100) }}</td>
+                    <td class="col-2">{{ $quizResult->gradePercent }}</td>
                     <td class="col-2 text-center">
 
                     </td>
