@@ -37,8 +37,20 @@ $(document).ready(function() {
      * Dynamic field generation for QuestionAnswers
      */
     //Allow only one answer when short_exact
+    var selectValue = $('select#type').val();
+
     $('select#type').on('change', function() {
-        if(this.value === 'short_exact') {
+        selectValue = $('select#type').val();
+        checkQuestionType();
+    });
+
+    //Call check on document ready
+    checkQuestionType();
+
+    //Function to check for question type
+    function checkQuestionType() {
+        //If short_exact
+        if (selectValue === 'short_exact') {
             //Remove all other answers except the first
             $('.dynamic-added').remove();
             //Hide the Add Answer button
@@ -51,7 +63,7 @@ $(document).ready(function() {
             //Re-enable checkbox
             $('input[name="questionAnswerCorrect[]"]').prop('disabled', false);
         }
-    });
+    }
 
     //Get questAnswerIndex of dynamically added answers
     var questionAnswerIndex = $('div.dynamic-added').length;
