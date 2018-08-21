@@ -249,7 +249,7 @@ Route::prefix('quizzes')->name('quiz.')->group(function () {
         })->name('update');
 
         /**
-         * Questions (Show and Assign)
+         * Questions
          */
         Route::prefix('questions')->name('question.')->group(function () {
             Route::get('/', function ($quiz) {
@@ -279,12 +279,17 @@ Route::prefix('quizzes')->name('quiz.')->group(function () {
         });
 
         /**
-         * QuizResults (Show)
+         * QuizResults
          */
         Route::prefix('results')->name('result.')->group(function () {
             Route::get('/', function ($quiz) {
                 return view('quiz.result.list', ['quiz' => \App\Quiz::find($quiz)]);
             })->name('list');
+
+            Route::get('{quizResult}', function ($quiz, $quizResult) {
+                return view('quiz.result.show', ['quiz' => \App\Quiz::find($quiz), 'quizResult' =>
+                    \App\QuizResult::find($quizResult)]);
+            })->name('show');
         });
     });
 });
