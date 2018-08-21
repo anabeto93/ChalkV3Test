@@ -23,7 +23,7 @@ return [
         'quizzes' => 'Quizzes',
 		'questions' => 'Questions',
         'questionAnswers' => 'Answers',
-		'quizResults' => 'Quiz Results',
+		'quizResults' => 'Results',
         'progressions' => 'User Progressions',
     ],
 
@@ -42,7 +42,7 @@ return [
         'quizzes' => 'List of Quizzes',
 		'questions' => 'List of Questions',
         'questionAnswers' => 'List of Answers',
-		'quizResults' => 'List of Quiz Results',
+		'quizResults' => 'List of Results',
         'progressions' => 'User Progressions',
     ],
 
@@ -58,7 +58,7 @@ return [
         'quizzes' => 'No Quizzes found!',
 		'questions' => 'No Questions found!',
         'questionAnswer' => 'Answer: ":Answer"',
-		'quizResults' => 'No Quiz Results found!',
+		'quizResults' => 'No Results found!',
         'questionAnswers' => 'No Answers found!',
         'progressions' => 'No users have progressed past this point!',
     ],
@@ -76,12 +76,6 @@ return [
 		'quizResult' => 'Quiz Result: ":QuizResult"',
         'progressions' => 'Progressions for: ":Session"',
     ],
-
-    // 'assign' => [
-	// 	'to' => 'Assign To',
-    //     'users' => 'Assign Users',
-    //     'courses' => 'Assign Courses',
-    // ],
 
     'help' => [
         'session' => [
