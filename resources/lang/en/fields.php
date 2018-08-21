@@ -23,7 +23,7 @@ return [
     'last_name' => 'Last Name',
     'phone_number' => 'Phone',
     'country' => 'Country',
-    'locale' => 'Language',
+    'language' => 'Language',
     'token' => 'Token',
     'login_last_sent' => 'Login Last Sent',
     'token_last_used' => 'Token Last Used',
