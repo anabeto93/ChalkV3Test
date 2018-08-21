@@ -19,4 +19,11 @@ class QuizResult extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * The Grade in Percent
+     */
+    public function getGradePercentAttribute() {
+        return round((float)$this->grade * 100);
+    }
 }
