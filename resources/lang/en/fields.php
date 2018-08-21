@@ -29,7 +29,7 @@ return [
     'token_last_used' => 'Token Last Used',
     'order' => 'Order',
     'folder' => 'Folder',
-    'progression_lock' => 'Progression Locked',
+    'progression_lock' => 'Progression Lock',
     'type' => 'Type',
     'feedback' => 'Feedback',
     'correct' => 'Correct',
