@@ -73,7 +73,7 @@ return [
         'session' => 'Session: ":Session"',
         'quiz' => 'Quiz: ":Quiz"',
 		'question' => 'Question: ":Question"',
-		'quizResult' => 'Quiz Result: ":QuizResult"',
+		'quizResult' => 'Quiz Result: ":User"',
         'progressions' => 'Progressions for: ":Session"',
     ],
 
