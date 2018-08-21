@@ -10,9 +10,9 @@
     @else
         {{ Form::open(['route' => 'user.create']) }}
     @endif
-    {{ Form::bsText('first_name', Input::old('first_name')) }}
-    {{ Form::bsText('last_name', Input::old('last_name')) }}
-    {{ Form::bsText('phone_number', Input::old('phone_number')) }}
-    {{ Form::bsText('country', Input::old('country')) }}
-    {{ Form::bsText('locale', Input::old('locale')) }}
+    {{ Form::bsText('first_name', Input::old('first_name'), ['required' => true]) }}
+    {{ Form::bsText('last_name', Input::old('last_name'), ['required' => true]) }}
+    {{ Form::bsText('phone_number', Input::old('phone_number'), ['required' => true]) }}
+    {{ Form::bsText('country', Input::old('country'), ['required' => true]) }}
+    {{ Form::bsText('locale', Input::old('locale'), ['required' => true]) }}
 @endsection
