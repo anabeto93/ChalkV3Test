@@ -39,15 +39,19 @@
 
         @component('components.show.row', [
             'title' => trans('fields.country'),
-            'data' => $user->country
         ])
+            @slot('data')
+                {{ Countries::getOne($user->country, app()->getLocale()) }}
+            @endslot
         @endcomponent
 
 
         @component('components.show.row', [
             'title' => trans('fields.language'),
-            'data' => $user->language
         ])
+            @slot('data')
+                {{ Config::get('constants.lang.' . $user->language) }}
+            @endslot
         @endcomponent
 
 
