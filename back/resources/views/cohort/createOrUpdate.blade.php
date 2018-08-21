@@ -10,5 +10,5 @@
     @else
         {{ Form::open(['route' => 'cohort.create']) }}
     @endif
-    {{ Form::bsText('name', Input::old('name')) }}
+    {{ Form::bsText('name', Input::old('name'), ['required' => true]) }}
 @endsection

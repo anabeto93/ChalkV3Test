@@ -1,14 +1,14 @@
 @extends('layouts.form')
 
 @section('title')
-    {{ $cohort->name }} ~ @lang('messages.assign.users')
+    {{ $cohort->name }} ~ @lang('actions.assign.users')
 @endsection
 
 @section('form.title')
     <i width="32" height="32" data-feather="inbox"></i>
     <a href="{{ route('cohort.show', $cohort->id) }}">
         {{ $cohort->name }}
-    </a> ~ @lang('messages.assign.users')
+    </a> ~ @lang('actions.assign.users')
 @endsection
 
 @section('form')
@@ -16,8 +16,8 @@
 
     @foreach($users as $user)
         <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="{{ $user->id }}" {{ $cohort->users->contains
-            ($user) ? 'checked' : '' }}>
+            <input id="{{ $user->id }}" name="user_id[]" type="checkbox"
+                   class="form-check-input" {{ $cohort->users->contains($user) ? 'checked' : '' }}>
             <label class="form-check-label" for="{{ $user->id }}">
                 {{ $user->name }} | <b>{{ $user->phone_number }}</b>
             </label>
