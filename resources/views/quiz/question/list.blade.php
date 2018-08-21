@@ -27,7 +27,7 @@
             @foreach($quiz->questions as $question)
                 <tr class="row">
                     <td class="col-4">{{ $question->title }}</td>
-                    <td class="col-2">{{ $question->type }}</td>
+                    <td class="col-2">{{ Config::get('constants.quiz_type.'.$question->type) }}</td>
                     <td class="col-3">{{ $question->feedback }}</td>
                     <td class="col-1 text-center">{{ $question->questionAnswers->count() }}</td>
                     <td class="col-2 text-right">
