@@ -13,5 +13,5 @@
     {{ Form::bsText('title', Input::old('title'), ['required' => true]) }}
     {{ Form::bsTextArea('description', Input::old('description')) }}
     {{ Form::bsText('teacher', Input::old('teacher'), ['required' => true]) }}
-    {{ Form::bsCheckbox('enabled', Input::old('enabled')) }}
+    {{ Form::bsCheckbox('enabled', Input::old('enabled'), isset($course) ? null : true) }}
 @endsection

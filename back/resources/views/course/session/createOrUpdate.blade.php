@@ -24,6 +24,7 @@
             @lang('messages.help.session.update')
         @else
             @lang('messages.help.session.create')
+
         @endif
     </small>
     {{ Form::bsCheckbox('progression_lock', Input::old('progression_lock')) }}
