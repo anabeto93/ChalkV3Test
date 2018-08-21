@@ -50,6 +50,6 @@ class UserType extends GraphQLType {
     }
 
     protected function resolveCountryNameField($root, $args) {
-        return "Country code to string here!";
+        return Countries::getOne($root->country);
     }
 }
