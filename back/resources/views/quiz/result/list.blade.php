@@ -29,8 +29,11 @@
                     <td class="col-2">{{ $quizResult->total_correct }}</td>
                     <td class="col-2">{{ $quizResult->medium }}</td>
                     <td class="col-2">{{ $quizResult->gradePercent }}</td>
-                    <td class="col-2 text-center">
-
+                    <td class="col-2 text-right">
+                        <a href="{{ route('quiz.result.show', ['quiz' => $quiz->id, 'quizResult' => $quizResult->id])
+                         }}"  class="btn btn-sm btn-info">
+                            @lang('actions.show.title')
+                        </a>
                     </td>
                 </tr>
             @endforeach
