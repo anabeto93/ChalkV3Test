@@ -27,5 +27,5 @@
         @endif
     </small>
     {{ Form::bsCheckbox('progression_lock', Input::old('progression_lock')) }}
-    {{ Form::bsCheckbox('enabled', Input::old('enabled')) }}
+    {{ Form::bsCheckbox('enabled', Input::old('enabled'), isset($session) ? null : true) }}
 @endsection
