@@ -22,7 +22,7 @@ return [
         'session' => 'Create Session',
         'quiz' => 'Create Quiz',
         'question' => 'Create Question',
-        'questionAnswer' => 'Create Answer',
+        'questionAnswer' => 'Add Answer',
     ],
     
     'update' => [
@@ -53,7 +53,7 @@ return [
         'quiz' => 'View Quiz',
         'questions' => 'View Questions',
 		'questionAnswers' => 'View Answers',
-		'quizResults' => 'View Quiz Results'
+		'quizResults' => 'View Results'
 	],
 	
     'assign' => [

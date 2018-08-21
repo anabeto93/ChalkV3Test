@@ -30,6 +30,12 @@ return [
     'order' => 'Order',
     'folder' => 'Folder',
     'progression_lock' => 'Progression Locked',
+    'type' => 'Type',
+    'feedback' => 'Feedback',
+    'correct' => 'Correct',
+    'total_correct' => 'Total Correct',
+    'grade' => 'Grade (%)',
+    'medium' => 'Medium',
 
     'file' => 'Click to select file...',
 
@@ -39,6 +45,8 @@ return [
     'sessions' => 'Sessions',
     'questions' => 'Questions',
     'answers' => 'Answers',
-    'quizResults' => 'Quiz Results',
+    'questionAnswers' => 'Answers',
+    'results' => 'Results',
+    'quizResults' => 'Results',
 
 ];
