@@ -14,5 +14,5 @@
     {{ Form::bsText('last_name', Input::old('last_name'), ['required' => true]) }}
     {{ Form::bsText('phone_number', Input::old('phone_number'), ['required' => true]) }}
     {{ Form::bsText('country', Input::old('country'), ['required' => true]) }}
-    {{ Form::bsText('locale', Input::old('locale'), ['required' => true]) }}
+    {{ Form::bsText('language', Input::old('language'), ['required' => true]) }}
 @endsection

@@ -45,8 +45,8 @@
 
 
         @component('components.show.row', [
-            'title' => trans('fields.locale'),
-            'data' => $user->locale
+            'title' => trans('fields.language'),
+            'data' => $user->language
         ])
         @endcomponent
 

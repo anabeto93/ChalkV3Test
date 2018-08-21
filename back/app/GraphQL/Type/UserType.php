@@ -42,14 +42,14 @@ class UserType extends GraphQLType {
                 'description' => 'Name of the country',
                 'selectable' => false
             ],
-			'locale' => [
+			'language' => [
 				'type' => Type::nonNull(Type::string()),
-				'description' => 'Language locale',
+				'description' => 'Language',
 			]
 		];
     }
 
     protected function resolveCountryNameField($root, $args) {
-        return "Country locale to string here!";
+        return "Country code to string here!";
     }
 }
