@@ -18,7 +18,8 @@ class FormServiceProvider extends ServiceProvider
         Form::component('bsTextArea', 'components.form.textarea', ['name', 'value' => null, 'attributes' => []]);
         Form::component('bsNumber', 'components.form.number', ['name', 'value' => null, 'attributes' => []]);
         Form::component('bsCheckbox', 'components.form.checkbox', ['name', 'value' => false, 'attributes' => []]);
-        Form::component('bsSelect', 'components.form.select', ['name', 'value' => null, 'attributes' => []]);
+        Form::component('bsSelect', 'components.form.select', ['name', 'value' => null, 'default' => null, 'attributes'
+        => []]);
         Form::component('bsFile', 'components.form.file', ['name', 'value' => null, 'attributes' => []]);
         Form::component('bsSubmit', 'components.form.submit', ['name', 'attributes' => []]);
     }
