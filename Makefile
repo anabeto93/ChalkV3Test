@@ -27,39 +27,10 @@ help:
 
 ## Setup environment & Install & Build application
 setup:
-	if [ -d  "./back/var/cache" ]; then rm -rf ./back/var/cache; fi;
-	if [ -d "./back/var/logs" ]; then rm -rf ./back/var/logs; fi;
-	if [ -d "./back/var/sessions" ]; then rm -rf ./back/var/sessions; fi;
-	vagrant up --no-provision
-	vagrant provision
-	vagrant ssh -- "cd /srv/app && make install && make build"
+	if [ -d "./back/vendor" ]; then rm -rf ./back/vendor; fi;
+	if [ -d "./back/node_modules" ]; then rm -rf ./back/node_modules; fi;
+	install 
 
-## Update environment
-update: export ANSIBLE_TAGS = manala.update
-update:
-	vagrant provision
-
-## Update ansible
-update-ansible: export ANSIBLE_TAGS = manala.update
-update-ansible:
-	vagrant provision --provision-with ansible
-
-## Provision environment
-provision: export ANSIBLE_EXTRA_VARS = {"manala":{"update":false}}
-provision:
-	vagrant provision --provision-with app
-
-## Provision nginx
-provision-nginx: export ANSIBLE_TAGS = manala_nginx
-provision-nginx: provision
-
-## Provision php
-provision-php: export ANSIBLE_TAGS = manala_php
-provision-php: provision
-
-## Provision files
-provision-files: export ANSIBLE_TAGS = manala_files
-provision-files: provision
 
 ###########
 # Install #
@@ -101,58 +72,26 @@ build/back@production:
 build/front:
 	cd front && make build
 
-watch: watch-back
-	cd back && make watch
-
-##########
-# Custom #
-##########
-
-init-db: init-db/back
-
-init-db/back:
-	cd back && make init-db
-
-##########
-# Deploy #
-##########
-
-## Deploy applications (Staging)
-deploy@staging: deploy/back@staging deploy/front@staging
-
-## Deploy back application (Staging)
-deploy/back@staging:
-	ansible-playbook ansible/deploy.yml --inventory-file=ansible/hosts --limit=deploy_staging
-
-## Deploy front application (Staging)
-deploy/front@staging:
-	ansible-playbook ansible/deploy.yml --inventory-file=ansible/hosts --limit=deploy_staging
-
-## Deploy applications (Production)
-deploy@production: deploy/back@production deploy/front@production
-
-## Deploy back application (Production)
-deploy/back@production:
-	ansible-playbook --inventory-file=ansible/hosts.yml ansible/deploy.yml \
-		--limit=deploy_production_back_chalkboard
-
-## Deploy front application (Production)
-deploy/front@production:
-	ansible-playbook --inventory-file=ansible/hosts.yml ansible/deploy.yml \
-		--limit=deploy_production_front_chalkboard
-
 #########
 # Split #
 #########
 
 ## Split the monolithic repository to many repositories according to `.gitsplit.yml` config
+split@all: split/back split/front
+
 split:
 	gitsplit
+
+split/back:
+	splitsh-lite --prefix=back/ --target=origin/master
+
+split/front:
+	splitsh-lite --prefix=front/ --target=origin/master
 
 ##########
 # Tests  #
 ##########
 
 test:
-	cd back && phpunit
+	cd back && vendor/bin/phpunit
 	cd back && vendor/bin/behat

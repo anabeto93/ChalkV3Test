@@ -1,5 +1,5 @@
 # Used to speed up the split over time by reusing git's objects
-cache_dir: ".gitsplit/ChalkboardEducationV2"
+cache_dir: ".gitsplit/ChalkboardV3Test"
 
 # Path to the repository to split (default = current path)
 project_dir: .
@@ -7,9 +7,9 @@ project_dir: .
 # List of splits.
 splits:
   - prefix: "back"
-    target: "git@github.com:chalkboardedu/ChalkboardEducationV2Back"
+    target: "git@github.com:anabeto93/chalkv3BackTest.git"
   - prefix: "front"
-    target: "git@github.com:chalkboardedu/ChalkboardEducationV2Front"
+    target: "git@github.com:anabeto93/chalkv3FrontTest.git"
 
 # List of references to split (defined as regexp)
 origins:
