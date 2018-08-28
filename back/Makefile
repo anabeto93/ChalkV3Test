@@ -36,6 +36,6 @@ install:
 
 install@production:
 	composer install
-	cp /var/www/sites/.env .
+	cp /var/www/html/sites/.env .
 	php artisan key:generate
-	php vendor/bin/phpunit
+	#php vendor/bin/phpunit
