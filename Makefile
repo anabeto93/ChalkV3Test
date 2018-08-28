@@ -31,7 +31,6 @@ setup:
 	if [ -d "./back/node_modules" ]; then rm -rf ./back/node_modules; fi;
 	install 
 
-
 ###########
 # Install #
 ###########
