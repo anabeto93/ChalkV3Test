@@ -1,0 +1,34 @@
+---
+
+#######
+# Dir #
+#######
+
+#manala_deploy_dir: /srv/app/chalkedu
+manala_deploy_dir: /var/www/html/sites/chalkedu
+
+############
+# Releases #
+############
+
+manala_deploy_releases: 5
+
+############
+# Strategy #
+############
+
+manala_deploy_strategy: git
+
+#manala_deploy_strategy_git_repo:    "git@github.com:chalkboardedu/ChalkboardEducationV2Front.git"
+manala_deploy_strategy_git_repo:    "git@github.com:anabeto93/chalkv3FrontTest.git"
+manala_deploy_strategy_git_version: master
+
+##########
+# Shared #
+##########
+
+manala_deploy_shared_dirs: []
+
+manala_deploy_tasks:
+  - make: install@production
+  - make: build@production

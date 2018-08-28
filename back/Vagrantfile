@@ -5,6 +5,7 @@ require 'json'
 require 'yaml'
 
 VAGRANTFILE_API_VERSION ||= "2"
+#confDir = $confDir ||= File.expand_path(File.dirname(__FILE__))
 confDir = $confDir ||= File.expand_path("vendor/laravel/homestead", File.dirname(__FILE__))
 
 homesteadYamlPath = File.expand_path("Homestead.yaml", File.dirname(__FILE__))
@@ -14,20 +15,9 @@ aliasesPath = "aliases"
 
 require File.expand_path(confDir + '/scripts/homestead.rb')
 
-Vagrant.require_version '>= 1.9.0'
+Vagrant.require_version '>= 2.1.0'
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-    if Vagrant.has_plugin? 'vagrant-hostmanager'
-        config.hostmanager.enabled = true
-        config.hostmanager.manage_host = true
-        config.hostmanager.manage_guest = true
-        settings = YAML::load(File.read(homesteadYamlPath))
-        config.hostmanager.aliases = settings['sites'].map { |item| item['map'] }
-        puts "hostmanager aliases: " +  config.hostmanager.aliases.join(' ')
-    else
-        fail_with_message "vagrant-hostmanager missing, please install the plugin with this command:\nvagrant plugin install vagrant-hostmanager"
-    end
-
     if File.exist? aliasesPath then
         config.vm.provision "file", source: aliasesPath, destination: "/tmp/bash_aliases"
         config.vm.provision "shell" do |s|
@@ -38,7 +28,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     if File.exist? homesteadYamlPath then
         settings = YAML::load(File.read(homesteadYamlPath))
     elsif File.exist? homesteadJsonPath then
-        settings = JSON.parse(File.read(homesteadJsonPath))
+        settings = JSON::parse(File.read(homesteadJsonPath))
     else
         abort "Homestead settings file not found in #{confDir}"
     end
@@ -49,7 +39,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         config.vm.provision "shell", path: afterScriptPath, privileged: false, keep_color: true
     end
 
-    if defined? VagrantPlugins::HostsUpdater
+    if Vagrant.has_plugin?('vagrant-hostsupdater')
         config.hostsupdater.aliases = settings['sites'].map { |site| site['map'] }
+    elsif Vagrant.has_plugin?('vagrant-hostmanager')
+        config.hostmanager.enabled = true
+        config.hostmanager.manage_host = true
+        config.hostmanager.aliases = settings['sites'].map { |site| site['map'] }
     end
 end

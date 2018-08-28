@@ -94,3 +94,18 @@ split/front:
 test:
 	cd back && vendor/bin/phpunit
 	cd back && vendor/bin/behat
+
+##########
+# Deploy #
+##########
+
+## Deploy applications (Production)
+deploy: deploy/back deploy/front
+
+## Deploy back application (Production)
+deploy/back:
+	ansible-playbook --inventory-file=ansible/hosts.yml ansible/deploy.yml --limit=deploy_production_back_chalkboard
+
+## Deploy front application (Production)
+deploy/front:
+	ansible-playbook --inventory-file=ansible/hosts.yml ansible/deploy.yml --limit=deploy_production_front_chalkboard
