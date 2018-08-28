@@ -64,6 +64,9 @@ build/back:
 build/back@staging:
 	cd back && make build@staging
 
+## Build production
+build@production: build/back@production
+
 build/back@production:
 	cd back && make build@production
 

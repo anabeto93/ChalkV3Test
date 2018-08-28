@@ -39,3 +39,6 @@ install@production:
 	cp /var/www/html/sites/.env .
 	php artisan key:generate
 	#php vendor/bin/phpunit
+
+build@production:
+	composer install
